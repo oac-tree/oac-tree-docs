@@ -1,9 +1,171 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Example</title>
-    </head>
-    <body>
-        <p>This is an example of a simple HTML page with one paragraph.</p>
-    </body>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0" />
+  <title>CODAC Operation Applications</title>
+
+  <!-- CSS  -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection" />
+  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection" />
+</head>
+
+<body>
+
+  <!-- Top Navigation Bar -->
+  <nav class="light-blue lighten-1" role="navigation">
+    <div class="nav-wrapper container">
+      <a id="logo-container" href="https://confluence.iter.org/site/bizz" class="brand-logo">
+        <image src="../ITER_logo.png" height="80px" alt="ITER Logo" />
+      </a>
+      <ul class="right hide-on-med-and-down">
+        <li><a href="../index.html">COA</a></li>
+        <li><a href="https://confluence.iter.org/display/CODACOA">Confluence</a></li>
+        <li><a href="#">APIs</a></li>
+        <li><a href="../releases/latest/index.html">Latest Release</a></li>
+        <li><a href="../releases/index.html">Releases</a></li>
+      </ul>
+
+      <ul id="nav-mobile" class="sidenav">
+        <li><a href="#">Menu</a></li>
+      </ul>
+      <a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+    </div>
+  </nav>
+
+  <!-- Main Section -->
+  <div class="section no-pad-bot" id="index-banner">
+    <div class="container">
+      <br><br>
+      <h1 class="header center orange-text">COA: API Documentation</h1>
+      <div class="row center">
+        <h5 class="header col s12 light">Documentation linked here is intended for the use of software developers to use
+          and extend COA packages. Except where specifically stated otherwise, the implementation language is C++.</h5>
+        <h6>This documentation focuses on the SUP (Supervision and Automation System) and PSPS (Pulse Schedule
+          Preparation System).</h6>
+      </div>
+
+        <table>
+          <tr>
+            <th class="center">Name & Link</th>
+            <th class="center">Description</th>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/sup-dto/index.html">sup-dto</a></td>
+            <td>C++ library for Data Transfer Objects</td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/sup-epics/index.html">sup-epics</a></td>
+            <td>C++ library that wraps EPICS ChannelAccess and PvAccess</td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/sup-config/index.html">sup-config</a></td>
+            <td>Configuration, CVVF, and Directory Service</td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/sup-di/index.html">sup-di</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/sup-mathexpr/index.html">sup-mathexpr</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/sup-protocol/index.html">sup-protocol</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/sup-python/index.html">sup-python</a></td>
+            <td>Python bindings for the SUP libraries</td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/sup-timing/index.html">sup-timing</a></td>
+            <td>Classes and interfaces to facilitate running timers</td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/sup-utils/index.html">sup-utils</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/sup-webapi/index.html">sup-webapi</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/sequencer/index.html">sequencer</a></td>
+            <td>A C++ framework for creating and executing automation procedures</td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/sequencer-gui/index.html">sequencer-gui</a></td>
+            <td>GUI for the sequencer</td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/sup-gui-core/index.html">sup-gui-core</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/sup-mvvm/index.html">sup-mvvm</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/sequencer-plugin-control/index.html">sequencer-plugin-control</a></td>
+            <td>Common compound instructions in control system logic</td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/sequencer-plugin-epics/index.html">sequencer-plugin-epics</a></td>
+            <td>Instructions and variables to interface with EPICSv1 process variables</td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/sequencer-plugin-psps/index.html">sequencer-plugin-psps</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/sequencer-plugin-sup/index.html">sequencer-plugin-sup</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/sequencer-plugin-strings/index.html">sequencer-plugin-strings</a></td>
+            <td>Basic functionalitites for manipulating strings</td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/sup-adapters/index.html">sup-adapters</a></td>
+            <td>Specific implementations of SUP configuration servers</td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/psps-lms/index.html">psps-lms</a></td>
+            <td>PSPS Lifecycle Management Service</td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/psps-events/index.html">psps-events</a></td>
+            <td>PSPS Event-Based Storage</td>
+          </tr>
+          <tr>
+            <td><a class="collection-item" href="oa/psps-protocol/index.html">psps-protocol</a></td>
+            <td>PSPS Network-Accessible RPC Protocol</td>
+          </tr>
+        </table>
+
+      <!-- Footer -->
+      <footer class="page-footer light-blue">
+        <div class="container">
+          <div class="row">
+            <div class="col l6 s12">
+            </div>
+          </div>
+        </div>
+        <div class="footer-copyright">
+          <div class="container">
+            Made with <a class="orange-text text-lighten-3" href="http://materializecss.com">Materialize</a>
+          </div>
+        </div>
+      </footer>
+
+      <!--  Scripts-->
+      <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+      <script src="../js/materialize.js"></script>
+      <script src="../js/init.js"></script>
+
+</body>
+
 </html>

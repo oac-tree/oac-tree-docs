@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AnyType &mdash; SUP DTO</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=030dc6f6"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="AnyValue" href="anyvalue.html" />
+    <link rel="prev" title="Welcome to sup-dto’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            sup-dto
+          </a>
+              <div class="version">
+                1.7.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">AnyType</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#construction">Construction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#empty-type">Empty type</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#scalar-types">Scalar types</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N8TypeCode4BoolE"><code class="docutils literal notranslate"><span class="pre">Bool</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N8TypeCode5Char8E"><code class="docutils literal notranslate"><span class="pre">Char8</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N8TypeCode4Int8E"><code class="docutils literal notranslate"><span class="pre">Int8</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N8TypeCode5Int16E"><code class="docutils literal notranslate"><span class="pre">Int16</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N8TypeCode5Int32E"><code class="docutils literal notranslate"><span class="pre">Int32</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N8TypeCode5Int64E"><code class="docutils literal notranslate"><span class="pre">Int64</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N8TypeCode5UInt8E"><code class="docutils literal notranslate"><span class="pre">UInt8</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N8TypeCode6UInt16E"><code class="docutils literal notranslate"><span class="pre">UInt16</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N8TypeCode6UInt32E"><code class="docutils literal notranslate"><span class="pre">UInt32</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N8TypeCode6UInt64E"><code class="docutils literal notranslate"><span class="pre">UInt64</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N8TypeCode7Float32E"><code class="docutils literal notranslate"><span class="pre">Float32</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N8TypeCode7Float64E"><code class="docutils literal notranslate"><span class="pre">Float64</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N8TypeCode6StringE"><code class="docutils literal notranslate"><span class="pre">String</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#array-types">Array types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#structured-types">Structured types</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#copy-and-move">Copy and move</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#query-methods">Query methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK7AnyType11GetTypeCodeEv"><code class="docutils literal notranslate"><span class="pre">GetTypeCode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N8TypeCode5EmptyE"><code class="docutils literal notranslate"><span class="pre">Empty</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N8TypeCode6StructE"><code class="docutils literal notranslate"><span class="pre">Struct</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N8TypeCode5ArrayE"><code class="docutils literal notranslate"><span class="pre">Array</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK7AnyType11GetTypeNameEv"><code class="docutils literal notranslate"><span class="pre">GetTypeName()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK7AnyType8HasFieldERKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">HasField()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK7AnyType11MemberNamesEv"><code class="docutils literal notranslate"><span class="pre">MemberNames()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK7AnyType15NumberOfMembersEv"><code class="docutils literal notranslate"><span class="pre">NumberOfMembers()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK7AnyType11ElementTypeEv"><code class="docutils literal notranslate"><span class="pre">ElementType()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK7AnyType16NumberOfElementsEv"><code class="docutils literal notranslate"><span class="pre">NumberOfElements()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#element-access">Element access</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N7AnyTypeixENSt6stringE"><code class="docutils literal notranslate"><span class="pre">operator[]()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK7AnyTypeixENSt6stringE"><code class="docutils literal notranslate"><span class="pre">operator[]()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#modifier-methods">Modifier methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N7AnyType9AddMemberERKNSt6stringERK7AnyType"><code class="docutils literal notranslate"><span class="pre">AddMember()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#comparison-operators">Comparison operators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK7AnyTypeeqERK7AnyType"><code class="docutils literal notranslate"><span class="pre">operator==()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK7AnyTypeneERK7AnyType"><code class="docutils literal notranslate"><span class="pre">operator!=()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="anyvalue.html">AnyValue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="json.html">JSON Serialization</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sup-dto</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">AnyType</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/anytype.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="anytype">
+<h1>AnyType<a class="headerlink" href="#anytype" title="Link to this heading"></a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> class represents runtime introspectable types for empty, scalar, structured or array
+values. Objects of this type respect value semantics and can easily be passed, assigned or returned
+by value.</p>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#architecture" id="id2">Architecture</a></p></li>
+<li><p><a class="reference internal" href="#construction" id="id3">Construction</a></p>
+<ul>
+<li><p><a class="reference internal" href="#empty-type" id="id4">Empty type</a></p></li>
+<li><p><a class="reference internal" href="#scalar-types" id="id5">Scalar types</a></p></li>
+<li><p><a class="reference internal" href="#array-types" id="id6">Array types</a></p></li>
+<li><p><a class="reference internal" href="#structured-types" id="id7">Structured types</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#copy-and-move" id="id8">Copy and move</a></p></li>
+<li><p><a class="reference internal" href="#query-methods" id="id9">Query methods</a></p></li>
+<li><p><a class="reference internal" href="#element-access" id="id10">Element access</a></p></li>
+<li><p><a class="reference internal" href="#modifier-methods" id="id11">Modifier methods</a></p></li>
+<li><p><a class="reference internal" href="#comparison-operators" id="id12">Comparison operators</a></p></li>
+</ul>
+</nav>
+<section id="architecture">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Architecture</a><a class="headerlink" href="#architecture" title="Link to this heading"></a></h2>
+<p>To support value semantics, the design is based on a single concrete <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> class that contains
+polymorphic implementations for the different types supported (scalar, array, etc.)</p>
+<p>The following figure shows the relevant part of the class diagram.</p>
+<img alt="_images/AnyType_classes.png" src="_images/AnyType_classes.png" />
+<p>Although largely an implementation detail, the underlying <code class="docutils literal notranslate"><span class="pre">ITypeData</span></code> of an <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> object is
+never shared between different objects. This prevents nasty surprises when using these objects in a
+multithreaded environment.</p>
+</section>
+<section id="construction">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Construction</a><a class="headerlink" href="#construction" title="Link to this heading"></a></h2>
+<p>Typically, <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> objects are created in one of two ways:</p>
+<ul class="simple">
+<li><p>Statically: they are encoded directly by the programmer.</p></li>
+<li><p>Dynamically: the types are runtime generated by parsing some other data structure.</p></li>
+</ul>
+<p>To accomodate for these different use cases, the <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> class provides different options to
+create a specific type object.</p>
+<section id="empty-type">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">Empty type</a><a class="headerlink" href="#empty-type" title="Link to this heading"></a></h3>
+<p>The empty type is provided as a default null type, meaning that corresponding values do not contain
+any data.</p>
+<p>Empty types can be created by copying a global constant object <code class="docutils literal notranslate"><span class="pre">EmptyType</span></code> or by using the default
+<code class="docutils literal notranslate"><span class="pre">AnyType</span></code> constructor:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Use the globally defined (const) EmptyType:</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">empty_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EmptyType</span><span class="p">;</span>
+
+<span class="c1">// Use default constructor to create an empty type:</span>
+<span class="n">AnyType</span><span class="w"> </span><span class="n">empty_type</span><span class="p">{};</span>
+</pre></div>
+</div>
+</section>
+<section id="scalar-types">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">Scalar types</a><a class="headerlink" href="#scalar-types" title="Link to this heading"></a></h3>
+<p>Scalar types provide the elementary building blocks of all <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> objects. Their
+corresponding value objects contain a single arithmetic type (including booleans) or a
+string.</p>
+<p>Similar to the empty type, scalar types can be constructed in one of two ways.</p>
+<p>They can be directly copied from a constant global <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> object:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Create a boolean type:</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">bool_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BooleanType</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">anytype.h</span></code> header currently defines the following global constant scalar type objects (the
+numbers in the identifiers refer to the bit length of the corresponding values):</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">AnyType</span><span class="w"> </span><span class="n">BooleanType</span><span class="p">;</span>
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">AnyType</span><span class="w"> </span><span class="n">Character8Type</span><span class="p">;</span>
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">AnyType</span><span class="w"> </span><span class="n">SignedInteger8Type</span><span class="p">;</span>
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">AnyType</span><span class="w"> </span><span class="n">UnsignedInteger8Type</span><span class="p">;</span>
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">AnyType</span><span class="w"> </span><span class="n">SignedInteger16Type</span><span class="p">;</span>
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">AnyType</span><span class="w"> </span><span class="n">UnsignedInteger16Type</span><span class="p">;</span>
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">AnyType</span><span class="w"> </span><span class="n">SignedInteger32Type</span><span class="p">;</span>
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">AnyType</span><span class="w"> </span><span class="n">UnsignedInteger32Type</span><span class="p">;</span>
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">AnyType</span><span class="w"> </span><span class="n">SignedInteger64Type</span><span class="p">;</span>
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">AnyType</span><span class="w"> </span><span class="n">UnsignedInteger64Type</span><span class="p">;</span>
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">AnyType</span><span class="w"> </span><span class="n">Float32Type</span><span class="p">;</span>
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">AnyType</span><span class="w"> </span><span class="n">Float64Type</span><span class="p">;</span>
+<span class="k">extern</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">AnyType</span><span class="w"> </span><span class="n">StringType</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Alternatively, scalar types can be constructed by passing a <code class="docutils literal notranslate"><span class="pre">TypeCode</span></code> enumerator, denoting the
+scalar type, to the constructor:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Create an unsigned 16-bit integer type:</span>
+<span class="n">AnyType</span><span class="w"> </span><span class="nf">uint16_type</span><span class="p">(</span><span class="n">TypeCode</span><span class="o">::</span><span class="n">UInt16</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The following scalar type enumerators are supported:</p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8TypeCode4BoolE">
+<span id="_CPPv3N8TypeCode4BoolE"></span><span id="_CPPv2N8TypeCode4BoolE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">TypeCode</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Bool</span></span></span><a class="headerlink" href="#_CPPv4N8TypeCode4BoolE" title="Link to this definition"></a><br /></dt>
+<dd><p>Boolean type, corresponding to <code class="docutils literal notranslate"><span class="pre">true</span></code>/<code class="docutils literal notranslate"><span class="pre">false</span></code> values.</p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8TypeCode5Char8E">
+<span id="_CPPv3N8TypeCode5Char8E"></span><span id="_CPPv2N8TypeCode5Char8E"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">TypeCode</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Char8</span></span></span><a class="headerlink" href="#_CPPv4N8TypeCode5Char8E" title="Link to this definition"></a><br /></dt>
+<dd><p>8-bit character (undefined signedness)</p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8TypeCode4Int8E">
+<span id="_CPPv3N8TypeCode4Int8E"></span><span id="_CPPv2N8TypeCode4Int8E"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">TypeCode</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Int8</span></span></span><a class="headerlink" href="#_CPPv4N8TypeCode4Int8E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8TypeCode5Int16E">
+<span id="_CPPv3N8TypeCode5Int16E"></span><span id="_CPPv2N8TypeCode5Int16E"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">TypeCode</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Int16</span></span></span><a class="headerlink" href="#_CPPv4N8TypeCode5Int16E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8TypeCode5Int32E">
+<span id="_CPPv3N8TypeCode5Int32E"></span><span id="_CPPv2N8TypeCode5Int32E"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">TypeCode</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Int32</span></span></span><a class="headerlink" href="#_CPPv4N8TypeCode5Int32E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8TypeCode5Int64E">
+<span id="_CPPv3N8TypeCode5Int64E"></span><span id="_CPPv2N8TypeCode5Int64E"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">TypeCode</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Int64</span></span></span><a class="headerlink" href="#_CPPv4N8TypeCode5Int64E" title="Link to this definition"></a><br /></dt>
+<dd><p>Signed integer types with the given number of bits.</p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8TypeCode5UInt8E">
+<span id="_CPPv3N8TypeCode5UInt8E"></span><span id="_CPPv2N8TypeCode5UInt8E"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">TypeCode</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">UInt8</span></span></span><a class="headerlink" href="#_CPPv4N8TypeCode5UInt8E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8TypeCode6UInt16E">
+<span id="_CPPv3N8TypeCode6UInt16E"></span><span id="_CPPv2N8TypeCode6UInt16E"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">TypeCode</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">UInt16</span></span></span><a class="headerlink" href="#_CPPv4N8TypeCode6UInt16E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8TypeCode6UInt32E">
+<span id="_CPPv3N8TypeCode6UInt32E"></span><span id="_CPPv2N8TypeCode6UInt32E"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">TypeCode</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">UInt32</span></span></span><a class="headerlink" href="#_CPPv4N8TypeCode6UInt32E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8TypeCode6UInt64E">
+<span id="_CPPv3N8TypeCode6UInt64E"></span><span id="_CPPv2N8TypeCode6UInt64E"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">TypeCode</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">UInt64</span></span></span><a class="headerlink" href="#_CPPv4N8TypeCode6UInt64E" title="Link to this definition"></a><br /></dt>
+<dd><p>Unsigned integer types with the given number of bits.</p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8TypeCode7Float32E">
+<span id="_CPPv3N8TypeCode7Float32E"></span><span id="_CPPv2N8TypeCode7Float32E"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">TypeCode</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Float32</span></span></span><a class="headerlink" href="#_CPPv4N8TypeCode7Float32E" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8TypeCode7Float64E">
+<span id="_CPPv3N8TypeCode7Float64E"></span><span id="_CPPv2N8TypeCode7Float64E"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">TypeCode</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Float64</span></span></span><a class="headerlink" href="#_CPPv4N8TypeCode7Float64E" title="Link to this definition"></a><br /></dt>
+<dd><p>Floating point types with 32 and 64 bits respectively.</p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8TypeCode6StringE">
+<span id="_CPPv3N8TypeCode6StringE"></span><span id="_CPPv2N8TypeCode6StringE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">TypeCode</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">String</span></span></span><a class="headerlink" href="#_CPPv4N8TypeCode6StringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Type representing character strings.</p>
+</dd></dl>
+
+</section>
+<section id="array-types">
+<h3><a class="toc-backref" href="#id6" role="doc-backlink">Array types</a><a class="headerlink" href="#array-types" title="Link to this heading"></a></h3>
+<p>Array types represent fixed size arrays of values of the same type. These are constructed using a
+dedicated constructor:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Create array type containing 20 boolean values and provide a name:</span>
+<span class="n">AnyType</span><span class="w"> </span><span class="n">my_bool_array</span><span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="w"> </span><span class="n">BooleanType</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;TwentyBooleans&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The last argument of this constructor is optional and if not provided, the typename will be an empty
+string.</p>
+<p>Array types with zero size are allowed, since elements can be added later. However, this implicitly
+changes the type, since its size if part of the type.</p>
+</section>
+<section id="structured-types">
+<span id="id1"></span><h3><a class="toc-backref" href="#id7" role="doc-backlink">Structured types</a><a class="headerlink" href="#structured-types" title="Link to this heading"></a></h3>
+<p>Structured types are key to providing flexible types that are composed of simpler ones. Contrary to
+array types, they can contain different subtypes. This allows users to compose any kind of nested
+structure.</p>
+<p>A structured type can be constructed by adding subtypes to an originally empty structure. This step
+by step construction is mainly meant to support runtime construction. The following example shows
+how this is achieved:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Create simple structured type containing:</span>
+<span class="c1">// - an account name of StringType</span>
+<span class="c1">// - an account number of UnsignedInteger64Type</span>
+<span class="c1">// - an activated flag of BooleanType</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">account_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">EmptyStructType</span><span class="p">(</span><span class="s">&quot;AccountType&quot;</span><span class="p">);</span>
+<span class="n">account_type</span><span class="p">.</span><span class="n">AddMember</span><span class="p">(</span><span class="s">&quot;AccountName&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">StringType</span><span class="p">);</span>
+<span class="n">account_type</span><span class="p">.</span><span class="n">AddMember</span><span class="p">(</span><span class="s">&quot;AccountNumber&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">UnsignedInteger64Type</span><span class="p">);</span>
+<span class="n">account_type</span><span class="p">.</span><span class="n">AddMember</span><span class="p">(</span><span class="s">&quot;Activated&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">BooleanType</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Although the example showed only the addition of scalar members/subtypes, the only restriction is
+that member types need to be <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> objects. As a result, one can create structures of
+structures, structures of arrays, arrays of structures, structures of empty values, etc.</p>
+<p>To facilitate the static creation of structured types, a dedicated constructor can be used that
+accepts a braced-init-list of pairs of member names and types. This constructor also allows to
+provide a name for the type, which then needs to be passed as a final optional argument to the
+constructor:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Create a customer type that contains:</span>
+<span class="c1">// - a name (StringType)</span>
+<span class="c1">// - an address structure, containing:</span>
+<span class="c1">//   - a street field (StringType)</span>
+<span class="c1">//   - a number field (UnsignedInteger16Type)</span>
+<span class="c1">//   - a city field (StringType)</span>
+<span class="c1">// And provide a type name: &quot;CustomerType&quot;.</span>
+<span class="n">AnyType</span><span class="w"> </span><span class="n">customer_type</span><span class="p">({</span>
+<span class="w">  </span><span class="p">{</span><span class="s">&quot;name&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">StringType</span><span class="p">},</span>
+<span class="w">  </span><span class="p">{</span><span class="s">&quot;address&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">{</span><span class="s">&quot;street&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">StringType</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="s">&quot;number&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">UnsignedInteger16Type</span><span class="p">},</span>
+<span class="w">    </span><span class="p">{</span><span class="s">&quot;city&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">StringType</span><span class="p">}</span>
+<span class="w">  </span><span class="p">}}</span>
+<span class="p">},</span><span class="w"> </span><span class="s">&quot;CustomerType&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="copy-and-move">
+<h2><a class="toc-backref" href="#id8" role="doc-backlink">Copy and move</a><a class="headerlink" href="#copy-and-move" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> class provides copy and move constructors and assignment operators that behave as
+one would expect from objects with value semantics. In general, the underlying types are always
+overwritten.</p>
+<p>The following example shows this behavior:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Create a boolean type:</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">my_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">BooleanType</span><span class="p">;</span>
+
+<span class="c1">// Create an array of 5 signed integers:</span>
+<span class="n">AnyType</span><span class="w"> </span><span class="nf">my_array</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="n">SignedInteger32Type</span><span class="p">);</span>
+
+<span class="c1">// Overwrite the first type. Afterwards, my_type encodes an array of 5 signed integers.</span>
+<span class="n">my_type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_array</span><span class="p">;</span>
+</pre></div>
+</div>
+</section>
+<section id="query-methods">
+<h2><a class="toc-backref" href="#id9" role="doc-backlink">Query methods</a><a class="headerlink" href="#query-methods" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> API contains a number of methods for querying specific information about the type.
+These are listed here.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7AnyType11GetTypeCodeEv">
+<span id="_CPPv3NK7AnyType11GetTypeCodeEv"></span><span id="_CPPv2NK7AnyType11GetTypeCodeEv"></span><span id="AnyType::GetTypeCodeC"></span><span class="n"><span class="pre">TypeCode</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">AnyType</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">GetTypeCode</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7AnyType11GetTypeCodeEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>TypeCode enumerator.</p>
+</dd>
+</dl>
+<p>Retrieve the typecode enumerator for this object.</p>
+<p>Besides the scalar type enumerators listed above, there exist three additional enumerators:</p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8TypeCode5EmptyE">
+<span id="_CPPv3N8TypeCode5EmptyE"></span><span id="_CPPv2N8TypeCode5EmptyE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">TypeCode</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Empty</span></span></span><a class="headerlink" href="#_CPPv4N8TypeCode5EmptyE" title="Link to this definition"></a><br /></dt>
+<dd><p>Enumerator for the empty type.</p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8TypeCode6StructE">
+<span id="_CPPv3N8TypeCode6StructE"></span><span id="_CPPv2N8TypeCode6StructE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">TypeCode</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Struct</span></span></span><a class="headerlink" href="#_CPPv4N8TypeCode6StructE" title="Link to this definition"></a><br /></dt>
+<dd><p>Enumerator for a structured type.</p>
+</dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N8TypeCode5ArrayE">
+<span id="_CPPv3N8TypeCode5ArrayE"></span><span id="_CPPv2N8TypeCode5ArrayE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">TypeCode</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Array</span></span></span><a class="headerlink" href="#_CPPv4N8TypeCode5ArrayE" title="Link to this definition"></a><br /></dt>
+<dd><p>Enumerator for an array type.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7AnyType11GetTypeNameEv">
+<span id="_CPPv3NK7AnyType11GetTypeNameEv"></span><span id="_CPPv2NK7AnyType11GetTypeNameEv"></span><span id="AnyType::GetTypeNameC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">AnyType</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">GetTypeName</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7AnyType11GetTypeNameEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Type name.</p>
+</dd>
+</dl>
+<p>Retrieve the type name.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7AnyType8HasFieldERKNSt6stringE">
+<span id="_CPPv3NK7AnyType8HasFieldERKNSt6stringE"></span><span id="_CPPv2NK7AnyType8HasFieldERKNSt6stringE"></span><span id="AnyType::HasField__ssCRC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">AnyType</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">HasField</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">fieldname</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7AnyType8HasFieldERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fieldname</strong> – Member name to search for.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> when a subtype with the given name exists.</p>
+</dd>
+</dl>
+<p>Check the presence of a subtype with the given name. Composite names are supported.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7AnyType11MemberNamesEv">
+<span id="_CPPv3NK7AnyType11MemberNamesEv"></span><span id="_CPPv2NK7AnyType11MemberNamesEv"></span><span id="AnyType::MemberNamesC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">AnyType</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">MemberNames</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7AnyType11MemberNamesEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of member names.</p>
+</dd>
+</dl>
+<p>Return an ordered list of all direct member names.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7AnyType15NumberOfMembersEv">
+<span id="_CPPv3NK7AnyType15NumberOfMembersEv"></span><span id="_CPPv2NK7AnyType15NumberOfMembersEv"></span><span id="AnyType::NumberOfMembersC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">AnyType</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">NumberOfMembers</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7AnyType15NumberOfMembersEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of direct members for structured types and zero otherwise.</p>
+</dd>
+</dl>
+<p>Retrieve the number of direct members. This is always zero for non-structured types.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7AnyType11ElementTypeEv">
+<span id="_CPPv3NK7AnyType11ElementTypeEv"></span><span id="_CPPv2NK7AnyType11ElementTypeEv"></span><span id="AnyType::ElementTypeC"></span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">AnyType</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ElementType</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7AnyType11ElementTypeEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Type of elements in this array type.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">InvalidOperationException</span></span></span> – When current type is not an array type.</p>
+</dd>
+</dl>
+<p>Retrieve the <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> object corresponing to the array elements.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7AnyType16NumberOfElementsEv">
+<span id="_CPPv3NK7AnyType16NumberOfElementsEv"></span><span id="_CPPv2NK7AnyType16NumberOfElementsEv"></span><span id="AnyType::NumberOfElementsC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">AnyType</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">NumberOfElements</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7AnyType16NumberOfElementsEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of elements for an array type and zero otherwise.</p>
+</dd>
+</dl>
+<p>Retrieve the number of elements in the array. Returns zero when the current type is not an
+array type.</p>
+</dd></dl>
+
+</section>
+<section id="element-access">
+<h2><a class="toc-backref" href="#id10" role="doc-backlink">Element access</a><a class="headerlink" href="#element-access" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> class overloads the index operators to provide a natural way to access element types
+of a structured type. Since array types have only one single type associated to their elements, no
+dedicated overload exists (see <a class="reference internal" href="#_CPPv4NK7AnyType11ElementTypeEv" title="AnyType::ElementType"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">AnyType::ElementType()</span></code></a>).</p>
+<p>The overloaded operators are:</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7AnyTypeixENSt6stringE">
+<span id="_CPPv3N7AnyTypeixENSt6stringE"></span><span id="_CPPv2N7AnyTypeixENSt6stringE"></span><span id="AnyType::subscript-operator__ss"></span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-prename descclassname"><span class="n"><span class="pre">AnyType</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">[]</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">fieldname</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7AnyTypeixENSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fieldname</strong> – String encoding the path to a specific underlying type.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">AnyType</span></code> object if member type was found.</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">InvalidOperationException</span></span></span> – For types that do not support element access (empty or
+scalar types) or for fieldnames that cannot be correctly parsed/interpreted (wrong format
+or unknown key).</p>
+</dd>
+</dl>
+<p>Try to retrieve a reference to the member that is identified by the fieldname. This fieldname
+can describe non-direct members by encoding the navigation to deeper lying members. A dot (<code class="docutils literal notranslate"><span class="pre">.</span></code>)
+is used to separate individual names of structure members, while an empty set of square brackets
+(<code class="docutils literal notranslate"><span class="pre">[]</span></code>) is used to access the element type for array types.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7AnyTypeixENSt6stringE">
+<span id="_CPPv3NK7AnyTypeixENSt6stringE"></span><span id="_CPPv2NK7AnyTypeixENSt6stringE"></span><span id="AnyType::subscript-operator__ssC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-prename descclassname"><span class="n"><span class="pre">AnyType</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">[]</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">fieldname</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7AnyTypeixENSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Const version of the previous operator overload.</p>
+</dd></dl>
+
+</section>
+<section id="modifier-methods">
+<h2><a class="toc-backref" href="#id11" role="doc-backlink">Modifier methods</a><a class="headerlink" href="#modifier-methods" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> API currently contains only one method for modification, which applies only
+to structured types:</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N7AnyType9AddMemberERKNSt6stringERK7AnyType">
+<span id="_CPPv3N7AnyType9AddMemberERKNSt6stringERK7AnyType"></span><span id="_CPPv2N7AnyType9AddMemberERKNSt6stringERK7AnyType"></span><span id="AnyType::AddMember__ssCR.AnyTypeCR"></span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-prename descclassname"><span class="n"><span class="pre">AnyType</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">AddMember</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">type</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N7AnyType9AddMemberERKNSt6stringERK7AnyType" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Member name to use.</p></li>
+<li><p><strong>type</strong> – <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> object for the member type.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Reference to <code class="docutils literal notranslate"><span class="pre">this</span></code> to allow chaining such calls.</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">InvalidOperationException</span></span></span> – If this operation is not supported
+(e.g. not a structured type or trying to add an empty type).</p>
+</dd>
+</dl>
+<p>Add a member type for this structured type with the given name and type. Empty types are
+not allowed as member types.</p>
+</dd></dl>
+
+</section>
+<section id="comparison-operators">
+<h2><a class="toc-backref" href="#id12" role="doc-backlink">Comparison operators</a><a class="headerlink" href="#comparison-operators" title="Link to this heading"></a></h2>
+<p>Simple comparison of <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> objects is supported by overloading both the equality and
+inequality operator:</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7AnyTypeeqERK7AnyType">
+<span id="_CPPv3NK7AnyTypeeqERK7AnyType"></span><span id="_CPPv2NK7AnyTypeeqERK7AnyType"></span><span id="AnyType::eq-operator__AnyTypeCRC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">AnyType</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">==</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7AnyTypeeqERK7AnyType" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> – Other <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> object to compare with the current.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> when equal, <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK7AnyTypeneERK7AnyType">
+<span id="_CPPv3NK7AnyTypeneERK7AnyType"></span><span id="_CPPv2NK7AnyTypeneERK7AnyType"></span><span id="AnyType::neq-operator__AnyTypeCRC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">AnyType</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="k"><span class="pre">operator</span></span><span class="o"><span class="pre">!=</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK7AnyTypeneERK7AnyType" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>other</strong> – Other <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> object to compare with the current.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> when not equal, <code class="docutils literal notranslate"><span class="pre">false</span></code> otherwise.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Equality in the context of <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> objects requires exact equality:</p>
+<ul class="simple">
+<li><p>Empty types are only equal to other empty types.</p></li>
+<li><p>Scalar types are only equal to the exact same scalar type.</p></li>
+<li><p>Structured types are only equal to other structured types with the same type name, member names
+and types. The order of members is also taken into account.</p></li>
+<li><p>Array types are only equal to other array types with the same type name, same element type and
+number of elements.</p></li>
+</ul>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to sup-dto’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="anyvalue.html" class="btn btn-neutral float-right" title="AnyValue" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright ITER Organization.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
