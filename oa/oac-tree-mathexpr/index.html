@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Welcome to sup-mathexpr’s documentation! &mdash; SUP MATHEXPR</title>
+  <title>Welcome to oac-tree-plugin-mathexpr’s documentation! &mdash; OAC-TREE PLUGIN MATHEXPER</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
@@ -15,7 +15,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=1f29e9d3"></script>
+        <script src="_static/documentation_options.js?v=20623aea"></script>
         <script src="_static/doctools.js?v=9bcbadda"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -32,10 +32,10 @@
           
           
           <a href="#" class="icon icon-home">
-            sup-mathexpr
+            oac-tree-plugin-mathexper
           </a>
               <div class="version">
-                1.3.0
+                2.1.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -47,8 +47,11 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <!-- Local TOC -->
               <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Welcome to sup-mathexpr’s documentation!</a></li>
-<li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
+<li><a class="reference internal" href="#">Welcome to oac-tree-plugin-mathexpr’s documentation!</a><ul>
+<li><a class="reference internal" href="#functionalities">Functionalities</a></li>
+<li><a class="reference internal" href="#usage">Usage</a></li>
+</ul>
+</li>
 </ul>
 </div>
         </div>
@@ -57,7 +60,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">sup-mathexpr</a>
+          <a href="#">oac-tree-plugin-mathexper</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -65,7 +68,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Welcome to sup-mathexpr’s documentation!</li>
+      <li class="breadcrumb-item active">Welcome to oac-tree-plugin-mathexpr’s documentation!</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -75,18 +78,105 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="welcome-to-sup-mathexpr-s-documentation">
-<h1>Welcome to sup-mathexpr’s documentation!<a class="headerlink" href="#welcome-to-sup-mathexpr-s-documentation" title="Link to this heading"></a></h1>
-<p>This is a work in progress.</p>
-<div class="toctree-wrapper compound">
+  <section id="welcome-to-oac-tree-plugin-mathexpr-s-documentation">
+<h1>Welcome to oac-tree-plugin-mathexpr’s documentation!<a class="headerlink" href="#welcome-to-oac-tree-plugin-mathexpr-s-documentation" title="Link to this heading"></a></h1>
+<blockquote>
+<div><div class="toctree-wrapper compound">
+</div>
+<p><cite>oac-tree-plugin-mathexpr</cite> is a oac-tree plugin that provides functionality for processing mathematical expressions using the exprtk library.</p>
+</div></blockquote>
+<section id="functionalities">
+<h2>Functionalities<a class="headerlink" href="#functionalities" title="Link to this heading"></a></h2>
+<p>oac-tree-plugin-mathexpr provides the following functionalities for processing mathematical expressions:</p>
+<ol class="arabic simple">
+<li><p>Supports variables of any numeric type supported by AnyValue</p></li>
+<li><p>Supports arrays and scalars as variables</p></li>
+<li><p>Automatically converts variables to doubles before processing the expression</p></li>
+<li><p>Automatically converts the result back to the input type after processing the expression</p></li>
+</ol>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<p>To use this plugin it needs to be compiled and installed in the system. The following line has to be added to the xml:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Plugin&gt;</span>liboac-tree-mathexpr.so<span class="nt">&lt;/Plugin&gt;</span>
+</pre></div>
+</div>
+<p>The most basic use for this plugin is to assign a mathematical expression to a variable:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Sequence&gt;</span>
+<span class="w">    </span><span class="nt">&lt;MathExpression</span><span class="w"> </span><span class="na">expression=</span><span class="s">&quot;z:=x+y-1&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Sequence&gt;</span>
+<span class="nt">&lt;Workspace&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;x&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;uint8&quot;}&#39;</span><span class="w"> </span><span class="na">value=</span><span class="s">&#39;1&#39;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;y&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;uint8&quot;}&#39;</span><span class="w"> </span><span class="na">value=</span><span class="s">&#39;1&#39;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;z&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;uint8&quot;}&#39;</span><span class="w"> </span><span class="na">value=</span><span class="s">&#39;0&#39;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Workspace&gt;</span>
+</pre></div>
+</div>
+<p>In this example the output of ‘x+y-1’ is saved in the variable “z”. In assignments, the type of the output is always respected, so if in the example above the result of the expression is negative or above the maximum value possible for an uint8, the oac-tree will return an executionstatus of failure.</p>
+<p>Expressions without assignments are evaluated as a boolean and cause the instruction to return an executionstatus of success or failure accordingly.</p>
+<p>For example:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Sequence&gt;</span>
+<span class="w">    </span><span class="nt">&lt;MathExpression</span><span class="w"> </span><span class="na">expression=</span><span class="s">&quot;x &gt; y^2&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Sequence&gt;</span>
+<span class="nt">&lt;Workspace&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;x&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;int8&quot;}&#39;</span><span class="w"> </span><span class="na">value=</span><span class="s">&#39;10&#39;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;y&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;int8&quot;}&#39;</span><span class="w"> </span><span class="na">value=</span><span class="s">&#39;1&#39;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Workspace&gt;</span>
+</pre></div>
+</div>
+<p>In this example, the instruction will succeed, since ‘x’ is bigger than ‘y+2’.</p>
+<p>Arrays can also be used:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Sequence&gt;</span>
+<span class="w">    </span><span class="nt">&lt;MathExpression</span><span class="w"> </span><span class="na">expression=</span><span class="s">&quot;z:=x+y*y-2&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Equals</span><span class="w"> </span><span class="na">leftVar=</span><span class="s">&quot;z&quot;</span><span class="w"> </span><span class="na">rightVar=</span><span class="s">&quot;a&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Sequence&gt;</span>
+<span class="nt">&lt;Workspace&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;x&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;uint32_arr&quot;,&quot;element&quot;:{&quot;type&quot;:&quot;uint32&quot;}}&#39;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;[2,4,6]&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;y&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;uint32_arr&quot;,&quot;element&quot;:{&quot;type&quot;:&quot;uint32&quot;}}&#39;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;[1,1,1]&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;z&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;uint32_arr&quot;,&quot;element&quot;:{&quot;type&quot;:&quot;uint32&quot;}}&#39;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;[0,0,0]&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;a&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;uint32_arr&quot;,&quot;element&quot;:{&quot;type&quot;:&quot;uint32&quot;}}&#39;</span><span class="w"> </span><span class="na">value=</span><span class="s">&quot;[1,3,5]&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Workspace&gt;</span>
+</pre></div>
+</div>
+<p>Multiple assignments, even if chained, can be done in a single call:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Sequence&gt;</span>
+<span class="w">    </span><span class="nt">&lt;MathExpression</span><span class="w"> </span><span class="na">expression=</span><span class="s">&quot;y:=x+1; z:=y+2&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Equals</span><span class="w"> </span><span class="na">leftVar=</span><span class="s">&quot;y&quot;</span><span class="w"> </span><span class="na">rightVar=</span><span class="s">&quot;a&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Equals</span><span class="w"> </span><span class="na">leftVar=</span><span class="s">&quot;z&quot;</span><span class="w"> </span><span class="na">rightVar=</span><span class="s">&quot;b&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Sequence&gt;</span>
+<span class="nt">&lt;Workspace&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;x&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;float32&quot;}&#39;</span><span class="w"> </span><span class="na">value=</span><span class="s">&#39;158&#39;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;y&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;float32&quot;}&#39;</span><span class="w"> </span><span class="na">value=</span><span class="s">&#39;0&#39;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;z&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;float32&quot;}&#39;</span><span class="w"> </span><span class="na">value=</span><span class="s">&#39;0&#39;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;a&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;float32&quot;}&#39;</span><span class="w"> </span><span class="na">value=</span><span class="s">&#39;159&#39;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;b&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;float32&quot;}&#39;</span><span class="w"> </span><span class="na">value=</span><span class="s">&#39;161&#39;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Workspace&gt;</span>
+</pre></div>
+</div>
+<p>An expression can be passed from a string variable:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Sequence&gt;</span>
+<span class="w">    </span><span class="nt">&lt;MathExpression</span><span class="w"> </span><span class="na">expression=</span><span class="s">&quot;@cond&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Sequence&gt;</span>
+<span class="nt">&lt;Workspace&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;cond&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;string&quot;}&#39;</span><span class="w"> </span><span class="na">value=</span><span class="s">&#39;&quot;x &gt; y^2&quot;&#39;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;x&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;int8&quot;}&#39;</span><span class="w"> </span><span class="na">value=</span><span class="s">&#39;10&#39;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;y&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;int8&quot;}&#39;</span><span class="w"> </span><span class="na">value=</span><span class="s">&#39;1&#39;</span><span class="w"> </span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Workspace&gt;</span>
+</pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>All oac-tree plugins use an XML parser to process input functions. Please note that certain characters in your XML definitions may need to be escaped in order to avoid errors. These include:</p>
+<ul class="simple">
+<li><p>&amp; (ampersand) - use &amp;amp;</p></li>
+<li><p>&lt; (less than) - use &amp;lt;</p></li>
+<li><p>&gt; (greater than) - use &amp;gt;</p></li>
+<li><p>“ (double quotation mark) - use &amp;quot;</p></li>
+<li><p>‘ (apostrophe) - use &amp;apos;</p></li>
+</ul>
+<p>From the above referenced characters, the greater than (&gt;) character works as expected, but the less than (&lt;) causes failures. To be sure no errors related to parsing this characters it is better to escape all of them.</p>
 </div>
 </section>
-<section id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
-</ul>
 </section>
 
 
