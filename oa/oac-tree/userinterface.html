@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UserInterface &mdash; oac-tree</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=42d1b3bd"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Procedure" href="procedure.html" />
+    <link rel="prev" title="Runner" href="runner.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            oac-tree
+          </a>
+              <div class="version">
+                4.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coreinstructionsvariables.html">Core Instructions/Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugincreation.html">Extending the oac-tree with plugins</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="API.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="instruction.html">Instruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="runner.html">Runner</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">UserInterface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#architecture">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#creating-a-userinterface">Creating a UserInterface</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#updating-instruction-status">Updating Instruction Status</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#handling-variable-updates">Handling Variable Updates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#displaying-values">Displaying Values</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#requesting-user-input">Requesting User Input</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#displaying-messages-and-logging">Displaying Messages and Logging</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#additional-notes">Additional Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#class-definition">Class definition</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N3sup8oac_tree13UserInterfaceE"><code class="docutils literal notranslate"><span class="pre">sup::oac_tree::UserInterface</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="procedure.html">Procedure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variable.html">Variable</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">oac-tree</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="API.html">API</a></li>
+      <li class="breadcrumb-item active">UserInterface</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/userinterface.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="userinterface">
+<h1>UserInterface<a class="headerlink" href="#userinterface" title="Link to this heading"></a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">UserInterface</span></code> class represents the interface for all input/output during the execution of instructions within a software system. It provides methods to request user input, display messages, and log information. Implementations of this interface can be created to suit different user interaction scenarios, e.g. command line interfaces or GUIs.</p>
+<section id="architecture">
+<h2>Architecture<a class="headerlink" href="#architecture" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">UserInterface</span></code> class is based on the non-virtual interface (NVI) idiom to support the distinction between thread-safe and non-thread-safe methods. It employs locks to provide thread safety for certain public methods that can be called during execution, ensuring that multiple threads can safely access these methods concurrently. Other methods should be called only from a single thread to prevent data corruption or race conditions.</p>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<section id="creating-a-userinterface">
+<h3>Creating a UserInterface<a class="headerlink" href="#creating-a-userinterface" title="Link to this heading"></a></h3>
+<p>To use the <cite>UserInterface</cite>, you need to create an implementation of this class that provides concrete implementations for its virtual methods. For example, you can create a class <cite>MyUserInterface</cite> that inherits from <cite>UserInterface</cite> and overrides its virtual methods.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyUserInterface</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">UserInterface</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Implement the virtual methods of UserInterface here</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>Alternatively, one can derive from <cite>DefaultUserInterface</cite>, which provides default empty implementations of all pure virtual methods in <cite>UserInterface</cite>. This allows one to implement only the methods that are relevant for the use case at hand.</p>
+</section>
+<section id="updating-instruction-status">
+<h3>Updating Instruction Status<a class="headerlink" href="#updating-instruction-status" title="Link to this heading"></a></h3>
+<p>The <cite>UpdateInstructionStatus</cite> method is called when the execution status of an instruction changes. Implement this method to handle any updates related to instruction execution.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">UpdateInstructionStatus</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Instruction</span><span class="o">*</span><span class="w"> </span><span class="n">instruction</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Implement the logic for handling instruction status updates here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="handling-variable-updates">
+<h3>Handling Variable Updates<a class="headerlink" href="#handling-variable-updates" title="Link to this heading"></a></h3>
+<p>When a workspace variable receives a value update, the <cite>VariableUpdated</cite> method is called. Implement this method to handle updates related to workspace variables.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">VariableUpdated</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">name</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">sup</span><span class="o">::</span><span class="n">dto</span><span class="o">::</span><span class="n">AnyValue</span><span class="o">&amp;</span><span class="w"> </span><span class="n">value</span><span class="p">,</span>
+<span class="w">                             </span><span class="kt">bool</span><span class="w"> </span><span class="n">connected</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Implement the logic for handling variable updates here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="displaying-values">
+<h3>Displaying Values<a class="headerlink" href="#displaying-values" title="Link to this heading"></a></h3>
+<p>Use the <cite>PutValue</cite> method to interact with the user for value output. Implement this method to handle such interactions.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="nf">PutValue</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">sup</span><span class="o">::</span><span class="n">dto</span><span class="o">::</span><span class="n">AnyValue</span><span class="o">&amp;</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">description</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Implement logic to display the value to the user</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span><span class="w"> </span><span class="c1">// Return true on successful retrieval of the value</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="requesting-user-input">
+<h3>Requesting User Input<a class="headerlink" href="#requesting-user-input" title="Link to this heading"></a></h3>
+<p>The <cite>RequestUserInput</cite> method is used to request the user to provide input. It returns a future of type <cite>IUserInputFuture</cite> that needs to be checked for readiness before retrieving its value. This allows instructions to properly exit when they are halted, instead of blocking on user input methods.</p>
+<p>Implementations will typically use a member <cite>AsyncInputWrapper</cite> object to implement this method.</p>
+</section>
+<section id="displaying-messages-and-logging">
+<h3>Displaying Messages and Logging<a class="headerlink" href="#displaying-messages-and-logging" title="Link to this heading"></a></h3>
+<p>Use the <cite>Message</cite> and <cite>Log</cite> methods to display messages and log information. Implement these methods to handle message display and logging.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">Message</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">message</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Implement logic to display the message to the user</span>
+<span class="p">}</span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">Log</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">severity</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">message</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Implement logic to log the message with the specified severity level</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Remember to properly implement each of the virtual methods in your derived <cite>MyUserInterface</cite> class according to your specific user interaction requirements.</p>
+</section>
+</section>
+<section id="additional-notes">
+<h2>Additional Notes<a class="headerlink" href="#additional-notes" title="Link to this heading"></a></h2>
+<p>The <cite>UserInterface</cite> class provides a non-virtual interface for most of its methods, meaning that it wraps the virtual methods with non-virtual ones. The virtual methods must be implemented in your derived class, while the non-virtual methods can be called directly in your application code to interact with the user interface.</p>
+<p>The <cite>UserInterface</cite> class also includes helper methods related to user choice metadata, which can be used to provide additional information to the user interface for displaying user choice options.</p>
+</section>
+<section id="class-definition">
+<h2>Class definition<a class="headerlink" href="#class-definition" title="Link to this heading"></a></h2>
+<p>Next is presented the definition of the <code class="docutils literal notranslate"><span class="pre">UserInterface</span></code> class and its main methods.</p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree13UserInterfaceE">
+<span id="_CPPv3N3sup8oac_tree13UserInterfaceE"></span><span id="_CPPv2N3sup8oac_tree13UserInterfaceE"></span><span id="sup::oac_tree::UserInterface"></span><span class="target" id="classsup_1_1oac__tree_1_1UserInterface"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UserInterface</span></span></span><a class="headerlink" href="#_CPPv4N3sup8oac_tree13UserInterfaceE" title="Link to this definition"></a><br /></dt>
+<dd><p>Interface representing user interactions. </p>
+<p>Implementers of concrete user interfaces should take care of thread safety, since many of the member functions can be called from different threads. </p>
+<p>Subclassed by sup::oac_tree::CLInterface, sup::oac_tree::DaemonInterface, sup::oac_tree::DefaultUserInterface, sup::oac_tree::JobInterface</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree13UserInterface23UpdateInstructionStatusEPK11Instruction">
+<span id="_CPPv3N3sup8oac_tree13UserInterface23UpdateInstructionStatusEPK11Instruction"></span><span id="_CPPv2N3sup8oac_tree13UserInterface23UpdateInstructionStatusEPK11Instruction"></span><span id="sup::oac_tree::UserInterface::UpdateInstructionStatus__InstructionCP"></span><span class="target" id="classsup_1_1oac__tree_1_1UserInterface_1abbd812b7d51e21ab2571ef5bfea0f6d4"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UpdateInstructionStatus</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="instruction.html#_CPPv4N3sup8oac_tree11InstructionE" title="sup::oac_tree::Instruction"><span class="n"><span class="pre">Instruction</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">instruction</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N3sup8oac_tree13UserInterface23UpdateInstructionStatusEPK11Instruction" title="Link to this definition"></a><br /></dt>
+<dd><p>Method called when instruction’s execution status changes. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>instruction</strong> – <a class="reference internal" href="instruction.html#classsup_1_1oac__tree_1_1Instruction"><span class="std std-ref">Instruction</span></a> that has new execution status. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree13UserInterface15VariableUpdatedERKNSt6stringERKN3sup3dto8AnyValueEb">
+<span id="_CPPv3N3sup8oac_tree13UserInterface15VariableUpdatedERKNSt6stringERKN3sup3dto8AnyValueEb"></span><span id="_CPPv2N3sup8oac_tree13UserInterface15VariableUpdatedERKNSt6stringERKN3sup3dto8AnyValueEb"></span><span id="sup::oac_tree::UserInterface::VariableUpdated__ssCR.sup::dto::AnyValueCR.b"></span><span class="target" id="classsup_1_1oac__tree_1_1UserInterface_1afff69c6eca5198d3e4f7fedea4cc404e"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VariableUpdated</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">sup</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">dto</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">connected</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N3sup8oac_tree13UserInterface15VariableUpdatedERKNSt6stringERKN3sup3dto8AnyValueEb" title="Link to this definition"></a><br /></dt>
+<dd><p>Method called when a workspace <a class="reference internal" href="variable.html#classsup_1_1oac__tree_1_1Variable"><span class="std std-ref">Variable</span></a> has received a value update. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the <a class="reference internal" href="variable.html#classsup_1_1oac__tree_1_1Variable"><span class="std std-ref">Variable</span></a>. </p></li>
+<li><p><strong>value</strong> – New value of the <a class="reference internal" href="variable.html#classsup_1_1oac__tree_1_1Variable"><span class="std std-ref">Variable</span></a>. </p></li>
+<li><p><strong>connected</strong> – Boolean indicating if variable is connected. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree13UserInterface8PutValueERKN3sup3dto8AnyValueERKNSt6stringE">
+<span id="_CPPv3N3sup8oac_tree13UserInterface8PutValueERKN3sup3dto8AnyValueERKNSt6stringE"></span><span id="_CPPv2N3sup8oac_tree13UserInterface8PutValueERKN3sup3dto8AnyValueERKNSt6stringE"></span><span id="sup::oac_tree::UserInterface::PutValue__sup::dto::AnyValueCR.ssCR"></span><span class="target" id="classsup_1_1oac__tree_1_1UserInterface_1a410964856b045134ef8b0349827da611"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PutValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">sup</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">dto</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">description</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N3sup8oac_tree13UserInterface8PutValueERKN3sup3dto8AnyValueERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Method to put the value. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – Value to put into UI. </p></li>
+<li><p><strong>description</strong> – Optional description of the value. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true on successful retrieval of a value, false otherwise. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree13UserInterface16RequestUserInputERK16UserInputRequest">
+<span id="_CPPv3N3sup8oac_tree13UserInterface16RequestUserInputERK16UserInputRequest"></span><span id="_CPPv2N3sup8oac_tree13UserInterface16RequestUserInputERK16UserInputRequest"></span><span id="sup::oac_tree::UserInterface::RequestUserInput__UserInputRequestCR"></span><span class="target" id="classsup_1_1oac__tree_1_1UserInterface_1a89d080ca12e140ba3be274197870fbac"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">IUserInputFuture</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RequestUserInput</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">UserInputRequest</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">request</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N3sup8oac_tree13UserInterface16RequestUserInputERK16UserInputRequest" title="Link to this definition"></a><br /></dt>
+<dd><p>Asynchronous, i.e. non-blocking, interface to retrieve user input. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Upon destruction of the returned future, the request is cancelled, but it will not join any threads that were created during creation. This avoids blocking on these objects’ destruction.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>request</strong> – UserInputRequest object, describing what kind of input is expected.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A handle to a future that will cancel the request upon destruction. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree13UserInterface7MessageERKNSt6stringE">
+<span id="_CPPv3N3sup8oac_tree13UserInterface7MessageERKNSt6stringE"></span><span id="_CPPv2N3sup8oac_tree13UserInterface7MessageERKNSt6stringE"></span><span id="sup::oac_tree::UserInterface::Message__ssCR"></span><span class="target" id="classsup_1_1oac__tree_1_1UserInterface_1a288d16af81313f1de05ebbb28104e1d5"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Message</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">message</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N3sup8oac_tree13UserInterface7MessageERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Method called to display a message. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>message</strong> – Message to be displayed. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree13UserInterface3LogEiRKNSt6stringE">
+<span id="_CPPv3N3sup8oac_tree13UserInterface3LogEiRKNSt6stringE"></span><span id="_CPPv2N3sup8oac_tree13UserInterface3LogEiRKNSt6stringE"></span><span id="sup::oac_tree::UserInterface::Log__i.ssCR"></span><span class="target" id="classsup_1_1oac__tree_1_1UserInterface_1aece46834c1433bd51560a396f90c4352"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Log</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">severity</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">message</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N3sup8oac_tree13UserInterface3LogEiRKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Method called to log a message. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="runner.html" class="btn btn-neutral float-left" title="Runner" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="procedure.html" class="btn btn-neutral float-right" title="Procedure" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright ITER Organization.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

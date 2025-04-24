@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Standard items &mdash; SUP MVVM</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=b51e6972"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="SessionModel" href="sessionmodel.html" />
+    <link rel="prev" title="CompoundItem" href="compound_item.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            sup-mvvm
+          </a>
+              <div class="version">
+                1.8.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick start</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="main_components.html">Main components</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="compound_item.html">CompoundItem</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Standard items</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N4mvvm12PropertyItemE"><code class="docutils literal notranslate"><span class="pre">mvvm::PropertyItem</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm12PropertyItem5CloneEv"><code class="docutils literal notranslate"><span class="pre">Clone()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N4mvvm10VectorItemE"><code class="docutils literal notranslate"><span class="pre">mvvm::VectorItem</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm10VectorItem5CloneEv"><code class="docutils literal notranslate"><span class="pre">Clone()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N4mvvm10VectorItem8ActivateEv"><code class="docutils literal notranslate"><span class="pre">Activate()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N4mvvm13BasicAxisItemE"><code class="docutils literal notranslate"><span class="pre">mvvm::BasicAxisItem</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N4mvvm16ViewportAxisItemE"><code class="docutils literal notranslate"><span class="pre">mvvm::ViewportAxisItem</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm16ViewportAxisItem5CloneEv"><code class="docutils literal notranslate"><span class="pre">Clone()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm16ViewportAxisItem8GetRangeEv"><code class="docutils literal notranslate"><span class="pre">GetRange()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N4mvvm16ViewportAxisItem8SetRangeEdd"><code class="docutils literal notranslate"><span class="pre">SetRange()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N4mvvm14BinnedAxisItemE"><code class="docutils literal notranslate"><span class="pre">mvvm::BinnedAxisItem</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N4mvvm16FixedBinAxisItemE"><code class="docutils literal notranslate"><span class="pre">mvvm::FixedBinAxisItem</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm16FixedBinAxisItem5CloneEv"><code class="docutils literal notranslate"><span class="pre">Clone()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N4mvvm17PointwiseAxisItemE"><code class="docutils literal notranslate"><span class="pre">mvvm::PointwiseAxisItem</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm17PointwiseAxisItem5CloneEv"><code class="docutils literal notranslate"><span class="pre">Clone()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N4mvvm13ContainerItemE"><code class="docutils literal notranslate"><span class="pre">mvvm::ContainerItem</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm13ContainerItem5CloneEv"><code class="docutils literal notranslate"><span class="pre">Clone()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm13ContainerItem7IsEmptyEv"><code class="docutils literal notranslate"><span class="pre">IsEmpty()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm13ContainerItem7GetSizeEv"><code class="docutils literal notranslate"><span class="pre">GetSize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm13ContainerItem11GetChildrenEv"><code class="docutils literal notranslate"><span class="pre">GetChildren()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N4mvvm13ContainerItem5ClearEv"><code class="docutils literal notranslate"><span class="pre">Clear()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N4mvvm10Data1DItemE"><code class="docutils literal notranslate"><span class="pre">mvvm::Data1DItem</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm10Data1DItem5CloneEv"><code class="docutils literal notranslate"><span class="pre">Clone()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm10Data1DItem13GetBinCentersEv"><code class="docutils literal notranslate"><span class="pre">GetBinCenters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N4mvvm10Data1DItem9SetValuesERKNSt6vectorIdEE"><code class="docutils literal notranslate"><span class="pre">SetValues()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm10Data1DItem9GetValuesEv"><code class="docutils literal notranslate"><span class="pre">GetValues()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N4mvvm10Data1DItem9SetErrorsERKNSt6vectorIdEE"><code class="docutils literal notranslate"><span class="pre">SetErrors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm10Data1DItem9GetErrorsEv"><code class="docutils literal notranslate"><span class="pre">GetErrors()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4I0DpEN4mvvm10Data1DItem7SetAxisEP1TDpRR4Args"><code class="docutils literal notranslate"><span class="pre">SetAxis()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N4mvvm9GraphItemE"><code class="docutils literal notranslate"><span class="pre">mvvm::GraphItem</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm9GraphItem5CloneEv"><code class="docutils literal notranslate"><span class="pre">Clone()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N4mvvm9GraphItem11SetDataItemEPK10Data1DItem"><code class="docutils literal notranslate"><span class="pre">SetDataItem()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N4mvvm9GraphItem16SetFromGraphItemEPK9GraphItem"><code class="docutils literal notranslate"><span class="pre">SetFromGraphItem()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm9GraphItem11GetDataItemEv"><code class="docutils literal notranslate"><span class="pre">GetDataItem()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm9GraphItem13GetNamedColorEv"><code class="docutils literal notranslate"><span class="pre">GetNamedColor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N4mvvm9GraphItem13SetNamedColorERKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">SetNamedColor()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N4mvvm12ViewportItemE"><code class="docutils literal notranslate"><span class="pre">mvvm::ViewportItem</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm12ViewportItem8GetXAxisEv"><code class="docutils literal notranslate"><span class="pre">GetXAxis()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm12ViewportItem8GetYAxisEv"><code class="docutils literal notranslate"><span class="pre">GetYAxis()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N4mvvm12ViewportItem20SetViewportToContentEv"><code class="docutils literal notranslate"><span class="pre">SetViewportToContent()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N4mvvm12ViewportItem20SetViewportToContentEdddd"><code class="docutils literal notranslate"><span class="pre">SetViewportToContent()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N4mvvm17GraphViewportItemE"><code class="docutils literal notranslate"><span class="pre">mvvm::GraphViewportItem</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm17GraphViewportItem5CloneEv"><code class="docutils literal notranslate"><span class="pre">Clone()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm17GraphViewportItem13GetGraphItemsEv"><code class="docutils literal notranslate"><span class="pre">GetGraphItems()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm17GraphViewportItem20GetVisibleGraphItemsEv"><code class="docutils literal notranslate"><span class="pre">GetVisibleGraphItems()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N4mvvm17GraphViewportItem10SetVisibleERKNSt6vectorIP9GraphItemEE"><code class="docutils literal notranslate"><span class="pre">SetVisible()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N4mvvm17GraphViewportItem13SetAllVisibleEv"><code class="docutils literal notranslate"><span class="pre">SetAllVisible()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N4mvvm10LinkedItemE"><code class="docutils literal notranslate"><span class="pre">mvvm::LinkedItem</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm10LinkedItem5CloneEv"><code class="docutils literal notranslate"><span class="pre">Clone()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N4mvvm10LinkedItem7SetLinkEPK11SessionItem"><code class="docutils literal notranslate"><span class="pre">SetLink()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4I0ENK4mvvm10LinkedItem3GetEP1Tv"><code class="docutils literal notranslate"><span class="pre">Get()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N4mvvm8TextItemE"><code class="docutils literal notranslate"><span class="pre">mvvm::TextItem</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm8TextItem5CloneEv"><code class="docutils literal notranslate"><span class="pre">Clone()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4N4mvvm7PenItemE"><code class="docutils literal notranslate"><span class="pre">mvvm::PenItem</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm7PenItem5CloneEv"><code class="docutils literal notranslate"><span class="pre">Clone()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm7PenItem10IsSelectedEv"><code class="docutils literal notranslate"><span class="pre">IsSelected()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N4mvvm7PenItem11SetSelectedEb"><code class="docutils literal notranslate"><span class="pre">SetSelected()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm7PenItem13GetNamedColorEv"><code class="docutils literal notranslate"><span class="pre">GetNamedColor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N4mvvm7PenItem13SetNamedColorERKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">SetNamedColor()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="sessionmodel.html">SessionModel</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sup-mvvm</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="main_components.html">Main components</a></li>
+      <li class="breadcrumb-item active">Standard items</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/standard_items.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="standard-items">
+<h1>Standard items<a class="headerlink" href="#standard-items" title="Link to this heading"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm12PropertyItemE">
+<span id="_CPPv3N4mvvm12PropertyItemE"></span><span id="_CPPv2N4mvvm12PropertyItemE"></span><span id="mvvm::PropertyItem"></span><span class="target" id="classmvvm_1_1PropertyItem"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PropertyItem</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mvvm</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><a class="headerlink" href="#_CPPv4N4mvvm12PropertyItemE" title="Link to this definition"></a><br /></dt>
+<dd><p>The <a class="reference internal" href="#classmvvm_1_1PropertyItem"><span class="std std-ref">PropertyItem</span></a> class is an item to carry concrete editable entity (e.g. float64 value with limits). </p>
+<p>Intended for use as a child or <a class="reference internal" href="compound_item.html#classmvvm_1_1CompoundItem"><span class="std std-ref">CompoundItem</span></a>, not expected to have own children. For the moment, it has no extra behavior and it is here for historical reasons. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm12PropertyItem5CloneEv">
+<span id="_CPPv3NK4mvvm12PropertyItem5CloneEv"></span><span id="_CPPv2NK4mvvm12PropertyItem5CloneEv"></span><span id="mvvm::PropertyItem::CloneC"></span><span class="target" id="classmvvm_1_1PropertyItem_1a307b5300011f3a4feecda4867a359949"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Clone</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm12PropertyItem5CloneEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates a clone of the item. </p>
+<p>Creates an exact clone of the item together with all its children. All item identifiers will be the same. Please note, that cloned items can’t be used along with the original item in the same model due to memory pool identifiers collision. Use utils::CopyItem to create deep copies that have different item identifiers. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm10VectorItemE">
+<span id="_CPPv3N4mvvm10VectorItemE"></span><span id="_CPPv2N4mvvm10VectorItemE"></span><span id="mvvm::VectorItem"></span><span class="target" id="classmvvm_1_1VectorItem"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VectorItem</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mvvm</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="compound_item.html#_CPPv4N4mvvm12CompoundItemE" title="mvvm::CompoundItem"><span class="n"><span class="pre">CompoundItem</span></span></a><a class="headerlink" href="#_CPPv4N4mvvm10VectorItemE" title="Link to this definition"></a><br /></dt>
+<dd><p>The <a class="reference internal" href="#classmvvm_1_1VectorItem"><span class="std std-ref">VectorItem</span></a> class is a compound item with three x,y,z property items. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm10VectorItem5CloneEv">
+<span id="_CPPv3NK4mvvm10VectorItem5CloneEv"></span><span id="_CPPv2NK4mvvm10VectorItem5CloneEv"></span><span id="mvvm::VectorItem::CloneC"></span><span class="target" id="classmvvm_1_1VectorItem_1abe21a54b5d614b0932ebf082b22bc065"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Clone</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm10VectorItem5CloneEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates a clone of the item. </p>
+<p>Creates an exact clone of the item together with all its children. All item identifiers will be the same. Please note, that cloned items can’t be used along with the original item in the same model due to memory pool identifiers collision. Use utils::CopyItem to create deep copies that have different item identifiers. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm10VectorItem8ActivateEv">
+<span id="_CPPv3N4mvvm10VectorItem8ActivateEv"></span><span id="_CPPv2N4mvvm10VectorItem8ActivateEv"></span><span id="mvvm::VectorItem::Activate"></span><span class="target" id="classmvvm_1_1VectorItem_1a28a46cbf41a6b614001f07591cafcf3c"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Activate</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N4mvvm10VectorItem8ActivateEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Activates listening on own properties change. It will update own label on any of x,y,z children change. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm13BasicAxisItemE">
+<span id="_CPPv3N4mvvm13BasicAxisItemE"></span><span id="_CPPv2N4mvvm13BasicAxisItemE"></span><span id="mvvm::BasicAxisItem"></span><span class="target" id="classmvvm_1_1BasicAxisItem"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BasicAxisItem</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mvvm</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="compound_item.html#_CPPv4N4mvvm12CompoundItemE" title="mvvm::CompoundItem"><span class="n"><span class="pre">CompoundItem</span></span></a><a class="headerlink" href="#_CPPv4N4mvvm13BasicAxisItemE" title="Link to this definition"></a><br /></dt>
+<dd><p>The <a class="reference internal" href="#classmvvm_1_1BasicAxisItem"><span class="std std-ref">BasicAxisItem</span></a> class is a base class for all axes items. </p>
+<p>It has min, max defined, but nothing else. </p>
+<p>Subclassed by <a class="reference internal" href="#classmvvm_1_1BinnedAxisItem"><span class="std std-ref">mvvm::BinnedAxisItem</span></a>, <a class="reference internal" href="#classmvvm_1_1ViewportAxisItem"><span class="std std-ref">mvvm::ViewportAxisItem</span></a></p>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm16ViewportAxisItemE">
+<span id="_CPPv3N4mvvm16ViewportAxisItemE"></span><span id="_CPPv2N4mvvm16ViewportAxisItemE"></span><span id="mvvm::ViewportAxisItem"></span><span class="target" id="classmvvm_1_1ViewportAxisItem"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ViewportAxisItem</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mvvm</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N4mvvm13BasicAxisItemE" title="mvvm::BasicAxisItem"><span class="n"><span class="pre">BasicAxisItem</span></span></a><a class="headerlink" href="#_CPPv4N4mvvm16ViewportAxisItemE" title="Link to this definition"></a><br /></dt>
+<dd><p>The <a class="reference internal" href="#classmvvm_1_1ViewportAxisItem"><span class="std std-ref">ViewportAxisItem</span></a> class represents viewport axis. </p>
+<p>It can be a counterpart of either Qt’s QAbstractAxis or QCustomPlot::QCPAxis. Intended to cary title, fonts etc. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm16ViewportAxisItem5CloneEv">
+<span id="_CPPv3NK4mvvm16ViewportAxisItem5CloneEv"></span><span id="_CPPv2NK4mvvm16ViewportAxisItem5CloneEv"></span><span id="mvvm::ViewportAxisItem::CloneC"></span><span class="target" id="classmvvm_1_1ViewportAxisItem_1aaaa2b4a5bea58c86f8f17e9a13dee7db"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Clone</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm16ViewportAxisItem5CloneEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates a clone of the item. </p>
+<p>Creates an exact clone of the item together with all its children. All item identifiers will be the same. Please note, that cloned items can’t be used along with the original item in the same model due to memory pool identifiers collision. Use utils::CopyItem to create deep copies that have different item identifiers. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm16ViewportAxisItem8GetRangeEv">
+<span id="_CPPv3NK4mvvm16ViewportAxisItem8GetRangeEv"></span><span id="_CPPv2NK4mvvm16ViewportAxisItem8GetRangeEv"></span><span id="mvvm::ViewportAxisItem::GetRangeC"></span><span class="target" id="classmvvm_1_1ViewportAxisItem_1a3a9c4f07bf7017b457c7796c3bdb32b5"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetRange</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm16ViewportAxisItem8GetRangeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns pair of lower, upper axis range. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm16ViewportAxisItem8SetRangeEdd">
+<span id="_CPPv3N4mvvm16ViewportAxisItem8SetRangeEdd"></span><span id="_CPPv2N4mvvm16ViewportAxisItem8SetRangeEdd"></span><span id="mvvm::ViewportAxisItem::SetRange__double.double"></span><span class="target" id="classmvvm_1_1ViewportAxisItem_1a8bc7afeb993434d754cf5ff942f02044"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetRange</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">lower</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">upper</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm16ViewportAxisItem8SetRangeEdd" title="Link to this definition"></a><br /></dt>
+<dd><p>Sets lower, upper range of axis to given values. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm14BinnedAxisItemE">
+<span id="_CPPv3N4mvvm14BinnedAxisItemE"></span><span id="_CPPv2N4mvvm14BinnedAxisItemE"></span><span id="mvvm::BinnedAxisItem"></span><span class="target" id="classmvvm_1_1BinnedAxisItem"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BinnedAxisItem</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mvvm</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N4mvvm13BasicAxisItemE" title="mvvm::BasicAxisItem"><span class="n"><span class="pre">BasicAxisItem</span></span></a><a class="headerlink" href="#_CPPv4N4mvvm14BinnedAxisItemE" title="Link to this definition"></a><br /></dt>
+<dd><p>The <a class="reference internal" href="#classmvvm_1_1BinnedAxisItem"><span class="std std-ref">BinnedAxisItem</span></a> class represents an axis with arbitrary binning. </p>
+<p>Base class to define an axis with specific binning (fixed, variable). Used in <a class="reference internal" href="#classmvvm_1_1Data1DItem"><span class="std std-ref">Data1DItem</span></a> and Data2Ditem to store 1d and 2d data. Doesn’t carry any appearance info (e.g. axis title, label size, etc) and thus not intended for direct plotting. </p>
+<p>Subclassed by <a class="reference internal" href="#classmvvm_1_1FixedBinAxisItem"><span class="std std-ref">mvvm::FixedBinAxisItem</span></a>, <a class="reference internal" href="#classmvvm_1_1PointwiseAxisItem"><span class="std std-ref">mvvm::PointwiseAxisItem</span></a></p>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm16FixedBinAxisItemE">
+<span id="_CPPv3N4mvvm16FixedBinAxisItemE"></span><span id="_CPPv2N4mvvm16FixedBinAxisItemE"></span><span id="mvvm::FixedBinAxisItem"></span><span class="target" id="classmvvm_1_1FixedBinAxisItem"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">FixedBinAxisItem</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mvvm</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N4mvvm14BinnedAxisItemE" title="mvvm::BinnedAxisItem"><span class="n"><span class="pre">BinnedAxisItem</span></span></a><a class="headerlink" href="#_CPPv4N4mvvm16FixedBinAxisItemE" title="Link to this definition"></a><br /></dt>
+<dd><p>The <a class="reference internal" href="#classmvvm_1_1FixedBinAxisItem"><span class="std std-ref">FixedBinAxisItem</span></a> class represents fixed bin axis. </p>
+<p>Defines an axis with equidistant binning. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm16FixedBinAxisItem5CloneEv">
+<span id="_CPPv3NK4mvvm16FixedBinAxisItem5CloneEv"></span><span id="_CPPv2NK4mvvm16FixedBinAxisItem5CloneEv"></span><span id="mvvm::FixedBinAxisItem::CloneC"></span><span class="target" id="classmvvm_1_1FixedBinAxisItem_1a3489ef1276f8fb2a377e8eaaf5a7bba8"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Clone</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm16FixedBinAxisItem5CloneEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates a clone of the item. </p>
+<p>Creates an exact clone of the item together with all its children. All item identifiers will be the same. Please note, that cloned items can’t be used along with the original item in the same model due to memory pool identifiers collision. Use utils::CopyItem to create deep copies that have different item identifiers. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm17PointwiseAxisItemE">
+<span id="_CPPv3N4mvvm17PointwiseAxisItemE"></span><span id="_CPPv2N4mvvm17PointwiseAxisItemE"></span><span id="mvvm::PointwiseAxisItem"></span><span class="target" id="classmvvm_1_1PointwiseAxisItem"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PointwiseAxisItem</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mvvm</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N4mvvm14BinnedAxisItemE" title="mvvm::BinnedAxisItem"><span class="n"><span class="pre">BinnedAxisItem</span></span></a><a class="headerlink" href="#_CPPv4N4mvvm17PointwiseAxisItemE" title="Link to this definition"></a><br /></dt>
+<dd><p>The <a class="reference internal" href="#classmvvm_1_1PointwiseAxisItem"><span class="std std-ref">PointwiseAxisItem</span></a> class represents a pointwise axis. </p>
+<p>Defines an axis via an array of points representing point coordinates. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm17PointwiseAxisItem5CloneEv">
+<span id="_CPPv3NK4mvvm17PointwiseAxisItem5CloneEv"></span><span id="_CPPv2NK4mvvm17PointwiseAxisItem5CloneEv"></span><span id="mvvm::PointwiseAxisItem::CloneC"></span><span class="target" id="classmvvm_1_1PointwiseAxisItem_1ab7457d13ae3eda3c30a4947e35c65ccb"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Clone</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm17PointwiseAxisItem5CloneEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates a clone of the item. </p>
+<p>Creates an exact clone of the item together with all its children. All item identifiers will be the same. Please note, that cloned items can’t be used along with the original item in the same model due to memory pool identifiers collision. Use utils::CopyItem to create deep copies that have different item identifiers. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm13ContainerItemE">
+<span id="_CPPv3N4mvvm13ContainerItemE"></span><span id="_CPPv2N4mvvm13ContainerItemE"></span><span id="mvvm::ContainerItem"></span><span class="target" id="classmvvm_1_1ContainerItem"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ContainerItem</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mvvm</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="compound_item.html#_CPPv4N4mvvm12CompoundItemE" title="mvvm::CompoundItem"><span class="n"><span class="pre">CompoundItem</span></span></a><a class="headerlink" href="#_CPPv4N4mvvm13ContainerItemE" title="Link to this definition"></a><br /></dt>
+<dd><p>The <a class="reference internal" href="#classmvvm_1_1ContainerItem"><span class="std std-ref">ContainerItem</span></a> class is a simple container to store any type of child. </p>
+<p>May be used as a convenience item to create a branch with uniform children beneath, for example. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm13ContainerItem5CloneEv">
+<span id="_CPPv3NK4mvvm13ContainerItem5CloneEv"></span><span id="_CPPv2NK4mvvm13ContainerItem5CloneEv"></span><span id="mvvm::ContainerItem::CloneC"></span><span class="target" id="classmvvm_1_1ContainerItem_1a62d7b3e81a30f47002a7c689d70a71b2"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Clone</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm13ContainerItem5CloneEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates a clone of the item. </p>
+<p>Creates an exact clone of the item together with all its children. All item identifiers will be the same. Please note, that cloned items can’t be used along with the original item in the same model due to memory pool identifiers collision. Use utils::CopyItem to create deep copies that have different item identifiers. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm13ContainerItem7IsEmptyEv">
+<span id="_CPPv3NK4mvvm13ContainerItem7IsEmptyEv"></span><span id="_CPPv2NK4mvvm13ContainerItem7IsEmptyEv"></span><span id="mvvm::ContainerItem::IsEmptyC"></span><span class="target" id="classmvvm_1_1ContainerItem_1a44b3f2c66d9b1026d974ef39f04b9031"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsEmpty</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm13ContainerItem7IsEmptyEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Checks if container is empty. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm13ContainerItem7GetSizeEv">
+<span id="_CPPv3NK4mvvm13ContainerItem7GetSizeEv"></span><span id="_CPPv2NK4mvvm13ContainerItem7GetSizeEv"></span><span id="mvvm::ContainerItem::GetSizeC"></span><span class="target" id="classmvvm_1_1ContainerItem_1a25d7c976944af1cee93e370c6add1bed"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm13ContainerItem7GetSizeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns number of children in the container. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm13ContainerItem11GetChildrenEv">
+<span id="_CPPv3NK4mvvm13ContainerItem11GetChildrenEv"></span><span id="_CPPv2NK4mvvm13ContainerItem11GetChildrenEv"></span><span id="mvvm::ContainerItem::GetChildrenC"></span><span class="target" id="classmvvm_1_1ContainerItem_1a1a6452ac8c9784874a12144e7339f196"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetChildren</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm13ContainerItem11GetChildrenEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns all children in the container. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm13ContainerItem5ClearEv">
+<span id="_CPPv3N4mvvm13ContainerItem5ClearEv"></span><span id="_CPPv2N4mvvm13ContainerItem5ClearEv"></span><span id="mvvm::ContainerItem::Clear"></span><span class="target" id="classmvvm_1_1ContainerItem_1ac45d3b3caf777200f18d63c76c948c64"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Clear</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm13ContainerItem5ClearEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Removes all children from the container. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm10Data1DItemE">
+<span id="_CPPv3N4mvvm10Data1DItemE"></span><span id="_CPPv2N4mvvm10Data1DItemE"></span><span id="mvvm::Data1DItem"></span><span class="target" id="classmvvm_1_1Data1DItem"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Data1DItem</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mvvm</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="compound_item.html#_CPPv4N4mvvm12CompoundItemE" title="mvvm::CompoundItem"><span class="n"><span class="pre">CompoundItem</span></span></a><a class="headerlink" href="#_CPPv4N4mvvm10Data1DItemE" title="Link to this definition"></a><br /></dt>
+<dd><p>Represents one-dimensional data (axis and values). Values are stored in <a class="reference internal" href="#classmvvm_1_1Data1DItem"><span class="std std-ref">Data1DItem</span></a> itself, axis is attached as a child. Corresponding plot properties will be served by <a class="reference internal" href="#classmvvm_1_1GraphItem"><span class="std std-ref">GraphItem</span></a>. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm10Data1DItem5CloneEv">
+<span id="_CPPv3NK4mvvm10Data1DItem5CloneEv"></span><span id="_CPPv2NK4mvvm10Data1DItem5CloneEv"></span><span id="mvvm::Data1DItem::CloneC"></span><span class="target" id="classmvvm_1_1Data1DItem_1a693375399686c616bd9dd33f6d7faf79"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Clone</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm10Data1DItem5CloneEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates a clone of the item. </p>
+<p>Creates an exact clone of the item together with all its children. All item identifiers will be the same. Please note, that cloned items can’t be used along with the original item in the same model due to memory pool identifiers collision. Use utils::CopyItem to create deep copies that have different item identifiers. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm10Data1DItem13GetBinCentersEv">
+<span id="_CPPv3NK4mvvm10Data1DItem13GetBinCentersEv"></span><span id="_CPPv2NK4mvvm10Data1DItem13GetBinCentersEv"></span><span id="mvvm::Data1DItem::GetBinCentersC"></span><span class="target" id="classmvvm_1_1Data1DItem_1a32ddf84a7a9a405db9e3c5cc751d8b92"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetBinCenters</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm10Data1DItem13GetBinCentersEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns coordinates of bin centers. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm10Data1DItem9SetValuesERKNSt6vectorIdEE">
+<span id="_CPPv3N4mvvm10Data1DItem9SetValuesERKNSt6vectorIdEE"></span><span id="_CPPv2N4mvvm10Data1DItem9SetValuesERKNSt6vectorIdEE"></span><span id="mvvm::Data1DItem::SetValues__std::vector:double:CR"></span><span class="target" id="classmvvm_1_1Data1DItem_1ac653672f8055c21fada24f209187e9b5"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetValues</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm10Data1DItem9SetValuesERKNSt6vectorIdEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Sets internal data buffer to given data. If size of axis doesn’t match the size of the data, exception will be thrown. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm10Data1DItem9GetValuesEv">
+<span id="_CPPv3NK4mvvm10Data1DItem9GetValuesEv"></span><span id="_CPPv2NK4mvvm10Data1DItem9GetValuesEv"></span><span id="mvvm::Data1DItem::GetValuesC"></span><span class="target" id="classmvvm_1_1Data1DItem_1adf64ea4599e1b9880aecad22eb64b8c5"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetValues</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm10Data1DItem9GetValuesEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns values stored in bins. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm10Data1DItem9SetErrorsERKNSt6vectorIdEE">
+<span id="_CPPv3N4mvvm10Data1DItem9SetErrorsERKNSt6vectorIdEE"></span><span id="_CPPv2N4mvvm10Data1DItem9SetErrorsERKNSt6vectorIdEE"></span><span id="mvvm::Data1DItem::SetErrors__std::vector:double:CR"></span><span class="target" id="classmvvm_1_1Data1DItem_1ac586d58c6230ce977f6d51ecee44bf1c"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetErrors</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">errors</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm10Data1DItem9SetErrorsERKNSt6vectorIdEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Sets errors on values in bins. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm10Data1DItem9GetErrorsEv">
+<span id="_CPPv3NK4mvvm10Data1DItem9GetErrorsEv"></span><span id="_CPPv2NK4mvvm10Data1DItem9GetErrorsEv"></span><span id="mvvm::Data1DItem::GetErrorsC"></span><span class="target" id="classmvvm_1_1Data1DItem_1a1639c58f75fb08191cc61a077f8cf1fc"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">double</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetErrors</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm10Data1DItem9GetErrorsEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns value errors stored in bins. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0DpEN4mvvm10Data1DItem7SetAxisEP1TDpRR4Args">
+<span id="_CPPv3I0DpEN4mvvm10Data1DItem7SetAxisEDpRR4Args"></span><span id="_CPPv2I0DpEN4mvvm10Data1DItem7SetAxisEDpRR4Args"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Args</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmvvm_1_1Data1DItem_1afd714cf8046eabc7bd47d4d5ca5726b0"></span><a class="reference internal" href="#_CPPv4I0DpEN4mvvm10Data1DItem7SetAxisEP1TDpRR4Args" title="mvvm::Data1DItem::SetAxis::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">SetAxis</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0DpEN4mvvm10Data1DItem7SetAxisEP1TDpRR4Args" title="mvvm::Data1DItem::SetAxis::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0DpEN4mvvm10Data1DItem7SetAxisEP1TDpRR4Args" title="Link to this definition"></a><br /></dt>
+<dd><p>Inserts axis of given type. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm9GraphItemE">
+<span id="_CPPv3N4mvvm9GraphItemE"></span><span id="_CPPv2N4mvvm9GraphItemE"></span><span id="mvvm::GraphItem"></span><span class="target" id="classmvvm_1_1GraphItem"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GraphItem</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mvvm</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="compound_item.html#_CPPv4N4mvvm12CompoundItemE" title="mvvm::CompoundItem"><span class="n"><span class="pre">CompoundItem</span></span></a><a class="headerlink" href="#_CPPv4N4mvvm9GraphItemE" title="Link to this definition"></a><br /></dt>
+<dd><p>One-dimensional graph representation of <a class="reference internal" href="#classmvvm_1_1Data1DItem"><span class="std std-ref">Data1DItem</span></a>. Contains plot properties (i.e. color, line type etc) and link to <a class="reference internal" href="#classmvvm_1_1Data1DItem"><span class="std std-ref">Data1DItem</span></a>, which will provide actual data to plot. <a class="reference internal" href="#classmvvm_1_1GraphItem"><span class="std std-ref">GraphItem</span></a> is intended for plotting only via <a class="reference internal" href="#classmvvm_1_1GraphViewportItem"><span class="std std-ref">GraphViewportItem</span></a>. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm9GraphItem5CloneEv">
+<span id="_CPPv3NK4mvvm9GraphItem5CloneEv"></span><span id="_CPPv2NK4mvvm9GraphItem5CloneEv"></span><span id="mvvm::GraphItem::CloneC"></span><span class="target" id="classmvvm_1_1GraphItem_1a3103d45c385ae68fe8c4f012383aa616"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Clone</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm9GraphItem5CloneEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates a clone of the item. </p>
+<p>Creates an exact clone of the item together with all its children. All item identifiers will be the same. Please note, that cloned items can’t be used along with the original item in the same model due to memory pool identifiers collision. Use utils::CopyItem to create deep copies that have different item identifiers. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm9GraphItem11SetDataItemEPK10Data1DItem">
+<span id="_CPPv3N4mvvm9GraphItem11SetDataItemEPK10Data1DItem"></span><span id="_CPPv2N4mvvm9GraphItem11SetDataItemEPK10Data1DItem"></span><span id="mvvm::GraphItem::SetDataItem__Data1DItemCP"></span><span class="target" id="classmvvm_1_1GraphItem_1a5a6b3aa6bee7b082efd1b8013144c349"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetDataItem</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4mvvm10Data1DItemE" title="mvvm::Data1DItem"><span class="n"><span class="pre">Data1DItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">item</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm9GraphItem11SetDataItemEPK10Data1DItem" title="Link to this definition"></a><br /></dt>
+<dd><p>Sets link to the data item. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm9GraphItem16SetFromGraphItemEPK9GraphItem">
+<span id="_CPPv3N4mvvm9GraphItem16SetFromGraphItemEPK9GraphItem"></span><span id="_CPPv2N4mvvm9GraphItem16SetFromGraphItemEPK9GraphItem"></span><span id="mvvm::GraphItem::SetFromGraphItem__GraphItemCP"></span><span class="target" id="classmvvm_1_1GraphItem_1a97185c9c638f204ff787f86147002b30"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetFromGraphItem</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4mvvm9GraphItemE" title="mvvm::GraphItem"><span class="n"><span class="pre">GraphItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">graph_item</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm9GraphItem16SetFromGraphItemEPK9GraphItem" title="Link to this definition"></a><br /></dt>
+<dd><p>Update item from the content of given graph. Link to the data will be set as in given item, other properties copied. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm9GraphItem11GetDataItemEv">
+<span id="_CPPv3NK4mvvm9GraphItem11GetDataItemEv"></span><span id="_CPPv2NK4mvvm9GraphItem11GetDataItemEv"></span><span id="mvvm::GraphItem::GetDataItemC"></span><span class="target" id="classmvvm_1_1GraphItem_1a1bcfed7b815a32e03320b939e9555ca2"></span><a class="reference internal" href="#_CPPv4N4mvvm10Data1DItemE" title="mvvm::Data1DItem"><span class="n"><span class="pre">Data1DItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetDataItem</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm9GraphItem11GetDataItemEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns data item linked to the given <a class="reference internal" href="#classmvvm_1_1GraphItem"><span class="std std-ref">GraphItem</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm9GraphItem13GetNamedColorEv">
+<span id="_CPPv3NK4mvvm9GraphItem13GetNamedColorEv"></span><span id="_CPPv2NK4mvvm9GraphItem13GetNamedColorEv"></span><span id="mvvm::GraphItem::GetNamedColorC"></span><span class="target" id="classmvvm_1_1GraphItem_1af125a1d84826b8e84d2fa1e1d62efc11"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetNamedColor</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm9GraphItem13GetNamedColorEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns color name in <code class="docutils literal notranslate"><span class="pre">#RRGGBB</span></code> format. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm9GraphItem13SetNamedColorERKNSt6stringE">
+<span id="_CPPv3N4mvvm9GraphItem13SetNamedColorERKNSt6stringE"></span><span id="_CPPv2N4mvvm9GraphItem13SetNamedColorERKNSt6stringE"></span><span id="mvvm::GraphItem::SetNamedColor__ssCR"></span><span class="target" id="classmvvm_1_1GraphItem_1ae9f2e92b044dae8628b8fbf86f93d978"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetNamedColor</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">named_color</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm9GraphItem13SetNamedColorERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Sets named color following schema from <a class="reference external" href="https://www.w3.org/TR/css-color-3/#svg-color">https://www.w3.org/TR/css-color-3/#svg-color</a>. e.g. “mediumaquamarine” </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm12ViewportItemE">
+<span id="_CPPv3N4mvvm12ViewportItemE"></span><span id="_CPPv2N4mvvm12ViewportItemE"></span><span id="mvvm::ViewportItem"></span><span class="target" id="classmvvm_1_1ViewportItem"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ViewportItem</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mvvm</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="compound_item.html#_CPPv4N4mvvm12CompoundItemE" title="mvvm::CompoundItem"><span class="n"><span class="pre">CompoundItem</span></span></a><a class="headerlink" href="#_CPPv4N4mvvm12ViewportItemE" title="Link to this definition"></a><br /></dt>
+<dd><p>The <a class="reference internal" href="#classmvvm_1_1ViewportItem"><span class="std std-ref">ViewportItem</span></a> class is a base class for all viewports representing 1D, and 2D data. </p>
+<p>Contains x,y axis, to display graphs, line series, or 2D colormaps. </p>
+<p>Subclassed by mvvm::ChartViewportItem, <a class="reference internal" href="#classmvvm_1_1GraphViewportItem"><span class="std std-ref">mvvm::GraphViewportItem</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm12ViewportItem8GetXAxisEv">
+<span id="_CPPv3NK4mvvm12ViewportItem8GetXAxisEv"></span><span id="_CPPv2NK4mvvm12ViewportItem8GetXAxisEv"></span><span id="mvvm::ViewportItem::GetXAxisC"></span><span class="target" id="classmvvm_1_1ViewportItem_1a1ada527dfe048a2953252d369417583f"></span><a class="reference internal" href="#_CPPv4N4mvvm16ViewportAxisItemE" title="mvvm::ViewportAxisItem"><span class="n"><span class="pre">ViewportAxisItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetXAxis</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm12ViewportItem8GetXAxisEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns x-axis. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm12ViewportItem8GetYAxisEv">
+<span id="_CPPv3NK4mvvm12ViewportItem8GetYAxisEv"></span><span id="_CPPv2NK4mvvm12ViewportItem8GetYAxisEv"></span><span id="mvvm::ViewportItem::GetYAxisC"></span><span class="target" id="classmvvm_1_1ViewportItem_1aac735325dd1c5009eccb7ddd809c9a18"></span><a class="reference internal" href="#_CPPv4N4mvvm16ViewportAxisItemE" title="mvvm::ViewportAxisItem"><span class="n"><span class="pre">ViewportAxisItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetYAxis</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm12ViewportItem8GetYAxisEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns y-axis. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm12ViewportItem20SetViewportToContentEv">
+<span id="_CPPv3N4mvvm12ViewportItem20SetViewportToContentEv"></span><span id="_CPPv2N4mvvm12ViewportItem20SetViewportToContentEv"></span><span id="mvvm::ViewportItem::SetViewportToContent"></span><span class="target" id="classmvvm_1_1ViewportItem_1ac0aaf2b6b240c6dcffd011a4c6378798"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetViewportToContent</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm12ViewportItem20SetViewportToContentEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Sets the range of x,y window to show all data. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm12ViewportItem20SetViewportToContentEdddd">
+<span id="_CPPv3N4mvvm12ViewportItem20SetViewportToContentEdddd"></span><span id="_CPPv2N4mvvm12ViewportItem20SetViewportToContentEdddd"></span><span id="mvvm::ViewportItem::SetViewportToContent__double.double.double.double"></span><span class="target" id="classmvvm_1_1ViewportItem_1a3c5686fe65c56e6f70263f49fbacce68"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetViewportToContent</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">left</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">top</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">right</span></span>, <span class="kt"><span class="pre">double</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">bottom</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm12ViewportItem20SetViewportToContentEdddd" title="Link to this definition"></a><br /></dt>
+<dd><p>Sets range of x,y window to show all data. </p>
+<p>Allows adding an additional margin to automatically calculated axis range. Margins are given in relative units wrt calculated axis range. For example, setViewportToContent(0.0, 0.1, 0.0, 0.1) will set axes to show all graphs with 10% gap above and below graph’s max and min. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm17GraphViewportItemE">
+<span id="_CPPv3N4mvvm17GraphViewportItemE"></span><span id="_CPPv2N4mvvm17GraphViewportItemE"></span><span id="mvvm::GraphViewportItem"></span><span class="target" id="classmvvm_1_1GraphViewportItem"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GraphViewportItem</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mvvm</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="#_CPPv4N4mvvm12ViewportItemE" title="mvvm::ViewportItem"><span class="n"><span class="pre">ViewportItem</span></span></a><a class="headerlink" href="#_CPPv4N4mvvm17GraphViewportItemE" title="Link to this definition"></a><br /></dt>
+<dd><p>2D viewport specialized for showing multiple <a class="reference internal" href="#classmvvm_1_1GraphItem"><span class="std std-ref">GraphItem</span></a>’s. Provides calculation of viewport’s x-axis and y-axis range basing on <a class="reference internal" href="#classmvvm_1_1GraphItem"><span class="std std-ref">GraphItem</span></a> data. Provides functionality to hide selected graphs. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm17GraphViewportItem5CloneEv">
+<span id="_CPPv3NK4mvvm17GraphViewportItem5CloneEv"></span><span id="_CPPv2NK4mvvm17GraphViewportItem5CloneEv"></span><span id="mvvm::GraphViewportItem::CloneC"></span><span class="target" id="classmvvm_1_1GraphViewportItem_1a4c44032b8c5345fe5647d86ad2e51a19"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Clone</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm17GraphViewportItem5CloneEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates a clone of the item. </p>
+<p>Creates an exact clone of the item together with all its children. All item identifiers will be the same. Please note, that cloned items can’t be used along with the original item in the same model due to memory pool identifiers collision. Use utils::CopyItem to create deep copies that have different item identifiers. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm17GraphViewportItem13GetGraphItemsEv">
+<span id="_CPPv3NK4mvvm17GraphViewportItem13GetGraphItemsEv"></span><span id="_CPPv2NK4mvvm17GraphViewportItem13GetGraphItemsEv"></span><span id="mvvm::GraphViewportItem::GetGraphItemsC"></span><span class="target" id="classmvvm_1_1GraphViewportItem_1a0d287f33beb73429a244b6c26b6d9472"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N4mvvm9GraphItemE" title="mvvm::GraphItem"><span class="n"><span class="pre">GraphItem</span></span></a><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetGraphItems</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm17GraphViewportItem13GetGraphItemsEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the selected graph items. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm17GraphViewportItem20GetVisibleGraphItemsEv">
+<span id="_CPPv3NK4mvvm17GraphViewportItem20GetVisibleGraphItemsEv"></span><span id="_CPPv2NK4mvvm17GraphViewportItem20GetVisibleGraphItemsEv"></span><span id="mvvm::GraphViewportItem::GetVisibleGraphItemsC"></span><span class="target" id="classmvvm_1_1GraphViewportItem_1adaca1fcd91ab33f9da7dfbb18d6db91d"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N4mvvm9GraphItemE" title="mvvm::GraphItem"><span class="n"><span class="pre">GraphItem</span></span></a><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetVisibleGraphItems</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm17GraphViewportItem20GetVisibleGraphItemsEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the selected graph items. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm17GraphViewportItem10SetVisibleERKNSt6vectorIP9GraphItemEE">
+<span id="_CPPv3N4mvvm17GraphViewportItem10SetVisibleERKNSt6vectorIP9GraphItemEE"></span><span id="_CPPv2N4mvvm17GraphViewportItem10SetVisibleERKNSt6vectorIP9GraphItemEE"></span><span id="mvvm::GraphViewportItem::SetVisible__std::vector:GraphItemP:CR"></span><span class="target" id="classmvvm_1_1GraphViewportItem_1a686bfe12243f85fdc1ba0198c3607205"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetVisible</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N4mvvm9GraphItemE" title="mvvm::GraphItem"><span class="n"><span class="pre">GraphItem</span></span></a><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">visible_graph_items</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm17GraphViewportItem10SetVisibleERKNSt6vectorIP9GraphItemEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Set the graph selection. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm17GraphViewportItem13SetAllVisibleEv">
+<span id="_CPPv3N4mvvm17GraphViewportItem13SetAllVisibleEv"></span><span id="_CPPv2N4mvvm17GraphViewportItem13SetAllVisibleEv"></span><span id="mvvm::GraphViewportItem::SetAllVisible"></span><span class="target" id="classmvvm_1_1GraphViewportItem_1a686d006870ac46f0ddf0f09a19374f1a"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetAllVisible</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm17GraphViewportItem13SetAllVisibleEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Reset the graph selection. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm10LinkedItemE">
+<span id="_CPPv3N4mvvm10LinkedItemE"></span><span id="_CPPv2N4mvvm10LinkedItemE"></span><span id="mvvm::LinkedItem"></span><span class="target" id="classmvvm_1_1LinkedItem"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LinkedItem</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mvvm</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><a class="headerlink" href="#_CPPv4N4mvvm10LinkedItemE" title="Link to this definition"></a><br /></dt>
+<dd><p>Item to store a persistent link to other arbitrary items. </p>
+<p>The identifier of the item intended for linking is stored as DataRole on board of <a class="reference internal" href="#classmvvm_1_1LinkedItem"><span class="std std-ref">LinkedItem</span></a> and can be used to find the corresponding item via <a class="reference internal" href="sessionmodel.html#classmvvm_1_1SessionModel_1ae9147447c2c2e1a8e4b13dcb7bfbf5e1"><span class="std std-ref">SessionModel::FindItem</span></a> machinery. The machinery is persistent and outlives serialization. Can be used to find items in different models. For that being the case, models should use the same ItemPool. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm10LinkedItem5CloneEv">
+<span id="_CPPv3NK4mvvm10LinkedItem5CloneEv"></span><span id="_CPPv2NK4mvvm10LinkedItem5CloneEv"></span><span id="mvvm::LinkedItem::CloneC"></span><span class="target" id="classmvvm_1_1LinkedItem_1a22ca267320b28c86869e02d7b6964f36"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Clone</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm10LinkedItem5CloneEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates a clone of the item. </p>
+<p>Creates an exact clone of the item together with all its children. All item identifiers will be the same. Please note, that cloned items can’t be used along with the original item in the same model due to memory pool identifiers collision. Use utils::CopyItem to create deep copies that have different item identifiers. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm10LinkedItem7SetLinkEPK11SessionItem">
+<span id="_CPPv3N4mvvm10LinkedItem7SetLinkEPK11SessionItem"></span><span id="_CPPv2N4mvvm10LinkedItem7SetLinkEPK11SessionItem"></span><span id="mvvm::LinkedItem::SetLink__SessionItemCP"></span><span class="target" id="classmvvm_1_1LinkedItem_1ac8c0e9c7bf748927e3da3468d887442b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetLink</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">item</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm10LinkedItem7SetLinkEPK11SessionItem" title="Link to this definition"></a><br /></dt>
+<dd><p>Set link to given item. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0ENK4mvvm10LinkedItem3GetEP1Tv">
+<span id="_CPPv3I0ENK4mvvm10LinkedItem3GetEv"></span><span id="_CPPv2I0ENK4mvvm10LinkedItem3GetEv"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmvvm_1_1LinkedItem_1aa5c0adbcb6c9fb298fe55b3bfe28f0bd"></span><a class="reference internal" href="#_CPPv4I0ENK4mvvm10LinkedItem3GetEP1Tv" title="mvvm::LinkedItem::Get::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">Get</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0ENK4mvvm10LinkedItem3GetEP1Tv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns item linked to given item. Works only in model context. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm8TextItemE">
+<span id="_CPPv3N4mvvm8TextItemE"></span><span id="_CPPv2N4mvvm8TextItemE"></span><span id="mvvm::TextItem"></span><span class="target" id="classmvvm_1_1TextItem"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TextItem</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mvvm</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="compound_item.html#_CPPv4N4mvvm12CompoundItemE" title="mvvm::CompoundItem"><span class="n"><span class="pre">CompoundItem</span></span></a><a class="headerlink" href="#_CPPv4N4mvvm8TextItemE" title="Link to this definition"></a><br /></dt>
+<dd><p>The <a class="reference internal" href="#classmvvm_1_1TextItem"><span class="std std-ref">TextItem</span></a> class represent text item on plot. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm8TextItem5CloneEv">
+<span id="_CPPv3NK4mvvm8TextItem5CloneEv"></span><span id="_CPPv2NK4mvvm8TextItem5CloneEv"></span><span id="mvvm::TextItem::CloneC"></span><span class="target" id="classmvvm_1_1TextItem_1a05ad121e49b0b69e43fea860f640c693"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Clone</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm8TextItem5CloneEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates a clone of the item. </p>
+<p>Creates an exact clone of the item together with all its children. All item identifiers will be the same. Please note, that cloned items can’t be used along with the original item in the same model due to memory pool identifiers collision. Use utils::CopyItem to create deep copies that have different item identifiers. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm7PenItemE">
+<span id="_CPPv3N4mvvm7PenItemE"></span><span id="_CPPv2N4mvvm7PenItemE"></span><span id="mvvm::PenItem"></span><span class="target" id="classmvvm_1_1PenItem"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PenItem</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mvvm</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="compound_item.html#_CPPv4N4mvvm12CompoundItemE" title="mvvm::CompoundItem"><span class="n"><span class="pre">CompoundItem</span></span></a><a class="headerlink" href="#_CPPv4N4mvvm7PenItemE" title="Link to this definition"></a><br /></dt>
+<dd><p>The <a class="reference internal" href="#classmvvm_1_1PenItem"><span class="std std-ref">PenItem</span></a> class represents basics settings of QPen. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm7PenItem5CloneEv">
+<span id="_CPPv3NK4mvvm7PenItem5CloneEv"></span><span id="_CPPv2NK4mvvm7PenItem5CloneEv"></span><span id="mvvm::PenItem::CloneC"></span><span class="target" id="classmvvm_1_1PenItem_1aca93a450950268d3312cf4cb9b0c5340"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Clone</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm7PenItem5CloneEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates a clone of the item. </p>
+<p>Creates an exact clone of the item together with all its children. All item identifiers will be the same. Please note, that cloned items can’t be used along with the original item in the same model due to memory pool identifiers collision. Use utils::CopyItem to create deep copies that have different item identifiers. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm7PenItem10IsSelectedEv">
+<span id="_CPPv3NK4mvvm7PenItem10IsSelectedEv"></span><span id="_CPPv2NK4mvvm7PenItem10IsSelectedEv"></span><span id="mvvm::PenItem::IsSelectedC"></span><span class="target" id="classmvvm_1_1PenItem_1ad6d11f4b195cfd693239bc082596a691"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsSelected</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm7PenItem10IsSelectedEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Checks if the pen style corresponds to the selected object. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm7PenItem11SetSelectedEb">
+<span id="_CPPv3N4mvvm7PenItem11SetSelectedEb"></span><span id="_CPPv2N4mvvm7PenItem11SetSelectedEb"></span><span id="mvvm::PenItem::SetSelected__b"></span><span class="target" id="classmvvm_1_1PenItem_1af8efb9e01a4e0e81b1ae2a33f73a5930"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetSelected</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">is_selected</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm7PenItem11SetSelectedEb" title="Link to this definition"></a><br /></dt>
+<dd><p>Set pen style as if the object is selected. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm7PenItem13GetNamedColorEv">
+<span id="_CPPv3NK4mvvm7PenItem13GetNamedColorEv"></span><span id="_CPPv2NK4mvvm7PenItem13GetNamedColorEv"></span><span id="mvvm::PenItem::GetNamedColorC"></span><span class="target" id="classmvvm_1_1PenItem_1a19e1f24cd673b6a572134ee53d7f0604"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetNamedColor</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm7PenItem13GetNamedColorEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns named color. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#classmvvm_1_1PenItem_1a108905529e1e8e0fd8581f88583958b4"><span class="std std-ref">SetNamedColor()</span></a></p>
+</div>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm7PenItem13SetNamedColorERKNSt6stringE">
+<span id="_CPPv3N4mvvm7PenItem13SetNamedColorERKNSt6stringE"></span><span id="_CPPv2N4mvvm7PenItem13SetNamedColorERKNSt6stringE"></span><span id="mvvm::PenItem::SetNamedColor__ssCR"></span><span class="target" id="classmvvm_1_1PenItem_1a108905529e1e8e0fd8581f88583958b4"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetNamedColor</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">named_color</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm7PenItem13SetNamedColorERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Sets named color. </p>
+<p>The color name can be the one from <a class="reference external" href="https://www.w3.org/TR/css-color-3/#svg-color">https://www.w3.org/TR/css-color-3/#svg-color</a> database, like “red” or “deeppink”,</p>
+<p>The color can also be a string of “#RRGGBB” format, e.g. #008000 is a green with (read:0, green:128, blue:0) </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="compound_item.html" class="btn btn-neutral float-left" title="CompoundItem" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sessionmodel.html" class="btn btn-neutral float-right" title="SessionModel" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright ITER Organization.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

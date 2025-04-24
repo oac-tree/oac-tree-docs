@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Procedure &mdash; oac-tree</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=42d1b3bd"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Variable" href="variable.html" />
+    <link rel="prev" title="UserInterface" href="userinterface.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            oac-tree
+          </a>
+              <div class="version">
+                4.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coreinstructionsvariables.html">Core Instructions/Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugincreation.html">Extending the oac-tree with plugins</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="API.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="instruction.html">Instruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="runner.html">Runner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userinterface.html">UserInterface</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Procedure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#architecture">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#creating-a-procedure">Creating a Procedure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#managing-instructions">Managing Instructions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#managing-variables">Managing Variables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#execution-control">Execution Control</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#procedure-status-and-control">Procedure Status and Control</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#attributes">Attributes</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#additional-notes">Additional Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#class-definition">Class definition</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N3sup8oac_tree9ProcedureE"><code class="docutils literal notranslate"><span class="pre">sup::oac_tree::Procedure</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="variable.html">Variable</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">oac-tree</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="API.html">API</a></li>
+      <li class="breadcrumb-item active">Procedure</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/procedure.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="procedure">
+<h1>Procedure<a class="headerlink" href="#procedure" title="Link to this heading"></a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">Procedure</span></code> class represents instruction trees to be executed within the oac-tree and a workspace of globally accessible variables (see <a class="reference internal" href="variable.html#variable"><span class="std std-ref">Variable</span></a>). It provides methods to handle variables and instructions, and to manage the execution flow. A procedure can include multiple top-level instructions, where at most one is defined to be the root instruction that will be executed on procedure execution.</p>
+<section id="architecture">
+<h2>Architecture<a class="headerlink" href="#architecture" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Procedure</span></code> class is responsible for managing a collection of instruction trees. It contains a vector of top-level instructions, each represented by a derived class of the <code class="docutils literal notranslate"><span class="pre">Instruction</span></code> class. The class also includes an internal <code class="docutils literal notranslate"><span class="pre">Workspace</span></code> that holds variables and their values during the execution of instructions.</p>
+</section>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<section id="creating-a-procedure">
+<h3>Creating a Procedure<a class="headerlink" href="#creating-a-procedure" title="Link to this heading"></a></h3>
+<p>To create a new procedure, instantiate an object of the <code class="docutils literal notranslate"><span class="pre">Procedure</span></code> class. Optionally, you can specify the filename if the procedure is loaded from a file:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Procedure</span><span class="w"> </span><span class="n">my_procedure</span><span class="p">(</span><span class="s">&quot;example.procedure&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The optional filename argument shall be provided when the procedure is constructed from a file and it contains special include instructions pointing to other files via relative path names.</p>
+</section>
+<section id="managing-instructions">
+<h3>Managing Instructions<a class="headerlink" href="#managing-instructions" title="Link to this heading"></a></h3>
+<p>You can add, retrieve, and remove instructions in the procedure. The procedure allows managing instructions at the top level.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Add a new instruction to the top level</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">my_instruction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GlobalInstructionRegistry</span><span class="p">().</span><span class="n">Create</span><span class="p">(</span><span class="s">&quot;MyInstruction&quot;</span><span class="p">);</span>
+<span class="n">my_procedure</span><span class="p">.</span><span class="n">PushInstruction</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">my_instruction</span><span class="p">));</span>
+
+<span class="c1">// Retrieve the root instruction</span>
+<span class="n">Instruction</span><span class="o">*</span><span class="w"> </span><span class="n">root</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_procedure</span><span class="p">.</span><span class="n">RootInstruction</span><span class="p">();</span>
+
+<span class="c1">// Remove an instruction from a specific position</span>
+<span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">Instruction</span><span class="o">&gt;</span><span class="w"> </span><span class="n">removed_instruction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_procedure</span><span class="p">.</span><span class="n">TakeInstruction</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="managing-variables">
+<h3>Managing Variables<a class="headerlink" href="#managing-variables" title="Link to this heading"></a></h3>
+<p>The procedure can hold and manage variables using the internal workspace. Users can add, retrieve, and list variables associated with the procedure’s workspace.</p>
+<p>Variables are registered in the global variable registry using their type names. In the code snippet below, it is assumed that <cite>class MyVariable : public Variable</cite> was provided and registered in the global variable registry under the name “MyVariable”.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Add a new variable to the procedure&#39;s workspace</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">my_variable</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GlobalVariableRegistry</span><span class="p">().</span><span class="n">Create</span><span class="p">(</span><span class="s">&quot;MyVariable&quot;</span><span class="p">);</span>
+<span class="n">my_procedure</span><span class="p">.</span><span class="n">AddVariable</span><span class="p">(</span><span class="s">&quot;var1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">my_variable</span><span class="p">));</span>
+
+<span class="c1">// Retrieve the value of a variable</span>
+<span class="n">sup</span><span class="o">::</span><span class="n">dto</span><span class="o">::</span><span class="n">AnyValue</span><span class="w"> </span><span class="n">value</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">my_procedure</span><span class="p">.</span><span class="n">GetVariableValue</span><span class="p">(</span><span class="s">&quot;var1&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">))</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Successfully retrieved the value</span>
+<span class="p">}</span>
+
+<span class="c1">// List all variable names in the procedure</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="w"> </span><span class="n">variable_names</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_procedure</span><span class="p">.</span><span class="n">VariableNames</span><span class="p">();</span>
+</pre></div>
+</div>
+</section>
+<section id="execution-control">
+<h3>Execution Control<a class="headerlink" href="#execution-control" title="Link to this heading"></a></h3>
+<p>The procedure can be executed step-by-step using the <code class="docutils literal notranslate"><span class="pre">ExecuteSingle</span></code> method. This allows controlling the execution flow and validating the procedure at each step. The <code class="docutils literal notranslate"><span class="pre">Setup</span></code> method prepares the procedure for execution. The procedure can also be halted and reset.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Setup the procedure before execution</span>
+<span class="n">my_procedure</span><span class="p">.</span><span class="n">Setup</span><span class="p">();</span>
+
+<span class="c1">// Execute a single step of the procedure</span>
+<span class="n">UserInterface</span><span class="w"> </span><span class="n">ui</span><span class="p">;</span><span class="w"> </span><span class="c1">// Assume UserInterface is properly implemented</span>
+<span class="n">my_procedure</span><span class="p">.</span><span class="n">ExecuteSingle</span><span class="p">(</span><span class="n">ui</span><span class="p">);</span>
+
+<span class="c1">// Halt the procedure&#39;s execution</span>
+<span class="n">my_procedure</span><span class="p">.</span><span class="n">Halt</span><span class="p">();</span>
+
+<span class="c1">// Tear down the procedure and wait for all asynchronous instructions to finish</span>
+<span class="n">my_procedure</span><span class="p">.</span><span class="n">Teardown</span><span class="p">(</span><span class="n">ui</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="procedure-status-and-control">
+<h3>Procedure Status and Control<a class="headerlink" href="#procedure-status-and-control" title="Link to this heading"></a></h3>
+<p>Users can retrieve the execution status of the root instruction to determine whether the procedure is still running, has completed, or encountered an error.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Get the status of the root instruction</span>
+<span class="n">ExecutionStatus</span><span class="w"> </span><span class="n">status</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_procedure</span><span class="p">.</span><span class="n">GetStatus</span><span class="p">();</span>
+</pre></div>
+</div>
+</section>
+<section id="attributes">
+<h3>Attributes<a class="headerlink" href="#attributes" title="Link to this heading"></a></h3>
+<p>The procedure can have attributes associated with it. Attributes are key-value pairs that store additional information about the procedure.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Add an attribute to the procedure</span>
+<span class="n">my_procedure</span><span class="p">.</span><span class="n">AddAttribute</span><span class="p">(</span><span class="s">&quot;version&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1.0&quot;</span><span class="p">);</span>
+
+<span class="c1">// Retrieve the value of an attribute</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_procedure</span><span class="p">.</span><span class="n">GetAttributeString</span><span class="p">(</span><span class="s">&quot;version&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="additional-notes">
+<h2>Additional Notes<a class="headerlink" href="#additional-notes" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Procedure</span></code> class supports various additional features, such as setting up preamble information, registering types and plugins, and handling callbacks for variable updates. Users can refer to the specific class methods, presented in the following section, for more details on these advanced features.</p>
+<p>Procedures can be serialized to XML files and restored back using helper functions from <cite>sequence_parser.h</cite>.</p>
+</section>
+<section id="class-definition">
+<h2>Class definition<a class="headerlink" href="#class-definition" title="Link to this heading"></a></h2>
+<p>Next is presented the definition of the <code class="docutils literal notranslate"><span class="pre">Procedure</span></code> class and its main methods.</p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree9ProcedureE">
+<span id="_CPPv3N3sup8oac_tree9ProcedureE"></span><span id="_CPPv2N3sup8oac_tree9ProcedureE"></span><span id="sup::oac_tree::Procedure"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Procedure</span></span></span><a class="headerlink" href="#_CPPv4N3sup8oac_tree9ProcedureE" title="Link to this definition"></a><br /></dt>
+<dd><p><a class="reference internal" href="#classsup_1_1oac__tree_1_1Procedure"><span class="std std-ref">Procedure</span></a> contains a tree of instructions. </p>
+<p>A <a class="reference internal" href="#classsup_1_1oac__tree_1_1Procedure"><span class="std std-ref">Procedure</span></a> object contains a full instruction tree and a workspace </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The client of the <a class="reference internal" href="#classsup_1_1oac__tree_1_1Procedure"><span class="std std-ref">Procedure</span></a>, i.e. the object responsible for its creation and destruction, needs to ensure that the <a class="reference internal" href="#classsup_1_1oac__tree_1_1Procedure"><span class="std std-ref">Procedure</span></a> is correctly set up before executing it (by calling the Setup method on it). Likewise, the client needs to call Reset on the <a class="reference internal" href="#classsup_1_1oac__tree_1_1Procedure"><span class="std std-ref">Procedure</span></a> before destroying the <a class="reference internal" href="userinterface.html#classsup_1_1oac__tree_1_1UserInterface"><span class="std std-ref">UserInterface</span></a> class. Reset will block until all threads have terminated. </p>
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree9Procedure9ProcedureERKNSt6stringE">
+<span id="_CPPv3N3sup8oac_tree9Procedure9ProcedureERKNSt6stringE"></span><span id="_CPPv2N3sup8oac_tree9Procedure9ProcedureERKNSt6stringE"></span><span id="sup::oac_tree::Procedure::Procedure__ssCR"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a886398b2cc3fbfd34fdec453d6f2a7a6"></span><span class="sig-name descname"><span class="n"><span class="pre">Procedure</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">filename</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;&quot;</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree9Procedure9ProcedureERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Constructor. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>filename</strong> – Filename of this procedure or empty if not created from file. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree9Procedure11GetFilenameEv">
+<span id="_CPPv3NK3sup8oac_tree9Procedure11GetFilenameEv"></span><span id="_CPPv2NK3sup8oac_tree9Procedure11GetFilenameEv"></span><span id="sup::oac_tree::Procedure::GetFilenameC"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1ab7d668a76aa300627de7492578d11cda"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetFilename</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree9Procedure11GetFilenameEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the filename of this procedure (if loaded from file). </p>
+<p>
+This filename is used for external includes with relative pathnames. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Filename of this procedure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree9Procedure15RootInstructionEv">
+<span id="_CPPv3N3sup8oac_tree9Procedure15RootInstructionEv"></span><span id="_CPPv2N3sup8oac_tree9Procedure15RootInstructionEv"></span><span id="sup::oac_tree::Procedure::RootInstruction"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a202166d0e64c7226d255c60b08245c1d"></span><a class="reference internal" href="instruction.html#_CPPv4N3sup8oac_tree11InstructionE" title="sup::oac_tree::Instruction"><span class="n"><span class="pre">Instruction</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">RootInstruction</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree9Procedure15RootInstructionEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get root instruction. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Root instruction. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree9Procedure15RootInstructionEv">
+<span id="_CPPv3NK3sup8oac_tree9Procedure15RootInstructionEv"></span><span id="_CPPv2NK3sup8oac_tree9Procedure15RootInstructionEv"></span><span id="sup::oac_tree::Procedure::RootInstructionC"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1aa35f64e051f0e234356e54a3afcfdc0e"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="instruction.html#_CPPv4N3sup8oac_tree11InstructionE" title="sup::oac_tree::Instruction"><span class="n"><span class="pre">Instruction</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">RootInstruction</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree9Procedure15RootInstructionEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get root instruction (const version). </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Root instruction. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree9Procedure18GetTopInstructionsEv">
+<span id="_CPPv3NK3sup8oac_tree9Procedure18GetTopInstructionsEv"></span><span id="_CPPv2NK3sup8oac_tree9Procedure18GetTopInstructionsEv"></span><span id="sup::oac_tree::Procedure::GetTopInstructionsC"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1ae80a9fc930238a75083ac1c34f5c3e84"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="instruction.html#_CPPv4N3sup8oac_tree11InstructionE" title="sup::oac_tree::Instruction"><span class="n"><span class="pre">Instruction</span></span></a><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetTopInstructions</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree9Procedure18GetTopInstructionsEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get top-level instructions. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of top-level instructions. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree9Procedure10GetContextEv">
+<span id="_CPPv3NK3sup8oac_tree9Procedure10GetContextEv"></span><span id="_CPPv2NK3sup8oac_tree9Procedure10GetContextEv"></span><span id="sup::oac_tree::Procedure::GetContextC"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a559f1dce37150cda65e82d8d54c810fc"></span><span class="n"><span class="pre">ProcedureContext</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetContext</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree9Procedure10GetContextEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the procedure’s context, like its filename and the main ProcedureStore. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ProcedureContext structure. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree9Procedure22GetNextInstructionTreeEv">
+<span id="_CPPv3NK3sup8oac_tree9Procedure22GetNextInstructionTreeEv"></span><span id="_CPPv2NK3sup8oac_tree9Procedure22GetNextInstructionTreeEv"></span><span id="sup::oac_tree::Procedure::GetNextInstructionTreeC"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a7dad2de6abc2191a9930081dc4844f6f"></span><span class="n"><span class="pre">InstructionTree</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetNextInstructionTree</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree9Procedure22GetNextInstructionTreeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get tree instructions that will be executed next. </p>
+<p>
+This method should only be called in between execution steps. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tree of instructions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree9Procedure19GetInstructionCountEv">
+<span id="_CPPv3NK3sup8oac_tree9Procedure19GetInstructionCountEv"></span><span id="_CPPv2NK3sup8oac_tree9Procedure19GetInstructionCountEv"></span><span id="sup::oac_tree::Procedure::GetInstructionCountC"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a7df8e5cde9703e91454018010be37e2d"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetInstructionCount</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree9Procedure19GetInstructionCountEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get number of top-level instructions. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of instructions </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree9Procedure15PushInstructionERRNSt10unique_ptrI11InstructionEE">
+<span id="_CPPv3N3sup8oac_tree9Procedure15PushInstructionERRNSt10unique_ptrI11InstructionEE"></span><span id="_CPPv2N3sup8oac_tree9Procedure15PushInstructionERRNSt10unique_ptrI11InstructionEE"></span><span id="sup::oac_tree::Procedure::PushInstruction__std::unique_ptr:Instruction:RR"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1af7df1c276e13d90ee39786c316390efc"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PushInstruction</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="instruction.html#_CPPv4N3sup8oac_tree11InstructionE" title="sup::oac_tree::Instruction"><span class="n"><span class="pre">Instruction</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">instruction</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree9Procedure15PushInstructionERRNSt10unique_ptrI11InstructionEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Push <a class="reference internal" href="instruction.html#classsup_1_1oac__tree_1_1Instruction"><span class="std std-ref">Instruction</span></a> at top level. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>instruction</strong> – <a class="reference internal" href="instruction.html#classsup_1_1oac__tree_1_1Instruction"><span class="std std-ref">Instruction</span></a> to push.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">InvalidOperationException</span></span></span> – when trying to pass an empty unique_ptr. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree9Procedure17InsertInstructionERRNSt10unique_ptrI11InstructionEEi">
+<span id="_CPPv3N3sup8oac_tree9Procedure17InsertInstructionERRNSt10unique_ptrI11InstructionEEi"></span><span id="_CPPv2N3sup8oac_tree9Procedure17InsertInstructionERRNSt10unique_ptrI11InstructionEEi"></span><span id="sup::oac_tree::Procedure::InsertInstruction__std::unique_ptr:Instruction:RR.i"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a9fe7abd28c3a62b1bda4cb0ae01b0af3"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InsertInstruction</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="instruction.html#_CPPv4N3sup8oac_tree11InstructionE" title="sup::oac_tree::Instruction"><span class="n"><span class="pre">Instruction</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">instruction</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">index</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree9Procedure17InsertInstructionERRNSt10unique_ptrI11InstructionEEi" title="Link to this definition"></a><br /></dt>
+<dd><p>Inserts <a class="reference internal" href="instruction.html#classsup_1_1oac__tree_1_1Instruction"><span class="std std-ref">Instruction</span></a> at the specified position. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instruction</strong> – <a class="reference internal" href="instruction.html#classsup_1_1oac__tree_1_1Instruction"><span class="std std-ref">Instruction</span></a> to be inserted </p></li>
+<li><p><strong>index</strong> – Position in the vector where instruction is inserted. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true on successful insertion. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree9Procedure15TakeInstructionEi">
+<span id="_CPPv3N3sup8oac_tree9Procedure15TakeInstructionEi"></span><span id="_CPPv2N3sup8oac_tree9Procedure15TakeInstructionEi"></span><span id="sup::oac_tree::Procedure::TakeInstruction__i"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a64f8c0931bb41545ef68f70d1cc853c3"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="instruction.html#_CPPv4N3sup8oac_tree11InstructionE" title="sup::oac_tree::Instruction"><span class="n"><span class="pre">Instruction</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TakeInstruction</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">index</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree9Procedure15TakeInstructionEi" title="Link to this definition"></a><br /></dt>
+<dd><p>Removes <a class="reference internal" href="instruction.html#classsup_1_1oac__tree_1_1Instruction"><span class="std std-ref">Instruction</span></a> from the specified position. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>index</strong> – Position in the vector from where instruction is removed. </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Removed instruction </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree9Procedure11AddVariableENSt6stringERRNSt10unique_ptrI8VariableEE">
+<span id="_CPPv3N3sup8oac_tree9Procedure11AddVariableENSt6stringERRNSt10unique_ptrI8VariableEE"></span><span id="_CPPv2N3sup8oac_tree9Procedure11AddVariableENSt6stringERRNSt10unique_ptrI8VariableEE"></span><span id="sup::oac_tree::Procedure::AddVariable__ss.std::unique_ptr:Variable:RR"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a78ab200b06f84ea4015d3618efe0fc52"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddVariable</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="variable.html#_CPPv4N3sup8oac_tree8VariableE" title="sup::oac_tree::Variable"><span class="n"><span class="pre">Variable</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">var</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree9Procedure11AddVariableENSt6stringERRNSt10unique_ptrI8VariableEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Add variable. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – <a class="reference internal" href="variable.html#classsup_1_1oac__tree_1_1Variable"><span class="std std-ref">Variable</span></a> name. </p></li>
+<li><p><strong>var</strong> – <a class="reference internal" href="variable.html#classsup_1_1oac__tree_1_1Variable"><span class="std std-ref">Variable</span></a> to add. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true on successful addition. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree9Procedure13VariableNamesEv">
+<span id="_CPPv3NK3sup8oac_tree9Procedure13VariableNamesEv"></span><span id="_CPPv2NK3sup8oac_tree9Procedure13VariableNamesEv"></span><span id="sup::oac_tree::Procedure::VariableNamesC"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1acbd5a99f352a08a2dd54a9328924d55a"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">VariableNames</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree9Procedure13VariableNamesEv" title="Link to this definition"></a><br /></dt>
+<dd><p>List all variable names. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="variable.html#classsup_1_1oac__tree_1_1Variable"><span class="std std-ref">Variable</span></a> name list. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree9Procedure16GetVariableValueENSt6stringERN3sup3dto8AnyValueE">
+<span id="_CPPv3NK3sup8oac_tree9Procedure16GetVariableValueENSt6stringERN3sup3dto8AnyValueE"></span><span id="_CPPv2NK3sup8oac_tree9Procedure16GetVariableValueENSt6stringERN3sup3dto8AnyValueE"></span><span id="sup::oac_tree::Procedure::GetVariableValue__ss.sup::dto::AnyValueRC"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a364813814a1173a503e8c7e0de2033a1"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetVariableValue</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name</span></span>, <span class="n"><span class="pre">sup</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">dto</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree9Procedure16GetVariableValueENSt6stringERN3sup3dto8AnyValueE" title="Link to this definition"></a><br /></dt>
+<dd><p>Get variable value. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – <a class="reference internal" href="variable.html#classsup_1_1oac__tree_1_1Variable"><span class="std std-ref">Variable</span></a> name</p></li>
+<li><p><strong>value</strong> – AnyValue to where the variable will be retrieved.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true on successful retrieval. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree9Procedure5SetupEv">
+<span id="_CPPv3N3sup8oac_tree9Procedure5SetupEv"></span><span id="_CPPv2N3sup8oac_tree9Procedure5SetupEv"></span><span id="sup::oac_tree::Procedure::Setup"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1ad48ffb9748a13f3e428c75c2d7fd028a"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Setup</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree9Procedure5SetupEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Setup the procedure. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree9Procedure13ExecuteSingleER13UserInterface">
+<span id="_CPPv3N3sup8oac_tree9Procedure13ExecuteSingleER13UserInterface"></span><span id="_CPPv2N3sup8oac_tree9Procedure13ExecuteSingleER13UserInterface"></span><span id="sup::oac_tree::Procedure::ExecuteSingle__UserInterfaceR"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a60d2ce05968f6a620ade33806f7f8a05"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ExecuteSingle</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="userinterface.html#_CPPv4N3sup8oac_tree13UserInterfaceE" title="sup::oac_tree::UserInterface"><span class="n"><span class="pre">UserInterface</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ui</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree9Procedure13ExecuteSingleER13UserInterface" title="Link to this definition"></a><br /></dt>
+<dd><p>Execute single step of procedure. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ui</strong> – <a class="reference internal" href="userinterface.html#classsup_1_1oac__tree_1_1UserInterface"><span class="std std-ref">UserInterface</span></a> to use for instruction input/output. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree9Procedure4HaltEv">
+<span id="_CPPv3N3sup8oac_tree9Procedure4HaltEv"></span><span id="_CPPv2N3sup8oac_tree9Procedure4HaltEv"></span><span id="sup::oac_tree::Procedure::Halt"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a236bb3a474e06d26199f95b4722992f7"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Halt</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree9Procedure4HaltEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Halt the procedure’s execution. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is mainly used for interrupting all instructions that are running in a separate thread. </p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree9Procedure5ResetER13UserInterface">
+<span id="_CPPv3N3sup8oac_tree9Procedure5ResetER13UserInterface"></span><span id="_CPPv2N3sup8oac_tree9Procedure5ResetER13UserInterface"></span><span id="sup::oac_tree::Procedure::Reset__UserInterfaceR"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a8e83b3a35b6f3ef8e5e958fb1ef97800"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Reset</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="userinterface.html#_CPPv4N3sup8oac_tree13UserInterfaceE" title="sup::oac_tree::UserInterface"><span class="n"><span class="pre">UserInterface</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ui</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree9Procedure5ResetER13UserInterface" title="Link to this definition"></a><br /></dt>
+<dd><p>Reset the procedure to its initial state after setup. </p>
+<p>
+All workspaces are torn down and setup again; instructions receive a reset command. The procedure can be started afterwards in a fresh state. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ui</strong> – <a class="reference internal" href="userinterface.html#classsup_1_1oac__tree_1_1UserInterface"><span class="std std-ref">UserInterface</span></a> to use for instruction status updates.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree9Procedure9GetStatusEv">
+<span id="_CPPv3NK3sup8oac_tree9Procedure9GetStatusEv"></span><span id="_CPPv2NK3sup8oac_tree9Procedure9GetStatusEv"></span><span id="sup::oac_tree::Procedure::GetStatusC"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a81666049db9dcb8da33b0425fde9bc7a"></span><span class="n"><span class="pre">ExecutionStatus</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetStatus</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree9Procedure9GetStatusEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Retrieve status of root sequence. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Current execution status of the root instruction. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree9Procedure12HasAttributeERKNSt6stringE">
+<span id="_CPPv3NK3sup8oac_tree9Procedure12HasAttributeERKNSt6stringE"></span><span id="_CPPv2NK3sup8oac_tree9Procedure12HasAttributeERKNSt6stringE"></span><span id="sup::oac_tree::Procedure::HasAttribute__ssCRC"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1aec985e0abd75d1d808777c10d0b6fcfe"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HasAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree9Procedure12HasAttributeERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Indicate presence of attribute with given name. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – Attribute name. </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true when present. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree9Procedure18GetAttributeStringERKNSt6stringE">
+<span id="_CPPv3NK3sup8oac_tree9Procedure18GetAttributeStringERKNSt6stringE"></span><span id="_CPPv2NK3sup8oac_tree9Procedure18GetAttributeStringERKNSt6stringE"></span><span id="sup::oac_tree::Procedure::GetAttributeString__ssCRC"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a4d0326b55fb4e01693e25c04c79ef7a7"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetAttributeString</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree9Procedure18GetAttributeStringERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Get attribute with given name. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – Attribute name. </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Attribute value. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree9Procedure12AddAttributeERKNSt6stringERKNSt6stringE">
+<span id="_CPPv3N3sup8oac_tree9Procedure12AddAttributeERKNSt6stringERKNSt6stringE"></span><span id="_CPPv2N3sup8oac_tree9Procedure12AddAttributeERKNSt6stringERKNSt6stringE"></span><span id="sup::oac_tree::Procedure::AddAttribute__ssCR.ssCR"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a1f0a71fdc8f72e81d80926d12cee4be9"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree9Procedure12AddAttributeERKNSt6stringERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Set attribute with given name and value. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Attribute name. </p></li>
+<li><p><strong>value</strong> – Attribute value. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true when successful. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree9Procedure13AddAttributesERK19StringAttributeList">
+<span id="_CPPv3N3sup8oac_tree9Procedure13AddAttributesERK19StringAttributeList"></span><span id="_CPPv2N3sup8oac_tree9Procedure13AddAttributesERK19StringAttributeList"></span><span id="sup::oac_tree::Procedure::AddAttributes__StringAttributeListCR"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a7c8a20048fa1e61e8e88a18d6ddf601e"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddAttributes</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">StringAttributeList</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">str_attributes</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree9Procedure13AddAttributesERK19StringAttributeList" title="Link to this definition"></a><br /></dt>
+<dd><p>Add all attributes from a given map. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>str_attributes</strong> – List of attributes. </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true when successful. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0ENK3sup8oac_tree9Procedure17GetAttributeValueE1TRKNSt6stringE">
+<span id="_CPPv3I0ENK3sup8oac_tree9Procedure17GetAttributeValueERKNSt6stringE"></span><span id="_CPPv2I0ENK3sup8oac_tree9Procedure17GetAttributeValueERKNSt6stringE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a893d9dcb4d83331394b6332db2a31f25"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0ENK3sup8oac_tree9Procedure17GetAttributeValueE1TRKNSt6stringE" title="sup::oac_tree::Procedure::GetAttributeValue::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetAttributeValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">attr_name</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0ENK3sup8oac_tree9Procedure17GetAttributeValueE1TRKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Get attribute value with given name and type. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attr_name</strong> – Attribute name. </p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">RuntimeException</span></span></span> – when attribute with given name was not found or its value could not be converted to the requested type. </p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Attribute value of requested type.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree9Procedure12GetWorkspaceEv">
+<span id="_CPPv3NK3sup8oac_tree9Procedure12GetWorkspaceEv"></span><span id="_CPPv2NK3sup8oac_tree9Procedure12GetWorkspaceEv"></span><span id="sup::oac_tree::Procedure::GetWorkspaceC"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1ae51a18ab027954ab059b7851ad0f464b"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Workspace</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetWorkspace</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree9Procedure12GetWorkspaceEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns pointer to internal workspace. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>workspace. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree9Procedure12GetWorkspaceEv">
+<span id="_CPPv3N3sup8oac_tree9Procedure12GetWorkspaceEv"></span><span id="_CPPv2N3sup8oac_tree9Procedure12GetWorkspaceEv"></span><span id="sup::oac_tree::Procedure::GetWorkspace"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1ad8da2a7b6a420233450bb60dbd1fe99b"></span><span class="n"><span class="pre">Workspace</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetWorkspace</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree9Procedure12GetWorkspaceEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns pointer to internal workspace. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>workspace. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree9Procedure11GetPreambleEv">
+<span id="_CPPv3NK3sup8oac_tree9Procedure11GetPreambleEv"></span><span id="_CPPv2NK3sup8oac_tree9Procedure11GetPreambleEv"></span><span id="sup::oac_tree::Procedure::GetPreambleC"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a75e6370291f397c4666959f30df8642c"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">ProcedurePreamble</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetPreamble</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree9Procedure11GetPreambleEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns procedure’s preamble. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ProcedurePreamble object reference. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree9Procedure11GetPreambleEv">
+<span id="_CPPv3N3sup8oac_tree9Procedure11GetPreambleEv"></span><span id="_CPPv2N3sup8oac_tree9Procedure11GetPreambleEv"></span><span id="sup::oac_tree::Procedure::GetPreamble"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1af2dfbb7d9220757ee2b8155830045418"></span><span class="n"><span class="pre">ProcedurePreamble</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetPreamble</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree9Procedure11GetPreambleEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns procedure’s preamble. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ProcedurePreamble object reference. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree9Procedure12RegisterTypeERKN3sup3dto7AnyTypeE">
+<span id="_CPPv3N3sup8oac_tree9Procedure12RegisterTypeERKN3sup3dto7AnyTypeE"></span><span id="_CPPv2N3sup8oac_tree9Procedure12RegisterTypeERKN3sup3dto7AnyTypeE"></span><span id="sup::oac_tree::Procedure::RegisterType__sup::dto::AnyTypeCR"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1aed009020f9b9182c3b3513d2dbad0258"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RegisterType</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">sup</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">dto</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">anytype</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree9Procedure12RegisterTypeERKN3sup3dto7AnyTypeE" title="Link to this definition"></a><br /></dt>
+<dd><p>Register an AnyType instance under its own name. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>anytype</strong> – AnyType instance to register.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true on successful registration. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree9Procedure15GetTypeRegistryEv">
+<span id="_CPPv3NK3sup8oac_tree9Procedure15GetTypeRegistryEv"></span><span id="_CPPv2NK3sup8oac_tree9Procedure15GetTypeRegistryEv"></span><span id="sup::oac_tree::Procedure::GetTypeRegistryC"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a6f4e391ccf72cb2ebbbf5aa8ebe45591"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">sup</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">dto</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">AnyTypeRegistry</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetTypeRegistry</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree9Procedure15GetTypeRegistryEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get the current type registry. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Reference to type registry. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree9Procedure23RegisterGenericCallbackERK15GenericCallbackPv">
+<span id="_CPPv3N3sup8oac_tree9Procedure23RegisterGenericCallbackERK15GenericCallbackPv"></span><span id="_CPPv2N3sup8oac_tree9Procedure23RegisterGenericCallbackERK15GenericCallbackPv"></span><span id="sup::oac_tree::Procedure::RegisterGenericCallback__GenericCallbackCR.voidP"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a2611f2c2286f46ebb62b8ac8e81db976"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RegisterGenericCallback</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">GenericCallback</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">cb</span></span>, <span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">listener</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree9Procedure23RegisterGenericCallbackERK15GenericCallbackPv" title="Link to this definition"></a><br /></dt>
+<dd><p>Add a generic callback for variable updates. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Users are responsible for ensuring the callback outlives the underlying workspace or to unregister it using ScopeGuard object. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>cb</strong> – Callback function object. </p></li>
+<li><p><strong>listener</strong> – Pointer to object that listens to updates.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true if adding the callback was successful.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree9Procedure13SetupPreambleEv">
+<span id="_CPPv3N3sup8oac_tree9Procedure13SetupPreambleEv"></span><span id="_CPPv2N3sup8oac_tree9Procedure13SetupPreambleEv"></span><span id="sup::oac_tree::Procedure::SetupPreamble"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a820672da733b088875563b16570df23b"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetupPreamble</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree9Procedure13SetupPreambleEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Register types and load plugins defined in the preamble. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="userinterface.html" class="btn btn-neutral float-left" title="UserInterface" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="variable.html" class="btn btn-neutral float-right" title="Variable" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright ITER Organization.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

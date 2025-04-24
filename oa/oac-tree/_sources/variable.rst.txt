@@ -1,0 +1,175 @@
+.. _Variable:
+
+Variable
+========
+
+.. contents::
+   :local:
+
+
+The ``Variable`` class is an interface for workspace variables, designed to manage and manipulate various types of variables within a software system. It provides an abstract representation of variables with different types and allows users to interact with them uniformly while ensuring thread safety for specific methods.
+
+The Variable class uses ``sup::dto::AnyValue`` as a common interface to represent any structured data.
+
+While all variables are globally accessible by the instructions in a procedure, the backend, i.e. where the values of these variables are stored, could be very diverse: file, memory, network, database, etc.
+
+Architecture
+------------
+
+The ``Variable`` class is based on the non-virtual interface (NVI) idiom to support the distinction between thread-safe and non-thread-safe methods and to allow for a simpler API to override by implementers of concrete variables. It employs locks to provide thread safety for certain public methods that can be called during execution, ensuring that multiple threads can safely access these methods concurrently. Other methods should be called only from a single thread to prevent data corruption or race conditions.
+
+The ``Variable`` class allows users to define variables of different types. Since it is an abstract base class, concrete variables are implemented in derived classes.
+
+Variable Value Constraints
+--------------------------
+
+The generic non-virtual implementation of ``Variable`` tries not to impose any constraints on the type of values that can be set or read back from a concrete ``Variable``. However, concrete implementations can, and often will, impose specific constraints in the way they override the virtual member functions ``GetValueImpl`` and ``SetValueImpl``.
+
+To clarify the general semantics of getting/setting values to a ``Variable``, the following subsections will detail the internal logic that is provided in the base class implementations.
+
+GetValue
+^^^^^^^^
+
+The full signature of the ``GetValue`` member function is:
+
+.. code-block:: c++
+
+   bool Variable::GetValue(sup::dto::AnyValue& value, const std::string& fieldname) const;
+
+This function will perform the following steps:
+
+* Retrieve the full value of the concrete ``Variable`` by calling the overriden ``GetValueImpl`` member function. Return ``false`` if this fails.
+* If `fieldname` is non-empty, retrieve the substructure identified by this fieldname. Return ``false`` is the value didn't have such a field.
+* If `value` is an empty value, assign the previous result to it. Otherwise, try to convert that result to `value`.
+
+This means that the client of this function can request a conversion of the underlying value by providing an ``AnyValue`` with non-empty type.
+
+SetValue
+^^^^^^^^
+
+The full signature of the ``SetValue`` member function is:
+
+.. code-block:: c++
+
+   bool Variable::SetValue(const sup::dto::AnyValue& value, const std::string& fieldname) const;
+
+This function will perform the following steps:
+
+* If 'fieldname' is empty, return the result of ``SetValueImpl``.
+* Otherwise:
+  * Retrieve the value of the variable by calling ``GetValueImpl``.
+  * If that value does not contain the field with name `fieldname`, return ``false``.
+  * Try to assign `value` to the field with name 'fieldname' and return ``false`` if that fails. Note that this assignment will only fail if the type of the field cannot be changed, i.e. it is an array element or descendant thereof, and conversion fails.
+  * Return the result ``SetValueImpl`` with the updated value as argument.
+
+Usage
+-----
+
+Two specialisations of the ``Variable`` class are included in **oac-tree**. They are the `local variable` and the `file variable`. The implementation of `Local Variable` will be used to provide examples.
+
+Note that more specialized variables are provided by plugins. For example, an EPICS ChannelAccess client variable is defined by ``oac-tree-plugin-epics``.
+
+Creating a Variable
+^^^^^^^^^^^^^^^^^^^^
+
+To obtain an instance of an existing variable type, provided by the core library or one of the loaded plugins, one typically asks a ``VariableRegistry`` to instantiate it:
+
+.. code-block:: c++
+
+   auto local_var = GlobalVariableRegistry().Create("Local");
+
+Variable Initialization
+^^^^^^^^^^^^^^^^^^^^^^^
+
+Before instructions can access, i.e. read or write, the value of a variable, it needs to be properly initialized first. This is done by calling the ``Setup`` method on the variable. Initialization may include connecting to a database, obtaining a file handle, etc. The ``Setup`` method also receives a reference to a ``Workspace``, allowing it to access its ``AnyTypeRegistry``. The method returns an object of type ``SetupTeardownActions`` that allows the workspace to register actions that need to be executed after all variables have been setup, as well as teardown actions that will be executed before all variables will be torn down. The default constructed ``SetupTeardownActions`` object contains no actions at all. This object also contains an identifier that allows to avoid multiple registrations. For example, if such an action only needs to be called once per variable type, this type can be used as an identifier and the workspace will only register a single instance with that identifier.
+
+.. code-block:: c++
+
+   Workspace ws;
+   local_var->Setup(ws);
+
+Setting and Getting Variable Values
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Users can access and modify the value of a variable using the ``GetValue`` and ``SetValue`` methods, respectively. These methods provide a way to read and update variable values, or their subfields, in a controlled manner.
+
+.. code-block:: c++
+
+   // Set the current value of a variable
+   sup::dto::AnyValue value = {{"index", {SignedInteger8Type, 1}}};
+   local_var->SetValue(value);
+
+   // Get the index field from the variable
+   sup::dto::AnyValue index;
+   local_var->GetValue(index, "index");
+
+The access to subfields of a variable's value is provided by the base class ``Variable`` itself, requiring implementers of custom variables to only override the virtual private methods for non field-based access.
+
+Checking Variable Availability
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The availability of a variable depends on the specific derived class implementation. For example, for a network variable, availability could mean that a stable network connection was made to be able to obtain its value. Users can check if a variable is available using the ``IsAvailable`` method.
+
+.. code-block:: c++
+
+   if (local_var->IsAvailable()) {
+       // Variable is available
+   } else {
+       // Variable is not available
+   }
+
+Registering Callback for Value Updates
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Users can register a callback function to be notified of value updates using the ``SetNotifyCallback`` method. This allows for real-time responsiveness to changes in variable values. Note however that it is typically the responsibility of the ``Workspace`` to subscribe to such changes and propagate these to other interested software components.
+
+.. code-block:: c++
+
+   // Define a callback function
+   void OnValueUpdate(const sup::dto::AnyValue& value, bool connected) {
+       // Handle the value update
+       // ...
+   }
+
+   local_var->SetNotifyCallback(OnValueUpdate); // Register the callback function
+
+Managing Attributes
+^^^^^^^^^^^^^^^^^^^
+
+The `Variable` class supports an attribute system (see :ref:`Attribute System`). Users can set, retrieve, and manipulate attributes using various attribute-related methods:
+
+.. code-block:: c++
+
+   // Add attributes to the numeric variable
+   local_var->AddAttribute("units", "kg");
+   local_var->AddAttribute("precision", "2");
+
+   // Retrieve attribute values
+   std::string units = local_var->GetAttributeString("units");
+   int precision;
+   if (!local_var->GetAttributeValue("precision", precision))
+   {
+     // deal with error retrieving the attribute's value as an integer...
+   }
+
+Tearing down a Variable
+^^^^^^^^^^^^^^^^^^^^^^^
+
+The `Teardown` method resets the variable to the state it had prior to initialization. This means that attributes are still present, but other internal state data is reset. For example, it can disconnect from external resources or clear values.
+
+.. code-block:: c++
+
+   local_var->Teardown(); // Reset the numeric variable
+
+Attribute System
+----------------
+
+The attribute system, together with a fixed typename for each concrete variable implementation, allows for handling variables in an opaque way: together they fully define the behavior of a variable and no implementation specific methods are required to initialize them. This system makes it possible to fully instantiate and initialize variables in a data-driven way and is used when parsing procedure XML files. See :ref:`Attribute System` in the `Instruction` documentation for more information on the attribute system.
+
+Class definition
+----------------
+
+Next is presented the definition of the ``Variable`` class and its main methods.
+
+.. doxygenclass:: sup::oac_tree::Variable
+   :members:

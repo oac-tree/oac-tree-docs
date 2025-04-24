@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instruction &mdash; oac-tree</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=42d1b3bd"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Runner" href="runner.html" />
+    <link rel="prev" title="API" href="API.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            oac-tree
+          </a>
+              <div class="version">
+                4.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coreinstructionsvariables.html">Core Instructions/Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugincreation.html">Extending the oac-tree with plugins</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="API.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Instruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#architecture">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#execution-status">Execution Status</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#execution-logic">Execution Logic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#creating-an-instruction">Creating an Instruction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#instruction-initialization">Instruction Initialization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#executing-instructions">Executing Instructions</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#managing-attributes">Managing Attributes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#halting-an-instruction">Halting an Instruction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#resetting-an-instruction">Resetting an Instruction</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#attribute-system">Attribute System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#class-definition">Class definition</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N3sup8oac_tree11InstructionE"><code class="docutils literal notranslate"><span class="pre">sup::oac_tree::Instruction</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="runner.html">Runner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userinterface.html">UserInterface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="procedure.html">Procedure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variable.html">Variable</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">oac-tree</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="API.html">API</a></li>
+      <li class="breadcrumb-item active">Instruction</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/instruction.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="instruction">
+<span id="id1"></span><h1>Instruction<a class="headerlink" href="#instruction" title="Link to this heading"></a></h1>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#architecture" id="id3">Architecture</a></p></li>
+<li><p><a class="reference internal" href="#execution-status" id="id4">Execution Status</a></p></li>
+<li><p><a class="reference internal" href="#execution-logic" id="id5">Execution Logic</a></p></li>
+<li><p><a class="reference internal" href="#usage" id="id6">Usage</a></p>
+<ul>
+<li><p><a class="reference internal" href="#creating-an-instruction" id="id7">Creating an Instruction</a></p></li>
+<li><p><a class="reference internal" href="#instruction-initialization" id="id8">Instruction Initialization</a></p></li>
+<li><p><a class="reference internal" href="#executing-instructions" id="id9">Executing Instructions</a></p></li>
+<li><p><a class="reference internal" href="#managing-attributes" id="id10">Managing Attributes</a></p></li>
+<li><p><a class="reference internal" href="#halting-an-instruction" id="id11">Halting an Instruction</a></p></li>
+<li><p><a class="reference internal" href="#resetting-an-instruction" id="id12">Resetting an Instruction</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#attribute-system" id="id13">Attribute System</a></p></li>
+<li><p><a class="reference internal" href="#class-definition" id="id14">Class definition</a></p></li>
+</ul>
+</nav>
+<p>The <code class="docutils literal notranslate"><span class="pre">Instruction</span></code> class is an interface for all executable instructions in a procedure. It provides an abstract representation of actions that can be executed through a uniform API.</p>
+<p>There are three main categories of instructions:</p>
+<dl class="simple">
+<dt>Compound instruction</dt><dd><p>Instruction that can have multiple child instructions.</p>
+</dd>
+<dt>Decorator instruction</dt><dd><p>Instruction that has exactly one child instruction.</p>
+</dd>
+<dt>Action</dt><dd><p>These are the leafs of instruction trees and represent a concrete action to be taken. They have no child instructions.</p>
+</dd>
+</dl>
+<p>Compound instructions are intended for executing their children with a certain execution logic depending on the implementation (simple sequence, parallel execution, execute until at least one child succeeds, etc). The decorator instruction can be considered as a modifier of the behaviour of the enclosed child (e.g. turn failure into success). Actions, depending on implementation, can perform standard simple operations (wait, print log message, etc) or take care of complex activity (compare variables in oac-tree workspace).</p>
+<section id="architecture">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Architecture</a><a class="headerlink" href="#architecture" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Instruction</span></code> class is based on the non-virtual interface (NVI) idiom to allow for a simpler API to override by implementers of concrete instructions.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Instruction</span></code> class allows users to define instructions that are specific to the environment where the <strong>oac-tree</strong> will be used. Since it is an abstract base class, concrete instructions are implemented in derived classes.</p>
+</section>
+<section id="execution-status">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Execution Status</a><a class="headerlink" href="#execution-status" title="Link to this heading"></a></h2>
+<p>Each instruction has an <code class="docutils literal notranslate"><span class="pre">ExecutionStatus</span></code> enumeration that indicates in which phase of execution the instruction currently is:</p>
+<dl class="simple">
+<dt>NOT_STARTED</dt><dd><p>The instruction is ready for its first execution. This is the state of an instruction that was never executed or just reset.</p>
+</dd>
+<dt>NOT_FINISHED</dt><dd><p>The instruction already received at least one tick, but has not yet finished and is waiting to be ticked again. This state often indicates compound instructions. For example, a <cite>Sequence</cite> instruction that was ticked once, but has multiple child instructions, will report this status, since only its first child was ticked. It expects to be ticked again, so it can propagate those ticks to the other child instructions. In compound instructions, this status takes precedence over the <cite>RUNNING</cite> status to allow for immediate ticking of child instructions that are waiting.</p>
+</dd>
+<dt>RUNNING</dt><dd><p>The instruction, or one of its descendants (child or descendants of child) is executing in a separate thread. The instruction is not truly waiting to be ticked again, but must be ticked at some point to check if those threads have finished executing. The difference with <cite>NOT_FINISHED</cite> is that it would not be beneficial to continuously tick an instruction with the <cite>RUNNING</cite> status, as this would consume unnecessary resources. Typically, a small timeout is used between ticks of an instruction that return this status.</p>
+</dd>
+<dt>SUCCESS</dt><dd><p>The instruction’s execution finished successfully.</p>
+</dd>
+<dt>FAILURE</dt><dd><p>The instruction’s execution finished with a failure. Note that <cite>FAILURE</cite> is not meant to carry a negative connotation and simply means that the expected result has not been achieved. For example, an instruction waiting for a certain condition with a timeout will typically report <cite>FAILURE</cite> if the timeout expires before reaching the condition.</p>
+</dd>
+</dl>
+</section>
+<section id="execution-logic">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Execution Logic</a><a class="headerlink" href="#execution-logic" title="Link to this heading"></a></h2>
+<p>The non-virtual implementation of <code class="docutils literal notranslate"><span class="pre">Instruction::ExecuteSingle</span></code> provides a uniform way of managing the instruction’s execution status, calling specific (virtual) hooks on the instruction and notifying the UserInterface of any status updates.</p>
+<p>During a single tick, the <code class="docutils literal notranslate"><span class="pre">ExecuteSingle</span></code> function will perform the following actions:</p>
+<ul class="simple">
+<li><p>If the status is <cite>NOT_STARTED</cite>, i.e. this is the first time the instruction will be ticked (or just after a reset), the virtual method <code class="docutils literal notranslate"><span class="pre">InitHook</span></code> is called, which can be overriden in case some extra code needs to run the first time. Afterwards, if the initialization was successful, the status is put to <cite>NOT_FINISHED</cite> and the UserInterface is notified of this status change. If the initialization failed, the status is set to <cite>FAILURE</cite> and the UserInterface is notified.</p></li>
+<li><p>If the initialzation was successful, the status is updated with the result of the virtual <code class="docutils literal notranslate"><span class="pre">ExecuteSingleImpl</span></code> method. This function needs to be overriden by all concrete instructions and should contain the main execution logic.</p></li>
+<li><p>If the previous step resulted in a change of status, the UserInterface is notified of this change.</p></li>
+</ul>
+</section>
+<section id="usage">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Usage</a><a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<p>For compound and decorator instructions, specialisations of the <code class="docutils literal notranslate"><span class="pre">Instruction</span></code> class are provided: <code class="docutils literal notranslate"><span class="pre">CompoundInstruction</span></code> and <code class="docutils literal notranslate"><span class="pre">DecoratorInstruction</span></code>. Since these specialisations only provide a common implementation for handling child instructions (and forwarding certain calls to their children), the remainder of this page will focus on action instructions and will use a simple concrete example: the <code class="docutils literal notranslate"><span class="pre">Wait</span></code> instruction.</p>
+<p>Note that many more specialized instructions are provided by plugins.</p>
+<section id="creating-an-instruction">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Creating an Instruction</a><a class="headerlink" href="#creating-an-instruction" title="Link to this heading"></a></h3>
+<p>To obtain an instance of an existing instruction type, provided by the core library or one of the loaded plugins, one typically asks an <code class="docutils literal notranslate"><span class="pre">InstructionRegistry</span></code> to instantiate it:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">wait</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GlobalInstructionRegistry</span><span class="p">().</span><span class="n">Create</span><span class="p">(</span><span class="s">&quot;Wait&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="instruction-initialization">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">Instruction Initialization</a><a class="headerlink" href="#instruction-initialization" title="Link to this heading"></a></h3>
+<p>Before instructions can be executed, they need to be properly initialized first to ensure that they contain the proper attributes to be able to execute. This is done by calling the <code class="docutils literal notranslate"><span class="pre">Setup</span></code> method on the instruction. Initialization typically consists of checking attribute presence, attribute constraints and specialized parsing of some attribute values.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Setup</span></code> member function takes a reference to a procedure as an argument. This procedure reference can be used for complex initialization that requires the context of the instruction that is being set up: for example, <code class="docutils literal notranslate"><span class="pre">Include</span></code> instructions need to know from where the current procedure was loaded to be able to load instructions/procedures from disk using a relative path.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">wait</span><span class="o">-&gt;</span><span class="n">Setup</span><span class="p">(</span><span class="n">proc</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="executing-instructions">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">Executing Instructions</a><a class="headerlink" href="#executing-instructions" title="Link to this heading"></a></h3>
+<p>The execution of instruction trees follows a model where the root of the tree is <em>ticked</em> until that root reports a status that signifies the termination of the tree’s execution. Compound and decorator instructions will propagate these <em>ticks</em> to their appropriate child instructions. A single tick of an instruction results in a single call to the <code class="docutils literal notranslate"><span class="pre">ExecuteSingle</span></code> member function of the instruction, leading to a call to the private member function <code class="docutils literal notranslate"><span class="pre">ExecuteSingleImpl</span></code> (see also <a class="reference internal" href="#execution-logic">Execution Logic</a>).</p>
+<p>For example, to execute the wait instruction:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Assume the existence of a UserInterface implementation, called MyUserInterface</span>
+<span class="n">MyUserInterface</span><span class="w"> </span><span class="n">ui</span><span class="p">;</span>
+<span class="n">Workspace</span><span class="w"> </span><span class="n">ws</span><span class="p">;</span>
+<span class="c1">// Send a single tick to the wait instruction</span>
+<span class="n">wait</span><span class="o">-&gt;</span><span class="n">ExecuteSingle</span><span class="p">(</span><span class="n">ui</span><span class="p">,</span><span class="w"> </span><span class="n">ws</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">ExecuteSingle</span></code> function takes two reference parameters:</p>
+<ul class="simple">
+<li><p>UserInterface reference: to allow input/output and error logging;</p></li>
+<li><p>Workspace reference: to be able to access workspace variables.</p></li>
+</ul>
+</section>
+<section id="managing-attributes">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Managing Attributes</a><a class="headerlink" href="#managing-attributes" title="Link to this heading"></a></h3>
+<p>The <cite>Instruction</cite> class supports the same attribute system as <code class="docutils literal notranslate"><span class="pre">Variable</span></code>: see <a class="reference internal" href="#attribute-system"><span class="std std-ref">Attribute System</span></a>. Users can set, retrieve, and manipulate attributes using various attribute-related methods:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Add attribute to the wait instruction</span>
+<span class="n">wait</span><span class="o">-&gt;</span><span class="n">AddAttribute</span><span class="p">(</span><span class="s">&quot;timeout&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;1.0&quot;</span><span class="p">);</span>
+
+<span class="c1">// Retrieve attribute value</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">timeout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SOME_DEFAULT_VALUE</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">GetAttributeValueAs</span><span class="p">(</span><span class="s">&quot;timeout&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ws</span><span class="p">,</span><span class="w"> </span><span class="n">ui</span><span class="p">,</span><span class="w"> </span><span class="n">timeout</span><span class="p">))</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="c1">// some error occured, act accordingly...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="halting-an-instruction">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">Halting an Instruction</a><a class="headerlink" href="#halting-an-instruction" title="Link to this heading"></a></h3>
+<p>The <cite>Halt</cite> method tries to stop the execution of an instruction. It is typically used in cases where multiple instructions are being executed concurrently (e.g. by using a <cite>ParallelSequence</cite> compound instruction) and a terminal status (success or failure) is reached before all threads have finished executing. The framework will then try to halt the remaining ones to avoid unnecessary delays.</p>
+<p>Implementers of custom instructions should try to regularly check the protected function <code class="docutils literal notranslate"><span class="pre">IsHaltRequested</span></code> to prevent blocking the execution needlessly.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Halt the wait instruction. Note that this has no effect here, since we&#39;re in the same thread.</span>
+<span class="n">wait</span><span class="o">-&gt;</span><span class="n">Halt</span><span class="p">();</span>
+</pre></div>
+</div>
+</section>
+<section id="resetting-an-instruction">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">Resetting an Instruction</a><a class="headerlink" href="#resetting-an-instruction" title="Link to this heading"></a></h3>
+<p>The <cite>Reset</cite> method puts the instruction in a state to be executed anew. This state corresponds to its state just after the last <code class="docutils literal notranslate"><span class="pre">Setup</span></code> was called. Note that this is different from how <code class="docutils literal notranslate"><span class="pre">Variable::Reset</span></code> is defined.</p>
+<p>Resetting an instruction is mainly used when the same instruction needs to be executed multiple times: after each full execution, i.e. status of instruction indicates it is finished, the instruction is reset before the next execution can start.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">MyUserInterface</span><span class="w"> </span><span class="n">ui</span><span class="p">;</span>
+<span class="n">wait</span><span class="o">-&gt;</span><span class="n">Reset</span><span class="p">(</span><span class="n">ui</span><span class="p">);</span><span class="w"> </span><span class="c1">// Reset the wait instruction</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="attribute-system">
+<span id="id2"></span><h2><a class="toc-backref" href="#id13" role="doc-backlink">Attribute System</a><a class="headerlink" href="#attribute-system" title="Link to this heading"></a></h2>
+<p>The attribute system allows to parameterize instructions in a custom way. Each instruction can declare which attributes it supports, their types, if they are mandatory and what those attributes refer to.</p>
+<p>As an example, consider a procedure XML file containing the following instruction element:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Wait</span><span class="w"> </span><span class="na">timeout=</span><span class="s">&quot;3.0&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+<p>During parsing, this will result in the following method calls:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">instr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GlobalInstructionRegistry</span><span class="p">().</span><span class="n">Create</span><span class="p">(</span><span class="s">&quot;Wait&quot;</span><span class="p">);</span>
+<span class="n">instr</span><span class="o">-&gt;</span><span class="n">AddAttribute</span><span class="p">(</span><span class="s">&quot;timeout&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;3.0&quot;</span><span class="p">);</span>
+<span class="n">instr</span><span class="o">-&gt;</span><span class="n">Setup</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>The attribute system also supports constraints that may result in throwing an exception during the <cite>setup</cite> phase. This provides feedback to the client about missed mandatory attributes, wrongly formatted ones, etc. Since all variables and instructions are initialized before execution of a procedure, this provides <cite>fail fast</cite> behavior.</p>
+<p>Implementers of concrete instruction types can use protected member functions to signal which attributes are defined by the variable, which types they have, their category, if they are mandatory and other more complex constraints.</p>
+<p>Attribute categories define how the attribute’s value needs to be retrieved:</p>
+<ul class="simple">
+<li><p><cite>AttributeCategory::kLiteral</cite>: the string value of the attribute will be parsed into the correct type,</p></li>
+<li><p><cite>AttributeCategory::kVariableName</cite>: the string value of the attribute refers to a workspace variable field and that field’s value will be fetched from the workspace,</p></li>
+<li><p><cite>AttributeCategory::kBoth</cite>: in this case, both options are possible: if the attribute’s string value starts with an <cite>&#64;</cite> character, the rest will be interpreted as a variable field; otherwise, it is treated as a literal attribute.</p></li>
+</ul>
+<p>As an example, consider creating a variable <cite>MyInstruction</cite>, that has three predefined attributes:</p>
+<ul class="simple">
+<li><p>“country”: a mandatory string that can be literal or refer to a variable field;</p></li>
+<li><p>“max_retry”: an optional unsigned integer (literal);</p></li>
+<li><p>“phoneVar”: an optional string that refers to a variable field.</p></li>
+</ul>
+<p>Furthermore, assume that exactly one of the attributes <cite>max_retry</cite> or <cite>phoneVar</cite> needs to be present. All this information can then be encoded in the constructor of the concrete variable:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">MyInstruction</span><span class="o">::</span><span class="n">MyInstruction</span><span class="p">()</span>
+<span class="w">  </span><span class="o">:</span><span class="w"> </span><span class="n">Instruction</span><span class="p">(</span><span class="n">MyInstruction</span><span class="o">::</span><span class="n">Type</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">AddAttributeDefinition</span><span class="p">(</span><span class="s">&quot;country&quot;</span><span class="p">).</span><span class="n">SetCategory</span><span class="p">(</span><span class="n">AttributeCategory</span><span class="o">::</span><span class="n">kBoth</span><span class="p">).</span><span class="n">SetMandatory</span><span class="p">();</span>
+<span class="w">  </span><span class="n">AddAttributeDefinition</span><span class="p">(</span><span class="s">&quot;max_retry&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">sup</span><span class="o">::</span><span class="n">dto</span><span class="o">::</span><span class="n">UnsignedInteger16Type</span><span class="p">);</span>
+<span class="w">  </span><span class="n">AddAttributeDefinition</span><span class="p">(</span><span class="s">&quot;phoneVar&quot;</span><span class="p">).</span><span class="n">SetCategory</span><span class="p">(</span><span class="n">AttributeCategory</span><span class="o">::</span><span class="n">kVariableName</span><span class="p">);</span>
+<span class="w">  </span><span class="n">AddConstraint</span><span class="p">(</span><span class="n">MakeConstraint</span><span class="o">&lt;</span><span class="n">Xor</span><span class="o">&gt;</span><span class="p">(</span><span class="n">MakeConstraint</span><span class="o">&lt;</span><span class="n">Exists</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;max_retry&quot;</span><span class="p">),</span>
+<span class="w">                                    </span><span class="n">MakeConstraint</span><span class="o">&lt;</span><span class="n">Exists</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;phoneVar&quot;</span><span class="p">)));</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>As you can see, the <cite>country</cite> attribute did not need to define a type, as <cite>sup::dto::StringType</cite> is the default. Likewise, <cite>kLiteral</cite> is the default category for attributes and does not need to be specified in case of the <cite>max_retry</cite> attribute.
+The generic implementation of the <code class="docutils literal notranslate"><span class="pre">Setup</span></code> method will ensure that if no exceptions were thrown, all these conditions are satisfied after setup.</p>
+<p>Furthermore, <cite>Instruction</cite> provides a public API to retrieve an attribute’s value, taking into account its category. This means that the handling of the <cite>&#64;</cite> character and the choice between literal interpretation and fetching from a variable field is performed automatically. The API consists of two methods: one that retrieves an <cite>AnyValue</cite> and a templated one that tries to cast to a custom type. The following example shows how this works for the above defined <cite>MyInstruction</cite>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">ExecutionStatus</span><span class="w"> </span><span class="nf">MyInstruction::ExecuteSingleImpl</span><span class="p">(</span><span class="n">UserInterface</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ui</span><span class="p">,</span><span class="w"> </span><span class="n">Workspace</span><span class="o">&amp;</span><span class="w"> </span><span class="n">ws</span><span class="p">)</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">country</span><span class="p">;</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">GetAttributeValueAs</span><span class="p">(</span><span class="s">&quot;country&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ws</span><span class="p">,</span><span class="w"> </span><span class="n">ui</span><span class="p">,</span><span class="w"> </span><span class="n">country</span><span class="p">))</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ExecutionStatus</span><span class="o">::</span><span class="n">FAILURE</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="c1">// provide a default value for when the attribute is not present</span>
+<span class="w">  </span><span class="n">sup</span><span class="o">::</span><span class="n">dto</span><span class="o">::</span><span class="n">uint16</span><span class="w"> </span><span class="n">max_retry</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">// note that GetAttributeValueAs does not return false when the attribute is not present</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">GetAttributeValueAs</span><span class="p">(</span><span class="s">&quot;max_retry&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ws</span><span class="p">,</span><span class="w"> </span><span class="n">ui</span><span class="p">,</span><span class="w"> </span><span class="n">max_retry</span><span class="p">))</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ExecutionStatus</span><span class="o">::</span><span class="n">FAILURE</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="n">sup</span><span class="o">::</span><span class="n">dto</span><span class="o">::</span><span class="n">AnyValue</span><span class="w"> </span><span class="n">phone_nr</span><span class="p">;</span><span class="w"> </span><span class="c1">// defaul empty</span>
+<span class="w">  </span><span class="c1">// now we retrieve the AnyValue from the variable field</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">GetAttributeValue</span><span class="p">(</span><span class="s">&quot;phoneVar&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">ws</span><span class="p">,</span><span class="w"> </span><span class="n">ui</span><span class="p">,</span><span class="w"> </span><span class="n">phone_nr</span><span class="p">))</span>
+<span class="w">  </span><span class="p">{</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">ExecutionStatus</span><span class="o">::</span><span class="n">FAILURE</span><span class="p">;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="p">...</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">ExecutionStatus</span><span class="o">::</span><span class="n">SUCCESS</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>In the case of attributes that always refer to variable fields, the indicated type of the attribute is not really important and can best be left to the default (<cite>sup::dto::StringType</cite>). This is because the retrieval to an <cite>AnyValue</cite> of the attribute will not take into account the indicated type. If <cite>GetAttributeValueAs</cite> is used however, that function will signal issues with conversion to the <cite>UserInterface</cite>.</p>
+</div>
+</section>
+<section id="class-definition">
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">Class definition</a><a class="headerlink" href="#class-definition" title="Link to this heading"></a></h2>
+<p>Next is presented the definition of the <code class="docutils literal notranslate"><span class="pre">Instruction</span></code> class and its main methods.</p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11InstructionE">
+<span id="_CPPv3N3sup8oac_tree11InstructionE"></span><span id="_CPPv2N3sup8oac_tree11InstructionE"></span><span id="sup::oac_tree::Instruction"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Instruction</span></span></span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11InstructionE" title="Link to this definition"></a><br /></dt>
+<dd><p>Abstract interface for all executable instructions. </p>
+<p><a class="reference internal" href="#classsup_1_1oac__tree_1_1Instruction"><span class="std std-ref">Instruction</span></a> is the base class for all executable instructions. These include: sequences, selectors, decorator nodes and leaf instruction nodes</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The design of the execution of these instructions is based on private virtual implementation. </p>
+</div>
+<p>Subclassed by sup::oac_tree::AddElement, sup::oac_tree::AddMember, sup::oac_tree::AsyncWait, sup::oac_tree::CompoundInstruction, sup::oac_tree::Condition, sup::oac_tree::Copy, sup::oac_tree::CopyFromProcedureInstruction, sup::oac_tree::CopyToProcedureInstruction, sup::oac_tree::DecoratorInstruction, sup::oac_tree::Decrement, sup::oac_tree::Equals, sup::oac_tree::Fail, sup::oac_tree::GreaterThan, sup::oac_tree::GreaterThanOrEqual, sup::oac_tree::Increment, sup::oac_tree::Input, sup::oac_tree::LessThan, sup::oac_tree::LessThanOrEqual, sup::oac_tree::LogInstruction, sup::oac_tree::Message, sup::oac_tree::Output, sup::oac_tree::ResetVariable, sup::oac_tree::Succeed, sup::oac_tree::UserConfirmation, sup::oac_tree::VarExistsInstruction, sup::oac_tree::Wait, sup::oac_tree::WaitForVariable, sup::oac_tree::WaitForVariables</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
+<dl class="cpp enum">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11Instruction8CategoryE">
+<span id="_CPPv3N3sup8oac_tree11Instruction8CategoryE"></span><span id="_CPPv2N3sup8oac_tree11Instruction8CategoryE"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a2107e14c59b7d1b74c53e913b1c6bed4"></span><span class="k"><span class="pre">enum</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Category</span></span></span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11Instruction8CategoryE" title="Link to this definition"></a><br /></dt>
+<dd><p>Enumeration that indicates if the instruction is a simple action (no child instructions), a decorator (one child) or a compound instruction (multiple children). </p>
+<p><em>Values:</em></p>
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11Instruction8Category7kActionE">
+<span id="_CPPv3N3sup8oac_tree11Instruction8Category7kActionE"></span><span id="_CPPv2N3sup8oac_tree11Instruction8Category7kActionE"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a2107e14c59b7d1b74c53e913b1c6bed4a7e44d6b14559173efd3ba9dcd1346678"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kAction</span></span></span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11Instruction8Category7kActionE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11Instruction8Category10kDecoratorE">
+<span id="_CPPv3N3sup8oac_tree11Instruction8Category10kDecoratorE"></span><span id="_CPPv2N3sup8oac_tree11Instruction8Category10kDecoratorE"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a2107e14c59b7d1b74c53e913b1c6bed4a398eba0a9f4cd3479b6c22e73cfab43a"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kDecorator</span></span></span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11Instruction8Category10kDecoratorE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+<dl class="cpp enumerator">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11Instruction8Category9kCompoundE">
+<span id="_CPPv3N3sup8oac_tree11Instruction8Category9kCompoundE"></span><span id="_CPPv2N3sup8oac_tree11Instruction8Category9kCompoundE"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a2107e14c59b7d1b74c53e913b1c6bed4a8ee8c8811cb25efb4d38e9b42ba06a2f"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kCompound</span></span></span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11Instruction8Category9kCompoundE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11Instruction11InstructionERKNSt6stringE">
+<span id="_CPPv3N3sup8oac_tree11Instruction11InstructionERKNSt6stringE"></span><span id="_CPPv2N3sup8oac_tree11Instruction11InstructionERKNSt6stringE"></span><span id="sup::oac_tree::Instruction::Instruction__ssCR"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1aec2bfa873154c34504a2346b53a9e430"></span><span class="sig-name descname"><span class="n"><span class="pre">Instruction</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">type</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11Instruction11InstructionERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Constructor. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>type</strong> – The type of instruction. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11InstructionD0Ev">
+<span id="_CPPv3N3sup8oac_tree11InstructionD0Ev"></span><span id="_CPPv2N3sup8oac_tree11InstructionD0Ev"></span><span id="sup::oac_tree::Instruction::~Instruction"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a24f9449dcb9ab81e9e7aa63b274f21e5"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~Instruction</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11InstructionD0Ev" title="Link to this definition"></a><br /></dt>
+<dd><p>Virtual destructor. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree11Instruction11GetCategoryEv">
+<span id="_CPPv3NK3sup8oac_tree11Instruction11GetCategoryEv"></span><span id="_CPPv2NK3sup8oac_tree11Instruction11GetCategoryEv"></span><span id="sup::oac_tree::Instruction::GetCategoryC"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a6567f3f52ded3e3d8559af1473bda702"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3sup8oac_tree11Instruction8CategoryE" title="sup::oac_tree::Instruction::Category"><span class="n"><span class="pre">Category</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetCategory</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree11Instruction11GetCategoryEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get instruction category. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>instruction category. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree11Instruction7GetTypeEv">
+<span id="_CPPv3NK3sup8oac_tree11Instruction7GetTypeEv"></span><span id="_CPPv2NK3sup8oac_tree11Instruction7GetTypeEv"></span><span id="sup::oac_tree::Instruction::GetTypeC"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1af4c59d6a4be7430148d3f14b6b64b0e9"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetType</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree11Instruction7GetTypeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get instruction type. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>instruction type. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree11Instruction7GetNameEv">
+<span id="_CPPv3NK3sup8oac_tree11Instruction7GetNameEv"></span><span id="_CPPv2NK3sup8oac_tree11Instruction7GetNameEv"></span><span id="sup::oac_tree::Instruction::GetNameC"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1ae2645ab6c8977d6bad486a5ea7b5d083"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetName</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree11Instruction7GetNameEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get instruction name. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>instruction name (or empty string when name was not found). </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11Instruction7SetNameERKNSt6stringE">
+<span id="_CPPv3N3sup8oac_tree11Instruction7SetNameERKNSt6stringE"></span><span id="_CPPv2N3sup8oac_tree11Instruction7SetNameERKNSt6stringE"></span><span id="sup::oac_tree::Instruction::SetName__ssCR"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1afdc4ae9f23de564ac0b85af0ed566d14"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetName</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11Instruction7SetNameERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Set instruction name. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – Name to set. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree11Instruction9GetStatusEv">
+<span id="_CPPv3NK3sup8oac_tree11Instruction9GetStatusEv"></span><span id="_CPPv2NK3sup8oac_tree11Instruction9GetStatusEv"></span><span id="sup::oac_tree::Instruction::GetStatusC"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a0b6a006a18f82b79dcd6bf0be4e9e87a"></span><span class="n"><span class="pre">ExecutionStatus</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetStatus</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree11Instruction9GetStatusEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get execution status. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Execution status. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11Instruction5SetupERK9Procedure">
+<span id="_CPPv3N3sup8oac_tree11Instruction5SetupERK9Procedure"></span><span id="_CPPv2N3sup8oac_tree11Instruction5SetupERK9Procedure"></span><span id="sup::oac_tree::Instruction::Setup__ProcedureCR"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1abda6c8a22416d054e0889bb19413acc9"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Setup</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="procedure.html#_CPPv4N3sup8oac_tree9ProcedureE" title="sup::oac_tree::Procedure"><span class="n"><span class="pre">Procedure</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">proc</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11Instruction5SetupERK9Procedure" title="Link to this definition"></a><br /></dt>
+<dd><p>Setup method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>proc</strong> – <a class="reference internal" href="procedure.html#classsup_1_1oac__tree_1_1Procedure"><span class="std std-ref">Procedure</span></a> containing Workspace and instruction declarations. </p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">InstructionSetupException</span></span></span> – when the instruction could not be setup properly. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11Instruction13ExecuteSingleER13UserInterfaceR9Workspace">
+<span id="_CPPv3N3sup8oac_tree11Instruction13ExecuteSingleER13UserInterfaceR9Workspace"></span><span id="_CPPv2N3sup8oac_tree11Instruction13ExecuteSingleER13UserInterfaceR9Workspace"></span><span id="sup::oac_tree::Instruction::ExecuteSingle__UserInterfaceR.WorkspaceR"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a9c4d18d449fc697954c3ecc785561105"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ExecuteSingle</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="userinterface.html#_CPPv4N3sup8oac_tree13UserInterfaceE" title="sup::oac_tree::UserInterface"><span class="n"><span class="pre">UserInterface</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ui</span></span>, <span class="n"><span class="pre">Workspace</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ws</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11Instruction13ExecuteSingleER13UserInterfaceR9Workspace" title="Link to this definition"></a><br /></dt>
+<dd><p>Execution method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ui</strong> – <a class="reference internal" href="userinterface.html#classsup_1_1oac__tree_1_1UserInterface"><span class="std std-ref">UserInterface</span></a> to handle input/output. </p></li>
+<li><p><strong>ws</strong> – Workspace that contains the variables. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11Instruction4HaltEv">
+<span id="_CPPv3N3sup8oac_tree11Instruction4HaltEv"></span><span id="_CPPv2N3sup8oac_tree11Instruction4HaltEv"></span><span id="sup::oac_tree::Instruction::Halt"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a538361c152377cef58750b07cf46ae57"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Halt</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11Instruction4HaltEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Halt execution. </p>
+<p>Only meaningful when the instruction is running asynchronously. This method only sets an atomic boolean member variable. It is up to implementations of the <a class="reference internal" href="#classsup_1_1oac__tree_1_1Instruction"><span class="std std-ref">Instruction</span></a> to check this variable regularly to prevent long blocking. It is expected that an instruction will fail if it is interrupted (status: FAILURE). </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11Instruction5ResetER13UserInterface">
+<span id="_CPPv3N3sup8oac_tree11Instruction5ResetER13UserInterface"></span><span id="_CPPv2N3sup8oac_tree11Instruction5ResetER13UserInterface"></span><span id="sup::oac_tree::Instruction::Reset__UserInterfaceR"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1ade5e1d5687b529e13011750ba7a4f8e1"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Reset</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="userinterface.html#_CPPv4N3sup8oac_tree13UserInterfaceE" title="sup::oac_tree::UserInterface"><span class="n"><span class="pre">UserInterface</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ui</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11Instruction5ResetER13UserInterface" title="Link to this definition"></a><br /></dt>
+<dd><p>Reset execution status, so the instruction can be executed again with initial conditions. </p>
+<p>
+The state of the instruction after a reset should be similar to its state after an initial Setup call. This method call blocks until the termination of all descendant instructions running in a separate thread. Destruction of this instruction is safe afterwards. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method should only be called on instruction objects that are not currently executing. This is taken care of by waiting for child termination before calling their <a class="reference internal" href="#classsup_1_1oac__tree_1_1Instruction_1ade5e1d5687b529e13011750ba7a4f8e1"><span class="std std-ref">Instruction::Reset()</span></a> method. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ui</strong> – <a class="reference internal" href="userinterface.html#classsup_1_1oac__tree_1_1UserInterface"><span class="std std-ref">UserInterface</span></a> to handle status updates.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree11Instruction12HasAttributeERKNSt6stringE">
+<span id="_CPPv3NK3sup8oac_tree11Instruction12HasAttributeERKNSt6stringE"></span><span id="_CPPv2NK3sup8oac_tree11Instruction12HasAttributeERKNSt6stringE"></span><span id="sup::oac_tree::Instruction::HasAttribute__ssCRC"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1afc5affe435d3075190b8a2737f377048"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HasAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree11Instruction12HasAttributeERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Indicate presence of attribute with given name. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – Attribute name. </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true when present. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree11Instruction18GetAttributeStringERKNSt6stringE">
+<span id="_CPPv3NK3sup8oac_tree11Instruction18GetAttributeStringERKNSt6stringE"></span><span id="_CPPv2NK3sup8oac_tree11Instruction18GetAttributeStringERKNSt6stringE"></span><span id="sup::oac_tree::Instruction::GetAttributeString__ssCRC"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1afb6782c545d5fa6b4444b6cb1eb815dc"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetAttributeString</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree11Instruction18GetAttributeStringERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Get attribute with given name. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – Attribute name. </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Attribute value. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree11Instruction19GetStringAttributesEv">
+<span id="_CPPv3NK3sup8oac_tree11Instruction19GetStringAttributesEv"></span><span id="_CPPv2NK3sup8oac_tree11Instruction19GetStringAttributesEv"></span><span id="sup::oac_tree::Instruction::GetStringAttributesC"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1ad9933a2259c593040bc29f41e248a3bc"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">StringAttributeList</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetStringAttributes</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree11Instruction19GetStringAttributesEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get all attributes. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List containing all attributes. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11Instruction12AddAttributeERKNSt6stringERKNSt6stringE">
+<span id="_CPPv3N3sup8oac_tree11Instruction12AddAttributeERKNSt6stringERKNSt6stringE"></span><span id="_CPPv2N3sup8oac_tree11Instruction12AddAttributeERKNSt6stringERKNSt6stringE"></span><span id="sup::oac_tree::Instruction::AddAttribute__ssCR.ssCR"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a8c45e470cdffba8fa79472aff49da7fa"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11Instruction12AddAttributeERKNSt6stringERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Set new attribute with given name and value. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Attribute name. </p></li>
+<li><p><strong>value</strong> – Attribute value. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true when successful. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11Instruction12SetAttributeERKNSt6stringERKNSt6stringE">
+<span id="_CPPv3N3sup8oac_tree11Instruction12SetAttributeERKNSt6stringERKNSt6stringE"></span><span id="_CPPv2N3sup8oac_tree11Instruction12SetAttributeERKNSt6stringERKNSt6stringE"></span><span id="sup::oac_tree::Instruction::SetAttribute__ssCR.ssCR"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a1d6ea7726f53f77184eeef6f1061f64e"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11Instruction12SetAttributeERKNSt6stringERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Set attribute with given name and value. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Attribute name. </p></li>
+<li><p><strong>value</strong> – Attribute value. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true when successful. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11Instruction13AddAttributesERK19StringAttributeList">
+<span id="_CPPv3N3sup8oac_tree11Instruction13AddAttributesERK19StringAttributeList"></span><span id="_CPPv2N3sup8oac_tree11Instruction13AddAttributesERK19StringAttributeList"></span><span id="sup::oac_tree::Instruction::AddAttributes__StringAttributeListCR"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a83a5d411c038b500d546b7e7df9693da"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddAttributes</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">StringAttributeList</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">attributes</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11Instruction13AddAttributesERK19StringAttributeList" title="Link to this definition"></a><br /></dt>
+<dd><p>Set all attributes from given map. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attributes</strong> – List of attributes to set. </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true when successful. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11Instruction31InitialisePlaceholderAttributesERK19StringAttributeList">
+<span id="_CPPv3N3sup8oac_tree11Instruction31InitialisePlaceholderAttributesERK19StringAttributeList"></span><span id="_CPPv2N3sup8oac_tree11Instruction31InitialisePlaceholderAttributesERK19StringAttributeList"></span><span id="sup::oac_tree::Instruction::InitialisePlaceholderAttributes__StringAttributeListCR"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a76a4bba97d080a8196d8c842e2bb9b7b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InitialisePlaceholderAttributes</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">StringAttributeList</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">source_attributes</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11Instruction31InitialisePlaceholderAttributesERK19StringAttributeList" title="Link to this definition"></a><br /></dt>
+<dd><p>Initialise variable attributes with values from attribute map. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>source_attributes</strong> – List containing variable name - value pairs. </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true when all variable attributes were correctly initialised. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree11Instruction17GetAttributeValueERKNSt6stringERK9WorkspaceR13UserInterfaceRN3sup3dto8AnyValueE">
+<span id="_CPPv3NK3sup8oac_tree11Instruction17GetAttributeValueERKNSt6stringERK9WorkspaceR13UserInterfaceRN3sup3dto8AnyValueE"></span><span id="_CPPv2NK3sup8oac_tree11Instruction17GetAttributeValueERKNSt6stringERK9WorkspaceR13UserInterfaceRN3sup3dto8AnyValueE"></span><span id="sup::oac_tree::Instruction::GetAttributeValue__ssCR.WorkspaceCR.UserInterfaceR.sup::dto::AnyValueRC"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a56e3e787b4fd855c017be67e39931b53"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetAttributeValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">attr_name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Workspace</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ws</span></span>, <a class="reference internal" href="userinterface.html#_CPPv4N3sup8oac_tree13UserInterfaceE" title="sup::oac_tree::UserInterface"><span class="n"><span class="pre">UserInterface</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ui</span></span>, <span class="n"><span class="pre">sup</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">dto</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree11Instruction17GetAttributeValueERKNSt6stringERK9WorkspaceR13UserInterfaceRN3sup3dto8AnyValueE" title="Link to this definition"></a><br /></dt>
+<dd><p>Get an AnyValue representation of an attribute. This function handles attributes that encode literal values, values that need to be fetched from a workspace variable or both, depending on the attribute’s definition. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The reason for returning true in the absence of the attribute is that mandatory attributes are already checked during setup and non-mandatory attributes should not cause an error when they are not present. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attr_name</strong> – Attribute name. </p></li>
+<li><p><strong>ws</strong> – Workspace to use when the value needs to be fetched. </p></li>
+<li><p><strong>ui</strong> – <a class="reference internal" href="userinterface.html#classsup_1_1oac__tree_1_1UserInterface"><span class="std std-ref">UserInterface</span></a> to use for logging errors or warnings. </p></li>
+<li><p><strong>value</strong> – Output value when successful.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True on success or when the attribute is not present.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0ENK3sup8oac_tree11Instruction19GetAttributeValueAsEbRKNSt6stringERK9WorkspaceR13UserInterfaceR1T">
+<span id="_CPPv3I0ENK3sup8oac_tree11Instruction19GetAttributeValueAsERKNSt6stringERK9WorkspaceR13UserInterfaceR1T"></span><span id="_CPPv2I0ENK3sup8oac_tree11Instruction19GetAttributeValueAsERKNSt6stringERK9WorkspaceR13UserInterfaceR1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1aad2829c8dac1ef58266d7c912a1e68b6"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetAttributeValueAs</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">attr_name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Workspace</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ws</span></span>, <a class="reference internal" href="userinterface.html#_CPPv4N3sup8oac_tree13UserInterfaceE" title="sup::oac_tree::UserInterface"><span class="n"><span class="pre">UserInterface</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ui</span></span>, <a class="reference internal" href="#_CPPv4I0ENK3sup8oac_tree11Instruction19GetAttributeValueAsEbRKNSt6stringERK9WorkspaceR13UserInterfaceR1T" title="sup::oac_tree::Instruction::GetAttributeValueAs::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0ENK3sup8oac_tree11Instruction19GetAttributeValueAsEbRKNSt6stringERK9WorkspaceR13UserInterfaceR1T" title="Link to this definition"></a><br /></dt>
+<dd><p>Get a representation of type T of an attribute’s value. This function handles attributes that encode literal values, values that need to be fetched from a workspace variable or both, depending on the attribute’s definition. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The reason for returning true in the absence of the attribute is that mandatory attributes are already checked during setup and non-mandatory attributes should not cause an error when they are not present. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attr_name</strong> – Attribute name. </p></li>
+<li><p><strong>ws</strong> – Workspace to use when the value needs to be fetched. </p></li>
+<li><p><strong>ui</strong> – <a class="reference internal" href="userinterface.html#classsup_1_1oac__tree_1_1UserInterface"><span class="std std-ref">UserInterface</span></a> to use for logging errors or warnings. </p></li>
+<li><p><strong>val</strong> – Output value when successful.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True on success or when the attribute is not present.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree11Instruction23GetAttributeDefinitionsEv">
+<span id="_CPPv3NK3sup8oac_tree11Instruction23GetAttributeDefinitionsEv"></span><span id="_CPPv2NK3sup8oac_tree11Instruction23GetAttributeDefinitionsEv"></span><span id="sup::oac_tree::Instruction::GetAttributeDefinitionsC"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1af32498bb51d1cd727aed162f44f34a1c"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">AttributeDefinition</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetAttributeDefinitions</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree11Instruction23GetAttributeDefinitionsEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get all attribute definitions. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of attribute definitions. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree11Instruction13ChildrenCountEv">
+<span id="_CPPv3NK3sup8oac_tree11Instruction13ChildrenCountEv"></span><span id="_CPPv2NK3sup8oac_tree11Instruction13ChildrenCountEv"></span><span id="sup::oac_tree::Instruction::ChildrenCountC"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1adbbc8edc40814a81d17578da6e55a5ba"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ChildrenCount</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree11Instruction13ChildrenCountEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns children count. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>children count </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11Instruction17ChildInstructionsEv">
+<span id="_CPPv3N3sup8oac_tree11Instruction17ChildInstructionsEv"></span><span id="_CPPv2N3sup8oac_tree11Instruction17ChildInstructionsEv"></span><span id="sup::oac_tree::Instruction::ChildInstructions"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a31b280aafd10a9aa26afb830434159ec"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3sup8oac_tree11InstructionE" title="sup::oac_tree::Instruction"><span class="n"><span class="pre">Instruction</span></span></a><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ChildInstructions</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11Instruction17ChildInstructionsEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get list of child instructions. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of child instructions. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree11Instruction17ChildInstructionsEv">
+<span id="_CPPv3NK3sup8oac_tree11Instruction17ChildInstructionsEv"></span><span id="_CPPv2NK3sup8oac_tree11Instruction17ChildInstructionsEv"></span><span id="sup::oac_tree::Instruction::ChildInstructionsC"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a5164de28e6d78a2b556217aae7c73571"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3sup8oac_tree11InstructionE" title="sup::oac_tree::Instruction"><span class="n"><span class="pre">Instruction</span></span></a><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ChildInstructions</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree11Instruction17ChildInstructionsEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get list of child instructions (const version). </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of child instructions. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree11Instruction16NextInstructionsEv">
+<span id="_CPPv3NK3sup8oac_tree11Instruction16NextInstructionsEv"></span><span id="_CPPv2NK3sup8oac_tree11Instruction16NextInstructionsEv"></span><span id="sup::oac_tree::Instruction::NextInstructionsC"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a7285d91e8d43810ceafb61d6461eba34"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3sup8oac_tree11InstructionE" title="sup::oac_tree::Instruction"><span class="n"><span class="pre">Instruction</span></span></a><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NextInstructions</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree11Instruction16NextInstructionsEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get list of child instructions that will be executed in the next execute step. </p>
+<p>
+This list of child instructions is only scheduled to be executed next if the current instruction also is, i.e. it apprears in the <a class="reference internal" href="#classsup_1_1oac__tree_1_1Instruction_1a7285d91e8d43810ceafb61d6461eba34"><span class="std std-ref">NextInstructions()</span></a> list of the parent or is a root instruction that is NOT_STARTED/NOT_FINISHED. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of child instructions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11Instruction17InsertInstructionERRNSt10unique_ptrI11InstructionEEi">
+<span id="_CPPv3N3sup8oac_tree11Instruction17InsertInstructionERRNSt10unique_ptrI11InstructionEEi"></span><span id="_CPPv2N3sup8oac_tree11Instruction17InsertInstructionERRNSt10unique_ptrI11InstructionEEi"></span><span id="sup::oac_tree::Instruction::InsertInstruction__std::unique_ptr:Instruction:RR.i"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a4a53b320316f48c004a703c7947fefe3"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InsertInstruction</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3sup8oac_tree11InstructionE" title="sup::oac_tree::Instruction"><span class="n"><span class="pre">Instruction</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">child</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">index</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11Instruction17InsertInstructionERRNSt10unique_ptrI11InstructionEEi" title="Link to this definition"></a><br /></dt>
+<dd><p>Inserts child into the given index. </p>
+<p>
+Index must be in the range [0, current_children_count] inclusively. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>true on success</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11Instruction15TakeInstructionEi">
+<span id="_CPPv3N3sup8oac_tree11Instruction15TakeInstructionEi"></span><span id="_CPPv2N3sup8oac_tree11Instruction15TakeInstructionEi"></span><span id="sup::oac_tree::Instruction::TakeInstruction__i"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a9358f91cbee2bcab9dd8793a38e566d7"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3sup8oac_tree11InstructionE" title="sup::oac_tree::Instruction"><span class="n"><span class="pre">Instruction</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TakeInstruction</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">index</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11Instruction15TakeInstructionEi" title="Link to this definition"></a><br /></dt>
+<dd><p>Removes child with the given index and returns it to the user. </p>
+<p>
+Index must be in the range [0, current_children_count-1]. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>child on success, nullptr otherwise</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree11Instruction15IsHaltRequestedEv">
+<span id="_CPPv3NK3sup8oac_tree11Instruction15IsHaltRequestedEv"></span><span id="_CPPv2NK3sup8oac_tree11Instruction15IsHaltRequestedEv"></span><span id="sup::oac_tree::Instruction::IsHaltRequestedC"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1ab7939bc3c8b71f6c7ddaa937bb23dbb5"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsHaltRequested</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree11Instruction15IsHaltRequestedEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Check if a request to halt this instruction was issued. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="API.html" class="btn btn-neutral float-left" title="API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="runner.html" class="btn btn-neutral float-right" title="Runner" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright ITER Organization.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

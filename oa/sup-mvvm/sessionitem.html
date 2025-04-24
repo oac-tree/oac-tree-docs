@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SessionItem &mdash; SUP MVVM</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=b51e6972"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            sup-mvvm
+          </a>
+              <div class="version">
+                1.8.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main_components.html">Main components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sup-mvvm</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">SessionItem</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/sessionitem.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sessionitem">
+<h1>SessionItem<a class="headerlink" href="#sessionitem" title="Link to this heading"></a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">SessionItem</span></code> class is a base element to build a hierarchical structure
+representing all the data of the GUI application. <code class="docutils literal notranslate"><span class="pre">SessionItem</span></code> can contain
+an arbitrary amount of basic data types, and can be a parent for other
+<code class="docutils literal notranslate"><span class="pre">SessionItems</span></code>.</p>
+<p>The tree of <code class="docutils literal notranslate"><span class="pre">SessionItem</span></code> objects can be built programmatically via
+<code class="docutils literal notranslate"><span class="pre">SessionItem</span></code> API, or be reconstructed from persistent XML content.</p>
+<p>While being an end leaf in some ramified hierarchy the <code class="docutils literal notranslate"><span class="pre">SessionItem</span></code> often plays
+a role of a single editable/displayable entity. For example, a <code class="docutils literal notranslate"><span class="pre">SessionItem</span></code> can
+be seen as an aggregate of information necessary to display/edit a single
+integer number <cite>42</cite> in the context of some view. Then, it will carry:</p>
+<ul class="simple">
+<li><p>A display name of the value, e.g. <cite>width</cite>.</p></li>
+<li><p>A value, i.e integer number with the value set to <cite>42</cite>.</p></li>
+<li><p>A collection of appearance flags, stating if the value is visible, is
+read-only, should be shown as disabled (grayed out), and so on.</p></li>
+<li><p>Other auxiliary information (tooltips to be shown, allowed limits to change,
+and similar).</p></li>
+</ul>
+</section>
+<section id="the-data-of-sessionitem">
+<h2>The data of <code class="docutils literal notranslate"><span class="pre">SessionItem</span></code><a class="headerlink" href="#the-data-of-sessionitem" title="Link to this heading"></a></h2>
+<p>The data carried by <code class="docutils literal notranslate"><span class="pre">SessionItem</span></code> is always associated with the role - a unique
+integer number defining the context in which the data has to be used. They both
+came in pairs, and the item can have multiple <cite>data/roles</cite> defined:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// currently supported elementary data types</span>
+<span class="k">using</span><span class="w"> </span><span class="n">variant_t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">variant</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">monostate</span><span class="p">,</span><span class="w"> </span><span class="n">boolean</span><span class="p">,</span><span class="w"> </span><span class="n">char8</span><span class="p">,</span><span class="w"> </span><span class="n">int8</span><span class="p">,</span><span class="w"> </span><span class="n">uint8</span><span class="p">,</span><span class="w"> </span><span class="n">int16</span><span class="p">,</span><span class="w"> </span><span class="n">uint16</span><span class="p">,</span><span class="w"> </span><span class="n">int32</span><span class="p">,</span><span class="w"> </span><span class="n">uint32</span><span class="p">,</span><span class="w"> </span><span class="n">int64</span><span class="p">,</span><span class="w"> </span><span class="n">uint64</span><span class="p">,</span><span class="w"> </span><span class="n">float32</span><span class="p">,</span><span class="w"> </span><span class="n">float64</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">float64</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">ComboProperty</span><span class="p">,</span><span class="w"> </span><span class="n">ExternalProperty</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="c1">// convenience type</span>
+<span class="k">using</span><span class="w"> </span><span class="n">datarole_t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">variant_t</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="o">&gt;</span><span class="p">;</span>
+
+<span class="c1">// collection of predefined roles</span>
+<span class="k">namespace</span><span class="w"> </span><span class="nn">DataRole</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kIdentifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w">  </span><span class="c1">//!&lt; item unique identifier</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span><span class="w">        </span><span class="c1">//!&lt; main data role</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kDisplay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span><span class="p">;</span><span class="w">     </span><span class="c1">//!&lt; display name</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kAppearance</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">;</span><span class="w">  </span><span class="c1">//!&lt; appearance flag</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kTooltip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span><span class="w">     </span><span class="c1">//!&lt; tooltip for item&#39;s data</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kEditor</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w">      </span><span class="c1">//!&lt; type of custom editor for the data role</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kLowerLimit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">6</span><span class="p">;</span><span class="w">  </span><span class="c1">//!&lt; lower limit on main data role</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">kUpperLimit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">7</span><span class="p">;</span><span class="w">  </span><span class="c1">//!&lt; upper limit on main data role</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In the snipped below, the data is set and then accessed for two roles, the
+display role holding a label and the data role, holding the value.:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">SessionItem</span><span class="w"> </span><span class="n">item</span><span class="p">;</span>
+<span class="n">item</span><span class="p">.</span><span class="n">SetData</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span><span class="w"> </span><span class="n">kData</span><span class="p">);</span>
+<span class="n">item</span><span class="p">.</span><span class="n">SetData</span><span class="p">(</span><span class="s">&quot;Width [nm]&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">kDisplay</span><span class="p">)</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">number</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">Data</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="n">kData</span><span class="p">);</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">label</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">Data</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="n">kDisplay</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="inheriting-from-sessionitem">
+<h2>Inheriting from <code class="docutils literal notranslate"><span class="pre">SessionItem</span></code><a class="headerlink" href="#inheriting-from-sessionitem" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">SessionItem</span></code> class type name is stored in a string variable and can be
+accessed via the <cite>GetType()</cite> method:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">SessionItem</span><span class="w"> </span><span class="n">item</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">GetType</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="s">&quot;SessionItem&quot;</span>
+</pre></div>
+</div>
+<p>This name is used during item serialization/deserialization and during undo/redo
+operations to create objects of the correct type in item factories.</p>
+<p>To inherit from <code class="docutils literal notranslate"><span class="pre">SessionItem</span></code> the new unique name has to be provided in the
+constructor of the derived class. It is convenient to make this name identical
+to the class name itself:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SegmentItem</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">public</span><span class="w"> </span><span class="n">SessionItem</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="k">const</span><span class="w"> </span><span class="k">static</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">Type</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;SegmentItem&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">SegmentItem</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">SessionItem</span><span class="p">(</span><span class="n">Type</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="children-of-sessionitem">
+<h2>Children of <code class="docutils literal notranslate"><span class="pre">SessionItem</span></code><a class="headerlink" href="#children-of-sessionitem" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">SessionItem</span></code> can have an arbitrary amount of children stored in named
+containers. In pseudo code, it can be expressed:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SessionItem</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">using</span><span class="w"> </span><span class="n">named_container_t</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="p">,</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">SessionItem</span><span class="o">*&gt;&gt;</span><span class="p">;</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">named_container_t</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m_tagged_items</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Named containers are a convenient way to have items tied to a certain context.
+The name of the container, <cite>tag</cite>, and the position in it, <cite>index</cite>, can be used to
+access and manipulate items through their parent <code class="docutils literal notranslate"><span class="pre">SessionItem</span></code>. Before adding
+any child to <cite>SessionItem</cite>, the container has to be created and its properties
+defined.</p>
+</section>
+<section id="the-taginfo-class">
+<h2>The <code class="docutils literal notranslate"><span class="pre">TagInfo</span></code> class<a class="headerlink" href="#the-taginfo-class" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">TagInfo</span></code> specifies information about children that can be added to a
+<code class="docutils literal notranslate"><span class="pre">SessionItem</span></code>. A <code class="docutils literal notranslate"><span class="pre">TagInfo</span></code> has a name, min, max allowed number of children, and
+vector of all types that children can have.</p>
+<p>In the snippet below we register a tag with the name <cite>ITEMS</cite> intended for
+storing unlimited amount of other <code class="docutils literal notranslate"><span class="pre">SessionItems</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">SessionItem</span><span class="w"> </span><span class="n">item</span><span class="p">;</span>
+<span class="n">item</span><span class="p">.</span><span class="n">RegisterTag</span><span class="p">(</span><span class="n">TagInfo</span><span class="p">(</span><span class="s">&quot;ITEMS&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>An equivalent way of doing the same is to use convenience
+factory methods of the <code class="docutils literal notranslate"><span class="pre">TagInfo</span></code> class:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">SessionItem</span><span class="w"> </span><span class="n">item</span><span class="p">;</span>
+<span class="n">item</span><span class="p">.</span><span class="n">RegisterTag</span><span class="p">(</span><span class="n">TagInfo</span><span class="o">::</span><span class="n">CreateUniversalTag</span><span class="p">(</span><span class="s">&quot;ITEMS&quot;</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>Internally, it leads to the creation of a corresponding named container ready
+for items to be inserted. In another example, we define a tag with the name
+<cite>Position</cite> intended for storing the only item of type <code class="docutils literal notranslate"><span class="pre">VectorItem</span></code>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">item</span><span class="p">.</span><span class="n">RegisterTag</span><span class="p">(</span><span class="n">TagInfo</span><span class="p">(</span><span class="s">&quot;Position&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="n">VectorItem</span><span class="o">::</span><span class="n">Type</span><span class="p">});</span>
+
+<span class="c1">// or</span>
+<span class="c1">// item.RegisterTag(TagInfo::CreatePropertyTag(&quot;Position&quot;, VectorItem::Type));</span>
+</pre></div>
+</div>
+</section>
+<section id="the-tagindex-class">
+<h2>The <code class="docutils literal notranslate"><span class="pre">TagIndex</span></code> class<a class="headerlink" href="#the-tagindex-class" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">TagIndex</span></code> class is a simple aggregate carrying a string with container
+name, and an index indicating the position in the container:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">struct</span><span class="w"> </span><span class="nc">TagIndex</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">tag</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{};</span>
+<span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">index</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">-1</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">TagIndex</span></code> class uniquely defines the position of a child and it is used in
+the <code class="docutils literal notranslate"><span class="pre">SessionItem</span></code> interface to access and manipulate items in containers.</p>
+</section>
+<section id="adding-children">
+<h2>Adding children<a class="headerlink" href="#adding-children" title="Link to this heading"></a></h2>
+<p>There are multiple ways to add children to a parent. In snipped below we
+register a tag with the name “<cite>ITEMS</cite>” intended for storing an unlimited amount
+of items of any type. In the next step, we insert a child into the corresponding
+container and modify its display name. Later, we access the child using the
+known <code class="docutils literal notranslate"><span class="pre">TagIndex</span></code> to print the child’s display name:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">tag</span><span class="p">(</span><span class="s">&quot;ITEMS&quot;</span><span class="p">);</span>
+<span class="n">SessionItem</span><span class="w"> </span><span class="n">item</span><span class="p">;</span>
+<span class="n">item</span><span class="p">.</span><span class="n">RegisterTag</span><span class="p">(</span><span class="n">TagInfo</span><span class="o">::</span><span class="n">CreateUniversalTag</span><span class="p">(</span><span class="n">tag</span><span class="p">));</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">child0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">InsertItem</span><span class="p">({</span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">});</span>
+<span class="n">child0</span><span class="o">-&gt;</span><span class="n">SetDisplayName</span><span class="p">(</span><span class="s">&quot;Child&quot;</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">GetItem</span><span class="p">(</span><span class="n">tag</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">GetDisplayName</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="s">&quot;Child&quot;</span>
+</pre></div>
+</div>
+<p>There are other alternative ways to add children:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// appends new SessionItem</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">child0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">InsertItem</span><span class="p">({</span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">});</span>
+
+<span class="c1">//! appends new PropertyItem</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">child1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">InsertItem</span><span class="o">&lt;</span><span class="n">PropertyItem</span><span class="o">&gt;</span><span class="p">({</span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="mi">-1</span><span class="p">});</span>
+
+<span class="c1">// inserts child between child0 and child1 using move semantic</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">another</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">VectorItem</span><span class="o">&gt;</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">child2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">InsertItem</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="n">another</span><span class="p">),</span><span class="w"> </span><span class="p">{</span><span class="n">tag</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">});</span>
+</pre></div>
+</div>
+</section>
+<section id="sessionitem-and-related-classes-api">
+<h2>SessionItem and related classes API<a class="headerlink" href="#sessionitem-and-related-classes-api" title="Link to this heading"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm8TagIndexE">
+<span id="_CPPv3N4mvvm8TagIndexE"></span><span id="_CPPv2N4mvvm8TagIndexE"></span><span id="mvvm::TagIndex"></span><span class="target" id="classmvvm_1_1TagIndex"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TagIndex</span></span></span><a class="headerlink" href="#_CPPv4N4mvvm8TagIndexE" title="Link to this definition"></a><br /></dt>
+<dd><p>The <a class="reference internal" href="#classmvvm_1_1TagIndex"><span class="std std-ref">TagIndex</span></a> class is an aggregate to hold (tag, index) information for <a class="reference internal" href="sessionmodel.html#classmvvm_1_1SessionModel"><span class="std std-ref">SessionModel</span></a>. </p>
+<p>It encodes all information needed to find a child inside its parent. A tag is a name of the container with items, and index is a position of an item in this container. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm8TagIndex8TagIndexEv">
+<span id="_CPPv3N4mvvm8TagIndex8TagIndexEv"></span><span id="_CPPv2N4mvvm8TagIndex8TagIndexEv"></span><span id="mvvm::TagIndex::TagIndex"></span><span class="target" id="classmvvm_1_1TagIndex_1adbee934dae266fa470265fe6ebebec45"></span><span class="sig-name descname"><span class="n"><span class="pre">TagIndex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">default</span></span><a class="headerlink" href="#_CPPv4N4mvvm8TagIndex8TagIndexEv" title="Link to this definition"></a><br /></dt>
+<dd><p>The default c-tor. </p>
+<p>It represents a <a class="reference internal" href="#classmvvm_1_1TagIndex"><span class="std std-ref">TagIndex</span></a> addressing the first element of the item container marked as default. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm8TagIndex8TagIndexERKNSt6stringENSt6size_tE">
+<span id="_CPPv3N4mvvm8TagIndex8TagIndexERKNSt6stringENSt6size_tE"></span><span id="_CPPv2N4mvvm8TagIndex8TagIndexERKNSt6stringENSt6size_tE"></span><span id="mvvm::TagIndex::TagIndex__ssCR.std::s"></span><span class="target" id="classmvvm_1_1TagIndex_1ab609a452b1dbcf3d285f9833e8c14373"></span><span class="sig-name descname"><span class="n"><span class="pre">TagIndex</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">index</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0U</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm8TagIndex8TagIndexERKNSt6stringENSt6size_tE" title="Link to this definition"></a><br /></dt>
+<dd><p>The constructor to build <a class="reference internal" href="#classmvvm_1_1TagIndex"><span class="std std-ref">TagIndex</span></a> from name and index. </p>
+<p>Implicit conversion is allowed. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm8TagIndex8TagIndexEPKcNSt6size_tE">
+<span id="_CPPv3N4mvvm8TagIndex8TagIndexEPKcNSt6size_tE"></span><span id="_CPPv2N4mvvm8TagIndex8TagIndexEPKcNSt6size_tE"></span><span id="mvvm::TagIndex::TagIndex__cCP.std::s"></span><span class="target" id="classmvvm_1_1TagIndex_1ae06eeb6a7c808d60eaefe617f8baf8d2"></span><span class="sig-name descname"><span class="n"><span class="pre">TagIndex</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">index</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0U</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm8TagIndex8TagIndexEPKcNSt6size_tE" title="Link to this definition"></a><br /></dt>
+<dd><p>The constructor to build <a class="reference internal" href="#classmvvm_1_1TagIndex"><span class="std std-ref">TagIndex</span></a> from name and index. </p>
+<p>Implicit conversion is allowed. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm8TagIndex6GetTagEv">
+<span id="_CPPv3NK4mvvm8TagIndex6GetTagEv"></span><span id="_CPPv2NK4mvvm8TagIndex6GetTagEv"></span><span id="mvvm::TagIndex::GetTagC"></span><span class="target" id="classmvvm_1_1TagIndex_1a9769790e5d2912d9acf61b27a584255c"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetTag</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm8TagIndex6GetTagEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns tag. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm8TagIndex8GetIndexEv">
+<span id="_CPPv3NK4mvvm8TagIndex8GetIndexEv"></span><span id="_CPPv2NK4mvvm8TagIndex8GetIndexEv"></span><span id="mvvm::TagIndex::GetIndexC"></span><span class="target" id="classmvvm_1_1TagIndex_1a002010d45707ad6af3eea48ba95e6a1f"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetIndex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm8TagIndex8GetIndexEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns index. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm8TagIndex4NextEv">
+<span id="_CPPv3NK4mvvm8TagIndex4NextEv"></span><span id="_CPPv2NK4mvvm8TagIndex4NextEv"></span><span id="mvvm::TagIndex::NextC"></span><span class="target" id="classmvvm_1_1TagIndex_1ae00f29c60df8d71a72bb06c661b706a8"></span><a class="reference internal" href="#_CPPv4N4mvvm8TagIndexE" title="mvvm::TagIndex"><span class="n"><span class="pre">TagIndex</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Next</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm8TagIndex4NextEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Constructs a new <a class="reference internal" href="#classmvvm_1_1TagIndex"><span class="std std-ref">TagIndex</span></a> representing the following index in a given tag. </p>
+<p>No validity check. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm8TagIndex4PrevEv">
+<span id="_CPPv3NK4mvvm8TagIndex4PrevEv"></span><span id="_CPPv2NK4mvvm8TagIndex4PrevEv"></span><span id="mvvm::TagIndex::PrevC"></span><span class="target" id="classmvvm_1_1TagIndex_1af69c6516ae4de7af3ca3b8a9c196daae"></span><a class="reference internal" href="#_CPPv4N4mvvm8TagIndexE" title="mvvm::TagIndex"><span class="n"><span class="pre">TagIndex</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Prev</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm8TagIndex4PrevEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Constructs a new <a class="reference internal" href="#classmvvm_1_1TagIndex"><span class="std std-ref">TagIndex</span></a> representing the previous index in a given tag. </p>
+<p>No validity check. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm8TagIndex7IsValidEv">
+<span id="_CPPv3NK4mvvm8TagIndex7IsValidEv"></span><span id="_CPPv2NK4mvvm8TagIndex7IsValidEv"></span><span id="mvvm::TagIndex::IsValidC"></span><span class="target" id="classmvvm_1_1TagIndex_1a87aba21c6117abc3563dac7a389bfb4f"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsValid</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm8TagIndex7IsValidEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Checks if <a class="reference internal" href="#classmvvm_1_1TagIndex"><span class="std std-ref">TagIndex</span></a> is in a valid state. </p>
+<p>A valid state is any <a class="reference internal" href="#classmvvm_1_1TagIndex"><span class="std std-ref">TagIndex</span></a> that can be used to try to address the position in the item container. It is not guaranteed, however, that such a position exists. An invalid state is normally used as a return value from functions, when a given item doesn’t belong to the container. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm8TagIndex8IsAppendEv">
+<span id="_CPPv3NK4mvvm8TagIndex8IsAppendEv"></span><span id="_CPPv2NK4mvvm8TagIndex8IsAppendEv"></span><span id="mvvm::TagIndex::IsAppendC"></span><span class="target" id="classmvvm_1_1TagIndex_1ac0cb275095e58cb4fbdfdee61ca37b25"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsAppend</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm8TagIndex8IsAppendEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Checks if <a class="reference internal" href="#classmvvm_1_1TagIndex"><span class="std std-ref">TagIndex</span></a> is intended for append operations. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm8TagIndex6AppendERKNSt6stringE">
+<span id="_CPPv3N4mvvm8TagIndex6AppendERKNSt6stringE"></span><span id="_CPPv2N4mvvm8TagIndex6AppendERKNSt6stringE"></span><span id="mvvm::TagIndex::Append__ssCR"></span><span class="target" id="classmvvm_1_1TagIndex_1a97c14b78a6e247e819d5a5cd3168d07d"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4mvvm8TagIndexE" title="mvvm::TagIndex"><span class="n"><span class="pre">TagIndex</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Append</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tag_name</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4mvvm8TagIndex11kDefaultTagE" title="mvvm::TagIndex::kDefaultTag"><span class="n"><span class="pre">kDefaultTag</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm8TagIndex6AppendERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns <a class="reference internal" href="#classmvvm_1_1TagIndex"><span class="std std-ref">TagIndex</span></a> corresponding to the end of the container with the given name. </p>
+<p>If the default tag name is used, the <a class="reference internal" href="sessionmodel.html#classmvvm_1_1SessionModel"><span class="std std-ref">SessionModel</span></a> will try to find a container marked as default. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm8TagIndex5FirstERKNSt6stringE">
+<span id="_CPPv3N4mvvm8TagIndex5FirstERKNSt6stringE"></span><span id="_CPPv2N4mvvm8TagIndex5FirstERKNSt6stringE"></span><span id="mvvm::TagIndex::First__ssCR"></span><span class="target" id="classmvvm_1_1TagIndex_1afdc7bedf0fb7fd7ad09d5b99ce2cbb5a"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4mvvm8TagIndexE" title="mvvm::TagIndex"><span class="n"><span class="pre">TagIndex</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">First</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tag_name</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4mvvm8TagIndex11kDefaultTagE" title="mvvm::TagIndex::kDefaultTag"><span class="n"><span class="pre">kDefaultTag</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm8TagIndex5FirstERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns <a class="reference internal" href="#classmvvm_1_1TagIndex"><span class="std std-ref">TagIndex</span></a> corresponding to the first index in the container with the given name. </p>
+<p>If the default tag name is used, the <a class="reference internal" href="sessionmodel.html#classmvvm_1_1SessionModel"><span class="std std-ref">SessionModel</span></a> will try to find a container marked as default. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm8TagIndex7DefaultENSt6size_tE">
+<span id="_CPPv3N4mvvm8TagIndex7DefaultENSt6size_tE"></span><span id="_CPPv2N4mvvm8TagIndex7DefaultENSt6size_tE"></span><span id="mvvm::TagIndex::Default__std::s"></span><span class="target" id="classmvvm_1_1TagIndex_1aaaf5182e4d7b9d78e8aabad495b4400d"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4mvvm8TagIndexE" title="mvvm::TagIndex"><span class="n"><span class="pre">TagIndex</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Default</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">item_index</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm8TagIndex7DefaultENSt6size_tE" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns <a class="reference internal" href="#classmvvm_1_1TagIndex"><span class="std std-ref">TagIndex</span></a> corresponding to the given index in the container marked as a default. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm8TagIndex7InvalidEv">
+<span id="_CPPv3N4mvvm8TagIndex7InvalidEv"></span><span id="_CPPv2N4mvvm8TagIndex7InvalidEv"></span><span id="mvvm::TagIndex::Invalid"></span><span class="target" id="classmvvm_1_1TagIndex_1aadddb7d0ff017cfbada28d6bcf878c28"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4mvvm8TagIndexE" title="mvvm::TagIndex"><span class="n"><span class="pre">TagIndex</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Invalid</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm8TagIndex7InvalidEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns <a class="reference internal" href="#classmvvm_1_1TagIndex"><span class="std std-ref">TagIndex</span></a> corresponding to an invalid state. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="#classmvvm_1_1TagIndex_1a87aba21c6117abc3563dac7a389bfb4f"><span class="std std-ref">TagIndex::IsValid()</span></a></p>
+</div>
+</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-attributes">Public Static Attributes</p>
+<dl class="cpp var">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm8TagIndex11kDefaultTagE">
+<span id="_CPPv3N4mvvm8TagIndex11kDefaultTagE"></span><span id="_CPPv2N4mvvm8TagIndex11kDefaultTagE"></span><span id="mvvm::TagIndex::kDefaultTag__ssC"></span><span class="target" id="classmvvm_1_1TagIndex_1acf4d042b29c5594e935567168f47c35d"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">kDefaultTag</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><a class="headerlink" href="#_CPPv4N4mvvm8TagIndex11kDefaultTagE" title="Link to this definition"></a><br /></dt>
+<dd><p>A string constant used to address the container marked with the default flag. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm7TagInfoE">
+<span id="_CPPv3N4mvvm7TagInfoE"></span><span id="_CPPv2N4mvvm7TagInfoE"></span><span id="mvvm::TagInfo"></span><span class="target" id="classmvvm_1_1TagInfo"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TagInfo</span></span></span><a class="headerlink" href="#_CPPv4N4mvvm7TagInfoE" title="Link to this definition"></a><br /></dt>
+<dd><p>The <a class="reference internal" href="#classmvvm_1_1TagInfo"><span class="std std-ref">TagInfo</span></a> class holds info about the single tag for <a class="reference internal" href="#classmvvm_1_1SessionItem"><span class="std std-ref">SessionItem</span></a>. </p>
+<p>The tag specifies information about children that can be added to a <a class="reference internal" href="#classmvvm_1_1SessionItem"><span class="std std-ref">SessionItem</span></a>. A tag has a name, min, max allowed children count, and vector of all types children can have.</p>
+<p>If the provided list of allowed item types is empty, any child will be considered valid for this tag. For a non-empty list, only children with the type present in the list will be considered as valid. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm7TagInfo7TagInfoENSt6stringERKNSt8optionalINSt6size_tEEERKNSt8optionalINSt6size_tEEENSt6vectorINSt6stringEEE">
+<span id="_CPPv3N4mvvm7TagInfo7TagInfoENSt6stringERKNSt8optionalINSt6size_tEEERKNSt8optionalINSt6size_tEEENSt6vectorINSt6stringEEE"></span><span id="_CPPv2N4mvvm7TagInfo7TagInfoENSt6stringERKNSt8optionalINSt6size_tEEERKNSt8optionalINSt6size_tEEENSt6vectorINSt6stringEEE"></span><span id="mvvm::TagInfo::TagInfo__ss.std::optional:std::s:CR.std::optional:std::s:CR.std::vector:ss:"></span><span class="target" id="classmvvm_1_1TagInfo_1aec453ef06c7dcc0b17888718ea3c15f7"></span><span class="sig-name descname"><span class="n"><span class="pre">TagInfo</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">min</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">optional</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">max</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">item_types</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm7TagInfo7TagInfoENSt6stringERKNSt8optionalINSt6size_tEEERKNSt8optionalINSt6size_tEEENSt6vectorINSt6stringEEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Full c-tor. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The name of the tag. </p></li>
+<li><p><strong>min</strong> – Minimum allowed number of children. </p></li>
+<li><p><strong>max</strong> – Maximum allowed number of childre. </p></li>
+<li><p><strong>item_types</strong> – </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm7TagInfo7GetNameEv">
+<span id="_CPPv3NK4mvvm7TagInfo7GetNameEv"></span><span id="_CPPv2NK4mvvm7TagInfo7GetNameEv"></span><span id="mvvm::TagInfo::GetNameC"></span><span class="target" id="classmvvm_1_1TagInfo_1a9b70195cfcb26d04808531b9fbc88866"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetName</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm7TagInfo7GetNameEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the name of this class. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm7TagInfo6HasMinEv">
+<span id="_CPPv3NK4mvvm7TagInfo6HasMinEv"></span><span id="_CPPv2NK4mvvm7TagInfo6HasMinEv"></span><span id="mvvm::TagInfo::HasMinC"></span><span class="target" id="classmvvm_1_1TagInfo_1a6f65cd7db2bd336c49b75fda02760af8"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HasMin</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm7TagInfo6HasMinEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Checks if the tag has a user-defined minimum allowed number of items. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm7TagInfo6GetMinEv">
+<span id="_CPPv3NK4mvvm7TagInfo6GetMinEv"></span><span id="_CPPv2NK4mvvm7TagInfo6GetMinEv"></span><span id="mvvm::TagInfo::GetMinC"></span><span class="target" id="classmvvm_1_1TagInfo_1ad84285a0e3019b614362461462dc92c4"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetMin</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm7TagInfo6GetMinEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns minimum allowed amount of items with this tag. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm7TagInfo6HasMaxEv">
+<span id="_CPPv3NK4mvvm7TagInfo6HasMaxEv"></span><span id="_CPPv2NK4mvvm7TagInfo6HasMaxEv"></span><span id="mvvm::TagInfo::HasMaxC"></span><span class="target" id="classmvvm_1_1TagInfo_1a9f55b51207f9e0a533b6e92a28762e6e"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HasMax</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm7TagInfo6HasMaxEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Checks if tag has a user-define maximum allowed number of items. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm7TagInfo6GetMaxEv">
+<span id="_CPPv3NK4mvvm7TagInfo6GetMaxEv"></span><span id="_CPPv2NK4mvvm7TagInfo6GetMaxEv"></span><span id="mvvm::TagInfo::GetMaxC"></span><span class="target" id="classmvvm_1_1TagInfo_1a44477dc372829f40717c3d8e519a3453"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetMax</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm7TagInfo6GetMaxEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns maximum allowed amount of items with this tag. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm7TagInfo12GetItemTypesEv">
+<span id="_CPPv3NK4mvvm7TagInfo12GetItemTypesEv"></span><span id="_CPPv2NK4mvvm7TagInfo12GetItemTypesEv"></span><span id="mvvm::TagInfo::GetItemTypesC"></span><span class="target" id="classmvvm_1_1TagInfo_1a2d289dc8d7b3c48b2de85f36f51af453"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetItemTypes</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm7TagInfo12GetItemTypesEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns vector of allowed item types which this tag accepts. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm7TagInfo11IsValidTypeERKNSt6stringE">
+<span id="_CPPv3NK4mvvm7TagInfo11IsValidTypeERKNSt6stringE"></span><span id="_CPPv2NK4mvvm7TagInfo11IsValidTypeERKNSt6stringE"></span><span id="mvvm::TagInfo::IsValidType__ssCRC"></span><span class="target" id="classmvvm_1_1TagInfo_1ab078fa084834e9d63f744f116eba5bee"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsValidType</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">item_type</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm7TagInfo11IsValidTypeERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Checks if given item’s type matches the list of possible item types. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm7TagInfo18CreateUniversalTagENSt6stringENSt6vectorINSt6stringEEE">
+<span id="_CPPv3N4mvvm7TagInfo18CreateUniversalTagENSt6stringENSt6vectorINSt6stringEEE"></span><span id="_CPPv2N4mvvm7TagInfo18CreateUniversalTagENSt6stringENSt6vectorINSt6stringEEE"></span><span id="mvvm::TagInfo::CreateUniversalTag__ss.std::vector:ss:"></span><span class="target" id="classmvvm_1_1TagInfo_1a9f2d2a65515f555141efa7d503ff7085"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4mvvm7TagInfoE" title="mvvm::TagInfo"><span class="n"><span class="pre">TagInfo</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CreateUniversalTag</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">item_types</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm7TagInfo18CreateUniversalTagENSt6stringENSt6vectorINSt6stringEEE" title="Link to this definition"></a><br /></dt>
+<dd><p>A factory method to constructs universal tag intended for unlimited amount of various items. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The name of the tag. </p></li>
+<li><p><strong>item_types</strong> – The list of allowed item types. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Constructed tag. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm7TagInfo17CreatePropertyTagENSt6stringENSt6stringE">
+<span id="_CPPv3N4mvvm7TagInfo17CreatePropertyTagENSt6stringENSt6stringE"></span><span id="_CPPv2N4mvvm7TagInfo17CreatePropertyTagENSt6stringENSt6stringE"></span><span id="mvvm::TagInfo::CreatePropertyTag__ss.ss"></span><span class="target" id="classmvvm_1_1TagInfo_1acacd9041673b2beb3ec57ae3173b5358"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4mvvm7TagInfoE" title="mvvm::TagInfo"><span class="n"><span class="pre">TagInfo</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CreatePropertyTag</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">item_type</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm7TagInfo17CreatePropertyTagENSt6stringENSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>A factory method to constructs property tag intended to store property item. </p>
+<p>A property item is an item which is normally hidden in top-level item hierarchies, but shown in property editors. Once inserted, it can’t be removed.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – The name of the tag. </p></li>
+<li><p><strong>item_types</strong> – The list of allowed item types. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Constructed tag. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm11SessionItemE">
+<span id="_CPPv3N4mvvm11SessionItemE"></span><span id="_CPPv2N4mvvm11SessionItemE"></span><span id="mvvm::SessionItem"></span><span class="target" id="classmvvm_1_1SessionItem"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SessionItem</span></span></span><a class="headerlink" href="#_CPPv4N4mvvm11SessionItemE" title="Link to this definition"></a><br /></dt>
+<dd><p>The <a class="reference internal" href="#classmvvm_1_1SessionItem"><span class="std std-ref">SessionItem</span></a> class is a base element to build a hierarchical structure representing all the data of the application. </p>
+<p>It can contain an arbitrary amount of basic data types and can be a parent for other SessionItems. </p>
+<p>Subclassed by <a class="reference internal" href="compound_item.html#classmvvm_1_1CompoundItem"><span class="std std-ref">mvvm::CompoundItem</span></a>, <a class="reference internal" href="standard_items.html#classmvvm_1_1LinkedItem"><span class="std std-ref">mvvm::LinkedItem</span></a>, <a class="reference internal" href="standard_items.html#classmvvm_1_1PropertyItem"><span class="std std-ref">mvvm::PropertyItem</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm11SessionItem11SessionItemERK11SessionItem">
+<span id="_CPPv3N4mvvm11SessionItem11SessionItemERK11SessionItem"></span><span id="_CPPv2N4mvvm11SessionItem11SessionItemERK11SessionItem"></span><span id="mvvm::SessionItem::SessionItem__SessionItemCR"></span><span class="target" id="classmvvm_1_1SessionItem_1a94cc87ec9f4d3f4f0d7e812ff1b6a03c"></span><span class="sig-name descname"><span class="n"><span class="pre">SessionItem</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4mvvm11SessionItem11SessionItemERK11SessionItem" title="mvvm::SessionItem::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">other</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm11SessionItem11SessionItemERK11SessionItem" title="Link to this definition"></a><br /></dt>
+<dd><p>Copy constructor. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem5CloneEv">
+<span id="_CPPv3NK4mvvm11SessionItem5CloneEv"></span><span id="_CPPv2NK4mvvm11SessionItem5CloneEv"></span><span id="mvvm::SessionItem::CloneC"></span><span class="target" id="classmvvm_1_1SessionItem_1a2bbfc579d3aa1ce6f51bab03177fec21"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Clone</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem5CloneEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates a clone of the item. </p>
+<p>Creates an exact clone of the item together with all its children. All item identifiers will be the same. Please note, that cloned items can’t be used along with the original item in the same model due to memory pool identifiers collision. Use utils::CopyItem to create deep copies that have different item identifiers. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem7GetTypeEv">
+<span id="_CPPv3NK4mvvm11SessionItem7GetTypeEv"></span><span id="_CPPv2NK4mvvm11SessionItem7GetTypeEv"></span><span id="mvvm::SessionItem::GetTypeC"></span><span class="target" id="classmvvm_1_1SessionItem_1a9f558c62ee9324f28b30e7ddbf8b19f2"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetType</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem7GetTypeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the type of the item. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem13GetIdentifierEv">
+<span id="_CPPv3NK4mvvm11SessionItem13GetIdentifierEv"></span><span id="_CPPv2NK4mvvm11SessionItem13GetIdentifierEv"></span><span id="mvvm::SessionItem::GetIdentifierC"></span><span class="target" id="classmvvm_1_1SessionItem_1a849502b4a01b334cd23d02a25e89e9cc"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetIdentifier</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem13GetIdentifierEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns item unique identifier. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem14GetDisplayNameEv">
+<span id="_CPPv3NK4mvvm11SessionItem14GetDisplayNameEv"></span><span id="_CPPv2NK4mvvm11SessionItem14GetDisplayNameEv"></span><span id="mvvm::SessionItem::GetDisplayNameC"></span><span class="target" id="classmvvm_1_1SessionItem_1af6ba62ccf8c79c05e86cdb30060aa4f5"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetDisplayName</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem14GetDisplayNameEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns item’s display name. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm11SessionItem14SetDisplayNameERKNSt6stringE">
+<span id="_CPPv3N4mvvm11SessionItem14SetDisplayNameERKNSt6stringE"></span><span id="_CPPv2N4mvvm11SessionItem14SetDisplayNameERKNSt6stringE"></span><span id="mvvm::SessionItem::SetDisplayName__ssCR"></span><span class="target" id="classmvvm_1_1SessionItem_1a752864a270d163cd38f38afee2eb38b7"></span><a class="reference internal" href="#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">SetDisplayName</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm11SessionItem14SetDisplayNameERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Sets the display name. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem8GetModelEv">
+<span id="_CPPv3NK4mvvm11SessionItem8GetModelEv"></span><span id="_CPPv2NK4mvvm11SessionItem8GetModelEv"></span><span id="mvvm::SessionItem::GetModelC"></span><span class="target" id="classmvvm_1_1SessionItem_1ae6608e9b7627a50098b4cf6c11674d8c"></span><span class="n"><span class="pre">ISessionModel</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetModel</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem8GetModelEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the model to which given item belongs to, or nullptr if item doesn’t belong to a model. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem9GetParentEv">
+<span id="_CPPv3NK4mvvm11SessionItem9GetParentEv"></span><span id="_CPPv2NK4mvvm11SessionItem9GetParentEv"></span><span id="mvvm::SessionItem::GetParentC"></span><span class="target" id="classmvvm_1_1SessionItem_1a89d3d5dab3418aed359dd14cd101b1be"></span><a class="reference internal" href="#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetParent</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem9GetParentEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns item parent. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem11GetTagIndexEv">
+<span id="_CPPv3NK4mvvm11SessionItem11GetTagIndexEv"></span><span id="_CPPv2NK4mvvm11SessionItem11GetTagIndexEv"></span><span id="mvvm::SessionItem::GetTagIndexC"></span><span class="target" id="classmvvm_1_1SessionItem_1a5e70dac3ca08848d9f304231cb06d98d"></span><a class="reference internal" href="#_CPPv4N4mvvm8TagIndexE" title="mvvm::TagIndex"><span class="n"><span class="pre">TagIndex</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetTagIndex</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem11GetTagIndexEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns <a class="reference internal" href="#classmvvm_1_1TagIndex"><span class="std std-ref">TagIndex</span></a> of this item under which it is accessible through its parent. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem7HasDataENSt7int32_tE">
+<span id="_CPPv3NK4mvvm11SessionItem7HasDataENSt7int32_tE"></span><span id="_CPPv2NK4mvvm11SessionItem7HasDataENSt7int32_tE"></span><span id="mvvm::SessionItem::HasData__std::int32_tC"></span><span class="target" id="classmvvm_1_1SessionItem_1a170dc73d2015e843cf0f62fd2acca4f4"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HasData</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">int32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">role</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">DataRole</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">kData</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem7HasDataENSt7int32_tE" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if item has data on board with given role. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0ENK4mvvm11SessionItem4DataE1TNSt7int32_tE">
+<span id="_CPPv3I0ENK4mvvm11SessionItem4DataENSt7int32_tE"></span><span id="_CPPv2I0ENK4mvvm11SessionItem4DataENSt7int32_tE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">variant_t</span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmvvm_1_1SessionItem_1a72e0db02435dcd7ba64ad33808d1319b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0ENK4mvvm11SessionItem4DataE1TNSt7int32_tE" title="mvvm::SessionItem::Data::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Data</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">int32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">role</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">DataRole</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">kData</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0ENK4mvvm11SessionItem4DataE1TNSt7int32_tE" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns data for the given role. </p>
+<p>If given role doesn’t exist, will return uninitialized variant_t{}. If role exists, will perform conversion to the given T. Will throw, if conversion is not possible.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>role</strong> – The role of the data. </p>
+</dd>
+<dt class="field-even">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>T</strong> – The type to convert the data.</p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The variant with the data, or data itself if template parameter is specified. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4mvvm11SessionItem7SetDataEbRK1TNSt7int32_tEb">
+<span id="_CPPv3I0EN4mvvm11SessionItem7SetDataERK1TNSt7int32_tEb"></span><span id="_CPPv2I0EN4mvvm11SessionItem7SetDataERK1TNSt7int32_tEb"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmvvm_1_1SessionItem_1a28d5ae70c60f594b177415c81d876686"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetData</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4mvvm11SessionItem7SetDataEbRK1TNSt7int32_tEb" title="mvvm::SessionItem::SetData::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">int32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">role</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">DataRole</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">kData</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">direct</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN4mvvm11SessionItem7SetDataEbRK1TNSt7int32_tEb" title="Link to this definition"></a><br /></dt>
+<dd><p>Sets the data for the given role. </p>
+<p>When extra parameter direct is false (default case), will act through the model. This will invoke a notification mechanism and provide the possibility for undo, if implemented. When direct is true, will set the data via <a class="reference internal" href="#classmvvm_1_1SessionItem"><span class="std std-ref">SessionItem</span></a> API to bypass notifications.</p>
+<p>If the data is the same as before, will return false as a sign that no data was changed. It is not possible to change the data type for a given role, once the role was set for the first time. Thus, an attempt to set an integer to the role containing a string will lead to the exception.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – The value to set. </p></li>
+<li><p><strong>role</strong> – The role of the data. </p></li>
+<li><p><strong>direct</strong> – Set the data through the model, if set to false.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns true, if the data was changed. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm11SessionItem7SetDataEPKcNSt7int32_tEb">
+<span id="_CPPv3N4mvvm11SessionItem7SetDataEPKcNSt7int32_tEb"></span><span id="_CPPv2N4mvvm11SessionItem7SetDataEPKcNSt7int32_tEb"></span><span id="mvvm::SessionItem::SetData__cCP.std::int32_t.b"></span><span class="target" id="classmvvm_1_1SessionItem_1a39da4c3f671bb563691362495e5517c2"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetData</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span>, <span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">int32_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">role</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="n"><span class="pre">DataRole</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">kData</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">direct</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm11SessionItem7SetDataEPKcNSt7int32_tEb" title="Link to this definition"></a><br /></dt>
+<dd><p>Specialized version for const char to avoid its conversion to bool. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm11SessionItem11GetItemDataEv">
+<span id="_CPPv3N4mvvm11SessionItem11GetItemDataEv"></span><span id="_CPPv2N4mvvm11SessionItem11GetItemDataEv"></span><span id="mvvm::SessionItem::GetItemData"></span><span class="target" id="classmvvm_1_1SessionItem_1a974f5efba048ea2000f572f176bfb9fc"></span><span class="n"><span class="pre">SessionItemData</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetItemData</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm11SessionItem11GetItemDataEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns pointer to item’s data container (non-const version). </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem11GetItemDataEv">
+<span id="_CPPv3NK4mvvm11SessionItem11GetItemDataEv"></span><span id="_CPPv2NK4mvvm11SessionItem11GetItemDataEv"></span><span id="mvvm::SessionItem::GetItemDataC"></span><span class="target" id="classmvvm_1_1SessionItem_1aa3df024ce3c157bc96f1799a0af4f4f7"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">SessionItemData</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetItemData</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem11GetItemDataEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns pointer to item’s data container (const version). </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem17GetTotalItemCountEv">
+<span id="_CPPv3NK4mvvm11SessionItem17GetTotalItemCountEv"></span><span id="_CPPv2NK4mvvm11SessionItem17GetTotalItemCountEv"></span><span id="mvvm::SessionItem::GetTotalItemCountC"></span><span class="target" id="classmvvm_1_1SessionItem_1a111e9ddff711c512739d651dbf2e1ff0"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetTotalItemCount</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem17GetTotalItemCountEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns total number of children in all tags. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem11GetAllItemsEv">
+<span id="_CPPv3NK4mvvm11SessionItem11GetAllItemsEv"></span><span id="_CPPv2NK4mvvm11SessionItem11GetAllItemsEv"></span><span id="mvvm::SessionItem::GetAllItemsC"></span><span class="target" id="classmvvm_1_1SessionItem_1a0094e22552f69895ace660815a32e246"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetAllItems</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem11GetAllItemsEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns vector of children formed from all children from all tags. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem12GetItemCountERKNSt6stringE">
+<span id="_CPPv3NK4mvvm11SessionItem12GetItemCountERKNSt6stringE"></span><span id="_CPPv2NK4mvvm11SessionItem12GetItemCountERKNSt6stringE"></span><span id="mvvm::SessionItem::GetItemCount__ssCRC"></span><span class="target" id="classmvvm_1_1SessionItem_1acd8ea503a9020883f3fd1339364a2404"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetItemCount</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tag</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem12GetItemCountERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns number of items in given tag. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem7GetItemERK8TagIndex">
+<span id="_CPPv3NK4mvvm11SessionItem7GetItemERK8TagIndex"></span><span id="_CPPv2NK4mvvm11SessionItem7GetItemERK8TagIndex"></span><span id="mvvm::SessionItem::GetItem__TagIndexCRC"></span><span class="target" id="classmvvm_1_1SessionItem_1a7889d107c778aa610d4a38ce06e85bb3"></span><a class="reference internal" href="#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetItem</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4mvvm8TagIndexE" title="mvvm::TagIndex"><span class="n"><span class="pre">TagIndex</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tag_index</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem7GetItemERK8TagIndex" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns item located at given tag_index, or nullptr if an item doesn’t exist. </p>
+<p>If the tag name is empty, the tag registered as default will be used. Will throw, when provided non-empty tag wasn’t registered. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem8GetItemsERKNSt6stringE">
+<span id="_CPPv3NK4mvvm11SessionItem8GetItemsERKNSt6stringE"></span><span id="_CPPv2NK4mvvm11SessionItem8GetItemsERKNSt6stringE"></span><span id="mvvm::SessionItem::GetItems__ssCRC"></span><span class="target" id="classmvvm_1_1SessionItem_1ac5e97e70dc17d9883e13c07e521886d1"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetItems</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tag</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem8GetItemsERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns vector of items in the container with given tag name. </p>
+<p>If the tag name is empty, container registered as default will be used. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0ENK4mvvm11SessionItem7GetItemEP1TRK8TagIndex">
+<span id="_CPPv3I0ENK4mvvm11SessionItem7GetItemERK8TagIndex"></span><span id="_CPPv2I0ENK4mvvm11SessionItem7GetItemERK8TagIndex"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmvvm_1_1SessionItem_1ac7afb2595a6466521587b019478b15d7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0ENK4mvvm11SessionItem7GetItemEP1TRK8TagIndex" title="mvvm::SessionItem::GetItem::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetItem</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4mvvm8TagIndexE" title="mvvm::TagIndex"><span class="n"><span class="pre">TagIndex</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tag_index</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0ENK4mvvm11SessionItem7GetItemEP1TRK8TagIndex" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns item under given tag and index casted to a specified type. </p>
+<p>Returns nullptr, if item doesn’t exist. If item exists but can’t be casted will throw. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0ENK4mvvm11SessionItem8GetItemsENSt6vectorIP1TEERKNSt6stringE">
+<span id="_CPPv3I0ENK4mvvm11SessionItem8GetItemsERKNSt6stringE"></span><span id="_CPPv2I0ENK4mvvm11SessionItem8GetItemsERKNSt6stringE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmvvm_1_1SessionItem_1a8e3cb467a3340d7c023295a7be16721e"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0ENK4mvvm11SessionItem8GetItemsENSt6vectorIP1TEERKNSt6stringE" title="mvvm::SessionItem::GetItems::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetItems</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tag</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0ENK4mvvm11SessionItem8GetItemsENSt6vectorIP1TEERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns all items under given tag casted to specific type. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>tag</strong> – The name of container’s tag name. </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Vector of items. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem14TagIndexOfItemEPK11SessionItem">
+<span id="_CPPv3NK4mvvm11SessionItem14TagIndexOfItemEPK11SessionItem"></span><span id="_CPPv2NK4mvvm11SessionItem14TagIndexOfItemEPK11SessionItem"></span><span id="mvvm::SessionItem::TagIndexOfItem__SessionItemCPC"></span><span class="target" id="classmvvm_1_1SessionItem_1ab16b48503571cdc3fa85697ab7919d38"></span><a class="reference internal" href="#_CPPv4N4mvvm8TagIndexE" title="mvvm::TagIndex"><span class="n"><span class="pre">TagIndex</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TagIndexOfItem</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">item</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem14TagIndexOfItemEPK11SessionItem" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns pair of tag and index corresponding to given item. </p>
+<p>If given item is not direct child, will returns <a class="reference internal" href="#classmvvm_1_1TagIndex_1aadddb7d0ff017cfbada28d6bcf878c28"><span class="std std-ref">TagIndex::Invalid()</span></a>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>item</strong> – Possible child whose tag_index we want to find. </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Items’ tag_index. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm11SessionItem11RegisterTagERK7TagInfob">
+<span id="_CPPv3N4mvvm11SessionItem11RegisterTagERK7TagInfob"></span><span id="_CPPv2N4mvvm11SessionItem11RegisterTagERK7TagInfob"></span><span id="mvvm::SessionItem::RegisterTag__TagInfoCR.b"></span><span class="target" id="classmvvm_1_1SessionItem_1a8b39e50cb6a18c2f4f439b38ecb292e5"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RegisterTag</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4mvvm7TagInfoE" title="mvvm::TagInfo"><span class="n"><span class="pre">TagInfo</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tag_info</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">set_as_default</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm11SessionItem11RegisterTagERK7TagInfob" title="Link to this definition"></a><br /></dt>
+<dd><p>Registers tag info to hold items under given name. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>tag_info</strong> – A tag info object to register. </p></li>
+<li><p><strong>set_as_default</strong> – Given tag will be used as default when empty tag name is used. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem14GetTaggedItemsEv">
+<span id="_CPPv3NK4mvvm11SessionItem14GetTaggedItemsEv"></span><span id="_CPPv2NK4mvvm11SessionItem14GetTaggedItemsEv"></span><span id="mvvm::SessionItem::GetTaggedItemsC"></span><span class="target" id="classmvvm_1_1SessionItem_1a1419d877ba8a37d0243518a9e8cf562c"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">TaggedItems</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetTaggedItems</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem14GetTaggedItemsEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns pointer to internal collection of registered item containers (const version). </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm11SessionItem14GetTaggedItemsEv">
+<span id="_CPPv3N4mvvm11SessionItem14GetTaggedItemsEv"></span><span id="_CPPv2N4mvvm11SessionItem14GetTaggedItemsEv"></span><span id="mvvm::SessionItem::GetTaggedItems"></span><span class="target" id="classmvvm_1_1SessionItem_1aa3331f62b25f5c65c10a2d4262aa0197"></span><span class="n"><span class="pre">TaggedItems</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetTaggedItems</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm11SessionItem14GetTaggedItemsEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns pointer to internal collection of registered item containers (non-const version). </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm11SessionItem10InsertItemENSt10unique_ptrI11SessionItemEERK8TagIndex">
+<span id="_CPPv3N4mvvm11SessionItem10InsertItemENSt10unique_ptrI11SessionItemEERK8TagIndex"></span><span id="_CPPv2N4mvvm11SessionItem10InsertItemENSt10unique_ptrI11SessionItemEERK8TagIndex"></span><span id="mvvm::SessionItem::InsertItem__std::unique_ptr:SessionItem:.TagIndexCR"></span><span class="target" id="classmvvm_1_1SessionItem_1a57a690e21c64ada674b02060cab2d596"></span><a class="reference internal" href="#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">InsertItem</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">item</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4mvvm8TagIndexE" title="mvvm::TagIndex"><span class="n"><span class="pre">TagIndex</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tag_index</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm11SessionItem10InsertItemENSt10unique_ptrI11SessionItemEERK8TagIndex" title="Link to this definition"></a><br /></dt>
+<dd><p>Inserts item into the given tag_index, ownership is taken. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>item</strong> – Item to insert. </p></li>
+<li><p><strong>tag_index</strong> – A tag_index pointing to the insert place. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Convenience pointer to just inserted item. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4mvvm11SessionItem10InsertItemEP1TRK8TagIndex">
+<span id="_CPPv3I0EN4mvvm11SessionItem10InsertItemERK8TagIndex"></span><span id="_CPPv2I0EN4mvvm11SessionItem10InsertItemERK8TagIndex"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmvvm_1_1SessionItem_1af9a58a1f9c74697ddce9a831d24d401a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4mvvm11SessionItem10InsertItemEP1TRK8TagIndex" title="mvvm::SessionItem::InsertItem::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">InsertItem</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4mvvm8TagIndexE" title="mvvm::TagIndex"><span class="n"><span class="pre">TagIndex</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tag_index</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN4mvvm11SessionItem10InsertItemEP1TRK8TagIndex" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates a new item of given type and insert it into the given tag_index. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Type</strong> – of the item to create. </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>tag_index</strong> – A tag_index pointing to the insert place. </p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Convenience pointer to just inserted item. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm11SessionItem8TakeItemERK8TagIndex">
+<span id="_CPPv3N4mvvm11SessionItem8TakeItemERK8TagIndex"></span><span id="_CPPv2N4mvvm11SessionItem8TakeItemERK8TagIndex"></span><span id="mvvm::SessionItem::TakeItem__TagIndexCR"></span><span class="target" id="classmvvm_1_1SessionItem_1a2176affd51ffcbeb394d89b3f231141e"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TakeItem</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4mvvm8TagIndexE" title="mvvm::TagIndex"><span class="n"><span class="pre">TagIndex</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tag_index</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm11SessionItem8TakeItemERK8TagIndex" title="Link to this definition"></a><br /></dt>
+<dd><p>Removes an item from the given tag_index, returns it to the caller. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem10IsEditableEv">
+<span id="_CPPv3NK4mvvm11SessionItem10IsEditableEv"></span><span id="_CPPv2NK4mvvm11SessionItem10IsEditableEv"></span><span id="mvvm::SessionItem::IsEditableC"></span><span class="target" id="classmvvm_1_1SessionItem_1ac557e075e4f0ac07b63cf20428832f25"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsEditable</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem10IsEditableEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if this item has editable flag set. </p>
+<p>The data role of editable items can be normally changed in Qt trees and tables by double-clicking on the corresponding cell. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm11SessionItem11SetEditableEb">
+<span id="_CPPv3N4mvvm11SessionItem11SetEditableEb"></span><span id="_CPPv2N4mvvm11SessionItem11SetEditableEb"></span><span id="mvvm::SessionItem::SetEditable__b"></span><span class="target" id="classmvvm_1_1SessionItem_1a1f8cfb89cfd261426618b158c83119a7"></span><a class="reference internal" href="#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">SetEditable</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm11SessionItem11SetEditableEb" title="Link to this definition"></a><br /></dt>
+<dd><p>Sets item’s editable flag to given value. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The reference to the same item (fluent interface). </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem9IsEnabledEv">
+<span id="_CPPv3NK4mvvm11SessionItem9IsEnabledEv"></span><span id="_CPPv2NK4mvvm11SessionItem9IsEnabledEv"></span><span id="mvvm::SessionItem::IsEnabledC"></span><span class="target" id="classmvvm_1_1SessionItem_1acafd0c426bb996631d8d58698c869449"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsEnabled</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem9IsEnabledEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if this item has enabled flag set. </p>
+<p>Enabled items normally appear in default color in Qt trees and tables, while disabled items are shown in gray. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm11SessionItem10SetEnabledEb">
+<span id="_CPPv3N4mvvm11SessionItem10SetEnabledEb"></span><span id="_CPPv2N4mvvm11SessionItem10SetEnabledEb"></span><span id="mvvm::SessionItem::SetEnabled__b"></span><span class="target" id="classmvvm_1_1SessionItem_1a91edc4d30f94e1b06d4f8420737abba9"></span><a class="reference internal" href="#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">SetEnabled</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm11SessionItem10SetEnabledEb" title="Link to this definition"></a><br /></dt>
+<dd><p>Sets item’s enabled flag to given value. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The reference to the same item (fluent interface). </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem9IsVisibleEv">
+<span id="_CPPv3NK4mvvm11SessionItem9IsVisibleEv"></span><span id="_CPPv2NK4mvvm11SessionItem9IsVisibleEv"></span><span id="mvvm::SessionItem::IsVisibleC"></span><span class="target" id="classmvvm_1_1SessionItem_1a011a8dfa8d300538ceac378b6f579017"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsVisible</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem9IsVisibleEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if this item has visibility flag set. </p>
+<p>Visible items normally appear in Qt tree’s and tables, while invisible items are hidden from the user. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm11SessionItem10SetVisibleEb">
+<span id="_CPPv3N4mvvm11SessionItem10SetVisibleEb"></span><span id="_CPPv2N4mvvm11SessionItem10SetVisibleEb"></span><span id="mvvm::SessionItem::SetVisible__b"></span><span class="target" id="classmvvm_1_1SessionItem_1a6239d51c994cd9537946497714d5b7e9"></span><a class="reference internal" href="#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">SetVisible</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm11SessionItem10SetVisibleEb" title="Link to this definition"></a><br /></dt>
+<dd><p>Sets item’s visibility flag to given value. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The reference to the same item (fluent interface). </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem10GetToolTipEv">
+<span id="_CPPv3NK4mvvm11SessionItem10GetToolTipEv"></span><span id="_CPPv2NK4mvvm11SessionItem10GetToolTipEv"></span><span id="mvvm::SessionItem::GetToolTipC"></span><span class="target" id="classmvvm_1_1SessionItem_1a7bfda89c4d0653c62e5afaccbd647a91"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetToolTip</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem10GetToolTipEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns item tooltip, if exists. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm11SessionItem10SetToolTipERKNSt6stringE">
+<span id="_CPPv3N4mvvm11SessionItem10SetToolTipERKNSt6stringE"></span><span id="_CPPv2N4mvvm11SessionItem10SetToolTipERKNSt6stringE"></span><span id="mvvm::SessionItem::SetToolTip__ssCR"></span><span class="target" id="classmvvm_1_1SessionItem_1ad4f98e1cf4658cb083b36a5cd32a0abf"></span><a class="reference internal" href="#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">SetToolTip</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tooltip</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm11SessionItem10SetToolTipERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Sets item’s tooltip to given value. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The reference to the same item (fluent interface). </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem13GetEditorTypeEv">
+<span id="_CPPv3NK4mvvm11SessionItem13GetEditorTypeEv"></span><span id="_CPPv2NK4mvvm11SessionItem13GetEditorTypeEv"></span><span id="mvvm::SessionItem::GetEditorTypeC"></span><span class="target" id="classmvvm_1_1SessionItem_1aab776f3505f33eff5550d3e4c31e07a9"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetEditorType</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem13GetEditorTypeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns editor type which is used to edit data role. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm11SessionItem13SetEditorTypeERKNSt6stringE">
+<span id="_CPPv3N4mvvm11SessionItem13SetEditorTypeERKNSt6stringE"></span><span id="_CPPv2N4mvvm11SessionItem13SetEditorTypeERKNSt6stringE"></span><span id="mvvm::SessionItem::SetEditorType__ssCR"></span><span class="target" id="classmvvm_1_1SessionItem_1a22cf5ce28e5294a47f1728e2be399155"></span><a class="reference internal" href="#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">SetEditorType</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">editor_type</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm11SessionItem13SetEditorTypeERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Sets editor type. </p>
+<p>This allows to define custom cell editors to edit data role of the item. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem7HasFlagE10Appearance">
+<span id="_CPPv3NK4mvvm11SessionItem7HasFlagE10Appearance"></span><span id="_CPPv2NK4mvvm11SessionItem7HasFlagE10Appearance"></span><span id="mvvm::SessionItem::HasFlag__AppearanceC"></span><span class="target" id="classmvvm_1_1SessionItem_1afee781c4c251ffc221da27902fefa2de"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HasFlag</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Appearance</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">flag</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem7HasFlagE10Appearance" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns true if the item has given appearance flag set. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm11SessionItem7SetFlagE10Appearanceb">
+<span id="_CPPv3N4mvvm11SessionItem7SetFlagE10Appearanceb"></span><span id="_CPPv2N4mvvm11SessionItem7SetFlagE10Appearanceb"></span><span id="mvvm::SessionItem::SetFlag__Appearance.b"></span><span class="target" id="classmvvm_1_1SessionItem_1a86d94f22025e8d9ba3fdfa61303b511d"></span><a class="reference internal" href="#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">SetFlag</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Appearance</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">flag</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm11SessionItem7SetFlagE10Appearanceb" title="Link to this definition"></a><br /></dt>
+<dd><p>Sets appearance flag to given value. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm11SessionItem8ActivateEv">
+<span id="_CPPv3N4mvvm11SessionItem8ActivateEv"></span><span id="_CPPv2N4mvvm11SessionItem8ActivateEv"></span><span id="mvvm::SessionItem::Activate"></span><span class="target" id="classmvvm_1_1SessionItem_1a9043a84d2a7d004243e89e079b1b7a8f"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Activate</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm11SessionItem8ActivateEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Activates business logic. </p>
+<p>The method is called by the model when an item is inserted into the model. It allows to perform some additional initialization on the item’s board, if necessary. For example, it can provide custom connections so the item reacts on its own properties change. See <a class="reference internal" href="standard_items.html#classmvvm_1_1VectorItem"><span class="std std-ref">VectorItem</span></a> example. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm11SessionItem8SetModelEP13ISessionModel">
+<span id="_CPPv3N4mvvm11SessionItem8SetModelEP13ISessionModel"></span><span id="_CPPv2N4mvvm11SessionItem8SetModelEP13ISessionModel"></span><span id="mvvm::SessionItem::SetModel__ISessionModelP"></span><span class="target" id="classmvvm_1_1SessionItem_1ab8ac94319a5bf8bba3ae94153ff78096"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetModel</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">ISessionModel</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">model</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm11SessionItem8SetModelEP13ISessionModel" title="Link to this definition"></a><br /></dt>
+<dd><p>Set item’s model to the given value. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm11SessionItem7GetSlotEv">
+<span id="_CPPv3NK4mvvm11SessionItem7GetSlotEv"></span><span id="_CPPv2NK4mvvm11SessionItem7GetSlotEv"></span><span id="mvvm::SessionItem::GetSlotC"></span><span class="target" id="classmvvm_1_1SessionItem_1ae9bbd28e00cb15bea733a5e7635eccdc"></span><span class="n"><span class="pre">Slot</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetSlot</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4mvvm11SessionItem7GetSlotEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns a slot for signal connection. </p>
+<p>Time of life of the slot is coupled with the item. After item destruction, all connections will be safely cut. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm11SessionItem13GetStaticTypeEv">
+<span id="_CPPv3N4mvvm11SessionItem13GetStaticTypeEv"></span><span id="_CPPv2N4mvvm11SessionItem13GetStaticTypeEv"></span><span id="mvvm::SessionItem::GetStaticType"></span><span class="target" id="classmvvm_1_1SessionItem_1a1b058fd5c842c4dcd5af6652e508a411"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetStaticType</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm11SessionItem13GetStaticTypeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns the static type of the item. </p>
+<p>This static method has to be implemented for every item derived from <a class="reference internal" href="#classmvvm_1_1SessionItem"><span class="std std-ref">SessionItem</span></a>. It has to return a unique item’s type name. The method is used to register the item in item factory, and as a parameter for base class c-tor.</p>
+<p>To access the item type during runtime use &#64;see <a class="reference internal" href="#classmvvm_1_1SessionItem_1a9f558c62ee9324f28b30e7ddbf8b19f2"><span class="std std-ref">SessionItem::GetType()</span></a>. </p>
+</dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm11SessionItem15SessionItemImplE">
+<span id="_CPPv3N4mvvm11SessionItem15SessionItemImplE"></span><span id="_CPPv2N4mvvm11SessionItem15SessionItemImplE"></span><span id="mvvm::SessionItem::SessionItemImpl"></span><span class="target" id="structmvvm_1_1SessionItem_1_1SessionItemImpl"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SessionItemImpl</span></span></span><a class="headerlink" href="#_CPPv4N4mvvm11SessionItem15SessionItemImplE" title="Link to this definition"></a><br /></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright ITER Organization.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Instructions &mdash; OAC-TREE PLUGIN EPICS</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=42d1b3bd"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Variables" href="variables.html" />
+    <link rel="prev" title="Usage" href="usage.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            oac-tree-plugin-epics
+          </a>
+              <div class="version">
+                4.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Instructions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#channelaccessread">ChannelAccessRead</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#channelaccesswrite">ChannelAccessWrite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pvaccessread">PvAccessRead</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pvaccesswrite">PvAccessWrite</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#rpcclient">RPCClient</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="variables.html">Variables</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">oac-tree-plugin-epics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Instructions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/instructions.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="instructions">
+<h1>Instructions<a class="headerlink" href="#instructions" title="Link to this heading"></a></h1>
+<section id="channelaccessread">
+<h2>ChannelAccessRead<a class="headerlink" href="#channelaccessread" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ChannelAccessRead</span></code> instruction tries to read an EPICS ChannelAccess process variable on the network and writes its value to a workspace variable if successful. When the process variable cannot be found on the network, or copying the value to a workspace variable fails, e.g. due to incompatible types, the instruction will return <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code>.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21.7%" />
+<col style="width: 21.7%" />
+<col style="width: 13.0%" />
+<col style="width: 43.5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute name</p></th>
+<th class="head"><p>Attribute type</p></th>
+<th class="head"><p>Mandatory</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>channel</p></td>
+<td><p>StringType</p></td>
+<td><p>yes</p></td>
+<td><p>name of the EPICS ChannelAccess channel of the process variable</p></td>
+</tr>
+<tr class="row-odd"><td><p>outputVar</p></td>
+<td><p>StringType</p></td>
+<td><p>yes</p></td>
+<td><p>name of the workspace variable (or field thereof) where to write the read value</p></td>
+</tr>
+<tr class="row-even"><td><p>timeout</p></td>
+<td><p>Float64Type</p></td>
+<td><p>no</p></td>
+<td><p>timeout in seconds to wait for a successful channel connection (default: 2.0)</p></td>
+</tr>
+</tbody>
+</table>
+<p id="ca-read-example"><strong>Example</strong></p>
+<p>This procedure will try to connect to an EPICS ChannelAccess process variable with a maximum timeout of 5 seconds. Then it will read its value and copy it to the local workspace variable. If successful, the local variable with name <code class="docutils literal notranslate"><span class="pre">to-write</span></code> will contain the value of the ChannelAccess process variable. Only on successful completion of the reading and write operation will the instruction return <code class="docutils literal notranslate"><span class="pre">SUCCESS</span></code>. In all other cases, the instruction returns <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code>.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;ChannelAccessRead</span><span class="w"> </span><span class="na">channel=</span><span class="s">&quot;seq::test::variable&quot;</span><span class="w"> </span><span class="na">timeout=</span><span class="s">&quot;5.0&quot;</span><span class="w"> </span><span class="na">outputVar=</span><span class="s">&quot;to-write&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;Workspace&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;to-write&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Workspace&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="channelaccesswrite">
+<h2>ChannelAccessWrite<a class="headerlink" href="#channelaccesswrite" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">ChannelAccessWrite</span></code> instruction tries to write a value to an EPICS ChannelAccess process variable on the network. The value is either fetched from a workspace variable or is encoded in JSON format as two attributes (<code class="docutils literal notranslate"><span class="pre">type</span></code> and <code class="docutils literal notranslate"><span class="pre">value</span></code>). When the value cannot be fetched or parsed, the process variable cannot be found on the network, or writing the value to the process variable fails, e.g. due to incompatible types, the instruction will return <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code>.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21.7%" />
+<col style="width: 21.7%" />
+<col style="width: 13.0%" />
+<col style="width: 43.5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute name</p></th>
+<th class="head"><p>Attribute type</p></th>
+<th class="head"><p>Mandatory</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>channel</p></td>
+<td><p>StringType</p></td>
+<td><p>yes</p></td>
+<td><p>name of the EPICS ChannelAccess channel of the process variable</p></td>
+</tr>
+<tr class="row-odd"><td><p>varName</p></td>
+<td><p>StringType</p></td>
+<td><p>no</p></td>
+<td><p>name of the workspace variable (or field thereof) from where to read the value</p></td>
+</tr>
+<tr class="row-even"><td><p>type</p></td>
+<td><p>StringType</p></td>
+<td><p>no</p></td>
+<td><p>JSON representation of the type of the value to write</p></td>
+</tr>
+<tr class="row-odd"><td><p>value</p></td>
+<td><p>StringType</p></td>
+<td><p>no</p></td>
+<td><p>JSON representation of the value to write</p></td>
+</tr>
+<tr class="row-even"><td><p>timeout</p></td>
+<td><p>Float64Type</p></td>
+<td><p>no</p></td>
+<td><p>timeout in seconds to wait for a successful channel connection (default: 2.0)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The user must provide either the <code class="docutils literal notranslate"><span class="pre">varName</span></code> attribute or both the <code class="docutils literal notranslate"><span class="pre">type</span></code> and <code class="docutils literal notranslate"><span class="pre">value</span></code> attributes.</p>
+</div>
+<p id="ca-write-example"><strong>Example</strong></p>
+<p>This procedure will try to write the floating point value <code class="docutils literal notranslate"><span class="pre">3.14</span></code> to an EPICS ChannelAccess process variable with a maximum timeout of 5 seconds. On successful completion of the operation, the instruction will return <code class="docutils literal notranslate"><span class="pre">SUCCESS</span></code>.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;ChannelAccessWrite</span><span class="w"> </span><span class="na">channel=</span><span class="s">&quot;seq::test::variable&quot;</span><span class="w"> </span><span class="na">timeout=</span><span class="s">&quot;5.0&quot;</span>
+<span class="w">                    </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;float64&quot;}&#39;</span><span class="w"> </span><span class="na">value=</span><span class="s">&#39;3.14&#39;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="pvaccessread">
+<h2>PvAccessRead<a class="headerlink" href="#pvaccessread" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">PvAccessRead</span></code> instruction tries to read an EPICS PvAccess process variable on the network and writes its value to a workspace variable if successful. When the process variable cannot be found on the network, or copying the value to a workspace variable fails, e.g. due to incompatible types, the instruction will return <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code>.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21.7%" />
+<col style="width: 21.7%" />
+<col style="width: 13.0%" />
+<col style="width: 43.5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute name</p></th>
+<th class="head"><p>Attribute type</p></th>
+<th class="head"><p>Mandatory</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>channel</p></td>
+<td><p>StringType</p></td>
+<td><p>yes</p></td>
+<td><p>name of the EPICS PvAccess channel of the process variable</p></td>
+</tr>
+<tr class="row-odd"><td><p>outputVar</p></td>
+<td><p>StringType</p></td>
+<td><p>yes</p></td>
+<td><p>name of the workspace variable (or field thereof) where to write the read value</p></td>
+</tr>
+<tr class="row-even"><td><p>timeout</p></td>
+<td><p>Float64Type</p></td>
+<td><p>no</p></td>
+<td><p>timeout in seconds to wait for a successful channel connection (default: 2.0)</p></td>
+</tr>
+</tbody>
+</table>
+<p id="pva-read-example"><strong>Example</strong></p>
+<p>This procedure will try to connect to an EPICS PvAccess process variable with a maximum timeout of 5 seconds. Then it will read its value and copy it to the local workspace variable. If successful, the local variable with name <code class="docutils literal notranslate"><span class="pre">to-write</span></code> will contain the value of the PvAccess process variable. Only on successful completion of the reading and write operation will the instruction return <code class="docutils literal notranslate"><span class="pre">SUCCESS</span></code>. In all other cases, the instruction returns <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code>.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;PvAccessRead</span><span class="w"> </span><span class="na">channel=</span><span class="s">&quot;seq::test::variable&quot;</span><span class="w"> </span><span class="na">timeout=</span><span class="s">&quot;5.0&quot;</span><span class="w"> </span><span class="na">outputVar=</span><span class="s">&quot;to-write&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;Workspace&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;to-write&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Workspace&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="pvaccesswrite">
+<h2>PvAccessWrite<a class="headerlink" href="#pvaccesswrite" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">PvAccessWrite</span></code> instruction tries to write a value to an EPICS PvAccess process variable on the network. The value is either fetched from a workspace variable or is encoded in JSON format as two attributes (<code class="docutils literal notranslate"><span class="pre">type</span></code> and <code class="docutils literal notranslate"><span class="pre">value</span></code>). When the value cannot be fetched or parsed, the process variable cannot be found on the network, or writing the value to the process variable fails, e.g. due to incompatible types, the instruction will return <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code>.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21.7%" />
+<col style="width: 21.7%" />
+<col style="width: 13.0%" />
+<col style="width: 43.5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute name</p></th>
+<th class="head"><p>Attribute type</p></th>
+<th class="head"><p>Mandatory</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>channel</p></td>
+<td><p>StringType</p></td>
+<td><p>yes</p></td>
+<td><p>name of the EPICS PvAccess channel of the process variable</p></td>
+</tr>
+<tr class="row-odd"><td><p>varName</p></td>
+<td><p>StringType</p></td>
+<td><p>no</p></td>
+<td><p>name of the workspace variable (or field thereof) from where to read the value</p></td>
+</tr>
+<tr class="row-even"><td><p>type</p></td>
+<td><p>StringType</p></td>
+<td><p>no</p></td>
+<td><p>JSON representation of the type of the value to write</p></td>
+</tr>
+<tr class="row-odd"><td><p>value</p></td>
+<td><p>StringType</p></td>
+<td><p>no</p></td>
+<td><p>JSON representation of the value to write</p></td>
+</tr>
+<tr class="row-even"><td><p>timeout</p></td>
+<td><p>Float64Type</p></td>
+<td><p>no</p></td>
+<td><p>timeout in seconds to wait for a successful channel connection (default: 2.0)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The user must provide either the <code class="docutils literal notranslate"><span class="pre">varName</span></code> attribute or both the <code class="docutils literal notranslate"><span class="pre">type</span></code> and <code class="docutils literal notranslate"><span class="pre">value</span></code> attributes.</p>
+</div>
+<p id="pva-write-example"><strong>Example</strong></p>
+<p>This procedure will try to write the struct with floating point member value <code class="docutils literal notranslate"><span class="pre">3.14</span></code> to an EPICS PvAccess process variable with a maximum timeout of 5 seconds. On successful completion of the operation, the instruction will return <code class="docutils literal notranslate"><span class="pre">SUCCESS</span></code>.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;PvAccessWrite</span><span class="w"> </span><span class="na">channel=</span><span class="s">&quot;seq::test::variable&quot;</span><span class="w"> </span><span class="na">timeout=</span><span class="s">&quot;5.0&quot;</span>
+<span class="w">               </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;myFloat&quot;,&quot;attributes&quot;:[{&quot;value&quot;:{&quot;type&quot;:&quot;float32&quot;}}]}&#39;</span>
+<span class="w">               </span><span class="na">value=</span><span class="s">&#39;{&quot;value&quot;:3.14}&#39;</span><span class="nt">/&gt;</span>
+</pre></div>
+</div>
+</section>
+<section id="rpcclient">
+<h2>RPCClient<a class="headerlink" href="#rpcclient" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">RPCClient</span></code> executes a Remote Procedure Call on an EPICS PvAccess RPC server. As input, it uses either a literal value, encoded in JSON format as two attributes (<code class="docutils literal notranslate"><span class="pre">type</span></code> and <code class="docutils literal notranslate"><span class="pre">value</span></code>) or the value of a workspace variable. The reply from the RPC server is optionally put into a workspace variable.</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21.7%" />
+<col style="width: 21.7%" />
+<col style="width: 13.0%" />
+<col style="width: 43.5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute name</p></th>
+<th class="head"><p>Attribute type</p></th>
+<th class="head"><p>Mandatory</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>service</p></td>
+<td><p>StringType</p></td>
+<td><p>yes</p></td>
+<td><p>name of EPICS PvAccess RPC server</p></td>
+</tr>
+<tr class="row-odd"><td><p>requestVar</p></td>
+<td><p>StringType</p></td>
+<td><p>no</p></td>
+<td><p>name of the workspace variable (or field thereof) from where to read the input value</p></td>
+</tr>
+<tr class="row-even"><td><p>type</p></td>
+<td><p>StringType</p></td>
+<td><p>no</p></td>
+<td><p>JSON representation of the type of the input value</p></td>
+</tr>
+<tr class="row-odd"><td><p>value</p></td>
+<td><p>StringType</p></td>
+<td><p>no</p></td>
+<td><p>JSON representation of the input value</p></td>
+</tr>
+<tr class="row-even"><td><p>outputVar</p></td>
+<td><p>StringType</p></td>
+<td><p>no</p></td>
+<td><p>name of the workspace variable (or field thereof) where to write the reply value</p></td>
+</tr>
+<tr class="row-odd"><td><p>timeout</p></td>
+<td><p>Float64Type</p></td>
+<td><p>no</p></td>
+<td><p>timeout in seconds to wait for a successful connection (default: 5.0)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The user must provide either the <code class="docutils literal notranslate"><span class="pre">requestVar</span></code> attribute or both the <code class="docutils literal notranslate"><span class="pre">type</span></code> and <code class="docutils literal notranslate"><span class="pre">value</span></code> attributes.</p>
+</div>
+<p id="rpc-client-example"><strong>Example</strong></p>
+<p>This procedure will try to execute an Remote Procedure Call on the service with name <code class="docutils literal notranslate"><span class="pre">rpc&#64;service</span></code>. As an input to the RPC call it will use the structure with a zero field, encoded in the two attributes <code class="docutils literal notranslate"><span class="pre">type</span></code> and <code class="docutils literal notranslate"><span class="pre">value</span></code>. The reply of the RPC call, if successful, is written to a workspace variable. The instruction will return <code class="docutils literal notranslate"><span class="pre">SUCCESS</span></code> when all steps in this operation were successful.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;RPCClient</span><span class="w"> </span><span class="na">service=</span><span class="s">&quot;rpc@service&quot;</span>
+<span class="w">           </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;rpcStruct&quot;,&quot;attributes&quot;:[{&quot;value&quot;:{&quot;type&quot;:&quot;uint64&quot;}}]}&#39;</span>
+<span class="w">           </span><span class="na">value=</span><span class="s">&#39;{&quot;value&quot;:0}&#39;</span><span class="w"> </span><span class="na">reply=</span><span class="s">&quot;reply&quot;</span><span class="w"> </span><span class="na">timeout=</span><span class="s">&quot;3.0&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;Workspace&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;reply&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Workspace&gt;</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="usage.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="variables.html" class="btn btn-neutral float-right" title="Variables" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright ITER Organization.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

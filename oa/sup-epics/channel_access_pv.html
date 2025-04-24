@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EPICS Channel Access PVs &mdash; SUP EPICS</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=030dc6f6"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="EPICS PvAccess PVs" href="pv_access_pv.html" />
+    <link rel="prev" title="Welcome to sup-epics’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            sup-epics
+          </a>
+              <div class="version">
+                1.7.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">EPICS Channel Access PVs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#a-note-on-types">A note on types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scalar-numerical-record-types-and-strings">Scalar numerical record types and strings</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#array-types">Array types</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enumeration-types">Enumeration types</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#construction">Construction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv415ChannelAccessPVRKNSt6stringERKN3sup3dto7AnyTypeE23VariableChangedCallback"><code class="docutils literal notranslate"><span class="pre">ChannelAccessPV()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="pv_access_pv.html">EPICS PvAccess PVs</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sup-epics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">EPICS Channel Access PVs</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/channel_access_pv.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="epics-channel-access-pvs">
+<h1>EPICS Channel Access PVs<a class="headerlink" href="#epics-channel-access-pvs" title="Link to this heading"></a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">ChannelAccessPV</span></code> class provides a convenient API to represent a client connection to an EPICS Channel Access process variable (PV). Upon construction, it will try to establish a channel to this PV and allows the user to define callbacks for connection and update events.</p>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#a-note-on-types" id="id1">A note on types</a></p>
+<ul>
+<li><p><a class="reference internal" href="#scalar-numerical-record-types-and-strings" id="id2">Scalar numerical record types and strings</a></p></li>
+<li><p><a class="reference internal" href="#array-types" id="id3">Array types</a></p></li>
+<li><p><a class="reference internal" href="#enumeration-types" id="id4">Enumeration types</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#construction" id="id5">Construction</a></p></li>
+</ul>
+</nav>
+<section id="a-note-on-types">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">A note on types</a><a class="headerlink" href="#a-note-on-types" title="Link to this heading"></a></h2>
+<p>An EPICS Channel Access PV has a definite record type, e.g. binary input (bi), analog output (ao), etc. When creating a client connection to such a PV, an <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> needs to be provided to indicate the desired format of the <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> that will be made available at the client side. This process allows for certain types of conversions, but also imposes some restrictions.</p>
+<p>A distinction is made between scalar numerical types and strings, array types and enumeration types. It is advised to adhere to the following rules in order not to face surprises:</p>
+<ul class="simple">
+<li><p>For numerical records, use the <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> that corresponds directly to the underlying record type’s value format. Larger integer representations can be used safely as long as they have the same signedness, i.e. do not mix signed and unsigned types.</p></li>
+<li><p>For string records, use the string <code class="docutils literal notranslate"><span class="pre">AnyType</span></code>.</p></li>
+<li><p>For enumeration records (bi/bo/mbbi/mbbo), use an unsigned <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> to get the numerical index (any size will do, but 16bit is preferred as that is the native size of the record’s index value) and use <code class="docutils literal notranslate"><span class="pre">sup::dto::StringType</span></code> to retrieve the string enumerator.</p></li>
+<li><p>For waveform and array records (aai/aao/waveform), use an array <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> with an element type that corresponds to the native element’s format. Again, larger representations will work as expected if the signedness of integers is respected.</p></li>
+</ul>
+<section id="scalar-numerical-record-types-and-strings">
+<h3><a class="toc-backref" href="#id2" role="doc-backlink">Scalar numerical record types and strings</a><a class="headerlink" href="#scalar-numerical-record-types-and-strings" title="Link to this heading"></a></h3>
+<p>For record types that are numerical scalars, i.e. their value encodes just a number, there is always a corresponding <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> that has the exact same precision and range:</p>
+<ul class="simple">
+<li><p>Analog input/output (ai/ao) and other records with <code class="docutils literal notranslate"><span class="pre">DOUBLE</span></code> value: <code class="docutils literal notranslate"><span class="pre">sup::dto::Float64Type</span></code>,</p></li>
+<li><p>Long input/output (longin/longout): <code class="docutils literal notranslate"><span class="pre">sup::dto::SignedInteger32Type</span></code>,</p></li>
+<li><p>64bit integer input/output (int64in/int64out): <code class="docutils literal notranslate"><span class="pre">sup::dto::SignedInteger64Type</span></code>,</p></li>
+<li><p>String input/output (stringin/stringout) and other records that encode string values: <code class="docutils literal notranslate"><span class="pre">sup::dto::StringType</span></code>.</p></li>
+</ul>
+<p>When using this exact <code class="docutils literal notranslate"><span class="pre">AnyType</span></code>, no conversion will take place and the resulting client PV will contain an exact representation of the PV’s value. However, if the user wants to receive the values in a different format, the following rules apply:</p>
+<ul class="simple">
+<li><p>All values of numerical types can be retrieved as a string. This will result in a string representation of the value.</p></li>
+<li><p>String records can in general not be converted to a numerical <code class="docutils literal notranslate"><span class="pre">AnyType</span></code>, unless they encode exactly a number that can be represented in the given <code class="docutils literal notranslate"><span class="pre">AnyType</span></code>.</p></li>
+<li><p>Conversions from floating point records to integer <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> will truncate the fractional part of the number. However, if the resulting integer does not fit inside the range of the <code class="docutils literal notranslate"><span class="pre">AnyType</span></code>, the result can surprise the user so this should be avoided.</p></li>
+<li><p>Conversions between integer types typically truncate the most significant bits. Again, users should take care not to request the wrong type from an EPICS CA record.</p></li>
+</ul>
+<p>Note that long string records (lsi/lso) are currently not supported.</p>
+</section>
+<section id="array-types">
+<h3><a class="toc-backref" href="#id3" role="doc-backlink">Array types</a><a class="headerlink" href="#array-types" title="Link to this heading"></a></h3>
+<p>Record types that encode arrays (aai/aao/waveform) should be requested with an array <code class="docutils literal notranslate"><span class="pre">AnyType</span></code>, whose element type corresponds to the record’s element type:</p>
+<ul class="simple">
+<li><p>aai/aao: element type should be <code class="docutils literal notranslate"><span class="pre">sup::dto::Float64Type</span></code>,</p></li>
+<li><p>waveform: element type should be the one used in the record’s definition (can be any integer or floating point type).</p></li>
+</ul>
+<p>The same conversions as for scalars can occur here and the user is advised to adhere to the same rules regarding requested types.</p>
+</section>
+<section id="enumeration-types">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">Enumeration types</a><a class="headerlink" href="#enumeration-types" title="Link to this heading"></a></h3>
+<p>These represent a more complex case, since requesting a string will result in the string enumerator, as opposed to a string representation of a number. Due to limitations in the EPICS CA client library, some fundamental types cannot be encoded directly over a connected channel:</p>
+<ul class="simple">
+<li><p>Unsigned integers, other than <code class="docutils literal notranslate"><span class="pre">sup::dto::UnsignedInteger16Type</span></code> cannot be transferred over the channel as numerical values of the correct size. When requesting any unsigned integer <code class="docutils literal notranslate"><span class="pre">AnyType</span></code>, this will result in a channel that will transfer the values as 16bit unsigned integers that will be converted to the appropriate target <code class="docutils literal notranslate"><span class="pre">AnyType</span></code>. When used on enumeration types, this is perfectly fine, since the underlying index is also 16bit, so no truncation will take place.</p></li>
+<li><p>64bit signed integers have a similar issue and will be encoded as strings over the channel. This can cause issues with enumeration records, since the retrieved string enumerator in general cannot be parsed as an integer. Follow the general rule and never use signed integer representations for retrieving the index of an enumeration record.</p></li>
+</ul>
+<p>Note that requesting the type <code class="docutils literal notranslate"><span class="pre">sup::dto::StringType</span></code> will behave as expected and retrieve the string enumerator of the enumeration record.</p>
+</section>
+</section>
+<section id="construction">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Construction</a><a class="headerlink" href="#construction" title="Link to this heading"></a></h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">ChannelAccessPV</span></code> object is created by providing the EPICS channel name, a requested <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> and an optional callback function that will be called on value or connection state updates.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv415ChannelAccessPVRKNSt6stringERKN3sup3dto7AnyTypeE23VariableChangedCallback">
+<span id="_CPPv315ChannelAccessPVRKNSt6stringERKN3sup3dto7AnyTypeE23VariableChangedCallback"></span><span id="_CPPv215ChannelAccessPVRKNSt6stringERKN3sup3dto7AnyTypeE23VariableChangedCallback"></span><span id="ChannelAccessPV__ssCR.sup::dto::AnyTypeCR.VariableChangedCallback"></span><span class="sig-name descname"><span class="n"><span class="pre">ChannelAccessPV</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">channel</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">sup</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">dto</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">VariableChangedCallback</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">cb</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv415ChannelAccessPVRKNSt6stringERKN3sup3dto7AnyTypeE23VariableChangedCallback" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>channel</strong> – Name of the EPICS channel.</p></li>
+<li><p><strong>type</strong> – Requested type.</p></li>
+<li><p><strong>cb</strong> – Optional callback function.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Construct a client that connects to an EPICS Channel Access process variable.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to sup-epics’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="pv_access_pv.html" class="btn btn-neutral float-right" title="EPICS PvAccess PVs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright ITER Organization.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

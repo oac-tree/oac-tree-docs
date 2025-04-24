@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Runner &mdash; oac-tree</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=42d1b3bd"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="UserInterface" href="userinterface.html" />
+    <link rel="prev" title="Instruction" href="instruction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            oac-tree
+          </a>
+              <div class="version">
+                4.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coreinstructionsvariables.html">Core Instructions/Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugincreation.html">Extending the oac-tree with plugins</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="API.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="instruction.html">Instruction</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Runner</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#creating-a-runner">Creating a Runner</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setting-the-procedure">Setting the Procedure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setting-a-tick-callback">Setting a Tick Callback</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#managing-breakpoints">Managing Breakpoints</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#executing-the-procedure">Executing the Procedure</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#executing-single-instruction">Executing Single Instruction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pausing-and-halting-execution">Pausing and Halting Execution</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#checking-execution-status">Checking Execution Status</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#additional-notes">Additional Notes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#class-definition">Class definition</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N3sup8oac_tree6RunnerE"><code class="docutils literal notranslate"><span class="pre">sup::oac_tree::Runner</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N3sup8oac_tree18TimeoutWhenRunningE"><code class="docutils literal notranslate"><span class="pre">sup::oac_tree::TimeoutWhenRunning</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="userinterface.html">UserInterface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="procedure.html">Procedure</a></li>
+<li class="toctree-l2"><a class="reference internal" href="variable.html">Variable</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">oac-tree</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="API.html">API</a></li>
+      <li class="breadcrumb-item active">Runner</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/runner.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="runner">
+<h1>Runner<a class="headerlink" href="#runner" title="Link to this heading"></a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">Runner</span></code> class represents a component that aggregates a <code class="docutils literal notranslate"><span class="pre">Procedure</span></code> and a <code class="docutils literal notranslate"><span class="pre">UserInterface</span></code>, allowing the execution of the procedure with input/output directed from/to the concrete user interface class and the ability to set breakpoints for debugging purposes. The class provides methods to control the execution of the procedure, handle breakpoints, and execute the procedure step by step.</p>
+<section id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<section id="creating-a-runner">
+<h3>Creating a Runner<a class="headerlink" href="#creating-a-runner" title="Link to this heading"></a></h3>
+<p>To use the <code class="docutils literal notranslate"><span class="pre">Runner</span></code>, you need to create an instance of this class, passing a reference to a <code class="docutils literal notranslate"><span class="pre">UserInterface</span></code> object in its constructor.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">UserInterface</span><span class="w"> </span><span class="n">my_user_interface</span><span class="p">;</span>
+<span class="n">Runner</span><span class="w"> </span><span class="nf">my_runner</span><span class="p">(</span><span class="n">my_user_interface</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="setting-the-procedure">
+<h3>Setting the Procedure<a class="headerlink" href="#setting-the-procedure" title="Link to this heading"></a></h3>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">SetProcedure</span></code> method to set the procedure that will be executed by the runner. Pass a pointer to the <code class="docutils literal notranslate"><span class="pre">Procedure</span></code> object that you want to execute.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Procedure</span><span class="w"> </span><span class="n">my_procedure</span><span class="p">;</span>
+<span class="n">my_runner</span><span class="p">.</span><span class="n">SetProcedure</span><span class="p">(</span><span class="o">&amp;</span><span class="n">my_procedure</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="setting-a-tick-callback">
+<h3>Setting a Tick Callback<a class="headerlink" href="#setting-a-tick-callback" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">SetTickCallback</span></code> method allows you to set a callback function that will be called after each execution step. The callback function should have the signature <code class="docutils literal notranslate"><span class="pre">void(const</span> <span class="pre">Procedure&amp;)</span></code>. The callback can be used to query procedure status, the list of next instructions t execute, etc.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">MyTickCallback</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Procedure</span><span class="o">&amp;</span><span class="w"> </span><span class="n">procedure</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Implement logic for actions to perform after each execution step</span>
+<span class="p">}</span>
+
+<span class="n">my_runner</span><span class="p">.</span><span class="n">SetTickCallback</span><span class="p">(</span><span class="n">MyTickCallback</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="managing-breakpoints">
+<h3>Managing Breakpoints<a class="headerlink" href="#managing-breakpoints" title="Link to this heading"></a></h3>
+<p>Use the methods <code class="docutils literal notranslate"><span class="pre">SetBreakpoint</span></code>, <code class="docutils literal notranslate"><span class="pre">RemoveBreakpoint</span></code> and <code class="docutils literal notranslate"><span class="pre">GetBreakpoints</span></code> to manage breakpoints within the procedure. Breakpoints are points in the instruction tree where the execution will pause to allow procedures to be verified and tested at the set breakpoints. It is important to note that these methods should not be called during execution. They are intended to be used when the procedure is paused, before/after a single execution step, or after a breakpoint has been triggered.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">const</span><span class="w"> </span><span class="n">Instruction</span><span class="o">*</span><span class="w"> </span><span class="n">instruction_to_break</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_procedure</span><span class="p">.</span><span class="n">RootInstruction</span><span class="p">();</span>
+<span class="n">my_runner</span><span class="p">.</span><span class="n">SetBreakpoint</span><span class="p">(</span><span class="n">instruction_to_break</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">breakpoint</span><span class="o">&gt;</span><span class="w"> </span><span class="n">breaks</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_runner</span><span class="p">.</span><span class="n">GetBreakpoints</span><span class="p">();</span>
+
+<span class="n">my_runner</span><span class="p">.</span><span class="n">RemoveBreakpoint</span><span class="p">(</span><span class="n">instruction_to_break</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="executing-the-procedure">
+<h3>Executing the Procedure<a class="headerlink" href="#executing-the-procedure" title="Link to this heading"></a></h3>
+<p>To execute the entire procedure, use the <code class="docutils literal notranslate"><span class="pre">ExecuteProcedure</span></code> method. The procedure will run until it finishes or encounters a breakpoint.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">my_runner</span><span class="p">.</span><span class="n">ExecuteProcedure</span><span class="p">();</span>
+</pre></div>
+</div>
+</section>
+<section id="executing-single-instruction">
+<h3>Executing Single Instruction<a class="headerlink" href="#executing-single-instruction" title="Link to this heading"></a></h3>
+<p>Use the <code class="docutils literal notranslate"><span class="pre">ExecuteSingle</span></code> method to execute a single instruction within the procedure. This method allows you to step through the procedure execution, particularly useful for debugging.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">my_runner</span><span class="p">.</span><span class="n">ExecuteSingle</span><span class="p">();</span>
+</pre></div>
+</div>
+</section>
+<section id="pausing-and-halting-execution">
+<h3>Pausing and Halting Execution<a class="headerlink" href="#pausing-and-halting-execution" title="Link to this heading"></a></h3>
+<p>You can pause the procedure execution using the <code class="docutils literal notranslate"><span class="pre">Pause</span></code> method, and you can halt the procedure using the <code class="docutils literal notranslate"><span class="pre">Halt</span></code> method.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">my_runner</span><span class="p">.</span><span class="n">Pause</span><span class="p">();</span>
+<span class="c1">// To resume, call ExecuteProcedure again.</span>
+<span class="n">my_runner</span><span class="p">.</span><span class="n">Halt</span><span class="p">();</span>
+</pre></div>
+</div>
+</section>
+<section id="checking-execution-status">
+<h3>Checking Execution Status<a class="headerlink" href="#checking-execution-status" title="Link to this heading"></a></h3>
+<p>The <code class="docutils literal notranslate"><span class="pre">IsFinished</span></code> and <code class="docutils literal notranslate"><span class="pre">IsRunning</span></code> methods allow you to check the current execution status of the procedure.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="n">finished</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_runner</span><span class="p">.</span><span class="n">IsFinished</span><span class="p">();</span>
+<span class="kt">bool</span><span class="w"> </span><span class="n">running</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">my_runner</span><span class="p">.</span><span class="n">IsRunning</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">IsRunning</span></code> has a very specific meaning in the context of the oac-tree: this member function returns <code class="docutils literal notranslate"><span class="pre">true</span></code> only when parts of the executing instruction tree are being run in a separate thread. This function is used to distinguish between instructions waiting to be ticked again and instructions that may require some time to finish before they can proceed. In this way, busy loops can be avoided, i.e. continuously ticking an instruction tree that is being run in a separate thread.</p>
+</section>
+</section>
+<section id="additional-notes">
+<h2>Additional Notes<a class="headerlink" href="#additional-notes" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">Runner</span></code> class includes the <code class="docutils literal notranslate"><span class="pre">TickCallback</span></code> type, which represents a function that will be called after each execution step. You can set this callback using the <code class="docutils literal notranslate"><span class="pre">SetTickCallback</span></code> method. The callback function takes a <cite>const Procedure&amp;</cite> parameter, allowing you to access information about the procedure’s state after each step.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">TimeoutWhenRunning</span></code> class is provided as a standard callback for in-between ticks. It performs a fixed timeout when the procedure reports a running status during asynchronous operations.</p></li>
+</ul>
+</section>
+<section id="class-definition">
+<h2>Class definition<a class="headerlink" href="#class-definition" title="Link to this heading"></a></h2>
+<blockquote>
+<div><p>Next is presented the definition of the <code class="docutils literal notranslate"><span class="pre">Runner</span></code> class and its main methods.</p>
+</div></blockquote>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree6RunnerE">
+<span id="_CPPv3N3sup8oac_tree6RunnerE"></span><span id="_CPPv2N3sup8oac_tree6RunnerE"></span><span id="sup::oac_tree::Runner"></span><span class="target" id="classsup_1_1oac__tree_1_1Runner"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Runner</span></span></span><a class="headerlink" href="#_CPPv4N3sup8oac_tree6RunnerE" title="Link to this definition"></a><br /></dt>
+<dd><p>The <a class="reference internal" href="#classsup_1_1oac__tree_1_1Runner"><span class="std std-ref">Runner</span></a> class aggregates a <a class="reference internal" href="procedure.html#classsup_1_1oac__tree_1_1Procedure"><span class="std std-ref">Procedure</span></a> and a <a class="reference internal" href="userinterface.html#classsup_1_1oac__tree_1_1UserInterface"><span class="std std-ref">UserInterface</span></a>. It allows to synchronously execute a procedure and get feedback or user input/output on the <a class="reference internal" href="userinterface.html#classsup_1_1oac__tree_1_1UserInterface"><span class="std std-ref">UserInterface</span></a>. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree6Runner6RunnerER13UserInterface">
+<span id="_CPPv3N3sup8oac_tree6Runner6RunnerER13UserInterface"></span><span id="_CPPv2N3sup8oac_tree6Runner6RunnerER13UserInterface"></span><span id="sup::oac_tree::Runner::Runner__UserInterfaceR"></span><span class="target" id="classsup_1_1oac__tree_1_1Runner_1aafb308a822284b2ad74886e093146d16"></span><span class="sig-name descname"><span class="n"><span class="pre">Runner</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="userinterface.html#_CPPv4N3sup8oac_tree13UserInterfaceE" title="sup::oac_tree::UserInterface"><span class="n"><span class="pre">UserInterface</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ui</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree6Runner6RunnerER13UserInterface" title="Link to this definition"></a><br /></dt>
+<dd><p>Constructor. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ui</strong> – User interface object. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree6Runner12SetProcedureEP9Procedure">
+<span id="_CPPv3N3sup8oac_tree6Runner12SetProcedureEP9Procedure"></span><span id="_CPPv2N3sup8oac_tree6Runner12SetProcedureEP9Procedure"></span><span id="sup::oac_tree::Runner::SetProcedure__ProcedureP"></span><span class="target" id="classsup_1_1oac__tree_1_1Runner_1a6b5f948ef074a0c64ece6f85ab576c30"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetProcedure</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="procedure.html#_CPPv4N3sup8oac_tree9ProcedureE" title="sup::oac_tree::Procedure"><span class="n"><span class="pre">Procedure</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">procedure</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree6Runner12SetProcedureEP9Procedure" title="Link to this definition"></a><br /></dt>
+<dd><p>Set the procedure. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The passed procedure will be setup during this function call, so it is assumed that the procedure was not previously setup. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>procedure</strong> – Pointer to procedure.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree6Runner15SetTickCallbackE12TickCallback">
+<span id="_CPPv3N3sup8oac_tree6Runner15SetTickCallbackE12TickCallback"></span><span id="_CPPv2N3sup8oac_tree6Runner15SetTickCallbackE12TickCallback"></span><span id="sup::oac_tree::Runner::SetTickCallback__TickCallback"></span><span class="target" id="classsup_1_1oac__tree_1_1Runner_1a3e969176b0181160850df3fcba5bd909"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetTickCallback</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">TickCallback</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">cb</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree6Runner15SetTickCallbackE12TickCallback" title="Link to this definition"></a><br /></dt>
+<dd><p>Set the callback function to be called after each execution step. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>cb</strong> – Callback function. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree6Runner13SetBreakpointEPK11Instruction">
+<span id="_CPPv3N3sup8oac_tree6Runner13SetBreakpointEPK11Instruction"></span><span id="_CPPv2N3sup8oac_tree6Runner13SetBreakpointEPK11Instruction"></span><span id="sup::oac_tree::Runner::SetBreakpoint__InstructionCP"></span><span class="target" id="classsup_1_1oac__tree_1_1Runner_1a9698dd5e1ea6b21baece02f7aca7d037"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetBreakpoint</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="instruction.html#_CPPv4N3sup8oac_tree11InstructionE" title="sup::oac_tree::Instruction"><span class="n"><span class="pre">Instruction</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">instruction</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree6Runner13SetBreakpointEPK11Instruction" title="Link to this definition"></a><br /></dt>
+<dd><p>Set a breakpoint at the given instruction. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This member function should not be called during execution, but only when it is paused, before/after a single execution step or after a breakpoint was triggered. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>instruction</strong> – Pointer to instruction for breakpoint location.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">InvalidOperationException</span></span></span> – when instruction is unknown.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree6Runner16RemoveBreakpointEPK11Instruction">
+<span id="_CPPv3N3sup8oac_tree6Runner16RemoveBreakpointEPK11Instruction"></span><span id="_CPPv2N3sup8oac_tree6Runner16RemoveBreakpointEPK11Instruction"></span><span id="sup::oac_tree::Runner::RemoveBreakpoint__InstructionCP"></span><span class="target" id="classsup_1_1oac__tree_1_1Runner_1a5dea797f282866c9b3fd8398ab2929e9"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RemoveBreakpoint</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="instruction.html#_CPPv4N3sup8oac_tree11InstructionE" title="sup::oac_tree::Instruction"><span class="n"><span class="pre">Instruction</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">instruction</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree6Runner16RemoveBreakpointEPK11Instruction" title="Link to this definition"></a><br /></dt>
+<dd><p>Remove a breakpoint at the given instruction (if it exists). </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This member function should not be called during execution, but only when it is paused, before/after a single execution step or after a breakpoint was triggered. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>instruction</strong> – Pointer to instruction for breakpoint location.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree6Runner14GetBreakpointsEv">
+<span id="_CPPv3NK3sup8oac_tree6Runner14GetBreakpointsEv"></span><span id="_CPPv2NK3sup8oac_tree6Runner14GetBreakpointsEv"></span><span id="sup::oac_tree::Runner::GetBreakpointsC"></span><span class="target" id="classsup_1_1oac__tree_1_1Runner_1aba86c869cf2bbccdedbd0731ab728f39"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">Breakpoint</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetBreakpoints</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree6Runner14GetBreakpointsEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get a list of breakpoints. </p>
+<p>
+This member function returns a copy of the breakpoint list. Manipulation of breakpoint statuses is handled only internally or through dedicated member functions like DisableBreakpoint().</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This member function should not be called during execution, but only when it is paused, before/after a single execution step or after a breakpoint was triggered. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of breakpoints.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree6Runner16ExecuteProcedureEv">
+<span id="_CPPv3N3sup8oac_tree6Runner16ExecuteProcedureEv"></span><span id="_CPPv2N3sup8oac_tree6Runner16ExecuteProcedureEv"></span><span id="sup::oac_tree::Runner::ExecuteProcedure"></span><span class="target" id="classsup_1_1oac__tree_1_1Runner_1a5fa43e6276919d093173c1cb2c0ef1db"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ExecuteProcedure</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree6Runner16ExecuteProcedureEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Execute the procedure. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree6Runner13ExecuteSingleEv">
+<span id="_CPPv3N3sup8oac_tree6Runner13ExecuteSingleEv"></span><span id="_CPPv2N3sup8oac_tree6Runner13ExecuteSingleEv"></span><span id="sup::oac_tree::Runner::ExecuteSingle"></span><span class="target" id="classsup_1_1oac__tree_1_1Runner_1ad1a2aacfe1ddd11c5d5e7726bc4d20eb"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ExecuteSingle</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree6Runner13ExecuteSingleEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Execute single procedure instruction. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree6Runner4HaltEv">
+<span id="_CPPv3N3sup8oac_tree6Runner4HaltEv"></span><span id="_CPPv2N3sup8oac_tree6Runner4HaltEv"></span><span id="sup::oac_tree::Runner::Halt"></span><span class="target" id="classsup_1_1oac__tree_1_1Runner_1a2e7104b41c47d5312521f5e92f46c0e2"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Halt</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree6Runner4HaltEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Halts the procedure execution. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree6Runner5PauseEv">
+<span id="_CPPv3N3sup8oac_tree6Runner5PauseEv"></span><span id="_CPPv2N3sup8oac_tree6Runner5PauseEv"></span><span id="sup::oac_tree::Runner::Pause"></span><span class="target" id="classsup_1_1oac__tree_1_1Runner_1a3afcd71f27d6bc36266c50dcbbe7ad4f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Pause</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree6Runner5PauseEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Pauses the procedure execution. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Resuming the execution is done by calling <a class="reference internal" href="#classsup_1_1oac__tree_1_1Runner_1a5fa43e6276919d093173c1cb2c0ef1db"><span class="std std-ref">ExecuteProcedure()</span></a> again. </p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree6Runner10IsFinishedEv">
+<span id="_CPPv3NK3sup8oac_tree6Runner10IsFinishedEv"></span><span id="_CPPv2NK3sup8oac_tree6Runner10IsFinishedEv"></span><span id="sup::oac_tree::Runner::IsFinishedC"></span><span class="target" id="classsup_1_1oac__tree_1_1Runner_1a0ba941ee881686586337dc54b6b27a23"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsFinished</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree6Runner10IsFinishedEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Query if procedure has finished. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if procedure has finished. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree6Runner9IsRunningEv">
+<span id="_CPPv3NK3sup8oac_tree6Runner9IsRunningEv"></span><span id="_CPPv2NK3sup8oac_tree6Runner9IsRunningEv"></span><span id="sup::oac_tree::Runner::IsRunningC"></span><span class="target" id="classsup_1_1oac__tree_1_1Runner_1ae49ee53a905a18d187a3f72cf4c9e799"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsRunning</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree6Runner9IsRunningEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Query if procedure is running in seperate threads. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if procedure has seperate threads executing. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree18TimeoutWhenRunningE">
+<span id="_CPPv3N3sup8oac_tree18TimeoutWhenRunningE"></span><span id="_CPPv2N3sup8oac_tree18TimeoutWhenRunningE"></span><span id="sup::oac_tree::TimeoutWhenRunning"></span><span class="target" id="classsup_1_1oac__tree_1_1TimeoutWhenRunning"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TimeoutWhenRunning</span></span></span><a class="headerlink" href="#_CPPv4N3sup8oac_tree18TimeoutWhenRunningE" title="Link to this definition"></a><br /></dt>
+<dd><p>Class that can be used as a callback in between ticks. It will perform a fixed timeout when the procedure reports a running status (async operation). </p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="instruction.html" class="btn btn-neutral float-left" title="Instruction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="userinterface.html" class="btn btn-neutral float-right" title="UserInterface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright ITER Organization.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Variable &mdash; oac-tree</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=42d1b3bd"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Procedure" href="procedure.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            oac-tree
+          </a>
+              <div class="version">
+                4.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coreinstructionsvariables.html">Core Instructions/Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="plugincreation.html">Extending the oac-tree with plugins</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="API.html">API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="instruction.html">Instruction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="runner.html">Runner</a></li>
+<li class="toctree-l2"><a class="reference internal" href="userinterface.html">UserInterface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="procedure.html">Procedure</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Variable</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#architecture">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#variable-value-constraints">Variable Value Constraints</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#getvalue">GetValue</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setvalue">SetValue</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#creating-a-variable">Creating a Variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#variable-initialization">Variable Initialization</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#setting-and-getting-variable-values">Setting and Getting Variable Values</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#checking-variable-availability">Checking Variable Availability</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#registering-callback-for-value-updates">Registering Callback for Value Updates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#managing-attributes">Managing Attributes</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tearing-down-a-variable">Tearing down a Variable</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#attribute-system">Attribute System</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#class-definition">Class definition</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N3sup8oac_tree8VariableE"><code class="docutils literal notranslate"><span class="pre">sup::oac_tree::Variable</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">oac-tree</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="API.html">API</a></li>
+      <li class="breadcrumb-item active">Variable</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/variable.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="variable">
+<span id="id1"></span><h1>Variable<a class="headerlink" href="#variable" title="Link to this heading"></a></h1>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#architecture" id="id2">Architecture</a></p></li>
+<li><p><a class="reference internal" href="#variable-value-constraints" id="id3">Variable Value Constraints</a></p>
+<ul>
+<li><p><a class="reference internal" href="#getvalue" id="id4">GetValue</a></p></li>
+<li><p><a class="reference internal" href="#setvalue" id="id5">SetValue</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#usage" id="id6">Usage</a></p>
+<ul>
+<li><p><a class="reference internal" href="#creating-a-variable" id="id7">Creating a Variable</a></p></li>
+<li><p><a class="reference internal" href="#variable-initialization" id="id8">Variable Initialization</a></p></li>
+<li><p><a class="reference internal" href="#setting-and-getting-variable-values" id="id9">Setting and Getting Variable Values</a></p></li>
+<li><p><a class="reference internal" href="#checking-variable-availability" id="id10">Checking Variable Availability</a></p></li>
+<li><p><a class="reference internal" href="#registering-callback-for-value-updates" id="id11">Registering Callback for Value Updates</a></p></li>
+<li><p><a class="reference internal" href="#managing-attributes" id="id12">Managing Attributes</a></p></li>
+<li><p><a class="reference internal" href="#tearing-down-a-variable" id="id13">Tearing down a Variable</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#attribute-system" id="id14">Attribute System</a></p></li>
+<li><p><a class="reference internal" href="#class-definition" id="id15">Class definition</a></p></li>
+</ul>
+</nav>
+<p>The <code class="docutils literal notranslate"><span class="pre">Variable</span></code> class is an interface for workspace variables, designed to manage and manipulate various types of variables within a software system. It provides an abstract representation of variables with different types and allows users to interact with them uniformly while ensuring thread safety for specific methods.</p>
+<p>The Variable class uses <code class="docutils literal notranslate"><span class="pre">sup::dto::AnyValue</span></code> as a common interface to represent any structured data.</p>
+<p>While all variables are globally accessible by the instructions in a procedure, the backend, i.e. where the values of these variables are stored, could be very diverse: file, memory, network, database, etc.</p>
+<section id="architecture">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Architecture</a><a class="headerlink" href="#architecture" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Variable</span></code> class is based on the non-virtual interface (NVI) idiom to support the distinction between thread-safe and non-thread-safe methods and to allow for a simpler API to override by implementers of concrete variables. It employs locks to provide thread safety for certain public methods that can be called during execution, ensuring that multiple threads can safely access these methods concurrently. Other methods should be called only from a single thread to prevent data corruption or race conditions.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Variable</span></code> class allows users to define variables of different types. Since it is an abstract base class, concrete variables are implemented in derived classes.</p>
+</section>
+<section id="variable-value-constraints">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Variable Value Constraints</a><a class="headerlink" href="#variable-value-constraints" title="Link to this heading"></a></h2>
+<p>The generic non-virtual implementation of <code class="docutils literal notranslate"><span class="pre">Variable</span></code> tries not to impose any constraints on the type of values that can be set or read back from a concrete <code class="docutils literal notranslate"><span class="pre">Variable</span></code>. However, concrete implementations can, and often will, impose specific constraints in the way they override the virtual member functions <code class="docutils literal notranslate"><span class="pre">GetValueImpl</span></code> and <code class="docutils literal notranslate"><span class="pre">SetValueImpl</span></code>.</p>
+<p>To clarify the general semantics of getting/setting values to a <code class="docutils literal notranslate"><span class="pre">Variable</span></code>, the following subsections will detail the internal logic that is provided in the base class implementations.</p>
+<section id="getvalue">
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">GetValue</a><a class="headerlink" href="#getvalue" title="Link to this heading"></a></h3>
+<p>The full signature of the <code class="docutils literal notranslate"><span class="pre">GetValue</span></code> member function is:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="nf">Variable::GetValue</span><span class="p">(</span><span class="n">sup</span><span class="o">::</span><span class="n">dto</span><span class="o">::</span><span class="n">AnyValue</span><span class="o">&amp;</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">fieldname</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This function will perform the following steps:</p>
+<ul class="simple">
+<li><p>Retrieve the full value of the concrete <code class="docutils literal notranslate"><span class="pre">Variable</span></code> by calling the overriden <code class="docutils literal notranslate"><span class="pre">GetValueImpl</span></code> member function. Return <code class="docutils literal notranslate"><span class="pre">false</span></code> if this fails.</p></li>
+<li><p>If <cite>fieldname</cite> is non-empty, retrieve the substructure identified by this fieldname. Return <code class="docutils literal notranslate"><span class="pre">false</span></code> is the value didn’t have such a field.</p></li>
+<li><p>If <cite>value</cite> is an empty value, assign the previous result to it. Otherwise, try to convert that result to <cite>value</cite>.</p></li>
+</ul>
+<p>This means that the client of this function can request a conversion of the underlying value by providing an <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> with non-empty type.</p>
+</section>
+<section id="setvalue">
+<h3><a class="toc-backref" href="#id5" role="doc-backlink">SetValue</a><a class="headerlink" href="#setvalue" title="Link to this heading"></a></h3>
+<p>The full signature of the <code class="docutils literal notranslate"><span class="pre">SetValue</span></code> member function is:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">bool</span><span class="w"> </span><span class="nf">Variable::SetValue</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">sup</span><span class="o">::</span><span class="n">dto</span><span class="o">::</span><span class="n">AnyValue</span><span class="o">&amp;</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&amp;</span><span class="w"> </span><span class="n">fieldname</span><span class="p">)</span><span class="w"> </span><span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This function will perform the following steps:</p>
+<ul class="simple">
+<li><p>If ‘fieldname’ is empty, return the result of <code class="docutils literal notranslate"><span class="pre">SetValueImpl</span></code>.</p></li>
+<li><p>Otherwise:
+* Retrieve the value of the variable by calling <code class="docutils literal notranslate"><span class="pre">GetValueImpl</span></code>.
+* If that value does not contain the field with name <cite>fieldname</cite>, return <code class="docutils literal notranslate"><span class="pre">false</span></code>.
+* Try to assign <cite>value</cite> to the field with name ‘fieldname’ and return <code class="docutils literal notranslate"><span class="pre">false</span></code> if that fails. Note that this assignment will only fail if the type of the field cannot be changed, i.e. it is an array element or descendant thereof, and conversion fails.
+* Return the result <code class="docutils literal notranslate"><span class="pre">SetValueImpl</span></code> with the updated value as argument.</p></li>
+</ul>
+</section>
+</section>
+<section id="usage">
+<h2><a class="toc-backref" href="#id6" role="doc-backlink">Usage</a><a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<p>Two specialisations of the <code class="docutils literal notranslate"><span class="pre">Variable</span></code> class are included in <strong>oac-tree</strong>. They are the <cite>local variable</cite> and the <cite>file variable</cite>. The implementation of <cite>Local Variable</cite> will be used to provide examples.</p>
+<p>Note that more specialized variables are provided by plugins. For example, an EPICS ChannelAccess client variable is defined by <code class="docutils literal notranslate"><span class="pre">oac-tree-plugin-epics</span></code>.</p>
+<section id="creating-a-variable">
+<h3><a class="toc-backref" href="#id7" role="doc-backlink">Creating a Variable</a><a class="headerlink" href="#creating-a-variable" title="Link to this heading"></a></h3>
+<p>To obtain an instance of an existing variable type, provided by the core library or one of the loaded plugins, one typically asks a <code class="docutils literal notranslate"><span class="pre">VariableRegistry</span></code> to instantiate it:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">local_var</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GlobalVariableRegistry</span><span class="p">().</span><span class="n">Create</span><span class="p">(</span><span class="s">&quot;Local&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="variable-initialization">
+<h3><a class="toc-backref" href="#id8" role="doc-backlink">Variable Initialization</a><a class="headerlink" href="#variable-initialization" title="Link to this heading"></a></h3>
+<p>Before instructions can access, i.e. read or write, the value of a variable, it needs to be properly initialized first. This is done by calling the <code class="docutils literal notranslate"><span class="pre">Setup</span></code> method on the variable. Initialization may include connecting to a database, obtaining a file handle, etc. The <code class="docutils literal notranslate"><span class="pre">Setup</span></code> method also receives a reference to a <code class="docutils literal notranslate"><span class="pre">Workspace</span></code>, allowing it to access its <code class="docutils literal notranslate"><span class="pre">AnyTypeRegistry</span></code>. The method returns an object of type <code class="docutils literal notranslate"><span class="pre">SetupTeardownActions</span></code> that allows the workspace to register actions that need to be executed after all variables have been setup, as well as teardown actions that will be executed before all variables will be torn down. The default constructed <code class="docutils literal notranslate"><span class="pre">SetupTeardownActions</span></code> object contains no actions at all. This object also contains an identifier that allows to avoid multiple registrations. For example, if such an action only needs to be called once per variable type, this type can be used as an identifier and the workspace will only register a single instance with that identifier.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">Workspace</span><span class="w"> </span><span class="n">ws</span><span class="p">;</span>
+<span class="n">local_var</span><span class="o">-&gt;</span><span class="n">Setup</span><span class="p">(</span><span class="n">ws</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="setting-and-getting-variable-values">
+<h3><a class="toc-backref" href="#id9" role="doc-backlink">Setting and Getting Variable Values</a><a class="headerlink" href="#setting-and-getting-variable-values" title="Link to this heading"></a></h3>
+<p>Users can access and modify the value of a variable using the <code class="docutils literal notranslate"><span class="pre">GetValue</span></code> and <code class="docutils literal notranslate"><span class="pre">SetValue</span></code> methods, respectively. These methods provide a way to read and update variable values, or their subfields, in a controlled manner.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Set the current value of a variable</span>
+<span class="n">sup</span><span class="o">::</span><span class="n">dto</span><span class="o">::</span><span class="n">AnyValue</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{{</span><span class="s">&quot;index&quot;</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="n">SignedInteger8Type</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">}}};</span>
+<span class="n">local_var</span><span class="o">-&gt;</span><span class="n">SetValue</span><span class="p">(</span><span class="n">value</span><span class="p">);</span>
+
+<span class="c1">// Get the index field from the variable</span>
+<span class="n">sup</span><span class="o">::</span><span class="n">dto</span><span class="o">::</span><span class="n">AnyValue</span><span class="w"> </span><span class="n">index</span><span class="p">;</span>
+<span class="n">local_var</span><span class="o">-&gt;</span><span class="n">GetValue</span><span class="p">(</span><span class="n">index</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;index&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The access to subfields of a variable’s value is provided by the base class <code class="docutils literal notranslate"><span class="pre">Variable</span></code> itself, requiring implementers of custom variables to only override the virtual private methods for non field-based access.</p>
+</section>
+<section id="checking-variable-availability">
+<h3><a class="toc-backref" href="#id10" role="doc-backlink">Checking Variable Availability</a><a class="headerlink" href="#checking-variable-availability" title="Link to this heading"></a></h3>
+<p>The availability of a variable depends on the specific derived class implementation. For example, for a network variable, availability could mean that a stable network connection was made to be able to obtain its value. Users can check if a variable is available using the <code class="docutils literal notranslate"><span class="pre">IsAvailable</span></code> method.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">local_var</span><span class="o">-&gt;</span><span class="n">IsAvailable</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Variable is available</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Variable is not available</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="registering-callback-for-value-updates">
+<h3><a class="toc-backref" href="#id11" role="doc-backlink">Registering Callback for Value Updates</a><a class="headerlink" href="#registering-callback-for-value-updates" title="Link to this heading"></a></h3>
+<p>Users can register a callback function to be notified of value updates using the <code class="docutils literal notranslate"><span class="pre">SetNotifyCallback</span></code> method. This allows for real-time responsiveness to changes in variable values. Note however that it is typically the responsibility of the <code class="docutils literal notranslate"><span class="pre">Workspace</span></code> to subscribe to such changes and propagate these to other interested software components.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Define a callback function</span>
+<span class="kt">void</span><span class="w"> </span><span class="nf">OnValueUpdate</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">sup</span><span class="o">::</span><span class="n">dto</span><span class="o">::</span><span class="n">AnyValue</span><span class="o">&amp;</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">connected</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Handle the value update</span>
+<span class="w">    </span><span class="c1">// ...</span>
+<span class="p">}</span>
+
+<span class="n">local_var</span><span class="o">-&gt;</span><span class="n">SetNotifyCallback</span><span class="p">(</span><span class="n">OnValueUpdate</span><span class="p">);</span><span class="w"> </span><span class="c1">// Register the callback function</span>
+</pre></div>
+</div>
+</section>
+<section id="managing-attributes">
+<h3><a class="toc-backref" href="#id12" role="doc-backlink">Managing Attributes</a><a class="headerlink" href="#managing-attributes" title="Link to this heading"></a></h3>
+<p>The <cite>Variable</cite> class supports an attribute system (see <a class="reference internal" href="instruction.html#attribute-system"><span class="std std-ref">Attribute System</span></a>). Users can set, retrieve, and manipulate attributes using various attribute-related methods:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="c1">// Add attributes to the numeric variable</span>
+<span class="n">local_var</span><span class="o">-&gt;</span><span class="n">AddAttribute</span><span class="p">(</span><span class="s">&quot;units&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;kg&quot;</span><span class="p">);</span>
+<span class="n">local_var</span><span class="o">-&gt;</span><span class="n">AddAttribute</span><span class="p">(</span><span class="s">&quot;precision&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;2&quot;</span><span class="p">);</span>
+
+<span class="c1">// Retrieve attribute values</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">units</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">local_var</span><span class="o">-&gt;</span><span class="n">GetAttributeString</span><span class="p">(</span><span class="s">&quot;units&quot;</span><span class="p">);</span>
+<span class="kt">int</span><span class="w"> </span><span class="n">precision</span><span class="p">;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="n">local_var</span><span class="o">-&gt;</span><span class="n">GetAttributeValue</span><span class="p">(</span><span class="s">&quot;precision&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">precision</span><span class="p">))</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="c1">// deal with error retrieving the attribute&#39;s value as an integer...</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="tearing-down-a-variable">
+<h3><a class="toc-backref" href="#id13" role="doc-backlink">Tearing down a Variable</a><a class="headerlink" href="#tearing-down-a-variable" title="Link to this heading"></a></h3>
+<p>The <cite>Teardown</cite> method resets the variable to the state it had prior to initialization. This means that attributes are still present, but other internal state data is reset. For example, it can disconnect from external resources or clear values.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">local_var</span><span class="o">-&gt;</span><span class="n">Teardown</span><span class="p">();</span><span class="w"> </span><span class="c1">// Reset the numeric variable</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="attribute-system">
+<h2><a class="toc-backref" href="#id14" role="doc-backlink">Attribute System</a><a class="headerlink" href="#attribute-system" title="Link to this heading"></a></h2>
+<p>The attribute system, together with a fixed typename for each concrete variable implementation, allows for handling variables in an opaque way: together they fully define the behavior of a variable and no implementation specific methods are required to initialize them. This system makes it possible to fully instantiate and initialize variables in a data-driven way and is used when parsing procedure XML files. See <a class="reference internal" href="instruction.html#attribute-system"><span class="std std-ref">Attribute System</span></a> in the <cite>Instruction</cite> documentation for more information on the attribute system.</p>
+</section>
+<section id="class-definition">
+<h2><a class="toc-backref" href="#id15" role="doc-backlink">Class definition</a><a class="headerlink" href="#class-definition" title="Link to this heading"></a></h2>
+<p>Next is presented the definition of the <code class="docutils literal notranslate"><span class="pre">Variable</span></code> class and its main methods.</p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree8VariableE">
+<span id="_CPPv3N3sup8oac_tree8VariableE"></span><span id="_CPPv2N3sup8oac_tree8VariableE"></span><span id="sup::oac_tree::Variable"></span><span class="target" id="classsup_1_1oac__tree_1_1Variable"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Variable</span></span></span><a class="headerlink" href="#_CPPv4N3sup8oac_tree8VariableE" title="Link to this definition"></a><br /></dt>
+<dd><p>Interface for workspace variables. </p>
+<p>Most of the <a class="reference internal" href="#classsup_1_1oac__tree_1_1Variable"><span class="std std-ref">Variable</span></a> API is implemented using the non-virtual interface (NVI) idiom and locks are provided for those public methods that can be called during execution to ensure thread safety. Those methods are:<ul class="simple">
+<li><p>Value access functions: GetValue, SetValue and IsAvailable;</p></li>
+<li><p>Notification callback functions: Notify and SetNotifyCallback. Note that all other methods are not thread safe and thus should be called only from a single thread. These methods are typically called during the initialization of a procedure. </p></li>
+</ul>
+</p>
+<p>Subclassed by sup::oac_tree::FileVariable, sup::oac_tree::LocalVariable</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree8Variable7GetTypeEv">
+<span id="_CPPv3NK3sup8oac_tree8Variable7GetTypeEv"></span><span id="_CPPv2NK3sup8oac_tree8Variable7GetTypeEv"></span><span id="sup::oac_tree::Variable::GetTypeC"></span><span class="target" id="classsup_1_1oac__tree_1_1Variable_1aafe1d7a41a6b9b5a44308f44000706e7"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetType</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree8Variable7GetTypeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get variable type. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>variable type </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree8Variable7GetNameEv">
+<span id="_CPPv3NK3sup8oac_tree8Variable7GetNameEv"></span><span id="_CPPv2NK3sup8oac_tree8Variable7GetNameEv"></span><span id="sup::oac_tree::Variable::GetNameC"></span><span class="target" id="classsup_1_1oac__tree_1_1Variable_1ab57a46d6f902dbca64f857859185d43d"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetName</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree8Variable7GetNameEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get variable name. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>variable name </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree8Variable7SetNameERKNSt6stringE">
+<span id="_CPPv3N3sup8oac_tree8Variable7SetNameERKNSt6stringE"></span><span id="_CPPv2N3sup8oac_tree8Variable7SetNameERKNSt6stringE"></span><span id="sup::oac_tree::Variable::SetName__ssCR"></span><span class="target" id="classsup_1_1oac__tree_1_1Variable_1ab8badb31a11c2be4018d0ece9d75f4a2"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetName</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree8Variable7SetNameERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Set variable name. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – Name to set </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>void </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree8Variable5SetupERK9Workspace">
+<span id="_CPPv3N3sup8oac_tree8Variable5SetupERK9Workspace"></span><span id="_CPPv2N3sup8oac_tree8Variable5SetupERK9Workspace"></span><span id="sup::oac_tree::Variable::Setup__WorkspaceCR"></span><span class="target" id="classsup_1_1oac__tree_1_1Variable_1a996efb20cf396f8b28dbf66db13b1966"></span><span class="n"><span class="pre">SetupTeardownActions</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Setup</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Workspace</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ws</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree8Variable5SetupERK9Workspace" title="Link to this definition"></a><br /></dt>
+<dd><p>Setup variable method. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ws</strong> – Current workspace. </p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">VariableSetupException</span></span></span> – when the variable could not be setup properly. </p>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional setup/teardown actions that need to be called once per class of Variables (identified by a unique string identifier).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree8Variable5ResetERK9Workspace">
+<span id="_CPPv3N3sup8oac_tree8Variable5ResetERK9Workspace"></span><span id="_CPPv2N3sup8oac_tree8Variable5ResetERK9Workspace"></span><span id="sup::oac_tree::Variable::Reset__WorkspaceCR"></span><span class="target" id="classsup_1_1oac__tree_1_1Variable_1a814df59301cddb9e357b4eb8318ed311"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Reset</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">Workspace</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ws</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree8Variable5ResetERK9Workspace" title="Link to this definition"></a><br /></dt>
+<dd><p>Resets the variable to the state just after the initial Setup. </p>
+<p>By default, this methods calls Teardown and Setup, but custom variables may override this behavior.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ws</strong> – Current workspace.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">VariableSetupException</span></span></span> – when the variable could not be reset properly. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree8Variable8GetValueERN3sup3dto8AnyValueERKNSt6stringE">
+<span id="_CPPv3NK3sup8oac_tree8Variable8GetValueERN3sup3dto8AnyValueERKNSt6stringE"></span><span id="_CPPv2NK3sup8oac_tree8Variable8GetValueERN3sup3dto8AnyValueERKNSt6stringE"></span><span id="sup::oac_tree::Variable::GetValue__sup::dto::AnyValueR.ssCRC"></span><span class="target" id="classsup_1_1oac__tree_1_1Variable_1ac64c6476fce4d883fc7e0bcad27fed28"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetValue</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">sup</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">dto</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">fieldname</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree8Variable8GetValueERN3sup3dto8AnyValueERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Get value of variable. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Non-virtual interface. This member function will fail, i.e. return false, if value is non-empty and the value to be retrieved cannot be converted to value’s type. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – variable reference to contain the value. </p></li>
+<li><p><strong>fieldname</strong> – optional field name. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true on success.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree8Variable8SetValueERKN3sup3dto8AnyValueERKNSt6stringE">
+<span id="_CPPv3N3sup8oac_tree8Variable8SetValueERKN3sup3dto8AnyValueERKNSt6stringE"></span><span id="_CPPv2N3sup8oac_tree8Variable8SetValueERKN3sup3dto8AnyValueERKNSt6stringE"></span><span id="sup::oac_tree::Variable::SetValue__sup::dto::AnyValueCR.ssCR"></span><span class="target" id="classsup_1_1oac__tree_1_1Variable_1aa0126176c3f6251b122fd66a23f29ea8"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">sup</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">dto</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">fieldname</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree8Variable8SetValueERKN3sup3dto8AnyValueERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Set value of variable. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Non-virtual interface. This member function does not enforce any type constraints on the value. <a class="reference internal" href="#classsup_1_1oac__tree_1_1Variable"><span class="std std-ref">Variable</span></a> implementations are fully responsible to enforce this if needed. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – value to set. </p></li>
+<li><p><strong>fieldname</strong> – optional field name. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true on success.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree8Variable11IsAvailableEv">
+<span id="_CPPv3NK3sup8oac_tree8Variable11IsAvailableEv"></span><span id="_CPPv2NK3sup8oac_tree8Variable11IsAvailableEv"></span><span id="sup::oac_tree::Variable::IsAvailableC"></span><span class="target" id="classsup_1_1oac__tree_1_1Variable_1a8583d5ffc0c733a03fe586beb0860bc8"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsAvailable</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree8Variable11IsAvailableEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Check if variable is available. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Non-virtual interface. </p>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Availability is context-dependent: e.g. a network variable is available when it is connected and its value can be read. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>true on success.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree8Variable6NotifyERKN3sup3dto8AnyValueEb">
+<span id="_CPPv3NK3sup8oac_tree8Variable6NotifyERKN3sup3dto8AnyValueEb"></span><span id="_CPPv2NK3sup8oac_tree8Variable6NotifyERKN3sup3dto8AnyValueEb"></span><span id="sup::oac_tree::Variable::Notify__sup::dto::AnyValueCR.bC"></span><span class="target" id="classsup_1_1oac__tree_1_1Variable_1abad4a2365d0b0b559d4a0ef2c062e147"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Notify</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">sup</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">dto</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">connected</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree8Variable6NotifyERKN3sup3dto8AnyValueEb" title="Link to this definition"></a><br /></dt>
+<dd><p>Notify waiting threads of an update to the variable. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Needs to be called whenever the variable is updated. It has to be called without holding the mutex lock. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>value</strong> – New value of variable. </p></li>
+<li><p><strong>connected</strong> – New connectivity status of variable.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree8Variable17SetNotifyCallbackE8Callback">
+<span id="_CPPv3N3sup8oac_tree8Variable17SetNotifyCallbackE8Callback"></span><span id="_CPPv2N3sup8oac_tree8Variable17SetNotifyCallbackE8Callback"></span><span id="sup::oac_tree::Variable::SetNotifyCallback__Callback"></span><span class="target" id="classsup_1_1oac__tree_1_1Variable_1a22675fa0d1a51ee5e3959df5632785fb"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetNotifyCallback</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">Callback</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree8Variable17SetNotifyCallbackE8Callback" title="Link to this definition"></a><br /></dt>
+<dd><p>Set callback for value update notifications. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method will overwrite an existing callback if there was one. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>func</strong> – Callback function object. </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true if successful.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree8Variable8TeardownEv">
+<span id="_CPPv3N3sup8oac_tree8Variable8TeardownEv"></span><span id="_CPPv2N3sup8oac_tree8Variable8TeardownEv"></span><span id="sup::oac_tree::Variable::Teardown"></span><span class="target" id="classsup_1_1oac__tree_1_1Variable_1a37c72d288c0f1349624f0b8cb4e1c19a"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Teardown</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree8Variable8TeardownEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Tear down the variable. </p>
+<p>This method resets the variable to its initial, i.e. uninitialized, state. For example, network variables will disconnect. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree8Variable12HasAttributeERKNSt6stringE">
+<span id="_CPPv3NK3sup8oac_tree8Variable12HasAttributeERKNSt6stringE"></span><span id="_CPPv2NK3sup8oac_tree8Variable12HasAttributeERKNSt6stringE"></span><span id="sup::oac_tree::Variable::HasAttribute__ssCRC"></span><span class="target" id="classsup_1_1oac__tree_1_1Variable_1a886ae73fcff0a2061d891560a6d66b5b"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">HasAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree8Variable12HasAttributeERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Indicate presence of attribute with given name. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – Attribute name. </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true when present. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree8Variable18GetAttributeStringERKNSt6stringE">
+<span id="_CPPv3NK3sup8oac_tree8Variable18GetAttributeStringERKNSt6stringE"></span><span id="_CPPv2NK3sup8oac_tree8Variable18GetAttributeStringERKNSt6stringE"></span><span id="sup::oac_tree::Variable::GetAttributeString__ssCRC"></span><span class="target" id="classsup_1_1oac__tree_1_1Variable_1a2a887c040f78c68e6d27d9715dee1ab0"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetAttributeString</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">attr_name</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree8Variable18GetAttributeStringERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Get attribute with given name. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>attr_name</strong> – Attribute name. </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Attribute value. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree8Variable19GetStringAttributesEv">
+<span id="_CPPv3NK3sup8oac_tree8Variable19GetStringAttributesEv"></span><span id="_CPPv2NK3sup8oac_tree8Variable19GetStringAttributesEv"></span><span id="sup::oac_tree::Variable::GetStringAttributesC"></span><span class="target" id="classsup_1_1oac__tree_1_1Variable_1a32dee5ee9ca33768f66b8dfdcd5f8ee5"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">StringAttributeList</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetStringAttributes</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree8Variable19GetStringAttributesEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get all attributes. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List containing all attributes. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree8Variable12AddAttributeERKNSt6stringERKNSt6stringE">
+<span id="_CPPv3N3sup8oac_tree8Variable12AddAttributeERKNSt6stringERKNSt6stringE"></span><span id="_CPPv2N3sup8oac_tree8Variable12AddAttributeERKNSt6stringERKNSt6stringE"></span><span id="sup::oac_tree::Variable::AddAttribute__ssCR.ssCR"></span><span class="target" id="classsup_1_1oac__tree_1_1Variable_1a224122c74a78e3939cf9e7a94e317c0e"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddAttribute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">attr_name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">attr_value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree8Variable12AddAttributeERKNSt6stringERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Set attribute with given name and value. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attr_name</strong> – Attribute name. </p></li>
+<li><p><strong>attr_value</strong> – Attribute value. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true when successful. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree8Variable13AddAttributesERK19StringAttributeList">
+<span id="_CPPv3N3sup8oac_tree8Variable13AddAttributesERK19StringAttributeList"></span><span id="_CPPv2N3sup8oac_tree8Variable13AddAttributesERK19StringAttributeList"></span><span id="sup::oac_tree::Variable::AddAttributes__StringAttributeListCR"></span><span class="target" id="classsup_1_1oac__tree_1_1Variable_1a935e74285108706def59ced81cb4b21e"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddAttributes</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">StringAttributeList</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">str_attributes</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree8Variable13AddAttributesERK19StringAttributeList" title="Link to this definition"></a><br /></dt>
+<dd><p>Set all attributes in given list. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>str_attributes</strong> – Attribute list. </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>true when successful. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0ENK3sup8oac_tree8Variable17GetAttributeValueEbRKNSt6stringER1T">
+<span id="_CPPv3I0ENK3sup8oac_tree8Variable17GetAttributeValueERKNSt6stringER1T"></span><span id="_CPPv2I0ENK3sup8oac_tree8Variable17GetAttributeValueERKNSt6stringER1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classsup_1_1oac__tree_1_1Variable_1a5f7b5dd07b4492994f2135f79adc03d0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetAttributeValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">attr_name</span></span>, <a class="reference internal" href="#_CPPv4I0ENK3sup8oac_tree8Variable17GetAttributeValueEbRKNSt6stringER1T" title="sup::oac_tree::Variable::GetAttributeValue::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0ENK3sup8oac_tree8Variable17GetAttributeValueEbRKNSt6stringER1T" title="Link to this definition"></a><br /></dt>
+<dd><p>Get attribute value with given name and type. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The reason for returning true in the absence of the attribute is that mandatory attributes are already checked during setup and non-mandatory attributes should not cause an error when they are not present. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>attr_name</strong> – Attribute name. </p></li>
+<li><p><strong>val</strong> – Output parameter for value.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True on success or when the attribute is not present.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree8Variable23GetAttributeDefinitionsEv">
+<span id="_CPPv3NK3sup8oac_tree8Variable23GetAttributeDefinitionsEv"></span><span id="_CPPv2NK3sup8oac_tree8Variable23GetAttributeDefinitionsEv"></span><span id="sup::oac_tree::Variable::GetAttributeDefinitionsC"></span><span class="target" id="classsup_1_1oac__tree_1_1Variable_1a3f63de6b27bf1c8f381caa71dd7ca13f"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">AttributeDefinition</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetAttributeDefinitions</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree8Variable23GetAttributeDefinitionsEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Get all attribute definitions. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of attribute definitions. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="procedure.html" class="btn btn-neutral float-left" title="Procedure" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright ITER Organization.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Overview &mdash; SUP MVVM</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=b51e6972"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="prev" title="The model-view-viewmodel library of generic UI components" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            sup-mvvm
+          </a>
+              <div class="version">
+                1.8.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#the-context">The context</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#the-model">The Model</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-viewmodel">The ViewModel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-view">The View</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#list-of-features">List of features</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick start</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main_components.html">Main components</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sup-mvvm</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Overview</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/overview.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h1>
+<section id="the-context">
+<h2>The context<a class="headerlink" href="#the-context" title="Link to this heading"></a></h2>
+<p>This model-view-viewmodel <strong>mvvm</strong> framework is intended for large Qt-based
+scientific applications written in C++. The definition of <cite>large</cite> is quite
+arbitrary and means something in a line “can be easilly above 50K of LOC”.</p>
+<p>All classes in the framework are build around the concept of model-view-viewmodel design pattern for
+graphical user interface creation, and thus fails in one of these three categories.</p>
+<section id="the-model">
+<h3>The Model<a class="headerlink" href="#the-model" title="Link to this heading"></a></h3>
+<p>The first part of the framework, the model, consists of a group of classes to
+build a tree-like structure, named <code class="docutils literal notranslate"><span class="pre">SessionModel</span></code>, to handle any data of the
+GUI session. The data in this model is originated, at least partly, from the
+persistent storage (database, XML files), and then leaves in the memory of the
+running application. The model is populated with elements of different
+complexities: from compound items representing complex domain objects,
+to elementary items, representing editable properties.</p>
+<p>This part of the framework is intentionally made independent of any graphics
+library. The idea behind is the following:</p>
+<p>In large GUIs, the business logic gets quickly spoiled with presentation logic.
+Graphics library classes (like <code class="docutils literal notranslate"><span class="pre">QModelIndex</span></code> from Qt library) start to appear
+everywhere, even in places that have nothing to do with graphics. Removing
+graphics library from dependencies allows focusing more on common needs (i.e.
+objects construction, property editing, etc) of GUI applications rather than on
+presentation details. Thus, the intention here is to build an application model
+to handle the data and logic of GUI while being independent on any particular
+GUI library.</p>
+</section>
+<section id="the-viewmodel">
+<h3>The ViewModel<a class="headerlink" href="#the-viewmodel" title="Link to this heading"></a></h3>
+<p>The second part defines <code class="docutils literal notranslate"><span class="pre">ViewModel</span></code> and serves as a thin counterpart of
+<code class="docutils literal notranslate"><span class="pre">SessionModel</span></code> in the Qt world. <code class="docutils literal notranslate"><span class="pre">ViewModel</span></code> doesn’t own the data but simply acts
+as a proxy to different parts of <code class="docutils literal notranslate"><span class="pre">SessionModel</span></code>. It is derived from
+<code class="docutils literal notranslate"><span class="pre">QAbstractItemModel</span></code> and intended to work together with Qt’s trees and tables.
+The layout of <code class="docutils literal notranslate"><span class="pre">ViewModel</span></code> (i.e. parent/child relationships) doesn’t follow the
+layout of the original <code class="docutils literal notranslate"><span class="pre">SessionModel</span></code>. It is generated on the fly by using
+strategy who-is-my-next-child provided by the user. In practice, it allows
+generating Qt tables and trees with arbitrary layouts, based on a common data
+source, without diving into the nightmare of <code class="docutils literal notranslate"><span class="pre">QAbstractProxyModel</span></code>.
+Particularly, the aforementioned machinery allows having something in the line
+of the ancient <a class="reference external" href="https://doc.qt.io/archives/qq/qq18-propertybrowser.html">Qt property browser framework</a>.</p>
+</section>
+<section id="the-view">
+<h3>The View<a class="headerlink" href="#the-view" title="Link to this heading"></a></h3>
+<p>The third part, the View, contains few convenience widgets for property editing.
+In the future this part can be extended with widget library for scientific plotting.</p>
+</section>
+</section>
+<section id="list-of-features">
+<h2>List of features<a class="headerlink" href="#list-of-features" title="Link to this heading"></a></h2>
+<p><strong>Model part</strong></p>
+<ul class="simple">
+<li><p>Application model to store arbitrary data of GUI session.</p></li>
+<li><p>Support of all SUP data types.</p></li>
+<li><p>Serialization of application models to XML.</p></li>
+<li><p>Depends only on C++17 and libxml.</p></li>
+<li><p>Unique identifiers for all items and memory pool registration.</p></li>
+<li><p>Multiple models with the possibility for persistent inter-model links.</p></li>
+<li><p>Notification machinery.</p></li>
+<li><p>Undo/redo based on command pattern.</p></li>
+</ul>
+<p><strong>ViewModel part (depends on Qt)</strong></p>
+<ul class="simple">
+<li><p>View model to show parts of application model in Qt widgets.</p></li>
+<li><p>Property editors.</p></li>
+<li><p>Automatic generation of widgets from model content.</p></li>
+<li><p>Scientific plotting.</p></li>
+<li><p>Flexible layout of Qt’s trees and tables.</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="The model-view-viewmodel library of generic UI components" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright ITER Organization.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

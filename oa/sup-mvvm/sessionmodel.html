@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SessionModel &mdash; SUP MVVM</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=b51e6972"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="API Reference" href="api_reference.html" />
+    <link rel="prev" title="Standard items" href="standard_items.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            sup-mvvm
+          </a>
+              <div class="version">
+                1.8.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="quick_start.html">Quick start</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="main_components.html">Main components</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="compound_item.html">CompoundItem</a></li>
+<li class="toctree-l2"><a class="reference internal" href="standard_items.html">Standard items</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SessionModel</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#inserting-item">Inserting item</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#removing-item">Removing item</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#memory-pool">Memory pool</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#sessionmodel-api">SessionModel API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N4mvvm12SessionModelE"><code class="docutils literal notranslate"><span class="pre">mvvm::SessionModel</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api_reference.html">API Reference</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sup-mvvm</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="main_components.html">Main components</a></li>
+      <li class="breadcrumb-item active">SessionModel</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/sessionmodel.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sessionmodel">
+<h1>SessionModel<a class="headerlink" href="#sessionmodel" title="Link to this heading"></a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">SessionModel</span></code> is the main class to hold the hierarchy of <code class="docutils literal notranslate"><span class="pre">SessionItem</span></code>
+objects. It contains a single root <code class="docutils literal notranslate"><span class="pre">SessionItem</span></code> as an entry point to other
+top-level items through the model API. In pseudo-code it it can be expressed as:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">SessionModel</span>
+<span class="p">{</span>
+<span class="k">public</span><span class="o">:</span>
+<span class="w">  </span><span class="n">SessionModel</span><span class="p">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">m_root_item</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">SessionItem</span><span class="o">&gt;</span><span class="p">())</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="k">private</span><span class="o">:</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">SessionItem</span><span class="o">&gt;</span><span class="w"> </span><span class="n">m_root_item</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">SessionModel</span></code> implements <code class="docutils literal notranslate"><span class="pre">SessionModelInterface</span></code>. It doesn’t have any notification
+capabilities, do not have any unddo/redo mechanism and implements only basic functionality to add,
+remove and access items.</p>
+<section id="inserting-item">
+<h2>Inserting item<a class="headerlink" href="#inserting-item" title="Link to this heading"></a></h2>
+<p>To insert an item in a model, one has to use the <code class="docutils literal notranslate"><span class="pre">InsertItem</span></code> method and provide
+a pointer to a parent item and <code class="docutils literal notranslate"><span class="pre">TagIndex</span></code> specifying the position in the
+parent’s containers. When no arguments are provided, appending to a root item is assumed:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">SessionModel</span><span class="w"> </span><span class="n">model</span><span class="p">;</span>
+
+<span class="c1">// appends new compound to the root item</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">parent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">model</span><span class="p">.</span><span class="n">InsertItem</span><span class="o">&lt;</span><span class="n">CompoundItem</span><span class="o">&gt;</span><span class="p">();</span>
+
+<span class="c1">// inserting child into parent&#39;s tag</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">child</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">model</span><span class="p">.</span><span class="n">InsertItem</span><span class="o">&lt;</span><span class="n">PropertyItem</span><span class="o">&gt;</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;tag&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">});</span>
+</pre></div>
+</div>
+<p>In the example above it is assumed that the <cite>parent</cite> item is properly
+configured, and can accept items of a given type under the given tag.</p>
+</section>
+<section id="removing-item">
+<h2>Removing item<a class="headerlink" href="#removing-item" title="Link to this heading"></a></h2>
+<p>Item can be removed from the model by using either <cite>RemoveItem</cite> or <cite>TakeItem</cite>.
+The first method will remove item and discard it completely:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// inserts and removes the item</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">model</span><span class="p">.</span><span class="n">InsertItem</span><span class="o">&lt;</span><span class="n">CompoundItem</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="n">model</span><span class="p">.</span><span class="n">RemoveItem</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The second item requires the knowledge of item’s parent and location:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// insert a child into a parent</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">parent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">model</span><span class="p">.</span><span class="n">InsertItem</span><span class="o">&lt;</span><span class="n">CompoundItem</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">child</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">model</span><span class="p">.</span><span class="n">InsertItem</span><span class="o">&lt;</span><span class="n">SessionItem</span><span class="o">&gt;</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;tag&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">});</span>
+
+<span class="c1">// taking a child from parent</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">taken</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">model</span><span class="p">.</span><span class="n">RemoveItem</span><span class="o">&lt;</span><span class="n">SessionItem</span><span class="o">&gt;</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;tag&quot;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">});</span>
+</pre></div>
+</div>
+</section>
+<section id="memory-pool">
+<h2>Memory pool<a class="headerlink" href="#memory-pool" title="Link to this heading"></a></h2>
+<p>Every <code class="docutils literal notranslate"><span class="pre">SessionItem</span></code> carries a unique identifier that is assigned to it at the moment of
+construction. This identifier can be accessed using the <cite>GetIdentifier</cite> method:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">SessionItem</span><span class="w"> </span><span class="n">item</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">item</span><span class="p">.</span><span class="n">GetIdentifier</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="s">&quot;4c281780-1bf6-4d98-8de2-b9775085c755&quot;</span>
+</pre></div>
+</div>
+<p>When <code class="docutils literal notranslate"><span class="pre">SessionItem</span></code> is inserted in the model, this identifier gets registered in
+the model’s <cite>ItemPool</cite> together with the item’s address. When the item is
+removed from the model, the record is removed too. During serialization of the
+model, and following reconstruction of the model from serialized content, items’
+identifiers are preserved.</p>
+<p>Knowing the identifier, one can find the <code class="docutils literal notranslate"><span class="pre">SessionItem</span></code> address. It allows using
+identifiers for cross-linking between model parts, also for the case of
+different models:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">SessionModel</span><span class="w"> </span><span class="n">model</span><span class="p">;</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">model</span><span class="p">.</span><span class="n">InsertItem</span><span class="o">&lt;</span><span class="n">SessionItem</span><span class="o">&gt;</span><span class="p">();</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">identifier</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">item</span><span class="o">-&gt;</span><span class="n">GetIdentifier</span><span class="p">();</span>
+
+<span class="k">auto</span><span class="w"> </span><span class="n">found_item</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">model</span><span class="p">.</span><span class="n">FindItem</span><span class="p">(</span><span class="n">identifier</span><span class="p">);</span>
+<span class="n">assert</span><span class="p">(</span><span class="n">item</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">found_item</span><span class="p">);</span>
+</pre></div>
+</div>
+</section>
+<section id="sessionmodel-api">
+<h2>SessionModel API<a class="headerlink" href="#sessionmodel-api" title="Link to this heading"></a></h2>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm12SessionModelE">
+<span id="_CPPv3N4mvvm12SessionModelE"></span><span id="_CPPv2N4mvvm12SessionModelE"></span><span id="mvvm::SessionModel"></span><span class="target" id="classmvvm_1_1SessionModel"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SessionModel</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mvvm</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">ISessionModel</span></span><a class="headerlink" href="#_CPPv4N4mvvm12SessionModelE" title="Link to this definition"></a><br /></dt>
+<dd><p>The <a class="reference internal" href="#classmvvm_1_1SessionModel"><span class="std std-ref">SessionModel</span></a> class is the main model to hold hierarchy of <a class="reference internal" href="sessionitem.html#classmvvm_1_1SessionItem"><span class="std std-ref">SessionItem</span></a> objects. </p>
+<p>Subclassed by mvvm::ApplicationModel</p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm12SessionModel7GetTypeEv">
+<span id="_CPPv3NK4mvvm12SessionModel7GetTypeEv"></span><span id="_CPPv2NK4mvvm12SessionModel7GetTypeEv"></span><span id="mvvm::SessionModel::GetTypeC"></span><span class="target" id="classmvvm_1_1SessionModel_1ab5b0307c186c437f3585a0cfe9800353"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetType</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm12SessionModel7GetTypeEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns model type. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm12SessionModel11GetRootItemEv">
+<span id="_CPPv3NK4mvvm12SessionModel11GetRootItemEv"></span><span id="_CPPv2NK4mvvm12SessionModel11GetRootItemEv"></span><span id="mvvm::SessionModel::GetRootItemC"></span><span class="target" id="classmvvm_1_1SessionModel_1a5c14c723b722c1f056b1790b6f861b30"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetRootItem</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm12SessionModel11GetRootItemEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns root item. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm12SessionModel15GetEventHandlerEv">
+<span id="_CPPv3NK4mvvm12SessionModel15GetEventHandlerEv"></span><span id="_CPPv2NK4mvvm12SessionModel15GetEventHandlerEv"></span><span id="mvvm::SessionModel::GetEventHandlerC"></span><span class="target" id="classmvvm_1_1SessionModel_1a65b3d8d1379aeb964670d30f61326139"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">ModelEventHandler</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetEventHandler</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm12SessionModel15GetEventHandlerEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns event handler. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Event handler. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm12SessionModel15GetCommandStackEv">
+<span id="_CPPv3NK4mvvm12SessionModel15GetCommandStackEv"></span><span id="_CPPv2NK4mvvm12SessionModel15GetCommandStackEv"></span><span id="mvvm::SessionModel::GetCommandStackC"></span><span class="target" id="classmvvm_1_1SessionModel_1a94f4ef0373ac724c62e76ef36ff1ff8a"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">ICommandStack</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetCommandStack</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm12SessionModel15GetCommandStackEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Returns command stack. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm12SessionModel10InsertItemENSt10unique_ptrI11SessionItemEEP11SessionItemRK8TagIndex">
+<span id="_CPPv3N4mvvm12SessionModel10InsertItemENSt10unique_ptrI11SessionItemEEP11SessionItemRK8TagIndex"></span><span id="_CPPv2N4mvvm12SessionModel10InsertItemENSt10unique_ptrI11SessionItemEEP11SessionItemRK8TagIndex"></span><span id="mvvm::SessionModel::InsertItem__std::unique_ptr:SessionItem:.SessionItemP.TagIndexCR"></span><span class="target" id="classmvvm_1_1SessionModel_1a755e75c469c2978fd933f8ad2a0a0065"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">InsertItem</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">item</span></span>, <a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">parent</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm8TagIndexE" title="mvvm::TagIndex"><span class="n"><span class="pre">TagIndex</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tag_index</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N4mvvm12SessionModel10InsertItemENSt10unique_ptrI11SessionItemEEP11SessionItemRK8TagIndex" title="Link to this definition"></a><br /></dt>
+<dd><p>Inserts an item into the given parent and takes ownership of it. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>An</strong> – item to insert. </p></li>
+<li><p><strong>parent</strong> – The parent where to insert. </p></li>
+<li><p><strong>tag_index</strong> – A tag_index pointing to the inserted place. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The pointer to the inserted item. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm12SessionModel8TakeItemEP11SessionItemRK8TagIndex">
+<span id="_CPPv3N4mvvm12SessionModel8TakeItemEP11SessionItemRK8TagIndex"></span><span id="_CPPv2N4mvvm12SessionModel8TakeItemEP11SessionItemRK8TagIndex"></span><span id="mvvm::SessionModel::TakeItem__SessionItemP.TagIndexCR"></span><span class="target" id="classmvvm_1_1SessionModel_1a991649fcac40c28845597df601b683a7"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TakeItem</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">parent</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm8TagIndexE" title="mvvm::TagIndex"><span class="n"><span class="pre">TagIndex</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tag_index</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N4mvvm12SessionModel8TakeItemEP11SessionItemRK8TagIndex" title="Link to this definition"></a><br /></dt>
+<dd><p>Takes a child from a parent and returns it to the caller. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>parent</strong> – A parent item from where take the item. </p></li>
+<li><p><strong>tag_index</strong> – A tag_index pointing to the child. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Taken item. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm12SessionModel10RemoveItemEP11SessionItem">
+<span id="_CPPv3N4mvvm12SessionModel10RemoveItemEP11SessionItem"></span><span id="_CPPv2N4mvvm12SessionModel10RemoveItemEP11SessionItem"></span><span id="mvvm::SessionModel::RemoveItem__SessionItemP"></span><span class="target" id="classmvvm_1_1SessionModel_1afc3fda77c80a9d91baf0257a569b9185"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RemoveItem</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">item</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N4mvvm12SessionModel10RemoveItemEP11SessionItem" title="Link to this definition"></a><br /></dt>
+<dd><p>Removes an item from the model and discards it. </p>
+<p>The item should belong to the model. Its exact parent and tag_index will be deduced from the item itself.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>item</strong> – The item to remove. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm12SessionModel8MoveItemEP11SessionItemP11SessionItemRK8TagIndex">
+<span id="_CPPv3N4mvvm12SessionModel8MoveItemEP11SessionItemP11SessionItemRK8TagIndex"></span><span id="_CPPv2N4mvvm12SessionModel8MoveItemEP11SessionItemP11SessionItemRK8TagIndex"></span><span id="mvvm::SessionModel::MoveItem__SessionItemP.SessionItemP.TagIndexCR"></span><span class="target" id="classmvvm_1_1SessionModel_1a0088510d7d810c51c3966e6d667e276f"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MoveItem</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">item</span></span>, <a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">new_parent</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm8TagIndexE" title="mvvm::TagIndex"><span class="n"><span class="pre">TagIndex</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tag_index</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N4mvvm12SessionModel8MoveItemEP11SessionItemP11SessionItemRK8TagIndex" title="Link to this definition"></a><br /></dt>
+<dd><p>Moves an item from it’s current parent to a new parent. </p>
+<p>Old and new parents should belong to the same model. Please note, that the current implementation moves and item via combination of take/insert. This leads to corresponding notifications: about-to-remove, item removed, about-to-insert, item inserted.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>item</strong> – The item to move. </p></li>
+<li><p><strong>new_parent</strong> – New parent where to insert. </p></li>
+<li><p><strong>tag_index</strong> – A tag_index pointing to the insert place. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm12SessionModel7SetDataEP11SessionItemRK9variant_ti">
+<span id="_CPPv3N4mvvm12SessionModel7SetDataEP11SessionItemRK9variant_ti"></span><span id="_CPPv2N4mvvm12SessionModel7SetDataEP11SessionItemRK9variant_ti"></span><span id="mvvm::SessionModel::SetData__SessionItemP.variant_tCR.i"></span><span class="target" id="classmvvm_1_1SessionModel_1aadbb816534bf4cb9561487e63fe3fef5"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetData</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">item</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">variant_t</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">role</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N4mvvm12SessionModel7SetDataEP11SessionItemRK9variant_ti" title="Link to this definition"></a><br /></dt>
+<dd><p>Sets the value to the given data role of the given item. </p>
+<p>If the data is the same as before, will return false and will suppress notifications. It is not possible to change the data type for a given role, once the role is set for the first time. I.e. an attempt to set an integer to the role containing a string will lead to the exception. User utils::ReplaceData if you need to change a data type.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>item</strong> – The item to set the data. </p></li>
+<li><p><strong>value</strong> – The value. </p></li>
+<li><p><strong>role</strong> – The data role. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns true, if the data was changed. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4mvvm12SessionModel8FindItemERKNSt6stringE">
+<span id="_CPPv3NK4mvvm12SessionModel8FindItemERKNSt6stringE"></span><span id="_CPPv2NK4mvvm12SessionModel8FindItemERKNSt6stringE"></span><span id="mvvm::SessionModel::FindItem__ssCRC"></span><span class="target" id="classmvvm_1_1SessionModel_1ae9147447c2c2e1a8e4b13dcb7bfbf5e1"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">FindItem</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">id</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm12SessionModel8FindItemERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Finds an item with the given identifier among all model’s items. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>id</strong> – A unique item identifier. </p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A pointer to the item. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm12SessionModel5ClearEv">
+<span id="_CPPv3N4mvvm12SessionModel5ClearEv"></span><span id="_CPPv2N4mvvm12SessionModel5ClearEv"></span><span id="mvvm::SessionModel::Clear"></span><span class="target" id="classmvvm_1_1SessionModel_1a0c230cf534e8c3902c441a5cc6a7293f"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Clear</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N4mvvm12SessionModel5ClearEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Clears the model. </p>
+<p>Internally replaces root item with new empty root item. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm12SessionModel15ReplaceRootItemENSt10unique_ptrI11SessionItemEE">
+<span id="_CPPv3N4mvvm12SessionModel15ReplaceRootItemENSt10unique_ptrI11SessionItemEE"></span><span id="_CPPv2N4mvvm12SessionModel15ReplaceRootItemENSt10unique_ptrI11SessionItemEE"></span><span id="mvvm::SessionModel::ReplaceRootItem__std::unique_ptr:SessionItem:"></span><span class="target" id="classmvvm_1_1SessionModel_1ae0bbc85c987bdfe44f2fe7d435974ed6"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ReplaceRootItem</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">root_item</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N4mvvm12SessionModel15ReplaceRootItemENSt10unique_ptrI11SessionItemEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Replaces existing root item with new root item. </p>
+<p>This method is used in serialization to restore the model from persistent content. New root item must be initialized (unique_ptr shall not be empty).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>root_item</strong> – New root item, possibly pre-filled with some content. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm12SessionModel7CheckInEP11SessionItem">
+<span id="_CPPv3N4mvvm12SessionModel7CheckInEP11SessionItem"></span><span id="_CPPv2N4mvvm12SessionModel7CheckInEP11SessionItem"></span><span id="mvvm::SessionModel::CheckIn__SessionItemP"></span><span class="target" id="classmvvm_1_1SessionModel_1a34b51b088067ef2a6fc7573cdeecf09f"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CheckIn</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">item</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N4mvvm12SessionModel7CheckInEP11SessionItem" title="Link to this definition"></a><br /></dt>
+<dd><p>A tech method to inform the model about new item. </p>
+<p>Internally it just registers an item in memory pool for faster search. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm12SessionModel8CheckOutEP11SessionItem">
+<span id="_CPPv3N4mvvm12SessionModel8CheckOutEP11SessionItem"></span><span id="_CPPv2N4mvvm12SessionModel8CheckOutEP11SessionItem"></span><span id="mvvm::SessionModel::CheckOut__SessionItemP"></span><span class="target" id="classmvvm_1_1SessionModel_1abd9e7277441431f82086929da58d07bb"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CheckOut</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">item</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N4mvvm12SessionModel8CheckOutEP11SessionItem" title="Link to this definition"></a><br /></dt>
+<dd><p>A tech method to inform the model that item is no longer belongs to the model. </p>
+<p>Internally it just un-registers an item from memory pool. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm12SessionModel11SetComposerENSt10unique_ptrI14IModelComposerEE">
+<span id="_CPPv3N4mvvm12SessionModel11SetComposerENSt10unique_ptrI14IModelComposerEE"></span><span id="_CPPv2N4mvvm12SessionModel11SetComposerENSt10unique_ptrI14IModelComposerEE"></span><span id="mvvm::SessionModel::SetComposer__std::unique_ptr:IModelComposer:"></span><span class="target" id="classmvvm_1_1SessionModel_1ad081674f062202b774d8a6f13c820d23"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetComposer</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">IModelComposer</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">composer</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm12SessionModel11SetComposerENSt10unique_ptrI14IModelComposerEE" title="Link to this definition"></a><br /></dt>
+<dd><p>Sets internal composer to given value. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4mvvm12SessionModel10InsertItemEP1TP11SessionItemRK8TagIndex">
+<span id="_CPPv3I0EN4mvvm12SessionModel10InsertItemEP11SessionItemRK8TagIndex"></span><span id="_CPPv2I0EN4mvvm12SessionModel10InsertItemEP11SessionItemRK8TagIndex"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmvvm_1_1SessionModel_1ac9a9cb47f37b8574e1c5769ae345e0da"></span><a class="reference internal" href="#_CPPv4I0EN4mvvm12SessionModel10InsertItemEP1TP11SessionItemRK8TagIndex" title="mvvm::SessionModel::InsertItem::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">InsertItem</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">parent</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">nullptr</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm8TagIndexE" title="mvvm::TagIndex"><span class="n"><span class="pre">TagIndex</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tag_index</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm8TagIndexE" title="mvvm::TagIndex"><span class="n"><span class="pre">TagIndex</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm8TagIndex6AppendERKNSt6stringE" title="mvvm::TagIndex::Append"><span class="n"><span class="pre">Append</span></span></a><span class="p"><span class="pre">(</span></span><span class="p"><span class="pre">)</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN4mvvm12SessionModel10InsertItemEP1TP11SessionItemRK8TagIndex" title="Link to this definition"></a><br /></dt>
+<dd><p>Creates and inserts an item of a given type into the given parent and takes ownership of it. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Type</strong> – of item to create. </p>
+</dd>
+<dt class="field-even">Parameters<span class="colon">:</span></dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>parent</strong> – The parent where to insert. </p></li>
+<li><p><strong>tag_index</strong> – A tag_index pointing to the place to insert. </p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The pointer to the inserted item. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm12SessionModel16SessionModelImplE">
+<span id="_CPPv3N4mvvm12SessionModel16SessionModelImplE"></span><span id="_CPPv2N4mvvm12SessionModel16SessionModelImplE"></span><span id="mvvm::SessionModel::SessionModelImpl"></span><span class="target" id="structmvvm_1_1SessionModel_1_1SessionModelImpl"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SessionModelImpl</span></span></span><a class="headerlink" href="#_CPPv4N4mvvm12SessionModel16SessionModelImplE" title="Link to this definition"></a><br /></dt>
+<dd><p>Pimpl class for <a class="reference internal" href="#classmvvm_1_1SessionModel"><span class="std std-ref">SessionModel</span></a>. </p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="standard_items.html" class="btn btn-neutral float-left" title="Standard items" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api_reference.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright ITER Organization.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

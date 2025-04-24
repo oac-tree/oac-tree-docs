@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Overview &mdash; oac-tree GUI</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=b51e6972"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Installation" href="installation.html" />
+    <link rel="prev" title="Welcome to the documentation of oac-tree GUI" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            oac-tree GUI
+          </a>
+              <div class="version">
+                1.8.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Overview</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#main-gui-views">Main GUI views</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#explorer-view">Explorer view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#composer-view">Composer view</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-view">Run view</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">oac-tree GUI</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Overview</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/overview.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h1>
+<section id="main-gui-views">
+<h2>Main GUI views<a class="headerlink" href="#main-gui-views" title="Link to this heading"></a></h2>
+<p>The main oac-tree GUI can be started by running executable <code class="docutils literal notranslate"><span class="pre">bin/sequencer-gui</span></code>.
+The empty windows as in <em>Figure 1</em> will appear on startup.</p>
+<a class="reference internal image-reference" href="_images/overview-explorer.png"><img alt="_images/overview-explorer.png" src="_images/overview-explorer.png" style="width: 960px;" />
+</a>
+<p>The vertical blue tab bar on the left allows switching between three main views:</p>
+<ol class="arabic simple">
+<li><p>The <em>Explore</em> view is intended to quickly browse existing sequencer procedures on disk.</p></li>
+<li><p>The <em>Compose</em> view allows modify existing procedures or assemble new ones by defining instruction tree and variables.</p></li>
+<li><p>The <em>Run</em> view is intended for running sequencer procedure.</p></li>
+</ol>
+</section>
+<section id="explorer-view">
+<h2>Explorer view<a class="headerlink" href="#explorer-view" title="Link to this heading"></a></h2>
+<p>An explorer view allows quickly browsing procedures on disk and checking their composition.
+It consists of 3 main widgets, as marked in <em>Figure 2</em> with green bullets:</p>
+<a class="reference internal image-reference" href="_images/overview-explorer-details.png"><img alt="_images/overview-explorer-details.png" src="_images/overview-explorer-details.png" style="width: 960px;" />
+</a>
+<ol class="arabic simple">
+<li><p>The file browser on the left for navigating the filesystem on your computer.</p></li>
+<li><p>The XML viewer with XML representation of selected sequencer procedure.</p></li>
+<li><p>The procedure list at the bottom with currently opened procedures.</p></li>
+</ol>
+<p>The possible workflow in the explorer view could be as follows:
+The user browses directories and finds the procedure he wants to edit or execute.
+By using the <em>Import Selected</em> button located on the toolbar of the file browser,
+or by simply double-clicking on a file name, the procedure can be imported into the
+program’s memory and will appear in the procedure list.</p>
+<p>At the program start-up, this list contains already one single empty <em>Untitled</em> procedure.
+There can be multiple procedures simultaneously opened/edited in the program.</p>
+<p>Please note, that the GUI never modifies files with sequencer procedures used for import, unless
+it is explicitly asked to export the result of the work.</p>
+</section>
+<section id="composer-view">
+<h2>Composer view<a class="headerlink" href="#composer-view" title="Link to this heading"></a></h2>
+<p>A composer view allows editing previously imported procedures or creating new ones from scratch.
+It has three main vertical panels containing various widgets related to the instruction tree and
+variable workspace composition.  <em>Figure 3</em> presents one of the possible layouts with the following
+five main widgets:</p>
+<a class="reference internal image-reference" href="_images/overview-composer.png"><img alt="_images/overview-composer.png" src="_images/overview-composer.png" style="width: 960px;" />
+</a>
+<ol class="arabic simple">
+<li><p>List of currently opened procedures. All procedures that have been already imported from the disk will appear in this list. The user can also create new empty procedures using corresponding icons on the widget’s toolbar.</p></li>
+<li><p>A toolbox with sequencer instructions grouped according to their plugin names.</p></li>
+<li><p>Instruction tree. In the given example the tree contains only one single Message instruction.</p></li>
+<li><p>Instruction property editor. It shows the concrete properties of the instruction currently selected in the instruction tree.</p></li>
+<li><p>Workspace editor. This widget allows populating the sequencer workspace with variables.</p></li>
+</ol>
+<p>Please note, that the current selection in the list of procedures (1) located on the left panel,
+affects the content of two other panels. The instruction tree (4) and workspace editor (5) always show
+the content related to the currently selected procedure.</p>
+<p>Panels are configurable and can be up to some extent adjusted to match current activity.
+By using the 3-dots selector in the right corner of a panel the content can be changed. <em>Figure 4</em> shows
+the layout with the instruction tree of nodes placed at the center, and the XML of the whole procedure on the right.</p>
+<a class="reference internal image-reference" href="_images/overview-composer2.png"><img alt="_images/overview-composer2.png" src="_images/overview-composer2.png" style="width: 960px;" />
+</a>
+</section>
+<section id="run-view">
+<h2>Run view<a class="headerlink" href="#run-view" title="Link to this heading"></a></h2>
+<p>A job view is intended for procedure execution. It consists of 5 main widgets as given on <em>Figure 5</em>:</p>
+<a class="reference internal image-reference" href="_images/overview-run.png"><img alt="_images/overview-run.png" src="_images/overview-run.png" style="width: 960px;" />
+</a>
+<ol class="arabic simple">
+<li><p>Job list view. It shows all currently running, paused, idle, or stopped jobs. To submit the procedure for execution one has to add it to the list of jobs using a toolbar.</p></li>
+<li><p>Main real-time instruction tree view. It contains an instruction tree of the currently selected job. A number of control buttons on top of the view allow you to start, stop, and pause the job execution.</p></li>
+<li><p>The log window shows all output generated by the currently selected job.</p></li>
+<li><p>The sequencer variable workspace shows the actual state of all variables of the currently selected job.</p></li>
+</ol>
+<p>The possible workflow can be the following. The user prepares a procedure to run using the
+main <em>Compose</em> view. Then he switches to the <em>Run</em> view and submits the procedure for execution using
+a <em>Submit</em> button on a toolbar. Then user starts the job in stepwise mode and controls its further
+execution.</p>
+<p>It is important to note, that the job is linked to the original procedure as it was at the moment
+of job creation. Every consecutive run of a job will execute that procedure.
+To pick up all possible changes made to the original procedure in the <em>Compose</em> view the job has to be
+reloaded using the <em>Reload</em> button on a toolbar.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to the documentation of oac-tree GUI" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright ITER Organization.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
