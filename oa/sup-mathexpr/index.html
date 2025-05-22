@@ -47,7 +47,12 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <!-- Local TOC -->
               <div class="local-toc"><ul>
-<li><a class="reference internal" href="#">Welcome to sup-mathexpr’s documentation!</a></li>
+<li><a class="reference internal" href="#">Welcome to sup-mathexpr’s documentation!</a><ul>
+<li><a class="reference internal" href="#overview">Overview</a></li>
+<li><a class="reference internal" href="#key-features">Key Features</a></li>
+<li><a class="reference internal" href="#example">Example</a></li>
+</ul>
+</li>
 <li><a class="reference internal" href="#indices-and-tables">Indices and tables</a></li>
 </ul>
 </div>
@@ -77,9 +82,45 @@
              
   <section id="welcome-to-sup-mathexpr-s-documentation">
 <h1>Welcome to sup-mathexpr’s documentation!<a class="headerlink" href="#welcome-to-sup-mathexpr-s-documentation" title="Link to this heading"></a></h1>
-<p>This is a work in progress.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h2>
+<p>This library provides an interface to expose the functionality of the <cite>exprtk &lt;https://www.partow.net/programming/exprtk/index.html&gt;</cite> mathematical expression parsing and evaluation library to CODAC SUP.</p>
+</section>
+<section id="key-features">
+<h2>Key Features<a class="headerlink" href="#key-features" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Exposes <code class="docutils literal notranslate"><span class="pre">exprtk</span></code>’s powerful mathematical expression parsing and evaluation capabilities.</p></li>
+<li><p>Supports scalar and vector variables for flexible expression evaluation.</p></li>
+<li><p>Handles variable assignments within expressions.</p></li>
+<li><p>Provides robust error handling through custom exceptions.</p></li>
+<li><dl class="simple">
+<dt>The <code class="docutils literal notranslate"><span class="pre">ExpressionContext</span></code> class acts as the main entry point for evaluating expressions. It:</dt><dd><ul>
+<li><p>Collects variables from the expression.</p></li>
+<li><p>Retrieves their values from the <code class="docutils literal notranslate"><span class="pre">IVariableStore</span></code>.</p></li>
+<li><p>Evaluates the expression using <code class="docutils literal notranslate"><span class="pre">exprtk</span></code>.</p></li>
+<li><p>Updates variables in the <code class="docutils literal notranslate"><span class="pre">IVariableStore</span></code> if assignments are present in the expression.</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</section>
+<section id="example">
+<h2>Example<a class="headerlink" href="#example" title="Link to this heading"></a></h2>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;expression_context.h&quot;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&quot;my_variable_store.h&quot;</span><span class="c1">  // Your implementation of IVariableStore</span>
+
+<span class="n">sup</span><span class="o">::</span><span class="n">mathexpr</span><span class="o">::</span><span class="n">MyVariableStore</span><span class="w"> </span><span class="n">var_store</span><span class="p">;</span>
+<span class="n">sup</span><span class="o">::</span><span class="n">mathexpr</span><span class="o">::</span><span class="n">ExpressionContext</span><span class="w"> </span><span class="nf">context</span><span class="p">(</span><span class="n">var_store</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">expression</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;x + y * 2&quot;</span><span class="p">;</span>
+<span class="kt">double</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="p">.</span><span class="n">EvaluateExpression</span><span class="p">(</span><span class="n">expression</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="s">&quot;Result: &quot;</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
 <div class="toctree-wrapper compound">
 </div>
+</section>
 </section>
 <section id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Link to this heading"></a></h1>

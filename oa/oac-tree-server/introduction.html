@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Introduction &mdash; OAC-TREE AUTOMATION SERVER</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=20623aea"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="oac-tree-server Application cli" href="application.html" />
+    <link rel="prev" title="Welcome to oac-tree-server’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            oac-tree-server
+          </a>
+              <div class="version">
+                2.1.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#key-features-of-oac-tree-server">Key Features of <em>oac-tree-server</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#architecture-of-oac-tree-server">Architecture of <em>oac-tree-server</em></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#benefits-of-oac-tree-server">Benefits of <em>oac-tree-server</em></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="application.html">oac-tree-server Application cli</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">oac-tree-server</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Introduction</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/introduction.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="introduction">
+<span id="id1"></span><h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
+<p>The <em>oac-tree-server</em> is a framework designed to serve and manage <em>oac-tree</em> procedures. It acts as a backend for executing, monitoring, and controlling <em>oac-tree</em> jobs, providing a robust infrastructure for automation and operational efficiency.</p>
+<section id="key-features-of-oac-tree-server">
+<h2>Key Features of <em>oac-tree-server</em><a class="headerlink" href="#key-features-of-oac-tree-server" title="Link to this heading"></a></h2>
+<ul>
+<li><p><strong>Serving</strong> <em>oac-tree</em> <strong>Procedures</strong>:</p>
+<ul class="simple">
+<li><p>The server is responsible for hosting and executing <em>oac-tree</em> procedures.</p></li>
+<li><p>Procedures are encapsulated as jobs, each with its own workspace, instruction trees, and execution flow.</p></li>
+</ul>
+</li>
+<li><p><strong>Job Management</strong>:</p>
+<ul class="simple">
+<li><p>Each procedure is treated as a <em>job</em>, with a unique identifier and associated resources.</p></li>
+<li><p>The server manages multiple jobs simultaneously, ensuring efficient resource utilization.</p></li>
+</ul>
+</li>
+<li><p><strong>Information Servers</strong>:</p>
+<p>The <em>oac-tree-server</em> provides <em>information servers</em> that allow remote clients to query details about the jobs being served.</p>
+<p>Information includes:</p>
+<ol class="arabic simple">
+<li><p>Job metadata (e.g., name, number of instructions, variables).</p></li>
+<li><p>Current job state (e.g., running, paused, halted).</p></li>
+<li><p>Instruction statuses and variable values.</p></li>
+</ol>
+</li>
+<li><p><strong>Control Servers</strong>:</p>
+<p>In addition to information servers, the <em>oac-tree-server</em> provides <em>control servers</em> for interacting with jobs.</p>
+<p>Clients can:</p>
+<ol class="arabic simple">
+<li><p>Start, pause, reset, or halt jobs.</p></li>
+<li><p>Set or remove breakpoints on specific instructions.</p></li>
+</ol>
+</li>
+<li><p><strong>EPICS Integration</strong>:</p>
+<p>The server integrates with EPICS (Experimental Physics and Industrial Control System) for client-server communication.</p>
+<p>It uses EPICS PVs (Process Variables) to publish job states, instruction statuses, and variable values.</p>
+</li>
+</ul>
+</section>
+<section id="architecture-of-oac-tree-server">
+<h2>Architecture of <em>oac-tree-server</em><a class="headerlink" href="#architecture-of-oac-tree-server" title="Link to this heading"></a></h2>
+<ol class="arabic simple">
+<li><p><strong>Job Execution</strong>:</p>
+<ul class="simple">
+<li><p>Each job is executed based on its <em>oac-tree</em> procedure definition.</p></li>
+<li><p>The server ensures deterministic execution and provides feedback on the job’s progress.</p></li>
+</ul>
+</li>
+<li><p><strong>Information Flow</strong>:</p>
+<ul class="simple">
+<li><p>The server uses <em>information servers</em> to expose job-related data.</p></li>
+<li><p>Clients can subscribe to updates or query specific details.</p></li>
+</ul>
+</li>
+<li><p><strong>Control Flow</strong>:</p>
+<ul class="simple">
+<li><p><em>Control servers</em> handle commands from clients to manage job execution.</p></li>
+<li><p>Commands include starting, pausing, or resetting jobs, as well as modifying breakpoints.</p></li>
+</ul>
+</li>
+<li><p><strong>Input Handling</strong>:
+- The server supports user input requests during job execution.
+- Input requests are published via dedicated input servers, and clients can respond with the required data.</p></li>
+</ol>
+</section>
+<section id="benefits-of-oac-tree-server">
+<h2>Benefits of <em>oac-tree-server</em><a class="headerlink" href="#benefits-of-oac-tree-server" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Centralized management of <em>oac-tree</em> procedures.</p></li>
+<li><p>Enabling multiple clients to monitor a single job execution.</p></li>
+<li><p>Real-time access to job information and statuses.</p></li>
+<li><p>Modular and extensible architecture for serving multiple jobs.</p></li>
+</ul>
+<p>In summary, the <em>oac-tree-server</em> is a powerful framework for serving and managing <em>oac-tree</em> procedures, providing both information and control interfaces to ensure efficient and reliable automation.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to oac-tree-server’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="application.html" class="btn btn-neutral float-right" title="oac-tree-server Application cli" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright ITER Organization.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

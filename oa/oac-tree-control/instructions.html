@@ -88,7 +88,22 @@
 <h1>Instructions<a class="headerlink" href="#instructions" title="Link to this heading"></a></h1>
 <section id="achievecondition">
 <h2>AchieveCondition<a class="headerlink" href="#achievecondition" title="Link to this heading"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">AchieveCondition</span></code> instruction is a compound instruction that requires exactly two child instructions (or instruction trees). The first child is the condition to achieve, while the second child is an action that will be taken if the condition was not satisfied on the first try.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">AchieveCondition</span></code> instruction is a compound instruction that requires exactly two child instructions (or instruction trees). The first child is the condition to achieve, while the second child is an action that will be taken if the condition was not satisfied on the first try. If the action is asynchronous, i.e. it returns <code class="docutils literal notranslate"><span class="pre">RUNNING</span></code> while executing, it will be interrupted if the condition is satisfied before the action has finished.</p>
+<p>The following instruction trees are equivalent:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># With AchieveCondition
+AchieveCondition
+├── &lt;Condition&gt;
+└── &lt;Action&gt;
+
+# Using a ReactiveFallback
+ReactiveFallback
+├── &lt;Condition&gt;
+└── Sequence
+    ├── ForceSuccess
+    │   └── &lt;Action&gt;
+    └── &lt;Condition&gt;
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This instruction has no custom attributes.</p>
@@ -96,21 +111,19 @@
 <p id="achieve-cond-example"><strong>Example</strong></p>
 <p>This procedure will execute two branches in parallel:</p>
 <ul class="simple">
-<li><p>The first branch is an <code class="docutils literal notranslate"><span class="pre">AchieveCondition</span></code> instruction that will check if the <code class="docutils literal notranslate"><span class="pre">live</span></code> variable is equal to one. If this is not the case, it will execute its second child, which is a simple wait instruction. After this wait, the condition will be checked again and <code class="docutils literal notranslate"><span class="pre">AchieveCondition</span></code> will immediately report its status: <code class="docutils literal notranslate"><span class="pre">SUCCESS</span></code> if the condition was satisfied, <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code> otherwise.</p></li>
+<li><p>The first branch is an <code class="docutils literal notranslate"><span class="pre">AchieveCondition</span></code> instruction that will check if the <code class="docutils literal notranslate"><span class="pre">live</span></code> variable is equal to one. If this is not the case, it will execute its second child, which is a simple wait instruction, which is asynchronous. This means that it will be interrupted as soon as the condition becomes true.</p></li>
 <li><p>The second branch consists of a short wait instruction, followed by a copy instruction that will make sure the aforementioned condition will be satisfied.</p></li>
 </ul>
 <p>This procedure will succeed, since the second branch makes sure the condition will be satisfied, at least after the wait instruction.</p>
-<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;ParallelSequence</span><span class="w"> </span><span class="na">successThreshold=</span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="na">failureThreshold=</span><span class="s">&quot;2&quot;</span><span class="nt">&gt;</span>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;ParallelSequence&gt;</span>
 <span class="w">    </span><span class="nt">&lt;AchieveCondition&gt;</span>
 <span class="w">        </span><span class="nt">&lt;Equals</span><span class="w"> </span><span class="na">leftVar=</span><span class="s">&quot;live&quot;</span><span class="w"> </span><span class="na">rightVar=</span><span class="s">&quot;one&quot;</span><span class="nt">/&gt;</span>
 <span class="w">        </span><span class="nt">&lt;Wait</span><span class="w"> </span><span class="na">timeout=</span><span class="s">&quot;1.0&quot;</span><span class="nt">/&gt;</span>
 <span class="w">    </span><span class="nt">&lt;/AchieveCondition&gt;</span>
-<span class="w">    </span><span class="nt">&lt;Inverter&gt;</span>
-<span class="w">        </span><span class="nt">&lt;Sequence&gt;</span>
-<span class="w">            </span><span class="nt">&lt;Wait</span><span class="w"> </span><span class="na">timeout=</span><span class="s">&quot;0.2&quot;</span><span class="nt">/&gt;</span>
-<span class="w">            </span><span class="nt">&lt;Copy</span><span class="w"> </span><span class="na">inputVar=</span><span class="s">&quot;one&quot;</span><span class="w"> </span><span class="na">outputVar=</span><span class="s">&quot;live&quot;</span><span class="nt">/&gt;</span>
-<span class="w">        </span><span class="nt">&lt;/Sequence&gt;</span>
-<span class="w">    </span><span class="nt">&lt;/Inverter&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Sequence&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Wait</span><span class="w"> </span><span class="na">timeout=</span><span class="s">&quot;0.2&quot;</span><span class="nt">/&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Copy</span><span class="w"> </span><span class="na">inputVar=</span><span class="s">&quot;one&quot;</span><span class="w"> </span><span class="na">outputVar=</span><span class="s">&quot;live&quot;</span><span class="nt">/&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/Sequence&gt;</span>
 <span class="nt">&lt;/ParallelSequence&gt;</span>
 <span class="nt">&lt;Workspace&gt;</span>
 <span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;live&quot;</span><span class="w"> </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;uint64&quot;}&#39;</span><span class="w"> </span><span class="na">value=</span><span class="s">&#39;0&#39;</span><span class="w"> </span><span class="nt">/&gt;</span>
@@ -156,8 +169,8 @@
 </tbody>
 </table>
 <p id="achieve-cond-override-example"><strong>Example</strong></p>
-<p>This procedure will check if the <code class="docutils literal notranslate"><span class="pre">live</span></code> variable is equal to one. Since this is not the case, it will try its child action, which waits for one second. Afterwards, the condition is again evaluated and still found to be false, i.e. <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code>. This will trigger the user input part, where the user can select between <code class="docutils literal notranslate"><span class="pre">Retry</span></code>, <code class="docutils literal notranslate"><span class="pre">Override</span></code> or <code class="docutils literal notranslate"><span class="pre">Abort</span></code>. Depending on this choice, the
-<code class="docutils literal notranslate"><span class="pre">AchieveConditionWithOverride</span></code> instruction will restart from the beginning, return <code class="docutils literal notranslate"><span class="pre">SUCCESS</span></code> or return <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code> respectively.</p>
+<p>This procedure will check if the <code class="docutils literal notranslate"><span class="pre">live</span></code> variable is equal to one. Since this is not the case, it will try its child action, which waits for one second. Afterwards, the condition is again evaluated and still found to be false. This will trigger the user input part, where the user can select between <code class="docutils literal notranslate"><span class="pre">Retry</span></code>, <code class="docutils literal notranslate"><span class="pre">Override</span></code> or <code class="docutils literal notranslate"><span class="pre">Abort</span></code>. Depending on this choice, the
+<code class="docutils literal notranslate"><span class="pre">AchieveConditionWithOverride</span></code> instruction will restart from the beginning, return <code class="docutils literal notranslate"><span class="pre">SUCCESS</span></code> or <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code> respectively.</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;AchieveConditionWithOverride&gt;</span>
 <span class="w">    </span><span class="nt">&lt;Equals</span><span class="w"> </span><span class="na">leftVar=</span><span class="s">&quot;live&quot;</span><span class="w"> </span><span class="na">rightVar=</span><span class="s">&quot;one&quot;</span><span class="nt">/&gt;</span>
 <span class="w">    </span><span class="nt">&lt;Wait</span><span class="w"> </span><span class="na">timeout=</span><span class="s">&quot;1.0&quot;</span><span class="nt">/&gt;</span>
@@ -171,11 +184,27 @@
 </section>
 <section id="achieveconditionwithtimeout">
 <h2>AchieveConditionWithTimeout<a class="headerlink" href="#achieveconditionwithtimeout" title="Link to this heading"></a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">AchieveConditionWithTimeout</span></code> instruction is a compound instruction with exactly two child instructions (or instruction trees). The first child is the condition to achieve, while the second child is an action that will be taken if the condition was not satisfied on the first try.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">AchieveConditionWithTimeout</span></code> instruction is a compound instruction with exactly two child instructions (or instruction trees). The first child is the condition to achieve, while the second child is an action that will be taken if the condition was not satisfied on the first try. If the action is asynchronous, i.e. it returns <code class="docutils literal notranslate"><span class="pre">RUNNING</span></code> while executing, it will be interrupted if the condition is satisfied before the action has finished.</p>
 <p>Its behavior is again similar to the <code class="docutils literal notranslate"><span class="pre">AchieveCondition</span></code> instruction, except that:</p>
 <ul class="simple">
 <li><p>After performing the action (if the condition was not immediately satisfied), the instruction allows for a certain time to achieve the condition.</p></li>
 </ul>
+<p>The following instruction trees are equivalent:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># With AchieveConditionWithTimeout
+AchieveConditionWithTimeout timeout=&quot;10.0&quot;
+├── &lt;Condition&gt;
+└── &lt;Action&gt;
+
+# Using a ReactiveFallback
+ReactiveFallback
+├── &lt;Condition&gt;
+└── Sequence
+    ├── ForceSuccess
+    │   └── &lt;Action&gt;
+    ├── Wait timeout=&quot;10.0&quot;
+    └── &lt;Condition&gt;
+</pre></div>
+</div>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 21.7%" />
@@ -212,7 +241,7 @@
 <p>The comma-separated list of variable names should not contain whitespace after the comma!</p>
 </div>
 <p id="achieve-cond-timeout-example"><strong>Example</strong></p>
-<p>This procedure will check if the <code class="docutils literal notranslate"><span class="pre">live</span></code> variable is equal to one. Since this is not the case, it will try its child action, which waits for one second. Afterwards, the condition is again evaluated and still found to be false, i.e. <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code>. The <code class="docutils literal notranslate"><span class="pre">AchieveConditionWithOverride</span></code> instruction will then monitor the <code class="docutils literal notranslate"><span class="pre">live</span></code> variable for changes to see if the condition may become satisfied during a given period, which is three seconds. Since the <code class="docutils literal notranslate"><span class="pre">live</span></code> variable never changes, after this period, the procedure will exit with a <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code> status.</p>
+<p>This procedure will check if the <code class="docutils literal notranslate"><span class="pre">live</span></code> variable is equal to one. Since this is not the case, it will try its child action, which waits for one second. Afterwards, the condition is again evaluated and still found to be false, i.e. <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code>. The <code class="docutils literal notranslate"><span class="pre">AchieveConditionWithOverride</span></code> instruction will allow for the condition to become true with a given timeout of three seconds. Since the <code class="docutils literal notranslate"><span class="pre">live</span></code> variable never changes, after this period, the procedure will exit with a <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code> status.</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;AchieveConditionWithTimeout</span><span class="w"> </span><span class="na">varNames=</span><span class="s">&quot;live&quot;</span><span class="w"> </span><span class="na">timeout=</span><span class="s">&quot;3.0&quot;</span><span class="nt">&gt;</span>
 <span class="w">    </span><span class="nt">&lt;Equals</span><span class="w"> </span><span class="na">leftVar=</span><span class="s">&quot;live&quot;</span><span class="w"> </span><span class="na">rightVar=</span><span class="s">&quot;one&quot;</span><span class="nt">/&gt;</span>
 <span class="w">    </span><span class="nt">&lt;Wait</span><span class="w"> </span><span class="na">timeout=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
@@ -227,6 +256,23 @@
 <section id="executewhile">
 <h2>ExecuteWhile<a class="headerlink" href="#executewhile" title="Link to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">ExecuteWhile</span></code> instruction is a compound instruction with exactly two child instructions (or instruction trees). The first child is the instruction tree to execute, while the second child denotes a condition that must be satisfied during the first child’s execution. As soon as this condition fails, i.e. returns <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code>, the execution of the first child is interrupted and the parent <code class="docutils literal notranslate"><span class="pre">ExecuteWhile</span></code> instruction will return <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code>. Only when the first child was successfully executed, while satisfying the condition all the time, will the parent instruction return <code class="docutils literal notranslate"><span class="pre">SUCCESS</span></code>.</p>
+<p>The following instruction trees are equivalent:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># With ExecuteWhile
+ExecuteWhile
+├── &lt;Action&gt;
+└── &lt;Condition&gt;
+
+# Using a ReactiveSequence
+ReactiveSequence
+├── &lt;Condition&gt;
+└── Async
+    └── &lt;Action&gt;
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the action is already asynchronous, i.e. it can return <code class="docutils literal notranslate"><span class="pre">RUNNING</span></code>, a simple <code class="docutils literal notranslate"><span class="pre">ReactiveSequence</span></code> is a better choice to achieve this behavior.</p>
+</div>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 21.7%" />
@@ -273,6 +319,20 @@
 <section id="waitforcondition">
 <h2>WaitForCondition<a class="headerlink" href="#waitforcondition" title="Link to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">WaitForCondition</span></code> instruction is a compound instruction with exactly one child instruction (or instruction tree). The child denotes the condition to wait for, where the <code class="docutils literal notranslate"><span class="pre">SUCCESS</span></code> status of the child means that the condition is satisfied and <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code> that it is not.</p>
+<p>The following instruction trees are equivalent:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span># With WaitForCondition
+WaitForCondition timeout=&quot;5.0&quot;
+└── &lt;Condition&gt;
+
+# Using a ReactiveFallback
+ReactiveFallback
+├── &lt;Condition&gt;
+└── Sequence
+    ├── ForceSuccess
+    │   └── Wait timeout=&quot;5.0&quot;
+    └── &lt;Condition&gt;
+</pre></div>
+</div>
 <table class="docutils align-default">
 <colgroup>
 <col style="width: 21.7%" />

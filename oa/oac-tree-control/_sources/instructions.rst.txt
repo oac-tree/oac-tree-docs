@@ -4,7 +4,24 @@ Instructions
 AchieveCondition
 ^^^^^^^^^^^^^^^^
 
-The ``AchieveCondition`` instruction is a compound instruction that requires exactly two child instructions (or instruction trees). The first child is the condition to achieve, while the second child is an action that will be taken if the condition was not satisfied on the first try.
+The ``AchieveCondition`` instruction is a compound instruction that requires exactly two child instructions (or instruction trees). The first child is the condition to achieve, while the second child is an action that will be taken if the condition was not satisfied on the first try. If the action is asynchronous, i.e. it returns ``RUNNING`` while executing, it will be interrupted if the condition is satisfied before the action has finished.
+
+The following instruction trees are equivalent:
+
+.. code-block:: text
+
+   # With AchieveCondition
+   AchieveCondition
+   ├── <Condition>
+   └── <Action>
+
+   # Using a ReactiveFallback
+   ReactiveFallback
+   ├── <Condition>
+   └── Sequence
+       ├── ForceSuccess
+       │   └── <Action>
+       └── <Condition>
 
 .. note::
 
@@ -16,24 +33,22 @@ The ``AchieveCondition`` instruction is a compound instruction that requires exa
 
 This procedure will execute two branches in parallel:
 
-* The first branch is an ``AchieveCondition`` instruction that will check if the ``live`` variable is equal to one. If this is not the case, it will execute its second child, which is a simple wait instruction. After this wait, the condition will be checked again and ``AchieveCondition`` will immediately report its status: ``SUCCESS`` if the condition was satisfied, ``FAILURE`` otherwise.
+* The first branch is an ``AchieveCondition`` instruction that will check if the ``live`` variable is equal to one. If this is not the case, it will execute its second child, which is a simple wait instruction, which is asynchronous. This means that it will be interrupted as soon as the condition becomes true.
 * The second branch consists of a short wait instruction, followed by a copy instruction that will make sure the aforementioned condition will be satisfied.
 
 This procedure will succeed, since the second branch makes sure the condition will be satisfied, at least after the wait instruction.
 
 .. code-block:: xml
 
-    <ParallelSequence successThreshold="1" failureThreshold="2">
+    <ParallelSequence>
         <AchieveCondition>
             <Equals leftVar="live" rightVar="one"/>
             <Wait timeout="1.0"/>
         </AchieveCondition>
-        <Inverter>
-            <Sequence>
-                <Wait timeout="0.2"/>
-                <Copy inputVar="one" outputVar="live"/>
-            </Sequence>
-        </Inverter>
+        <Sequence>
+            <Wait timeout="0.2"/>
+            <Copy inputVar="one" outputVar="live"/>
+        </Sequence>
     </ParallelSequence>
     <Workspace>
         <Local name="live" type='{"type":"uint64"}' value='0' />
@@ -72,8 +87,8 @@ Its behavior is very similar to the ``AchieveCondition`` instruction, except tha
 
 **Example**
 
-This procedure will check if the ``live`` variable is equal to one. Since this is not the case, it will try its child action, which waits for one second. Afterwards, the condition is again evaluated and still found to be false, i.e. ``FAILURE``. This will trigger the user input part, where the user can select between ``Retry``, ``Override`` or ``Abort``. Depending on this choice, the
-``AchieveConditionWithOverride`` instruction will restart from the beginning, return ``SUCCESS`` or return ``FAILURE`` respectively.
+This procedure will check if the ``live`` variable is equal to one. Since this is not the case, it will try its child action, which waits for one second. Afterwards, the condition is again evaluated and still found to be false. This will trigger the user input part, where the user can select between ``Retry``, ``Override`` or ``Abort``. Depending on this choice, the
+``AchieveConditionWithOverride`` instruction will restart from the beginning, return ``SUCCESS`` or ``FAILURE`` respectively.
 
 .. code-block:: xml
 
@@ -89,11 +104,29 @@ This procedure will check if the ``live`` variable is equal to one. Since this i
 AchieveConditionWithTimeout
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The ``AchieveConditionWithTimeout`` instruction is a compound instruction with exactly two child instructions (or instruction trees). The first child is the condition to achieve, while the second child is an action that will be taken if the condition was not satisfied on the first try.
+The ``AchieveConditionWithTimeout`` instruction is a compound instruction with exactly two child instructions (or instruction trees). The first child is the condition to achieve, while the second child is an action that will be taken if the condition was not satisfied on the first try. If the action is asynchronous, i.e. it returns ``RUNNING`` while executing, it will be interrupted if the condition is satisfied before the action has finished.
 
 Its behavior is again similar to the ``AchieveCondition`` instruction, except that:
 
 * After performing the action (if the condition was not immediately satisfied), the instruction allows for a certain time to achieve the condition.
+
+The following instruction trees are equivalent:
+
+.. code-block:: text
+
+   # With AchieveConditionWithTimeout
+   AchieveConditionWithTimeout timeout="10.0"
+   ├── <Condition>
+   └── <Action>
+
+   # Using a ReactiveFallback
+   ReactiveFallback
+   ├── <Condition>
+   └── Sequence
+       ├── ForceSuccess
+       │   └── <Action>
+       ├── Wait timeout="10.0"
+       └── <Condition>
 
 .. list-table::
    :widths: 25 25 15 50
@@ -124,7 +157,7 @@ Its behavior is again similar to the ``AchieveCondition`` instruction, except th
 
 **Example**
 
-This procedure will check if the ``live`` variable is equal to one. Since this is not the case, it will try its child action, which waits for one second. Afterwards, the condition is again evaluated and still found to be false, i.e. ``FAILURE``. The ``AchieveConditionWithOverride`` instruction will then monitor the ``live`` variable for changes to see if the condition may become satisfied during a given period, which is three seconds. Since the ``live`` variable never changes, after this period, the procedure will exit with a ``FAILURE`` status.
+This procedure will check if the ``live`` variable is equal to one. Since this is not the case, it will try its child action, which waits for one second. Afterwards, the condition is again evaluated and still found to be false, i.e. ``FAILURE``. The ``AchieveConditionWithOverride`` instruction will allow for the condition to become true with a given timeout of three seconds. Since the ``live`` variable never changes, after this period, the procedure will exit with a ``FAILURE`` status.
 
 .. code-block:: xml
 
@@ -141,6 +174,25 @@ ExecuteWhile
 ^^^^^^^^^^^^
 
 The ``ExecuteWhile`` instruction is a compound instruction with exactly two child instructions (or instruction trees). The first child is the instruction tree to execute, while the second child denotes a condition that must be satisfied during the first child's execution. As soon as this condition fails, i.e. returns ``FAILURE``, the execution of the first child is interrupted and the parent ``ExecuteWhile`` instruction will return ``FAILURE``. Only when the first child was successfully executed, while satisfying the condition all the time, will the parent instruction return ``SUCCESS``.
+
+The following instruction trees are equivalent:
+
+.. code-block:: text
+
+   # With ExecuteWhile
+   ExecuteWhile
+   ├── <Action>
+   └── <Condition>
+
+   # Using a ReactiveSequence
+   ReactiveSequence
+   ├── <Condition>
+   └── Async
+       └── <Action>
+
+.. note::
+
+   If the action is already asynchronous, i.e. it can return ``RUNNING``, a simple ``ReactiveSequence`` is a better choice to achieve this behavior.
 
 .. list-table::
    :widths: 25 25 15 50
@@ -184,6 +236,22 @@ WaitForCondition
 ^^^^^^^^^^^^^^^^
 
 The ``WaitForCondition`` instruction is a compound instruction with exactly one child instruction (or instruction tree). The child denotes the condition to wait for, where the ``SUCCESS`` status of the child means that the condition is satisfied and ``FAILURE`` that it is not.
+
+The following instruction trees are equivalent:
+
+.. code-block:: text
+
+   # With WaitForCondition
+   WaitForCondition timeout="5.0"
+   └── <Condition>
+
+   # Using a ReactiveFallback
+   ReactiveFallback
+   ├── <Condition>
+   └── Sequence
+       ├── ForceSuccess
+       │   └── Wait timeout="5.0"
+       └── <Condition>
 
 .. list-table::
    :widths: 25 25 15 50

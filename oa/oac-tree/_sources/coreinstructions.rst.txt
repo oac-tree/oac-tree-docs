@@ -12,39 +12,64 @@ There are no restrictions beside the number of children on where an instruction 
 
 Next we present the different types of available instructions and some basic examples of how to use them. The examples will contain mainly the body of a procedure in XML and an explanation of how it behaves.
 
+.. _async_instr_section:
+
+Asynchronous Instructions
+-------------------------
+
+Asynchronous instructions are instructions that can return a ``RUNNING`` status, indicating that they are still in progress and have not yet completed their execution. Reactive sequences and fallbacks depend heavily on this concept, as they will reset all other child instructions when one of them returns ``RUNNING`` (see :ref:`ReactiveSequence <react_seq_section>` and :ref:`Reactive Fallback <react_fb_section>`). Conditions, on the other hand, are required to be synchronous, i.e. they immediately return ``SUCCESS``, ``FAILURE`` or ``NOT_FINISHED``, since they should not reset a running asynchronous action that is a sibling of the condition.
+
+In the following sections, we will explicitly mention when an instruction is asynchronous.
+
+.. note::
+
+   If a compound or decorator instruction is not explicitly asynchronous, they can still return a ``RUNNING`` status. This can happen when they forward this status from a child instruction.
+
 .. _compound:
 
 Compound Instructions
 ---------------------
 Compound instructions are instructions that have multiple child instructions, and they control the flow of execution among their children based on certain conditions or criteria.
 
-Sequence
-^^^^^^^^
+Choice
+^^^^^^
 
-The sequence instruction executes its child instructions one by one in the order they are defined until:
+The choice instruction will execute instructions based on their index. That index is passed from a workspace variable that can be a scalar (single index) or an array (list of indices). An index can be repeated inside the array, making the correspondent instruction execution be repeated as many times as it appears in the array.
 
-* A child instruction returns `FAILURE`: `sequence` also returns `FAILURE`;
-* All child instructions returned `SUCCESS`: `sequence` returns `SUCCESS`.
+The execution status returned by the choice instruction follows the same logic as for `Sequence`: a single failure immediately leads to failure and success means all selected child instructions returned success.
 
-A sequence represents a number of steps that all have to succeed for a specific goal to be reached.
+Attributes:
 
-`Sequence` has no specific attributes.
+.. list-table::
+   :widths: 25 25 15 50
+   :header-rows: 1
 
-.. _seq_exp:
+   * - Attribute name
+     - Attribute type
+     - Mandatory
+     - Description
+   * - varName
+     - StringType
+     - yes
+     - name of the workspace variable to fetch the index (or array) from
 
 **Example**
 
-In the example, the first child will succeed, so the sequence will try the second child, which also succeeds. When the third child returns failure (inverted success), the sequence will stop and return failure.
+The example below will execute first the second instruction, with index one, then the first and finally, the third child instruction. These all succeed, so the `Choice` will succeed. The last child instruction (inverted wait) will never execute.
 
 .. code-block:: xml
 
-    <Sequence>
-        <Wait name="First" />
-        <Wait name="Second" />
+    <Choice varName="choice">
+        <Wait/>
+        <Wait/>
+        <Wait/>
         <Inverter>
-            <Wait name="Third" />
+            <Wait/>
         </Inverter>
-    </Sequence>
+    </Choice>
+    <Workspace>
+        <Local name="choice" type='{"type":"uint32_arr","multiplicity":3,"element":{"type":"uint32"}}' value="[1,0,2]"/>
+    </Workspace>
 
 Fallback
 ^^^^^^^^
@@ -118,50 +143,145 @@ The parallel sequence will execute all its children concurrently. The first two 
 
 .. _choice_exp:
 
-Choice
-^^^^^^
+.. _react_fb_section:
 
-The choice instruction will execute instructions based on their index. That index is passed from a workspace variable that can be a scalar (single index) or an array (list of indices). An index can be repeated inside the array, making the correspondent instruction execution be repeated as many times as it appears in the array.
+ReactiveFallback
+^^^^^^^^^^^^^^^^
 
-The execution status returned by the choice instruction follows the same logic as for `Sequence`: a single failure immediately leads to failure and success means all selected child instructions returned success.
+The reactive fallback instruction executes its child instructions one by one in the order they are defined until:
 
-Attributes:
+* A child instruction returns `SUCCESS`: `reactive fallback` also returns `SUCCESS`;
+* A child instruction returns `RUNNING`: all other child instructions are reset and the reactive fallback returns `RUNNING`; on the next execution cycle, this will lead to the re-execution of the child instructions before the `RUNNING` one.
+* All child instructions return `FAILURE`: `reactive fallback` returns `FAILURE`.
 
-.. list-table::
-   :widths: 25 25 15 50
-   :header-rows: 1
+A reactive fallback most often consists of a single synchronous child node that represents a postcondition and multiple alternative child nodes that try to achieve this postcondition. The reactive fallback interrupts any asynchronous child as soon as the postcondition is met or one of the previous child nodes takes priority by returning a `RUNNING` status. They are often combined with `reactive sequence` instructions as follows:
 
-   * - Attribute name
-     - Attribute type
-     - Mandatory
-     - Description
-   * - varName
-     - StringType
-     - yes
-     - name of the workspace variable to fetch the index (or array) from
+.. code-block:: text
+
+    ReactiveFallback
+        ├── <postcondition>
+        ├── ReactiveSequence
+        │   ├── <precondition for task 1>
+        │   └── <task 1>
+        ├── ReactiveSequence
+        │   ├── <precondition for task 2>
+        │   └── <task 2>
+        └── ...
+
+`ReactiveFallback` has no specific attributes.
+
+.. note::
+
+   When all child instructions of the `reactive fallback` are synchronous, i.e. they never return `RUNNING`, it will behave as a normal `fallback`.
+
+.. _react_fb_exp:
 
 **Example**
 
-The example below will execute first the second instruction, with index one, then the first and finally, the third child instruction. These all succeed, so the `Choice` will succeed. The last child instruction (inverted wait) will never execute.
+In the example, two branches are executed in parallel:
+
+* The first branch contains the reactive fallback which will execute a reactive sequence if the variable `break` is one. If not, it will run the asynchronous wait instruction. Since the condition will be checked again at each tick, as soon as the `break` variable becomes one, the long wait instruction (LongTask) is interrupted and a shorter one (ShortTask) is executed.
+* The second branch will wait for one second and then set the variable `break` to one. This will interrupt the long task in the other branch.
 
 .. code-block:: xml
 
-    <Choice varName="choice">
-        <Wait/>
-        <Wait/>
-        <Wait/>
-        <Inverter>
-            <Wait/>
-        </Inverter>
-    </Choice>
+    <ParallelSequence>
+        <ReactiveFallback>
+            <ReactiveSequence>
+                <Equals leftVar="break" rightVar="one"/>
+                <Wait name="ShortTask" timeout="1.0"/>
+            </ReactiveSequence>
+            <Wait name="LongTask" timeout="10.0"/>
+        </ReactiveFallback>
+        <Sequence>
+            <Wait timeout="1.0" />
+            <Copy inputVar="one" outputVar="break"/>
+        </Sequence>
+    </ParallelSequence>
     <Workspace>
-        <Local name="choice" type='{"type":"uint32_arr","multiplicity":3,"element":{"type":"uint32"}}' value="[1,0,2]"/>
+        <Local name="break" type='{"type":"uint32"}' value="0"/>
+        <Local name="zero" type='{"type":"uint32"}' value="0"/>
+        <Local name="one" type='{"type":"uint32"}' value="1"/>
     </Workspace>
+
+.. _react_seq_section:
+
+ReactiveSequence
+^^^^^^^^^^^^^^^^
+
+The reactive sequence instruction executes its child instructions one by one in the order they are defined until:
+
+* A child instruction returns `FAILURE`: `reactive sequence` also returns `FAILURE`;
+* A child instruction returns `RUNNING`: all other child instructions are reset and the reactive sequence returns `RUNNING`; on the next execution cycle, this will lead to the re-execution of the child instructions before the `RUNNING` one.
+* All child instructions return `SUCCESS`: `reactive sequence` returns `SUCCESS`.
+
+A reactive sequence most often consists of synchronous child nodes that represent preconditions and a single asynchronous child node in the end that only should be executed if all preconditions are met. The reactive sequence interrupts the asynchronous child as soon as one of the preconditions is no longer met.
+
+`ReactiveSequence` has no specific attributes.
+
+.. note::
+
+   When all child instructions of the `reactive sequence` are synchronous, i.e. they never return `RUNNING`, it will behave as a normal `sequence`.
+
+.. _react_seq_exp:
+
+**Example**
+
+In the example, two branches are executed in parallel:
+
+* The first branch contains the reactive sequence which will execute the (asynchronous) wait instruction as long as the variable `break` is zero. From the moment this variable is no longer zero, the wait instruction will be interrupted and the reactive sequence will return `FAILURE`.
+* The second branch will wait for one second and then set the variable `break` to one. This will interrupt the reactive sequence in the other branch.
+
+.. code-block:: xml
+
+    <ParallelSequence>
+        <ReactiveSequence>
+            <Equals leftVar="break" rightVar="zero"/>
+            <Wait name="AsyncTask" timeout="10.0"/>
+        </ReactiveSequence>
+        <Sequence>
+            <Wait timeout="1.0" />
+            <Copy inputVar="one" outputVar="break"/>
+        </Sequence>
+    </ParallelSequence>
+    <Workspace>
+        <Local name="break" type='{"type":"uint32"}' value="0"/>
+        <Local name="zero" type='{"type":"uint32"}' value="0"/>
+        <Local name="one" type='{"type":"uint32"}' value="1"/>
+    </Workspace>
+
+Sequence
+^^^^^^^^
+
+The sequence instruction executes its child instructions one by one in the order they are defined until:
+
+* A child instruction returns `FAILURE`: `sequence` also returns `FAILURE`;
+* All child instructions returned `SUCCESS`: `sequence` returns `SUCCESS`.
+
+A sequence represents a number of steps that all have to succeed for a specific goal to be reached.
+
+`Sequence` has no specific attributes.
+
+.. _seq_exp:
+
+**Example**
+
+In the example, the first child will succeed, so the sequence will try the second child, which also succeeds. When the third child returns failure (inverted success), the sequence will stop and return failure.
+
+.. code-block:: xml
+
+    <Sequence>
+        <Wait name="First" />
+        <Wait name="Second" />
+        <Inverter>
+            <Wait name="Third" />
+        </Inverter>
+    </Sequence>
 
 UserChoice
 ^^^^^^^^^^
 
-This instruction delegates to the UserInterface a selection to be made from one of its child instructions. It will then execute that child and directly return its status.
+This **asynchronous** instruction delegates to the UserInterface a selection to be made from one of its child instructions. It will then execute that child and directly return its status.
 
 Attributes:
 
@@ -203,6 +323,39 @@ Decorator Instructions
 ----------------------
 
 Decorator instructions modify or add functionality to a single child instruction, allowing for the addition of behavior to an existing instruction without modifying its core implementation.
+
+Async
+^^^^^
+
+Decorator that makes the execution of the child instruction asynchronous. This means it will return `RUNNING` until the child instruction has finished executing a single step, at which point it will return the status of the child instruction (`SUCCESS`, `FAILURE` or `NOT_FINISHED`). This decorator is useful when you want to use a synchronous instruction in an asynchronous context, such as a `ReactiveSequence` or `ReactiveFallback`.
+
+`Async` has no specific attributes.
+
+**Example**
+
+In the example, two branches are executed in parallel:
+
+* The first branch contains a reactive fallback which will wait asynchronously for 10 seconds or until the variable `break` is one. As soon as the `break` variable becomes one, the wait instruction is interrupted.
+* The second branch will wait for one second and then set the variable `break` to one. This will interrupt the long wait instruction in the other branch.
+
+.. code-block:: xml
+
+    <ParallelSequence>
+        <ReactiveFallback>
+            <Equals leftVar="break" rightVar="one"/>
+            <Async>
+                <Wait timeout="10.0"/>
+            </Async>
+        </ReactiveFallback>
+        <Sequence>
+            <Wait timeout="1.0" />
+            <Copy inputVar="one" outputVar="break"/>
+        </Sequence>
+    </ParallelSequence>
+    <Workspace>
+        <Local name="break" type='{"type":"uint32"}' value="0"/>
+        <Local name="one" type='{"type":"uint32"}' value="1"/>
+    </Workspace>
 
 For
 ^^^
@@ -373,7 +526,7 @@ Instruction that inverts the execution status of its child, interchanging SUCCES
 Listen
 ^^^^^^
 
-Instruction that executes its child instruction each time specific variables are updated. By default, it will only report a finished status (success or failure) when the child instruction fails.
+**Asynchronous** instruction that executes its child instruction each time specific variables are updated. By default, it will only report a finished status (success or failure) when the child instruction fails.
 
 Attributes:
 
@@ -814,7 +967,7 @@ Attributes:
 Input
 ^^^^^
 
-Instruction node that writes a user defined value (from UserInterface) into a workspace variable.
+**Asynchronous** instruction that writes a user defined value (from UserInterface) into a workspace variable.
 
 Attributes:
 
@@ -1039,7 +1192,7 @@ Attributes:
 UserConfirmation
 ^^^^^^^^^^^^^^^^
 
-Simple instruction representing a user defined confirmation (success) or rejection (failure).
+Simple **asynchronous** instruction representing a user defined confirmation (success) or rejection (failure).
 
 Attributes:
 
@@ -1088,9 +1241,8 @@ Attributes:
 Wait
 ^^^^
 
-Instruction node that returns SUCCESS after a given timeout.
+Instruction node that returns SUCCESS after a given timeout. This instruction is **asynchronous** by default, but can be made synchronous by setting its `blocking` attribute to `true`. In this case, the instruction will block until the timeout is reached or it is halted.
 The `timeout` attribute is optional. When this attribute is not present, the instruction returns SUCCESS immediately.
-
 
 Attributes:
 
@@ -1106,13 +1258,17 @@ Attributes:
      - Float64Type
      - no
      - Maximum time to wait
+   * - blocking
+     - BooleanType
+     - no
+     - Make the instruction blocking, i.e. synchronous
 
 * An example for this instruction is already present in :ref:`ParallelSequence example <par_exp>`.
 
 WaitForVariable
 ^^^^^^^^^^^^^^^
 
-Instruction node that waits `timeout` seconds for a variable to be readable and non-empty.
+**Asynchronous** instruction node that waits `timeout` seconds for a variable to be readable and non-empty.
 
 Attributes:
 
@@ -1142,7 +1298,7 @@ Attributes:
 WaitForVariables
 ^^^^^^^^^^^^^^^^
 
-Instruction node that waits `timeout` seconds for all workspace variables of a given type to be available.
+**Asynchronous** instruction node that waits `timeout` seconds for all workspace variables of a given type to be available.
 
 Attributes:
 

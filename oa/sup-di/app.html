@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>sup-di Composer &mdash; SUP DI</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=e0a75244"></script>
+        <script src="_static/doctools.js?v=9bcbadda"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Development" href="development.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            sup-di
+          </a>
+              <div class="version">
+                1.5.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
+<li class="toctree-l1"><a class="reference internal" href="development.html">Development</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">sup-di Composer</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sup-di</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">sup-di Composer</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/app.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="sup-di-composer">
+<h1>sup-di Composer<a class="headerlink" href="#sup-di-composer" title="Link to this heading"></a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">sup-di-composer</span></code> application is a command-line tool for executing dependency injection configurations. It provides a convenient way to test, debug, and automate DI workflows.</p>
+<p><strong>Command-Line Options</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-h</span></code> or <code class="docutils literal notranslate"><span class="pre">--help</span></code>: Display usage information.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-f</span> <span class="pre">&lt;filename&gt;</span></code> or <code class="docutils literal notranslate"><span class="pre">--file</span> <span class="pre">&lt;filename&gt;</span></code>: Load, parse, and execute the specified XML file.</p></li>
+</ul>
+<p>Example usage:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./sup-di-composer<span class="w"> </span>--file<span class="w"> </span>example.xml
+</pre></div>
+</div>
+<p><strong>Use Cases</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Dynamic Configuration</strong>: Modify object graphs and dependencies at runtime by editing the XML configuration.</p></li>
+<li><p><strong>Testing and Debugging</strong>: Quickly test DI configurations without modifying the source code.</p></li>
+<li><p><strong>Automation</strong>: Integrate <code class="docutils literal notranslate"><span class="pre">sup-di-composer</span></code> into build pipelines or scripts for automated testing and deployment.</p></li>
+</ol>
+<p><strong>Example</strong></p>
+<p>With the following code compiled as a shared library named libdi-test.so:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sup/di/object_manager.h&gt;</span>
+
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;iostream&gt;</span>
+<span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;string&gt;</span>
+
+<span class="k">const</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">PRINT_STRING_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;PrintString&quot;</span><span class="p">;</span>
+
+<span class="kt">bool</span><span class="w"> </span><span class="nf">PrintStringFunction</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="w"> </span><span class="n">str</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">std</span><span class="o">::</span><span class="n">cout</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">str</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="nb">true</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">const</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="n">PrintStringRegistered</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sup</span><span class="o">::</span><span class="n">di</span><span class="o">::</span><span class="n">GlobalObjectManager</span><span class="p">().</span><span class="n">RegisterGlobalFunction</span><span class="p">(</span>
+<span class="w">    </span><span class="n">PRINT_STRING_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">PrintStringFunction</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>And the following XML configuration, example.xml:</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;ObjectComposer</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;http://codac.iter.org/sup/di&quot;</span><span class="w"> </span><span class="na">version=</span><span class="s">&quot;1.0&quot;</span>
+<span class="w">           </span><span class="na">name=</span><span class="s">&quot;Print Hello World!&quot;</span>
+<span class="w">           </span><span class="na">xmlns:xs=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+<span class="w">           </span><span class="na">xs:schemaLocation=</span><span class="s">&quot;http://codac.iter.org/sup/di sup-di.xsd&quot;</span><span class="nt">&gt;</span>
+<span class="w">    </span><span class="nt">&lt;LoadLibrary&gt;</span>./libdi-test.so<span class="nt">&lt;/LoadLibrary&gt;</span>
+<span class="w">     </span><span class="cm">&lt;!-- Setup string to print --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;StringInstance&gt;</span>
+<span class="w">        </span><span class="nt">&lt;InstanceName&gt;</span>HelloWorld<span class="nt">&lt;/InstanceName&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Value&gt;</span>Hello,<span class="w"> </span>World!<span class="nt">&lt;/Value&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/StringInstance&gt;</span>
+<span class="w">    </span><span class="cm">&lt;!-- Print the defined string --&gt;</span>
+<span class="w">    </span><span class="nt">&lt;CallFunction&gt;</span>
+<span class="w">        </span><span class="nt">&lt;FunctionName&gt;</span>PrintString<span class="nt">&lt;/FunctionName&gt;</span>
+<span class="w">        </span><span class="nt">&lt;Dependency&gt;</span>HelloWorld<span class="nt">&lt;/Dependency&gt;</span>
+<span class="w">    </span><span class="nt">&lt;/CallFunction&gt;</span>
+<span class="nt">&lt;/ObjectComposer&gt;</span>
+</pre></div>
+</div>
+<p>Run the <code class="docutils literal notranslate"><span class="pre">sup-di-composer</span></code> tool with the XML file:</p>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>./sup-di-composer<span class="w"> </span>--file<span class="w"> </span>example.xml
+</pre></div>
+</div>
+<p>Expected output:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Hello, World!
+</pre></div>
+</div>
+<p>This workflow demonstrates how <code class="docutils literal notranslate"><span class="pre">sup-di</span></code> simplifies the process of creating, managing, and testing object graphs and dependencies. By leveraging <code class="docutils literal notranslate"><span class="pre">sup-di-composer</span></code>, developers can focus on building functionality while <code class="docutils literal notranslate"><span class="pre">sup-di</span></code> handles the complexity of dependency management.</p>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="development.html" class="btn btn-neutral float-left" title="Development" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright ITER Organization.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
