@@ -15,7 +15,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=42d1b3bd"></script>
+        <script src="_static/documentation_options.js?v=d0ae6d56"></script>
         <script src="_static/doctools.js?v=9bcbadda"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -37,7 +37,7 @@
             oac-tree
           </a>
               <div class="version">
-                4.1.0
+                4.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -61,6 +61,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#creating-a-userinterface">Creating a UserInterface</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#updating-instruction-status">Updating Instruction Status</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#handling-variable-updates">Handling Variable Updates</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#breakpoint-notifications">Breakpoint Notifications</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#displaying-values">Displaying Values</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#requesting-user-input">Requesting User Input</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#displaying-messages-and-logging">Displaying Messages and Logging</a></li>
@@ -142,6 +143,15 @@
 </pre></div>
 </div>
 </section>
+<section id="breakpoint-notifications">
+<h3>Breakpoint Notifications<a class="headerlink" href="#breakpoint-notifications" title="Link to this heading"></a></h3>
+<p>When a breakpoint is hit, the <cite>BreakpointInstructionUpdated</cite> method is called with the instruction that triggered the breakpoint. The method is also called to clear this status by passing a nullptr. Implement this method to handle breakpoint notifications.</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">BreakpointInstructionUpdated</span><span class="p">(</span><span class="k">const</span><span class="w"> </span><span class="n">Instruction</span><span class="o">*</span><span class="w"> </span><span class="n">instruction</span><span class="p">)</span><span class="w"> </span><span class="k">override</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="c1">// Implement the logic for handling breakpoint notifications here</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
 <section id="displaying-values">
 <h3>Displaying Values<a class="headerlink" href="#displaying-values" title="Link to this heading"></a></h3>
 <p>Use the <cite>PutValue</cite> method to interact with the user for value output. Implement this method to handle such interactions.</p>
@@ -189,12 +199,15 @@
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree13UserInterface23UpdateInstructionStatusEPK11Instruction">
-<span id="_CPPv3N3sup8oac_tree13UserInterface23UpdateInstructionStatusEPK11Instruction"></span><span id="_CPPv2N3sup8oac_tree13UserInterface23UpdateInstructionStatusEPK11Instruction"></span><span id="sup::oac_tree::UserInterface::UpdateInstructionStatus__InstructionCP"></span><span class="target" id="classsup_1_1oac__tree_1_1UserInterface_1abbd812b7d51e21ab2571ef5bfea0f6d4"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UpdateInstructionStatus</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="instruction.html#_CPPv4N3sup8oac_tree11InstructionE" title="sup::oac_tree::Instruction"><span class="n"><span class="pre">Instruction</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">instruction</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N3sup8oac_tree13UserInterface23UpdateInstructionStatusEPK11Instruction" title="Link to this definition"></a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree13UserInterface23UpdateInstructionStatusEPK11Instruction15ExecutionStatus">
+<span id="_CPPv3N3sup8oac_tree13UserInterface23UpdateInstructionStatusEPK11Instruction15ExecutionStatus"></span><span id="_CPPv2N3sup8oac_tree13UserInterface23UpdateInstructionStatusEPK11Instruction15ExecutionStatus"></span><span id="sup::oac_tree::UserInterface::UpdateInstructionStatus__InstructionCP.ExecutionStatus"></span><span class="target" id="classsup_1_1oac__tree_1_1UserInterface_1aa283a0d0c3af1ad50c3c3a1e1f1bfffb"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UpdateInstructionStatus</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="instruction.html#_CPPv4N3sup8oac_tree11InstructionE" title="sup::oac_tree::Instruction"><span class="n"><span class="pre">Instruction</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">instruction</span></span>, <span class="n"><span class="pre">ExecutionStatus</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">status</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N3sup8oac_tree13UserInterface23UpdateInstructionStatusEPK11Instruction15ExecutionStatus" title="Link to this definition"></a><br /></dt>
 <dd><p>Method called when instruction’s execution status changes. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>instruction</strong> – <a class="reference internal" href="instruction.html#classsup_1_1oac__tree_1_1Instruction"><span class="std std-ref">Instruction</span></a> that has new execution status. </p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>instruction</strong> – <a class="reference internal" href="instruction.html#classsup_1_1oac__tree_1_1Instruction"><span class="std std-ref">Instruction</span></a> that has new execution status. </p></li>
+<li><p><strong>status</strong> – New execution status of the instruction. </p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -210,6 +223,18 @@
 <li><p><strong>value</strong> – New value of the <a class="reference internal" href="variable.html#classsup_1_1oac__tree_1_1Variable"><span class="std std-ref">Variable</span></a>. </p></li>
 <li><p><strong>connected</strong> – Boolean indicating if variable is connected. </p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree13UserInterface28BreakpointInstructionUpdatedEPK11Instruction">
+<span id="_CPPv3N3sup8oac_tree13UserInterface28BreakpointInstructionUpdatedEPK11Instruction"></span><span id="_CPPv2N3sup8oac_tree13UserInterface28BreakpointInstructionUpdatedEPK11Instruction"></span><span id="sup::oac_tree::UserInterface::BreakpointInstructionUpdated__InstructionCP"></span><span class="target" id="classsup_1_1oac__tree_1_1UserInterface_1acac648c58143e99041fe0b9394a792b7"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BreakpointInstructionUpdated</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="instruction.html#_CPPv4N3sup8oac_tree11InstructionE" title="sup::oac_tree::Instruction"><span class="n"><span class="pre">Instruction</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">instruction</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N3sup8oac_tree13UserInterface28BreakpointInstructionUpdatedEPK11Instruction" title="Link to this definition"></a><br /></dt>
+<dd><p>Method to notify a change in the current breakpoint instruction. </p>
+<p>This method will report a nullptr when no running normally, i.e. when not halted at a breakpoint.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>instruction</strong> – Pointer to the current breakpoint instruction, or nullptr. </p>
 </dd>
 </dl>
 </dd></dl>

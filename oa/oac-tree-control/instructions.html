@@ -15,7 +15,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=20623aea"></script>
+        <script src="_static/documentation_options.js?v=b21de401"></script>
         <script src="_static/doctools.js?v=9bcbadda"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -36,7 +36,7 @@
             oac-tree-plugin-control
           </a>
               <div class="version">
-                2.1.0
+                2.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -189,7 +189,7 @@ ReactiveFallback
 <ul class="simple">
 <li><p>After performing the action (if the condition was not immediately satisfied), the instruction allows for a certain time to achieve the condition.</p></li>
 </ul>
-<p>The following instruction trees are equivalent:</p>
+<p><code class="docutils literal notranslate"><span class="pre">AchieveConditionWithTimeout</span></code> is fully equivalent to a <code class="docutils literal notranslate"><span class="pre">ReactiveFallback</span></code> as shown in the following two equivalent instruction trees:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span># With AchieveConditionWithTimeout
 AchieveConditionWithTimeout timeout=&quot;10.0&quot;
 ├── &lt;Condition&gt;
@@ -201,8 +201,7 @@ ReactiveFallback
 └── Sequence
     ├── ForceSuccess
     │   └── &lt;Action&gt;
-    ├── Wait timeout=&quot;10.0&quot;
-    └── &lt;Condition&gt;
+    └── Fail timeout=&quot;10.0&quot;
 </pre></div>
 </div>
 <table class="docutils align-default">
@@ -220,12 +219,7 @@ ReactiveFallback
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>varNames</p></td>
-<td><p>StringType</p></td>
-<td><p>yes</p></td>
-<td><p>Comma-separated list of variable names to monitor during the timeout</p></td>
-</tr>
-<tr class="row-odd"><td><p>timeout</p></td>
+<tr class="row-even"><td><p>timeout</p></td>
 <td><p>Float64Type</p></td>
 <td><p>yes</p></td>
 <td><p>Timeout in seconds</p></td>
@@ -242,7 +236,7 @@ ReactiveFallback
 </div>
 <p id="achieve-cond-timeout-example"><strong>Example</strong></p>
 <p>This procedure will check if the <code class="docutils literal notranslate"><span class="pre">live</span></code> variable is equal to one. Since this is not the case, it will try its child action, which waits for one second. Afterwards, the condition is again evaluated and still found to be false, i.e. <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code>. The <code class="docutils literal notranslate"><span class="pre">AchieveConditionWithOverride</span></code> instruction will allow for the condition to become true with a given timeout of three seconds. Since the <code class="docutils literal notranslate"><span class="pre">live</span></code> variable never changes, after this period, the procedure will exit with a <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code> status.</p>
-<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;AchieveConditionWithTimeout</span><span class="w"> </span><span class="na">varNames=</span><span class="s">&quot;live&quot;</span><span class="w"> </span><span class="na">timeout=</span><span class="s">&quot;3.0&quot;</span><span class="nt">&gt;</span>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;AchieveConditionWithTimeout</span><span class="w"> </span><span class="na">timeout=</span><span class="s">&quot;3.0&quot;</span><span class="nt">&gt;</span>
 <span class="w">    </span><span class="nt">&lt;Equals</span><span class="w"> </span><span class="na">leftVar=</span><span class="s">&quot;live&quot;</span><span class="w"> </span><span class="na">rightVar=</span><span class="s">&quot;one&quot;</span><span class="nt">/&gt;</span>
 <span class="w">    </span><span class="nt">&lt;Wait</span><span class="w"> </span><span class="na">timeout=</span><span class="s">&quot;1&quot;</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/AchieveConditionWithTimeout&gt;</span>
@@ -273,28 +267,10 @@ ReactiveSequence
 <p class="admonition-title">Note</p>
 <p>If the action is already asynchronous, i.e. it can return <code class="docutils literal notranslate"><span class="pre">RUNNING</span></code>, a simple <code class="docutils literal notranslate"><span class="pre">ReactiveSequence</span></code> is a better choice to achieve this behavior.</p>
 </div>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Attribute name</p></th>
-<th class="head"><p>Attribute type</p></th>
-<th class="head"><p>Mandatory</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>varNames</p></td>
-<td><p>StringType</p></td>
-<td><p>yes</p></td>
-<td><p>Comma separated list of variable names to monitor during the execution</p></td>
-</tr>
-</tbody>
-</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This instruction has no attributes.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The list of variable names to monitor is required for the instruction to know when to re-evaluate the condition during execution of the first child instruction tree. On every listed variable change, it will evaluate this condition.</p>
@@ -305,7 +281,7 @@ ReactiveSequence
 </div>
 <p id="execute-while-example"><strong>Example</strong></p>
 <p>This procedure will continuously check if the <code class="docutils literal notranslate"><span class="pre">live</span></code> variable is zero and will exit with <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code> status as soon as this is not the case. At the same time, while the condition is still true, it will execute its first child, which is a simple wait instruction. Since the wait instruction will succeed after one second and the condition will remain true, this procedure will finish with a <code class="docutils literal notranslate"><span class="pre">SUCCESS</span></code> status after one second.</p>
-<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;ExecuteWhile</span><span class="w"> </span><span class="na">varNames=</span><span class="s">&quot;live&quot;</span><span class="nt">&gt;</span>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;ExecuteWhile&gt;</span>
 <span class="w">    </span><span class="nt">&lt;Wait</span><span class="w"> </span><span class="na">timeout=</span><span class="s">&quot;1.0&quot;</span><span class="nt">/&gt;</span>
 <span class="w">    </span><span class="nt">&lt;Equals</span><span class="w"> </span><span class="na">leftVar=</span><span class="s">&quot;live&quot;</span><span class="w"> </span><span class="na">rightVar=</span><span class="s">&quot;zero&quot;</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/ExecuteWhile&gt;</span>
@@ -327,39 +303,13 @@ WaitForCondition timeout=&quot;5.0&quot;
 # Using a ReactiveFallback
 ReactiveFallback
 ├── &lt;Condition&gt;
-└── Sequence
-    ├── ForceSuccess
-    │   └── Wait timeout=&quot;5.0&quot;
-    └── &lt;Condition&gt;
+└── Fail timeout=&quot;5.0&quot;
 </pre></div>
 </div>
-<table class="docutils align-default">
-<colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
-</colgroup>
-<thead>
-<tr class="row-odd"><th class="head"><p>Attribute name</p></th>
-<th class="head"><p>Attribute type</p></th>
-<th class="head"><p>Mandatory</p></th>
-<th class="head"><p>Description</p></th>
-</tr>
-</thead>
-<tbody>
-<tr class="row-even"><td><p>varNames</p></td>
-<td><p>StringType</p></td>
-<td><p>yes</p></td>
-<td><p>Comma-separated list of variable names to monitor for changes</p></td>
-</tr>
-<tr class="row-odd"><td><p>timeout</p></td>
-<td><p>Float64Type</p></td>
-<td><p>yes</p></td>
-<td><p>Timeout in seconds</p></td>
-</tr>
-</tbody>
-</table>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This instruction has no custom attributes.</p>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>The list of variable names to monitor is required for the instruction to know when to re-evaluate the condition during the timeout period. On every listed variable change, it will evaluate this condition.</p>
@@ -370,7 +320,7 @@ ReactiveFallback
 </div>
 <p id="wait-for-condition-example"><strong>Example</strong></p>
 <p>This procedure will monitor the <code class="docutils literal notranslate"><span class="pre">live</span></code> variable and wait with a timeout of two seconds for it to become one. Since the <code class="docutils literal notranslate"><span class="pre">live</span></code> variable never changes and does not fulfill the condition, this procedure will exit with a <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code> status after two seconds.</p>
-<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;WaitForCondition</span><span class="w"> </span><span class="na">varNames=</span><span class="s">&quot;live&quot;</span><span class="w"> </span><span class="na">timeout=</span><span class="s">&quot;2.0&quot;</span><span class="nt">&gt;</span>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;WaitForCondition</span><span class="w"> </span><span class="na">timeout=</span><span class="s">&quot;2.0&quot;</span><span class="nt">&gt;</span>
 <span class="w">    </span><span class="nt">&lt;Equals</span><span class="w"> </span><span class="na">leftVar=</span><span class="s">&quot;live&quot;</span><span class="w"> </span><span class="na">rightVar=</span><span class="s">&quot;one&quot;</span><span class="nt">/&gt;</span>
 <span class="nt">&lt;/WaitForCondition&gt;</span>
 <span class="nt">&lt;Workspace&gt;</span>

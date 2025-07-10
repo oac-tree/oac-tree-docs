@@ -15,7 +15,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=42d1b3bd"></script>
+        <script src="_static/documentation_options.js?v=d0ae6d56"></script>
         <script src="_static/doctools.js?v=9bcbadda"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -37,7 +37,7 @@
             oac-tree
           </a>
               <div class="version">
-                4.1.0
+                4.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -83,6 +83,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#copy">Copy</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#decrement">Decrement</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#equals">Equals</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#fail">Fail</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#greaterthan">GreaterThan</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#greaterthanorequal">GreaterThanOrEqual</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#increment">Increment</a></li>
@@ -621,6 +622,7 @@ The reference can point to an instruction tree in the same definition file or to
 <section id="listen">
 <h3>Listen<a class="headerlink" href="#listen" title="Link to this heading"></a></h3>
 <p><strong>Asynchronous</strong> instruction that executes its child instruction each time specific variables are updated. By default, it will only report a finished status (success or failure) when the child instruction fails.</p>
+<p>If the user wants to listen to a set of variables in a blocking way, a <cite>blocking</cite> attribute can be set to <cite>true</cite>. Although this would be less CPU consuming, it implies that the instruction is no longer asynchronous, which has implications if it is used as a child of a reactive sequence or fallback.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
@@ -646,6 +648,11 @@ The reference can point to an instruction tree in the same definition file or to
 <td><p>BooleanType</p></td>
 <td><p>no</p></td>
 <td><p>Always handle child as successful if active (only halt will exit the loop)</p></td>
+</tr>
+<tr class="row-even"><td><p>blocking</p></td>
+<td><p>BooleanType</p></td>
+<td><p>no</p></td>
+<td><p>Use a blocking implementation, which is less CPU consuming</p></td>
 </tr>
 </tbody>
 </table>
@@ -1036,6 +1043,39 @@ Returns SUCCESS if the variable is true and FAILURE otherwise. If the variable i
 <ul class="simple">
 <li><p>An example for this instruction is already present in <a class="reference internal" href="#listen-exp"><span class="std std-ref">Listen example</span></a>.</p></li>
 </ul>
+</section>
+<section id="fail">
+<h3>Fail<a class="headerlink" href="#fail" title="Link to this heading"></a></h3>
+<p>Instruction node that returns FAILURE after a given timeout. This instruction is <strong>asynchronous</strong> by default, but can be made synchronous by setting its <cite>blocking</cite> attribute to <cite>true</cite>. In this case, the instruction will block until the timeout is reached or it is halted.
+The <cite>timeout</cite> attribute is optional. When this attribute is not present, the instruction returns FAILURE immediately.</p>
+<p>Attributes:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 21.7%" />
+<col style="width: 21.7%" />
+<col style="width: 13.0%" />
+<col style="width: 43.5%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute name</p></th>
+<th class="head"><p>Attribute type</p></th>
+<th class="head"><p>Mandatory</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>timeout</p></td>
+<td><p>Float64Type</p></td>
+<td><p>no</p></td>
+<td><p>Maximum time to wait</p></td>
+</tr>
+<tr class="row-odd"><td><p>blocking</p></td>
+<td><p>BooleanType</p></td>
+<td><p>no</p></td>
+<td><p>Make the instruction blocking, i.e. synchronous</p></td>
+</tr>
+</tbody>
+</table>
 </section>
 <section id="greaterthan">
 <h3>GreaterThan<a class="headerlink" href="#greaterthan" title="Link to this heading"></a></h3>
@@ -1534,6 +1574,11 @@ The <cite>timeout</cite> attribute is optional. When this attribute is not prese
 <td><p>no</p></td>
 <td><p>variable to compare. The instruction will wait until the variables are equal or the timout s reached</p></td>
 </tr>
+<tr class="row-odd"><td><p>blocking</p></td>
+<td><p>BooleanType</p></td>
+<td><p>no</p></td>
+<td><p>Use a blocking implementation, which is less CPU consuming</p></td>
+</tr>
 </tbody>
 </table>
 <ul class="simple">
@@ -1568,6 +1613,11 @@ The <cite>timeout</cite> attribute is optional. When this attribute is not prese
 <td><p>StringType</p></td>
 <td><p>yes</p></td>
 <td><p>typename of the variables to check</p></td>
+</tr>
+<tr class="row-even"><td><p>blocking</p></td>
+<td><p>BooleanType</p></td>
+<td><p>no</p></td>
+<td><p>Use a blocking implementation, which is less CPU consuming</p></td>
 </tr>
 </tbody>
 </table>

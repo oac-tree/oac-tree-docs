@@ -15,7 +15,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=b51e6972"></script>
+        <script src="_static/documentation_options.js?v=c4cb232b"></script>
         <script src="_static/doctools.js?v=9bcbadda"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -37,7 +37,7 @@
             sup-mvvm
           </a>
               <div class="version">
-                1.8.0
+                1.9.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -61,7 +61,6 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#_CPPv4N4mvvm10VectorItemE"><code class="docutils literal notranslate"><span class="pre">mvvm::VectorItem</span></code></a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK4mvvm10VectorItem5CloneEv"><code class="docutils literal notranslate"><span class="pre">Clone()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N4mvvm10VectorItem8ActivateEv"><code class="docutils literal notranslate"><span class="pre">Activate()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#_CPPv4N4mvvm13BasicAxisItemE"><code class="docutils literal notranslate"><span class="pre">mvvm::BasicAxisItem</span></code></a></li>
@@ -203,12 +202,6 @@
 <span id="_CPPv3NK4mvvm10VectorItem5CloneEv"></span><span id="_CPPv2NK4mvvm10VectorItem5CloneEv"></span><span id="mvvm::VectorItem::CloneC"></span><span class="target" id="classmvvm_1_1VectorItem_1abe21a54b5d614b0932ebf082b22bc065"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Clone</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm10VectorItem5CloneEv" title="Link to this definition"></a><br /></dt>
 <dd><p>Creates a clone of the item. </p>
 <p>Creates an exact clone of the item together with all its children. All item identifiers will be the same. Please note, that cloned items can’t be used along with the original item in the same model due to memory pool identifiers collision. Use utils::CopyItem to create deep copies that have different item identifiers. </p>
-</dd></dl>
-
-<dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N4mvvm10VectorItem8ActivateEv">
-<span id="_CPPv3N4mvvm10VectorItem8ActivateEv"></span><span id="_CPPv2N4mvvm10VectorItem8ActivateEv"></span><span id="mvvm::VectorItem::Activate"></span><span class="target" id="classmvvm_1_1VectorItem_1a28a46cbf41a6b614001f07591cafcf3c"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Activate</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N4mvvm10VectorItem8ActivateEv" title="Link to this definition"></a><br /></dt>
-<dd><p>Activates listening on own properties change. It will update own label on any of x,y,z children change. </p>
 </dd></dl>
 
 </div>

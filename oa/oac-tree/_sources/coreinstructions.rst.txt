@@ -528,6 +528,8 @@ Listen
 
 **Asynchronous** instruction that executes its child instruction each time specific variables are updated. By default, it will only report a finished status (success or failure) when the child instruction fails.
 
+If the user wants to listen to a set of variables in a blocking way, a `blocking` attribute can be set to `true`. Although this would be less CPU consuming, it implies that the instruction is no longer asynchronous, which has implications if it is used as a child of a reactive sequence or fallback.
+
 Attributes:
 
 .. list-table::
@@ -546,6 +548,10 @@ Attributes:
      - BooleanType
      - no
      - Always handle child as successful if active (only halt will exit the loop)
+   * - blocking
+     - BooleanType
+     - no
+     - Use a blocking implementation, which is less CPU consuming
 
 .. _listen_exp:
 
@@ -886,6 +892,31 @@ Attributes:
      - Name of the right hand side variable to compare
 
 * An example for this instruction is already present in :ref:`Listen example <listen_exp>`.
+
+Fail
+^^^^
+
+Instruction node that returns FAILURE after a given timeout. This instruction is **asynchronous** by default, but can be made synchronous by setting its `blocking` attribute to `true`. In this case, the instruction will block until the timeout is reached or it is halted.
+The `timeout` attribute is optional. When this attribute is not present, the instruction returns FAILURE immediately.
+
+Attributes:
+
+.. list-table::
+   :widths: 25 25 15 50
+   :header-rows: 1
+
+   * - Attribute name
+     - Attribute type
+     - Mandatory
+     - Description
+   * - timeout
+     - Float64Type
+     - no
+     - Maximum time to wait
+   * - blocking
+     - BooleanType
+     - no
+     - Make the instruction blocking, i.e. synchronous
 
 GreaterThan
 ^^^^^^^^^^^
@@ -1292,6 +1323,10 @@ Attributes:
      - StringType
      - no
      - variable to compare. The instruction will wait until the variables are equal or the timout s reached
+   * - blocking
+     - BooleanType
+     - no
+     - Use a blocking implementation, which is less CPU consuming
 
 * An example for this instruction is already present in :ref:`Repeat example <repeat_exp>`.
 
@@ -1318,3 +1353,7 @@ Attributes:
      - StringType
      - yes
      - typename of the variables to check
+   * - blocking
+     - BooleanType
+     - no
+     - Use a blocking implementation, which is less CPU consuming

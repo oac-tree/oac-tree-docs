@@ -15,7 +15,7 @@
   
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=42d1b3bd"></script>
+        <script src="_static/documentation_options.js?v=d0ae6d56"></script>
         <script src="_static/doctools.js?v=9bcbadda"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
@@ -37,7 +37,7 @@
             oac-tree
           </a>
               <div class="version">
-                4.1.0
+                4.2.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -667,19 +667,6 @@ The state of the instruction after a reset should be similar to its state after 
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree11Instruction16NextInstructionsEv">
-<span id="_CPPv3NK3sup8oac_tree11Instruction16NextInstructionsEv"></span><span id="_CPPv2NK3sup8oac_tree11Instruction16NextInstructionsEv"></span><span id="sup::oac_tree::Instruction::NextInstructionsC"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a7285d91e8d43810ceafb61d6461eba34"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N3sup8oac_tree11InstructionE" title="sup::oac_tree::Instruction"><span class="n"><span class="pre">Instruction</span></span></a><span class="p"><span class="pre">*</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NextInstructions</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree11Instruction16NextInstructionsEv" title="Link to this definition"></a><br /></dt>
-<dd><p>Get list of child instructions that will be executed in the next execute step. </p>
-<p>
-This list of child instructions is only scheduled to be executed next if the current instruction also is, i.e. it apprears in the <a class="reference internal" href="#classsup_1_1oac__tree_1_1Instruction_1a7285d91e8d43810ceafb61d6461eba34"><span class="std std-ref">NextInstructions()</span></a> list of the parent or is a root instruction that is NOT_STARTED/NOT_FINISHED. </p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List of child instructions.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11Instruction17InsertInstructionERRNSt10unique_ptrI11InstructionEEi">
 <span id="_CPPv3N3sup8oac_tree11Instruction17InsertInstructionERRNSt10unique_ptrI11InstructionEEi"></span><span id="_CPPv2N3sup8oac_tree11Instruction17InsertInstructionERRNSt10unique_ptrI11InstructionEEi"></span><span id="sup::oac_tree::Instruction::InsertInstruction__std::unique_ptr:Instruction:RR.i"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a4a53b320316f48c004a703c7947fefe3"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">InsertInstruction</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N3sup8oac_tree11InstructionE" title="sup::oac_tree::Instruction"><span class="n"><span class="pre">Instruction</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">child</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">index</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11Instruction17InsertInstructionERRNSt10unique_ptrI11InstructionEEi" title="Link to this definition"></a><br /></dt>
 <dd><p>Inserts child into the given index. </p>
@@ -709,6 +696,29 @@ Index must be in the range [0, current_children_count-1]. </p>
 <dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree11Instruction15IsHaltRequestedEv">
 <span id="_CPPv3NK3sup8oac_tree11Instruction15IsHaltRequestedEv"></span><span id="_CPPv2NK3sup8oac_tree11Instruction15IsHaltRequestedEv"></span><span id="sup::oac_tree::Instruction::IsHaltRequestedC"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1ab7939bc3c8b71f6c7ddaa937bb23dbb5"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsHaltRequested</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree11Instruction15IsHaltRequestedEv" title="Link to this definition"></a><br /></dt>
 <dd><p>Check if a request to halt this instruction was issued. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree11Instruction13SetBreakpointEv">
+<span id="_CPPv3NK3sup8oac_tree11Instruction13SetBreakpointEv"></span><span id="_CPPv2NK3sup8oac_tree11Instruction13SetBreakpointEv"></span><span id="sup::oac_tree::Instruction::SetBreakpointC"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a4150043b15f4c435885da2ec2cfc8cfb"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetBreakpoint</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree11Instruction13SetBreakpointEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Set breakpoint for this instruction. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree11Instruction16RemoveBreakpointEv">
+<span id="_CPPv3NK3sup8oac_tree11Instruction16RemoveBreakpointEv"></span><span id="_CPPv2NK3sup8oac_tree11Instruction16RemoveBreakpointEv"></span><span id="sup::oac_tree::Instruction::RemoveBreakpointC"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1aca136fb07968d092c132048e206c9ae5"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RemoveBreakpoint</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree11Instruction16RemoveBreakpointEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Remove breakpoint for this instruction. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree11Instruction21AcknowledgeBreakpointEv">
+<span id="_CPPv3NK3sup8oac_tree11Instruction21AcknowledgeBreakpointEv"></span><span id="_CPPv2NK3sup8oac_tree11Instruction21AcknowledgeBreakpointEv"></span><span id="sup::oac_tree::Instruction::AcknowledgeBreakpointC"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a34fe12a0ae2d14238b9e592529980b9e"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AcknowledgeBreakpoint</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree11Instruction21AcknowledgeBreakpointEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Query if this instruction’s breakpoint was hit. If so, the breakpoint state is set to kAck. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True if breakpoint state is kHit. </p>
+</dd>
+</dl>
 </dd></dl>
 
 </div>
