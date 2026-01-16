@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Installation instructions &mdash; oac-tree GUI</title>
+  <title>Instructions for GitHub users &mdash; oac-tree GUI</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
 
@@ -21,8 +21,8 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Instructions for GitHub users" href="installation-github.html" />
-    <link rel="prev" title="Overview" href="overview.html" /> 
+    <link rel="next" title="Instructions for CODAC users" href="installation-codac.html" />
+    <link rel="prev" title="Installation instructions" href="installation.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -50,8 +50,8 @@
               <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="overview.html">Overview</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation instructions</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation-github.html">Instructions for GitHub users</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="installation.html">Installation instructions</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Instructions for GitHub users</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation-codac.html">Instructions for CODAC users</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation-custom.html">Custom installation</a></li>
 </ul>
@@ -72,9 +72,10 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Installation instructions</li>
+          <li class="breadcrumb-item"><a href="installation.html">Installation instructions</a></li>
+      <li class="breadcrumb-item active">Instructions for GitHub users</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/installation-github.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -82,34 +83,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="installation-instructions">
-<h1>Installation instructions<a class="headerlink" href="#installation-instructions" title="Link to this heading"></a></h1>
-<div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="installation-github.html">Instructions for GitHub users</a></li>
-<li class="toctree-l1"><a class="reference internal" href="installation-codac.html">Instructions for CODAC users</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation-codac.html#installation-from-rpm">Installation from RPM</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation-codac.html#running-on-codac">Running on CODAC</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation-codac.html#manual-compilation">Manual compilation</a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="installation-custom.html">Custom installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="installation-custom.html#prerequisites-for-oac-tree-gui">Prerequisites for oac-tree GUI</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation-custom.html#install-coa-packages">Install COA packages</a></li>
-<li class="toctree-l2"><a class="reference internal" href="installation-custom.html#alternative-installation-method">Alternative installation method</a></li>
-</ul>
-</li>
-</ul>
+  <section id="instructions-for-github-users">
+<h1>Instructions for GitHub users<a class="headerlink" href="#instructions-for-github-users" title="Link to this heading"></a></h1>
+<p>The current recommended way of installing <cite>oac-tree</cite> GUI is by compiling it from the source as a part of
+<a class="reference external" href="https://github.com/oac-tree">oac-tree bundle</a>:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">git</span><span class="w"> </span><span class="n">clone</span><span class="w"> </span><span class="o">--</span><span class="n">recurse</span><span class="o">-</span><span class="n">submodules</span><span class="w"> </span><span class="n">https</span><span class="o">:</span><span class="c1">//github.com/oac-tree/oac-tree-bundle.git</span>
+<span class="n">mkdir</span><span class="w"> </span><span class="o">&lt;</span><span class="n">BUILD_DIR</span><span class="o">&gt;</span>
+<span class="n">cd</span><span class="w"> </span><span class="o">&lt;</span><span class="n">BUILD_DIR</span><span class="o">&gt;</span>
+<span class="n">cmake</span><span class="w"> </span><span class="o">-</span><span class="n">DCMAKE_INSTALL_PREFIX</span><span class="o">=&lt;</span><span class="n">INSTALL_PREFIX</span><span class="o">&gt;</span><span class="w"> </span><span class="o">&lt;</span><span class="n">SOURCE_DIR</span><span class="o">&gt;</span>
+<span class="n">make</span><span class="w"> </span><span class="o">-</span><span class="n">j24</span>
+<span class="cp"># note that install step is intentionally skipped</span>
+<span class="n">source</span><span class="w"> </span><span class="o">&lt;</span><span class="n">INSTALL_PREFIX</span><span class="o">&gt;/</span><span class="n">bin</span><span class="o">/</span><span class="n">oac</span><span class="o">-</span><span class="n">tree</span><span class="o">-</span><span class="n">path</span><span class="p">.</span><span class="n">sh</span>
+</pre></div>
 </div>
+<p>Please see detailed <a class="reference external" href="https://github.com/oac-tree#installation-from-source">oac-tree bundle installation instructions</a></p>
 </section>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="overview.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="installation-github.html" class="btn btn-neutral float-right" title="Instructions for GitHub users" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation instructions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="installation-codac.html" class="btn btn-neutral float-right" title="Instructions for CODAC users" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
