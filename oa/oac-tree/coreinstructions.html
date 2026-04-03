@@ -1,21 +1,22 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Core Instructions &mdash; oac-tree</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=7ab3649f" />
-
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=5ef59c98"></script>
-      <script src="_static/doctools.js?v=fd6eb6e6"></script>
-      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -28,15 +29,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            oac-tree
+            <a href="index.html" class="icon icon-home"> oac-tree
           </a>
+              <div class="version">
+                4.5.0
+              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -118,7 +118,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
           <li class="breadcrumb-item"><a href="coreinstructionsvariables.html">Core Instructions/Variables</a></li>
       <li class="breadcrumb-item active">Core Instructions</li>
       <li class="wy-breadcrumbs-aside">
@@ -131,7 +131,7 @@
            <div itemprop="articleBody">
              
   <section id="core-instructions">
-<h1>Core Instructions<a class="headerlink" href="#core-instructions" title="Link to this heading"></a></h1>
+<h1>Core Instructions<a class="headerlink" href="#core-instructions" title="Permalink to this heading"></a></h1>
 <p>Instruction is an abstract interface for all executable instructions. It serves as the base class for various types of instructions.
 Instructions can be of the following categories:</p>
 <ul class="simple">
@@ -142,7 +142,7 @@ Instructions can be of the following categories:</p>
 <p>There are no restrictions beside the number of children on where an instruction can be used. e.g. a compound instruction can be inside another compound instruction.</p>
 <p>Next we present the different types of available instructions and some basic examples of how to use them. The examples will contain mainly the body of a procedure in XML and an explanation of how it behaves.</p>
 <section id="asynchronous-instructions">
-<span id="async-instr-section"></span><h2>Asynchronous Instructions<a class="headerlink" href="#asynchronous-instructions" title="Link to this heading"></a></h2>
+<span id="async-instr-section"></span><h2>Asynchronous Instructions<a class="headerlink" href="#asynchronous-instructions" title="Permalink to this heading"></a></h2>
 <p>Asynchronous instructions are instructions that can return a <code class="docutils literal notranslate"><span class="pre">RUNNING</span></code> status, indicating that they are still in progress and have not yet completed their execution. Reactive sequences and fallbacks depend heavily on this concept, as they will reset all other child instructions when one of them returns <code class="docutils literal notranslate"><span class="pre">RUNNING</span></code> (see <a class="reference internal" href="#react-seq-section"><span class="std std-ref">ReactiveSequence</span></a> and <a class="reference internal" href="#react-fb-section"><span class="std std-ref">Reactive Fallback</span></a>). Conditions, on the other hand, are required to be synchronous, i.e. they immediately return <code class="docutils literal notranslate"><span class="pre">SUCCESS</span></code>, <code class="docutils literal notranslate"><span class="pre">FAILURE</span></code> or <code class="docutils literal notranslate"><span class="pre">NOT_FINISHED</span></code>, since they should not reset a running asynchronous action that is a sibling of the condition.</p>
 <p>In the following sections, we will explicitly mention when an instruction is asynchronous.</p>
 <div class="admonition note">
@@ -151,19 +151,19 @@ Instructions can be of the following categories:</p>
 </div>
 </section>
 <section id="compound-instructions">
-<span id="compound"></span><h2>Compound Instructions<a class="headerlink" href="#compound-instructions" title="Link to this heading"></a></h2>
+<span id="compound"></span><h2>Compound Instructions<a class="headerlink" href="#compound-instructions" title="Permalink to this heading"></a></h2>
 <p>Compound instructions are instructions that have multiple child instructions, and they control the flow of execution among their children based on certain conditions or criteria.</p>
 <section id="choice">
-<h3>Choice<a class="headerlink" href="#choice" title="Link to this heading"></a></h3>
+<h3>Choice<a class="headerlink" href="#choice" title="Permalink to this heading"></a></h3>
 <p>The choice instruction will execute instructions based on their index. That index is passed from a workspace variable that can be a scalar (single index) or an array (list of indices). An index can be repeated inside the array, making the correspondent instruction execution be repeated as many times as it appears in the array.</p>
 <p>The execution status returned by the choice instruction follows the same logic as for <cite>Sequence</cite>: a single failure immediately leads to failure and success means all selected child instructions returned success.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -197,7 +197,7 @@ Instructions can be of the following categories:</p>
 </div>
 </section>
 <section id="fallback">
-<h3>Fallback<a class="headerlink" href="#fallback" title="Link to this heading"></a></h3>
+<h3>Fallback<a class="headerlink" href="#fallback" title="Permalink to this heading"></a></h3>
 <p>The fallback instruction executes its child instructions one by one in the order they are defined until:</p>
 <ul class="simple">
 <li><p>A child instruction returns <cite>SUCCESS</cite>: <cite>Fallback</cite> also returns <cite>SUCCESS</cite>;</p></li>
@@ -218,14 +218,14 @@ Instructions can be of the following categories:</p>
 </div>
 </section>
 <section id="parallelsequence">
-<h3>ParallelSequence<a class="headerlink" href="#parallelsequence" title="Link to this heading"></a></h3>
+<h3>ParallelSequence<a class="headerlink" href="#parallelsequence" title="Permalink to this heading"></a></h3>
 <p>The parallel sequence instruction executes all its child instructions concurrently. The execution status of the parallel sequence is determined by its attributes (attribute types are denoted by their corresponding <cite>AnyType</cite> from <cite>sup-dto</cite>):</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -263,7 +263,7 @@ Instructions can be of the following categories:</p>
 </div>
 </section>
 <section id="reactivefallback">
-<span id="react-fb-section"></span><span id="choice-exp"></span><h3>ReactiveFallback<a class="headerlink" href="#reactivefallback" title="Link to this heading"></a></h3>
+<span id="react-fb-section"></span><span id="choice-exp"></span><h3>ReactiveFallback<a class="headerlink" href="#reactivefallback" title="Permalink to this heading"></a></h3>
 <p>The reactive fallback instruction executes its child instructions one by one in the order they are defined until:</p>
 <ul class="simple">
 <li><p>A child instruction returns <cite>SUCCESS</cite>: <cite>reactive fallback</cite> also returns <cite>SUCCESS</cite>;</p></li>
@@ -315,7 +315,7 @@ Instructions can be of the following categories:</p>
 </div>
 </section>
 <section id="reactivesequence">
-<span id="react-seq-section"></span><h3>ReactiveSequence<a class="headerlink" href="#reactivesequence" title="Link to this heading"></a></h3>
+<span id="react-seq-section"></span><h3>ReactiveSequence<a class="headerlink" href="#reactivesequence" title="Permalink to this heading"></a></h3>
 <p>The reactive sequence instruction executes its child instructions one by one in the order they are defined until:</p>
 <ul class="simple">
 <li><p>A child instruction returns <cite>FAILURE</cite>: <cite>reactive sequence</cite> also returns <cite>FAILURE</cite>;</p></li>
@@ -353,7 +353,7 @@ Instructions can be of the following categories:</p>
 </div>
 </section>
 <section id="sequence">
-<h3>Sequence<a class="headerlink" href="#sequence" title="Link to this heading"></a></h3>
+<h3>Sequence<a class="headerlink" href="#sequence" title="Permalink to this heading"></a></h3>
 <p>The sequence instruction executes its child instructions one by one in the order they are defined until:</p>
 <ul class="simple">
 <li><p>A child instruction returns <cite>FAILURE</cite>: <cite>sequence</cite> also returns <cite>FAILURE</cite>;</p></li>
@@ -374,15 +374,15 @@ Instructions can be of the following categories:</p>
 </div>
 </section>
 <section id="userchoice">
-<h3>UserChoice<a class="headerlink" href="#userchoice" title="Link to this heading"></a></h3>
+<h3>UserChoice<a class="headerlink" href="#userchoice" title="Permalink to this heading"></a></h3>
 <p>This <strong>asynchronous</strong> instruction delegates to the UserInterface a selection to be made from one of its child instructions. It will then execute that child and directly return its status.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -416,10 +416,10 @@ Instructions can be of the following categories:</p>
 </section>
 </section>
 <section id="decorator-instructions">
-<span id="decorator"></span><h2>Decorator Instructions<a class="headerlink" href="#decorator-instructions" title="Link to this heading"></a></h2>
+<span id="decorator"></span><h2>Decorator Instructions<a class="headerlink" href="#decorator-instructions" title="Permalink to this heading"></a></h2>
 <p>Decorator instructions modify or add functionality to a single child instruction, allowing for the addition of behavior to an existing instruction without modifying its core implementation.</p>
 <section id="async">
-<h3>Async<a class="headerlink" href="#async" title="Link to this heading"></a></h3>
+<h3>Async<a class="headerlink" href="#async" title="Permalink to this heading"></a></h3>
 <p>Decorator that makes the execution of the child instruction asynchronous. This means it will return <cite>RUNNING</cite> until the child instruction has finished executing a single step, at which point it will return the status of the child instruction (<cite>SUCCESS</cite>, <cite>FAILURE</cite> or <cite>NOT_FINISHED</cite>). This decorator is useful when you want to use a synchronous instruction in an asynchronous context, such as a <cite>ReactiveSequence</cite> or <cite>ReactiveFallback</cite>.</p>
 <p><cite>Async</cite> has no specific attributes.</p>
 <p><strong>Example</strong></p>
@@ -448,16 +448,16 @@ Instructions can be of the following categories:</p>
 </div>
 </section>
 <section id="for">
-<h3>For<a class="headerlink" href="#for" title="Link to this heading"></a></h3>
+<h3>For<a class="headerlink" href="#for" title="Permalink to this heading"></a></h3>
 <p>This instruction applies a child instruction to the elements of an array.</p>
 <p>Executes the child instruction on the elements of an array, until either: the child fails (FAILURE) or the child instruction is applied to all elements of the provided array (SUCCESS).</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -494,7 +494,7 @@ Instructions can be of the following categories:</p>
 </div>
 </section>
 <section id="forcesuccess">
-<h3>ForceSuccess<a class="headerlink" href="#forcesuccess" title="Link to this heading"></a></h3>
+<h3>ForceSuccess<a class="headerlink" href="#forcesuccess" title="Permalink to this heading"></a></h3>
 <p>This instruction wraps a child instruction and always return SUCCESS when the child has finished execution.</p>
 <p><cite>ForceSuccess</cite> has no specific attributes.</p>
 <p><strong>Example</strong></p>
@@ -507,16 +507,16 @@ Instructions can be of the following categories:</p>
 </div>
 </section>
 <section id="include">
-<h3>Include<a class="headerlink" href="#include" title="Link to this heading"></a></h3>
+<h3>Include<a class="headerlink" href="#include" title="Permalink to this heading"></a></h3>
 <p>Decorator that includes an instruction tree by reference.
 The reference can point to an instruction tree in the same definition file or to one defined in a separate file (<cite>file</cite> attribute).</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -550,15 +550,15 @@ The reference can point to an instruction tree in the same definition file or to
 </div>
 </section>
 <section id="includeprocedure">
-<h3>IncludeProcedure<a class="headerlink" href="#includeprocedure" title="Link to this heading"></a></h3>
+<h3>IncludeProcedure<a class="headerlink" href="#includeprocedure" title="Permalink to this heading"></a></h3>
 <p>Decorator instruction that includes an external procedure (workspace and instruction tree).</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -607,7 +607,7 @@ The reference can point to an instruction tree in the same definition file or to
 </div>
 </section>
 <section id="inverter">
-<h3>Inverter<a class="headerlink" href="#inverter" title="Link to this heading"></a></h3>
+<h3>Inverter<a class="headerlink" href="#inverter" title="Permalink to this heading"></a></h3>
 <p>Instruction that inverts the execution status of its child, interchanging SUCCESS and FAILURE.</p>
 <p><cite>Inverter</cite> has no specific attributes.</p>
 <ul class="simple">
@@ -615,16 +615,16 @@ The reference can point to an instruction tree in the same definition file or to
 </ul>
 </section>
 <section id="listen">
-<h3>Listen<a class="headerlink" href="#listen" title="Link to this heading"></a></h3>
+<h3>Listen<a class="headerlink" href="#listen" title="Permalink to this heading"></a></h3>
 <p><strong>Asynchronous</strong> instruction that executes its child instruction each time specific variables are updated. By default, it will only report a finished status (success or failure) when the child instruction fails.</p>
 <p>If the user wants to listen to a set of variables in a blocking way, a <cite>blocking</cite> attribute can be set to <cite>true</cite>. Although this would be less CPU consuming, it implies that the instruction is no longer asynchronous, which has implications if it is used as a child of a reactive sequence or fallback.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -681,16 +681,16 @@ The reference can point to an instruction tree in the same definition file or to
 </div>
 </section>
 <section id="repeat">
-<h3>Repeat<a class="headerlink" href="#repeat" title="Link to this heading"></a></h3>
+<h3>Repeat<a class="headerlink" href="#repeat" title="Permalink to this heading"></a></h3>
 <p>Instruction that repeats its child a fixed number of times while successful.</p>
 <p>Repeatedly executes the child instruction, until either: the child fails (FAILURE) or maximum number of repetitions is reached (SUCCESS).</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -726,18 +726,18 @@ The reference can point to an instruction tree in the same definition file or to
 </section>
 </section>
 <section id="action-instructions">
-<span id="action"></span><h2>Action Instructions<a class="headerlink" href="#action-instructions" title="Link to this heading"></a></h2>
+<span id="action"></span><h2>Action Instructions<a class="headerlink" href="#action-instructions" title="Permalink to this heading"></a></h2>
 <p>An action instruction represents a discrete operation or step within a larger sequence of instructions. Actions are fundamental building blocks that perform specific tasks or operations to achieve a particular goal. Action instructions are typically used within compound or decorator instructions.</p>
 <section id="addelement">
-<h3>AddElement<a class="headerlink" href="#addelement" title="Link to this heading"></a></h3>
+<h3>AddElement<a class="headerlink" href="#addelement" title="Permalink to this heading"></a></h3>
 <p>Instruction to add a new array element to a workspace variable using the information provided by a different variable.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>inputVar</p></th>
@@ -773,15 +773,15 @@ The reference can point to an instruction tree in the same definition file or to
 </div>
 </section>
 <section id="addmember">
-<h3>AddMember<a class="headerlink" href="#addmember" title="Link to this heading"></a></h3>
+<h3>AddMember<a class="headerlink" href="#addmember" title="Permalink to this heading"></a></h3>
 <p>Instruction to add a new member to a workspace variable using the information provided by a different variable.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -827,16 +827,16 @@ The reference can point to an instruction tree in the same definition file or to
 </div>
 </section>
 <section id="condition">
-<h3>Condition<a class="headerlink" href="#condition" title="Link to this heading"></a></h3>
+<h3>Condition<a class="headerlink" href="#condition" title="Permalink to this heading"></a></h3>
 <p>Instruction that checks a boolean workspace variable.
 Returns SUCCESS if the variable is true and FAILURE otherwise. If the variable is not a boolean, it will try to convert it to a boolean first, using the usual arithmetic conversions (e.g. 0 is false). If it cannot be converted to a boolean, the instruction reports FAILURE.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -866,15 +866,15 @@ Returns SUCCESS if the variable is true and FAILURE otherwise. If the variable i
 </div>
 </section>
 <section id="copyfromprocedure">
-<h3>CopyFromProcedure<a class="headerlink" href="#copyfromprocedure" title="Link to this heading"></a></h3>
+<h3>CopyFromProcedure<a class="headerlink" href="#copyfromprocedure" title="Permalink to this heading"></a></h3>
 <p>Instruction that copies a variable from the workspace of an external procedure into the current workspace.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -903,15 +903,15 @@ Returns SUCCESS if the variable is true and FAILURE otherwise. If the variable i
 </table>
 </section>
 <section id="copytoprocedure">
-<h3>CopyToProcedure<a class="headerlink" href="#copytoprocedure" title="Link to this heading"></a></h3>
+<h3>CopyToProcedure<a class="headerlink" href="#copytoprocedure" title="Permalink to this heading"></a></h3>
 <p>Instruction that copies a variable from the current workspace into a workspace of an external procedure. When including (parts of) that external procedure later, it will have access to the copied value.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -940,15 +940,15 @@ Returns SUCCESS if the variable is true and FAILURE otherwise. If the variable i
 </table>
 </section>
 <section id="copy">
-<h3>Copy<a class="headerlink" href="#copy" title="Link to this heading"></a></h3>
+<h3>Copy<a class="headerlink" href="#copy" title="Permalink to this heading"></a></h3>
 <p>Instruction that copies the value of an input variable to an output variable</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -975,15 +975,15 @@ Returns SUCCESS if the variable is true and FAILURE otherwise. If the variable i
 </ul>
 </section>
 <section id="decrement">
-<h3>Decrement<a class="headerlink" href="#decrement" title="Link to this heading"></a></h3>
+<h3>Decrement<a class="headerlink" href="#decrement" title="Permalink to this heading"></a></h3>
 <p>Instruction to decrement a numeric variable by 1.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -1005,15 +1005,15 @@ Returns SUCCESS if the variable is true and FAILURE otherwise. If the variable i
 </ul>
 </section>
 <section id="equals">
-<h3>Equals<a class="headerlink" href="#equals" title="Link to this heading"></a></h3>
+<h3>Equals<a class="headerlink" href="#equals" title="Permalink to this heading"></a></h3>
 <p>Instruction to check the equality of two variables.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -1040,16 +1040,16 @@ Returns SUCCESS if the variable is true and FAILURE otherwise. If the variable i
 </ul>
 </section>
 <section id="fail">
-<h3>Fail<a class="headerlink" href="#fail" title="Link to this heading"></a></h3>
+<h3>Fail<a class="headerlink" href="#fail" title="Permalink to this heading"></a></h3>
 <p>Instruction node that returns FAILURE after a given timeout. This instruction is <strong>asynchronous</strong> by default, but can be made synchronous by setting its <cite>blocking</cite> attribute to <cite>true</cite>. In this case, the instruction will block until the timeout is reached or it is halted.
 The <cite>timeout</cite> attribute is optional. When this attribute is not present, the instruction returns FAILURE immediately.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -1073,15 +1073,15 @@ The <cite>timeout</cite> attribute is optional. When this attribute is not prese
 </table>
 </section>
 <section id="greaterthan">
-<h3>GreaterThan<a class="headerlink" href="#greaterthan" title="Link to this heading"></a></h3>
+<h3>GreaterThan<a class="headerlink" href="#greaterthan" title="Permalink to this heading"></a></h3>
 <p>Instruction to check if a variable is greater than other.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -1108,15 +1108,15 @@ The <cite>timeout</cite> attribute is optional. When this attribute is not prese
 </ul>
 </section>
 <section id="greaterthanorequal">
-<h3>GreaterThanOrEqual<a class="headerlink" href="#greaterthanorequal" title="Link to this heading"></a></h3>
+<h3>GreaterThanOrEqual<a class="headerlink" href="#greaterthanorequal" title="Permalink to this heading"></a></h3>
 <p>Instruction to check if a variable is greater or equal to other.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -1143,15 +1143,15 @@ The <cite>timeout</cite> attribute is optional. When this attribute is not prese
 </ul>
 </section>
 <section id="increment">
-<h3>Increment<a class="headerlink" href="#increment" title="Link to this heading"></a></h3>
+<h3>Increment<a class="headerlink" href="#increment" title="Permalink to this heading"></a></h3>
 <p>Instruction to increment a numeric variable by 1.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -1173,15 +1173,15 @@ The <cite>timeout</cite> attribute is optional. When this attribute is not prese
 </ul>
 </section>
 <section id="input">
-<h3>Input<a class="headerlink" href="#input" title="Link to this heading"></a></h3>
+<h3>Input<a class="headerlink" href="#input" title="Permalink to this heading"></a></h3>
 <p><strong>Asynchronous</strong> instruction that writes a user defined value (from UserInterface) into a workspace variable.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -1219,15 +1219,15 @@ The <cite>timeout</cite> attribute is optional. When this attribute is not prese
 </div>
 </section>
 <section id="lessthan">
-<h3>LessThan<a class="headerlink" href="#lessthan" title="Link to this heading"></a></h3>
+<h3>LessThan<a class="headerlink" href="#lessthan" title="Permalink to this heading"></a></h3>
 <p>Instruction to check if a variable is smaller than other.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -1254,15 +1254,15 @@ The <cite>timeout</cite> attribute is optional. When this attribute is not prese
 </ul>
 </section>
 <section id="lessthanorequal">
-<h3>LessThanOrEqual<a class="headerlink" href="#lessthanorequal" title="Link to this heading"></a></h3>
+<h3>LessThanOrEqual<a class="headerlink" href="#lessthanorequal" title="Permalink to this heading"></a></h3>
 <p>Instruction to check if a variable is smaller or equal to other.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -1289,15 +1289,15 @@ The <cite>timeout</cite> attribute is optional. When this attribute is not prese
 </ul>
 </section>
 <section id="log">
-<h3>Log<a class="headerlink" href="#log" title="Link to this heading"></a></h3>
+<h3>Log<a class="headerlink" href="#log" title="Permalink to this heading"></a></h3>
 <p>Instruction that sends a message and/or variable value to the oac-tree log, which is handled by the specific UserInterface used.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -1328,15 +1328,15 @@ The <cite>timeout</cite> attribute is optional. When this attribute is not prese
 <p>The <cite>severity</cite> attribute needs to be one of the following (in decreasing order of severity): emergency, alert, critical, error, warning, notice, info, debug, trace. In the absence of this attribute, the default severity is <cite>info</cite>.</p>
 </section>
 <section id="message">
-<h3>Message<a class="headerlink" href="#message" title="Link to this heading"></a></h3>
+<h3>Message<a class="headerlink" href="#message" title="Permalink to this heading"></a></h3>
 <p>Instruction forwarding a text message to the UserInterface.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -1355,15 +1355,15 @@ The <cite>timeout</cite> attribute is optional. When this attribute is not prese
 </table>
 </section>
 <section id="output">
-<h3>Output<a class="headerlink" href="#output" title="Link to this heading"></a></h3>
+<h3>Output<a class="headerlink" href="#output" title="Permalink to this heading"></a></h3>
 <p>Instruction node that outputs a workspace value to the user interface.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -1396,15 +1396,15 @@ The <cite>timeout</cite> attribute is optional. When this attribute is not prese
 </div>
 </section>
 <section id="resetvariable">
-<h3>ResetVariable<a class="headerlink" href="#resetvariable" title="Link to this heading"></a></h3>
+<h3>ResetVariable<a class="headerlink" href="#resetvariable" title="Permalink to this heading"></a></h3>
 <p>Instruction to reset a variable to its initial state.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -1436,15 +1436,15 @@ The <cite>timeout</cite> attribute is optional. When this attribute is not prese
 </div>
 </section>
 <section id="userconfirmation">
-<h3>UserConfirmation<a class="headerlink" href="#userconfirmation" title="Link to this heading"></a></h3>
+<h3>UserConfirmation<a class="headerlink" href="#userconfirmation" title="Permalink to this heading"></a></h3>
 <p>Simple <strong>asynchronous</strong> instruction representing a user defined confirmation (success) or rejection (failure).</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -1473,15 +1473,15 @@ The <cite>timeout</cite> attribute is optional. When this attribute is not prese
 </table>
 </section>
 <section id="varexists">
-<h3>VarExists<a class="headerlink" href="#varexists" title="Link to this heading"></a></h3>
+<h3>VarExists<a class="headerlink" href="#varexists" title="Permalink to this heading"></a></h3>
 <p>Instruction that checks the existence of a variable in the current workspace.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -1500,16 +1500,16 @@ The <cite>timeout</cite> attribute is optional. When this attribute is not prese
 </table>
 </section>
 <section id="wait">
-<h3>Wait<a class="headerlink" href="#wait" title="Link to this heading"></a></h3>
+<h3>Wait<a class="headerlink" href="#wait" title="Permalink to this heading"></a></h3>
 <p>Instruction node that returns SUCCESS after a given timeout. This instruction is <strong>asynchronous</strong> by default, but can be made synchronous by setting its <cite>blocking</cite> attribute to <cite>true</cite>. In this case, the instruction will block until the timeout is reached or it is halted.
 The <cite>timeout</cite> attribute is optional. When this attribute is not present, the instruction returns SUCCESS immediately.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -1536,15 +1536,15 @@ The <cite>timeout</cite> attribute is optional. When this attribute is not prese
 </ul>
 </section>
 <section id="waitforvariable">
-<h3>WaitForVariable<a class="headerlink" href="#waitforvariable" title="Link to this heading"></a></h3>
+<h3>WaitForVariable<a class="headerlink" href="#waitforvariable" title="Permalink to this heading"></a></h3>
 <p><strong>Asynchronous</strong> instruction node that waits <cite>timeout</cite> seconds for a variable to be readable and non-empty.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>
@@ -1581,15 +1581,15 @@ The <cite>timeout</cite> attribute is optional. When this attribute is not prese
 </ul>
 </section>
 <section id="waitforvariables">
-<h3>WaitForVariables<a class="headerlink" href="#waitforvariables" title="Link to this heading"></a></h3>
+<h3>WaitForVariables<a class="headerlink" href="#waitforvariables" title="Permalink to this heading"></a></h3>
 <p><strong>Asynchronous</strong> instruction node that waits <cite>timeout</cite> seconds for all workspace variables of a given type to be available.</p>
 <p>Attributes:</p>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 21.7%" />
-<col style="width: 21.7%" />
-<col style="width: 13.0%" />
-<col style="width: 43.5%" />
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="row-odd"><th class="head"><p>Attribute name</p></th>

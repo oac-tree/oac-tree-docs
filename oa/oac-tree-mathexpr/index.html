@@ -1,21 +1,22 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Welcome to oac-tree-plugin-mathexpr’s documentation! &mdash; OAC-TREE PLUGIN MATHEXPER</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=7ab3649f" />
-
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=3c4615cf"></script>
-      <script src="_static/doctools.js?v=fd6eb6e6"></script>
-      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -26,15 +27,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="#" class="icon icon-home">
-            oac-tree-plugin-mathexper
+            <a href="#" class="icon icon-home"> oac-tree-plugin-mathexper
           </a>
+              <div class="version">
+                2.5.0
+              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -62,7 +62,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="#" class="icon icon-home"></a></li>
       <li class="breadcrumb-item active">Welcome to oac-tree-plugin-mathexpr’s documentation!</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
@@ -74,14 +74,14 @@
            <div itemprop="articleBody">
              
   <section id="welcome-to-oac-tree-plugin-mathexpr-s-documentation">
-<h1>Welcome to oac-tree-plugin-mathexpr’s documentation!<a class="headerlink" href="#welcome-to-oac-tree-plugin-mathexpr-s-documentation" title="Link to this heading"></a></h1>
+<h1>Welcome to oac-tree-plugin-mathexpr’s documentation!<a class="headerlink" href="#welcome-to-oac-tree-plugin-mathexpr-s-documentation" title="Permalink to this heading"></a></h1>
 <blockquote>
 <div><div class="toctree-wrapper compound">
 </div>
 <p><cite>oac-tree-plugin-mathexpr</cite> is a oac-tree plugin that provides functionality for processing mathematical expressions using the exprtk library.</p>
 </div></blockquote>
 <section id="functionalities">
-<h2>Functionalities<a class="headerlink" href="#functionalities" title="Link to this heading"></a></h2>
+<h2>Functionalities<a class="headerlink" href="#functionalities" title="Permalink to this heading"></a></h2>
 <p>oac-tree-plugin-mathexpr provides the following functionalities for processing mathematical expressions:</p>
 <ol class="arabic simple">
 <li><p>Supports variables of any numeric type supported by AnyValue</p></li>
@@ -91,7 +91,7 @@
 </ol>
 </section>
 <section id="usage">
-<h2>Usage<a class="headerlink" href="#usage" title="Link to this heading"></a></h2>
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this heading"></a></h2>
 <p>To use this plugin it needs to be compiled and installed in the system. The following line has to be added to the xml:</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Plugin&gt;</span>liboac-tree-mathexpr.so<span class="nt">&lt;/Plugin&gt;</span>
 </pre></div>
@@ -166,7 +166,7 @@
 <li><p>&amp; (ampersand) - use &amp;amp;</p></li>
 <li><p>&lt; (less than) - use &amp;lt;</p></li>
 <li><p>&gt; (greater than) - use &amp;gt;</p></li>
-<li><p>“ (double quotation mark) - use &amp;quot;</p></li>
+<li><p>” (double quotation mark) - use &amp;quot;</p></li>
 <li><p>‘ (apostrophe) - use &amp;apos;</p></li>
 </ul>
 <p>From the above referenced characters, the greater than (&gt;) character works as expected, but the less than (&lt;) causes failures. To be sure no errors related to parsing this characters it is better to escape all of them.</p>

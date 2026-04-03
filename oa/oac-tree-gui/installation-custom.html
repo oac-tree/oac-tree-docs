@@ -1,21 +1,22 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Custom installation &mdash; oac-tree GUI</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=7ab3649f" />
-
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=b21de401"></script>
-      <script src="_static/doctools.js?v=fd6eb6e6"></script>
-      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -27,15 +28,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            oac-tree GUI
+            <a href="index.html" class="icon icon-home"> oac-tree GUI
           </a>
+              <div class="version">
+                2.2.0
+              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -70,7 +70,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
           <li class="breadcrumb-item"><a href="installation.html">Installation instructions</a></li>
       <li class="breadcrumb-item active">Custom installation</li>
       <li class="wy-breadcrumbs-aside">
@@ -83,12 +83,12 @@
            <div itemprop="articleBody">
              
   <section id="custom-installation">
-<h1>Custom installation<a class="headerlink" href="#custom-installation" title="Link to this heading"></a></h1>
+<h1>Custom installation<a class="headerlink" href="#custom-installation" title="Permalink to this heading"></a></h1>
 <p><strong>These instructions are intended for developers.</strong></p>
 <p>All COA packages are ordinary CMake packages and they can be compiled and installed on any Linux
 distribution of the user’s choice, like any other CMake project.</p>
 <section id="prerequisites-for-oac-tree-gui">
-<h2>Prerequisites for oac-tree GUI<a class="headerlink" href="#prerequisites-for-oac-tree-gui" title="Link to this heading"></a></h2>
+<h2>Prerequisites for oac-tree GUI<a class="headerlink" href="#prerequisites-for-oac-tree-gui" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>C++-17</p></li>
 <li><p>CMake &gt;= 3.14</p></li>
@@ -100,7 +100,7 @@ distribution of the user’s choice, like any other CMake project.</p>
 <p>A Qt5 build is also possible with the <code class="docutils literal notranslate"><span class="pre">-DCOA_USE_QT6=OFF</span></code> flag.</p>
 </section>
 <section id="install-coa-packages">
-<h2>Install COA packages<a class="headerlink" href="#install-coa-packages" title="Link to this heading"></a></h2>
+<h2>Install COA packages<a class="headerlink" href="#install-coa-packages" title="Permalink to this heading"></a></h2>
 <p>Check out and install packages from <a class="reference external" href="https://github.com/orgs/oac-tree/repositories">oac-tree repository collections</a></p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://github.com/oac-tree/sup-utils">sup-utils</a></p></li>
@@ -128,7 +128,7 @@ This assumes that the user wants to install all dependencies into <cite>&lt;path
 <p>You might need to add <cite>&lt;path-to-local-install&gt;/lib</cite> to <cite>LD_LIBRARY_PATH</cite>.</p>
 </section>
 <section id="alternative-installation-method">
-<h2>Alternative installation method<a class="headerlink" href="#alternative-installation-method" title="Link to this heading"></a></h2>
+<h2>Alternative installation method<a class="headerlink" href="#alternative-installation-method" title="Permalink to this heading"></a></h2>
 <p>This method doesn’t require installing the packages; all packages will be used from their
 <cite>&lt;build&gt;</cite> directories thanks to CMake’s build tree export feature (the configuration is located in
 the $HOME/.cmake directory).

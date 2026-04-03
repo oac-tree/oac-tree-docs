@@ -1,21 +1,22 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Overview &mdash; SUP MVVM</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=7ab3649f" />
-
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=b21de401"></script>
-      <script src="_static/doctools.js?v=fd6eb6e6"></script>
-      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -28,15 +29,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            sup-mvvm
+            <a href="index.html" class="icon icon-home"> sup-mvvm
           </a>
+              <div class="version">
+                2.2.0
+              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -73,7 +73,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
       <li class="breadcrumb-item active">Overview</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/overview.rst.txt" rel="nofollow"> View page source</a>
@@ -85,16 +85,16 @@
            <div itemprop="articleBody">
              
   <section id="overview">
-<h1>Overview<a class="headerlink" href="#overview" title="Link to this heading"></a></h1>
+<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this heading"></a></h1>
 <section id="the-context">
-<h2>The context<a class="headerlink" href="#the-context" title="Link to this heading"></a></h2>
+<h2>The context<a class="headerlink" href="#the-context" title="Permalink to this heading"></a></h2>
 <p>This model-view-viewmodel <strong>mvvm</strong> framework is intended for large Qt-based
 scientific applications written in C++. The definition of <cite>large</cite> is quite
 arbitrary and means something in a line “can be easilly above 50K of LOC”.</p>
 <p>All classes in the framework are build around the concept of model-view-viewmodel design pattern for
 graphical user interface creation, and thus fails in one of these three categories.</p>
 <section id="the-model">
-<h3>The Model<a class="headerlink" href="#the-model" title="Link to this heading"></a></h3>
+<h3>The Model<a class="headerlink" href="#the-model" title="Permalink to this heading"></a></h3>
 <p>The first part of the framework, the model, consists of a group of classes to
 build a tree-like structure, named <code class="docutils literal notranslate"><span class="pre">SessionModel</span></code>, to handle any data of the
 GUI session. The data in this model is originated, at least partly, from the
@@ -114,7 +114,7 @@ to handle the data and logic of GUI while being independent on any particular
 GUI library.</p>
 </section>
 <section id="the-viewmodel">
-<h3>The ViewModel<a class="headerlink" href="#the-viewmodel" title="Link to this heading"></a></h3>
+<h3>The ViewModel<a class="headerlink" href="#the-viewmodel" title="Permalink to this heading"></a></h3>
 <p>The second part defines <code class="docutils literal notranslate"><span class="pre">ViewModel</span></code> and serves as a thin counterpart of
 <code class="docutils literal notranslate"><span class="pre">SessionModel</span></code> in the Qt world. <code class="docutils literal notranslate"><span class="pre">ViewModel</span></code> doesn’t own the data but simply acts
 as a proxy to different parts of <code class="docutils literal notranslate"><span class="pre">SessionModel</span></code>. It is derived from
@@ -128,13 +128,13 @@ Particularly, the aforementioned machinery allows having something in the line
 of the ancient <a class="reference external" href="https://doc.qt.io/archives/qq/qq18-propertybrowser.html">Qt property browser framework</a>.</p>
 </section>
 <section id="the-view">
-<h3>The View<a class="headerlink" href="#the-view" title="Link to this heading"></a></h3>
+<h3>The View<a class="headerlink" href="#the-view" title="Permalink to this heading"></a></h3>
 <p>The third part, the View, contains few convenience widgets for property editing.
 In the future this part can be extended with widget library for scientific plotting.</p>
 </section>
 </section>
 <section id="list-of-features">
-<h2>List of features<a class="headerlink" href="#list-of-features" title="Link to this heading"></a></h2>
+<h2>List of features<a class="headerlink" href="#list-of-features" title="Permalink to this heading"></a></h2>
 <p><strong>Model part</strong></p>
 <ul class="simple">
 <li><p>Application model to store arbitrary data of GUI session.</p></li>

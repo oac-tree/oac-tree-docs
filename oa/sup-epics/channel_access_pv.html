@@ -1,21 +1,22 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>EPICS Channel Access PVs &mdash; SUP EPICS</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=7ab3649f" />
-
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=6cf1fb80"></script>
-      <script src="_static/doctools.js?v=fd6eb6e6"></script>
-      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -28,15 +29,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            sup-epics
+            <a href="index.html" class="icon icon-home"> sup-epics
           </a>
+              <div class="version">
+                1.11.0
+              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -51,10 +51,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#enumeration-types">Enumeration types</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#construction">Construction</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#_CPPv415ChannelAccessPVRKNSt6stringERKN3sup3dto7AnyTypeE23VariableChangedCallback"><code class="docutils literal notranslate"><span class="pre">ChannelAccessPV()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#construction">Construction</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="pv_access_pv.html">EPICS PvAccess PVs</a></li>
@@ -73,7 +70,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
       <li class="breadcrumb-item active">EPICS Channel Access PVs</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/channel_access_pv.rst.txt" rel="nofollow"> View page source</a>
@@ -85,7 +82,7 @@
            <div itemprop="articleBody">
              
   <section id="epics-channel-access-pvs">
-<h1>EPICS Channel Access PVs<a class="headerlink" href="#epics-channel-access-pvs" title="Link to this heading"></a></h1>
+<h1>EPICS Channel Access PVs<a class="headerlink" href="#epics-channel-access-pvs" title="Permalink to this heading"></a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">ChannelAccessPV</span></code> class provides a convenient API to represent a client connection to an EPICS Channel Access process variable (PV). Upon construction, it will try to establish a channel to this PV and allows the user to define callbacks for connection and update events.</p>
 <nav class="contents local" id="contents">
 <ul class="simple">
@@ -100,7 +97,7 @@
 </ul>
 </nav>
 <section id="a-note-on-types">
-<h2><a class="toc-backref" href="#id1" role="doc-backlink">A note on types</a><a class="headerlink" href="#a-note-on-types" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">A note on types</a><a class="headerlink" href="#a-note-on-types" title="Permalink to this heading"></a></h2>
 <p>An EPICS Channel Access PV has a definite record type, e.g. binary input (bi), analog output (ao), etc. When creating a client connection to such a PV, an <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> needs to be provided to indicate the desired format of the <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> that will be made available at the client side. This process allows for certain types of conversions, but also imposes some restrictions.</p>
 <p>A distinction is made between scalar numerical types and strings, array types and enumeration types. It is advised to adhere to the following rules in order not to face surprises:</p>
 <ul class="simple">
@@ -110,7 +107,7 @@
 <li><p>For waveform and array records (aai/aao/waveform), use an array <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> with an element type that corresponds to the native element’s format. Again, larger representations will work as expected if the signedness of integers is respected.</p></li>
 </ul>
 <section id="scalar-numerical-record-types-and-strings">
-<h3><a class="toc-backref" href="#id2" role="doc-backlink">Scalar numerical record types and strings</a><a class="headerlink" href="#scalar-numerical-record-types-and-strings" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id2" role="doc-backlink">Scalar numerical record types and strings</a><a class="headerlink" href="#scalar-numerical-record-types-and-strings" title="Permalink to this heading"></a></h3>
 <p>For record types that are numerical scalars, i.e. their value encodes just a number, there is always a corresponding <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> that has the exact same precision and range:</p>
 <ul class="simple">
 <li><p>Analog input/output (ai/ao) and other records with <code class="docutils literal notranslate"><span class="pre">DOUBLE</span></code> value: <code class="docutils literal notranslate"><span class="pre">sup::dto::Float64Type</span></code>,</p></li>
@@ -128,7 +125,7 @@
 <p>Note that long string records (lsi/lso) are currently not supported.</p>
 </section>
 <section id="array-types">
-<h3><a class="toc-backref" href="#id3" role="doc-backlink">Array types</a><a class="headerlink" href="#array-types" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id3" role="doc-backlink">Array types</a><a class="headerlink" href="#array-types" title="Permalink to this heading"></a></h3>
 <p>Record types that encode arrays (aai/aao/waveform) should be requested with an array <code class="docutils literal notranslate"><span class="pre">AnyType</span></code>, whose element type corresponds to the record’s element type:</p>
 <ul class="simple">
 <li><p>aai/aao: element type should be <code class="docutils literal notranslate"><span class="pre">sup::dto::Float64Type</span></code>,</p></li>
@@ -137,7 +134,7 @@
 <p>The same conversions as for scalars can occur here and the user is advised to adhere to the same rules regarding requested types.</p>
 </section>
 <section id="enumeration-types">
-<h3><a class="toc-backref" href="#id4" role="doc-backlink">Enumeration types</a><a class="headerlink" href="#enumeration-types" title="Link to this heading"></a></h3>
+<h3><a class="toc-backref" href="#id4" role="doc-backlink">Enumeration types</a><a class="headerlink" href="#enumeration-types" title="Permalink to this heading"></a></h3>
 <p>These represent a more complex case, since requesting a string will result in the string enumerator, as opposed to a string representation of a number. Due to limitations in the EPICS CA client library, some fundamental types cannot be encoded directly over a connected channel:</p>
 <ul class="simple">
 <li><p>Unsigned integers, other than <code class="docutils literal notranslate"><span class="pre">sup::dto::UnsignedInteger16Type</span></code> cannot be transferred over the channel as numerical values of the correct size. When requesting any unsigned integer <code class="docutils literal notranslate"><span class="pre">AnyType</span></code>, this will result in a channel that will transfer the values as 16bit unsigned integers that will be converted to the appropriate target <code class="docutils literal notranslate"><span class="pre">AnyType</span></code>. When used on enumeration types, this is perfectly fine, since the underlying index is also 16bit, so no truncation will take place.</p></li>
@@ -147,11 +144,11 @@
 </section>
 </section>
 <section id="construction">
-<h2><a class="toc-backref" href="#id5" role="doc-backlink">Construction</a><a class="headerlink" href="#construction" title="Link to this heading"></a></h2>
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Construction</a><a class="headerlink" href="#construction" title="Permalink to this heading"></a></h2>
 <p>A <code class="docutils literal notranslate"><span class="pre">ChannelAccessPV</span></code> object is created by providing the EPICS channel name, a requested <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> and an optional callback function that will be called on value or connection state updates.</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv415ChannelAccessPVRKNSt6stringERKN3sup3dto7AnyTypeE23VariableChangedCallback">
-<span id="_CPPv315ChannelAccessPVRKNSt6stringERKN3sup3dto7AnyTypeE23VariableChangedCallback"></span><span id="_CPPv215ChannelAccessPVRKNSt6stringERKN3sup3dto7AnyTypeE23VariableChangedCallback"></span><span id="ChannelAccessPV__ssCR.sup::dto::AnyTypeCR.VariableChangedCallback"></span><span class="sig-name descname"><span class="n"><span class="pre">ChannelAccessPV</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">channel</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">sup</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">dto</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">VariableChangedCallback</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">cb</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv415ChannelAccessPVRKNSt6stringERKN3sup3dto7AnyTypeE23VariableChangedCallback" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv315ChannelAccessPVRKNSt6stringERKN3sup3dto7AnyTypeE23VariableChangedCallback"></span><span id="_CPPv215ChannelAccessPVRKNSt6stringERKN3sup3dto7AnyTypeE23VariableChangedCallback"></span><span id="ChannelAccessPV__ssCR.sup::dto::AnyTypeCR.VariableChangedCallback"></span><span class="sig-name descname"><span class="n"><span class="pre">ChannelAccessPV</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">channel</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">sup</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">dto</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">type</span></span>, <span class="n"><span class="pre">VariableChangedCallback</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">cb</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><span class="p"><span class="pre">;</span></span><a class="headerlink" href="#_CPPv415ChannelAccessPVRKNSt6stringERKN3sup3dto7AnyTypeE23VariableChangedCallback" title="Permalink to this definition"></a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

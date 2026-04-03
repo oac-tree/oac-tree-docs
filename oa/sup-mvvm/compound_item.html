@@ -1,21 +1,22 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>CompoundItem &mdash; SUP MVVM</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=7ab3649f" />
-
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=b21de401"></script>
-      <script src="_static/doctools.js?v=fd6eb6e6"></script>
-      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -28,15 +29,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            sup-mvvm
+            <a href="index.html" class="icon icon-home"> sup-mvvm
           </a>
+              <div class="version">
+                2.2.0
+              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -54,10 +54,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#other-compound-items-as-properties">Other compound items as properties</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#remark-on-the-back-compatibility">Remark on the back-compatibility</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#remark-on-conventional-class-api">Remark on conventional class API</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#compounditem-api">CompoundItem API</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N4mvvm12CompoundItemE"><code class="docutils literal notranslate"><span class="pre">mvvm::CompoundItem</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="#compounditem-api">CompoundItem API</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="standard_items.html">Standard items</a></li>
@@ -80,7 +77,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
           <li class="breadcrumb-item"><a href="main_components.html">Main components</a></li>
       <li class="breadcrumb-item active">CompoundItem</li>
       <li class="wy-breadcrumbs-aside">
@@ -93,11 +90,11 @@
            <div itemprop="articleBody">
              
   <section id="compounditem">
-<h1>CompoundItem<a class="headerlink" href="#compounditem" title="Link to this heading"></a></h1>
+<h1>CompoundItem<a class="headerlink" href="#compounditem" title="Permalink to this heading"></a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">CompoundItem</span></code> is a convenience class derived from <code class="docutils literal notranslate"><span class="pre">SessionItem</span></code> that offers
 several additional methods to simplify the creation of item properties.</p>
 <section id="adding-properties">
-<h2>Adding properties<a class="headerlink" href="#adding-properties" title="Link to this heading"></a></h2>
+<h2>Adding properties<a class="headerlink" href="#adding-properties" title="Permalink to this heading"></a></h2>
 <p>The property of the <code class="docutils literal notranslate"><span class="pre">CompoundItem</span></code> is another child item, inserted into the named
 container and carrying the data. There can be only one property item associated with the
 property name, and it can not be removed from the parent.</p>
@@ -131,7 +128,7 @@ distribution, another for standard deviation:</p>
 </div>
 </section>
 <section id="accessing-properties">
-<h2>Accessing properties<a class="headerlink" href="#accessing-properties" title="Link to this heading"></a></h2>
+<h2>Accessing properties<a class="headerlink" href="#accessing-properties" title="Permalink to this heading"></a></h2>
 <p>The methods <code class="docutils literal notranslate"><span class="pre">CompoundItem::Property</span></code> and <code class="docutils literal notranslate"><span class="pre">CompoundItem::SetProperty</span></code> can be used to access
 and modify the underlying data of the property item:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">GaussianItem</span><span class="w"> </span><span class="n">item</span><span class="p">;</span>
@@ -152,7 +149,7 @@ and modify the underlying data of the property item:</p>
 </div>
 </section>
 <section id="other-compound-items-as-properties">
-<h2>Other compound items as properties<a class="headerlink" href="#other-compound-items-as-properties" title="Link to this heading"></a></h2>
+<h2>Other compound items as properties<a class="headerlink" href="#other-compound-items-as-properties" title="Permalink to this heading"></a></h2>
 <p>Other <code class="docutils literal notranslate"><span class="pre">CompoundItems</span></code> can be registered as property items too.
 In the snippet below we define a <code class="docutils literal notranslate"><span class="pre">VectorItem</span></code> with three properties for (X, Y, Z) coordinates:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">VectorItem</span>
@@ -179,7 +176,7 @@ property:</p>
 </div>
 </section>
 <section id="remark-on-the-back-compatibility">
-<h2>Remark on the back-compatibility<a class="headerlink" href="#remark-on-the-back-compatibility" title="Link to this heading"></a></h2>
+<h2>Remark on the back-compatibility<a class="headerlink" href="#remark-on-the-back-compatibility" title="Permalink to this heading"></a></h2>
 <p>It is important to stress that the string <cite>“mean”</cite> used during
 property creation via convenience method <cite>AddProperty(“mean”, 0.0)</cite> plays two roles:
 it is used as a tag name for container, and as a display name for property item.</p>
@@ -225,7 +222,7 @@ using string constants, instead of literals:</p>
 </div>
 </section>
 <section id="remark-on-conventional-class-api">
-<h2>Remark on conventional class API<a class="headerlink" href="#remark-on-conventional-class-api" title="Link to this heading"></a></h2>
+<h2>Remark on conventional class API<a class="headerlink" href="#remark-on-conventional-class-api" title="Permalink to this heading"></a></h2>
 <p>As we have seen above, the <cite>CompoundItem</cite> allows conveniently registering class properties. These
 properties are based on the same <cite>SessionItem</cite> machinery and are the subject to
 all benefits that the <cite>SessionItem</cite> hierarchy offer:</p>
@@ -280,24 +277,24 @@ implementation details of property machinery remain hidden from the users of the
 class.</p>
 </section>
 <section id="compounditem-api">
-<h2>CompoundItem API<a class="headerlink" href="#compounditem-api" title="Link to this heading"></a></h2>
+<h2>CompoundItem API<a class="headerlink" href="#compounditem-api" title="Permalink to this heading"></a></h2>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv4N4mvvm12CompoundItemE">
-<span id="_CPPv3N4mvvm12CompoundItemE"></span><span id="_CPPv2N4mvvm12CompoundItemE"></span><span id="mvvm::CompoundItem"></span><span class="target" id="classmvvm_1_1CompoundItem"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CompoundItem</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mvvm</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><a class="headerlink" href="#_CPPv4N4mvvm12CompoundItemE" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N4mvvm12CompoundItemE"></span><span id="_CPPv2N4mvvm12CompoundItemE"></span><span id="mvvm::CompoundItem"></span><span class="target" id="classmvvm_1_1CompoundItem"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CompoundItem</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">mvvm</span></span><span class="p"><span class="pre">::</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><a class="headerlink" href="#_CPPv4N4mvvm12CompoundItemE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>A compound item with convenient methods for adding properties. The property is a single <a class="reference internal" href="standard_items.html#classmvvm_1_1PropertyItem"><span class="std std-ref">PropertyItem</span></a> or another <a class="reference internal" href="#classmvvm_1_1CompoundItem"><span class="std std-ref">CompoundItem</span></a> inserted into the named container and carrying the data. There can be only one property item associated with the property name, and it can not be removed from the parent. </p>
 <p>Subclassed by <a class="reference internal" href="standard_items.html#classmvvm_1_1BasicAxisItem"><span class="std std-ref">mvvm::BasicAxisItem</span></a>, <a class="reference internal" href="standard_items.html#classmvvm_1_1ContainerItem"><span class="std std-ref">mvvm::ContainerItem</span></a>, <a class="reference internal" href="standard_items.html#classmvvm_1_1Data1DItem"><span class="std std-ref">mvvm::Data1DItem</span></a>, <a class="reference internal" href="standard_items.html#classmvvm_1_1GraphItem"><span class="std std-ref">mvvm::GraphItem</span></a>, mvvm::LineSeriesDataItem, mvvm::LineSeriesItem, mvvm::NodeItem, <a class="reference internal" href="standard_items.html#classmvvm_1_1PenItem"><span class="std std-ref">mvvm::PenItem</span></a>, mvvm::PointItem, <a class="reference internal" href="standard_items.html#classmvvm_1_1TextItem"><span class="std std-ref">mvvm::TextItem</span></a>, <a class="reference internal" href="standard_items.html#classmvvm_1_1VectorItem"><span class="std std-ref">mvvm::VectorItem</span></a>, <a class="reference internal" href="standard_items.html#classmvvm_1_1ViewportItem"><span class="std std-ref">mvvm::ViewportItem</span></a></p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK4mvvm12CompoundItem5CloneEv">
-<span id="_CPPv3NK4mvvm12CompoundItem5CloneEv"></span><span id="_CPPv2NK4mvvm12CompoundItem5CloneEv"></span><span id="mvvm::CompoundItem::CloneC"></span><span class="target" id="classmvvm_1_1CompoundItem_1a2dc91bdc30a105fed22d98d35ca702ed"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Clone</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm12CompoundItem5CloneEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3NK4mvvm12CompoundItem5CloneEv"></span><span id="_CPPv2NK4mvvm12CompoundItem5CloneEv"></span><span id="mvvm::CompoundItem::CloneC"></span><span class="target" id="classmvvm_1_1CompoundItem_1a2dc91bdc30a105fed22d98d35ca702ed"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">unique_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Clone</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm12CompoundItem5CloneEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Creates a clone of the item. </p>
 <p>Creates an exact clone of the item together with all its children. All item identifiers will be the same. Please note, that cloned items can’t be used along with the original item in the same model due to memory pool identifiers collision. Use utils::CopyItem to create deep copies that have different item identifiers. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN4mvvm12CompoundItem9AddBranchER1TRKNSt11string_viewE">
-<span id="_CPPv3I0EN4mvvm12CompoundItem9AddBranchERKNSt11string_viewE"></span><span id="_CPPv2I0EN4mvvm12CompoundItem9AddBranchERKNSt11string_viewE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmvvm_1_1CompoundItem_1a05f45e7ddf5928c37d03eec5ea3830f4"></span><a class="reference internal" href="#_CPPv4I0EN4mvvm12CompoundItem9AddBranchER1TRKNSt11string_viewE" title="mvvm::CompoundItem::AddBranch::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">AddBranch</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN4mvvm12CompoundItem9AddBranchER1TRKNSt11string_viewE" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3I0EN4mvvm12CompoundItem9AddBranchERKNSt11string_viewE"></span><span id="_CPPv2I0EN4mvvm12CompoundItem9AddBranchERKNSt11string_viewE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmvvm_1_1CompoundItem_1a05f45e7ddf5928c37d03eec5ea3830f4"></span><a class="reference internal" href="#_CPPv4I0EN4mvvm12CompoundItem9AddBranchER1TRKNSt11string_viewE" title="mvvm::CompoundItem::AddBranch::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">AddBranch</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN4mvvm12CompoundItem9AddBranchER1TRKNSt11string_viewE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Adds and item of given type, and registers it under the given name as branch item. </p>
 <p>
 A branch item is an item which is normally shown in top-level item hierarchies, but hidden from property editors. Once inserted, it can’t be removed. </p>
@@ -313,7 +310,7 @@ A branch item is an item which is normally shown in top-level item hierarchies, 
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN4mvvm12CompoundItem11AddPropertyER1TRKNSt11string_viewE">
-<span id="_CPPv3I0EN4mvvm12CompoundItem11AddPropertyERKNSt11string_viewE"></span><span id="_CPPv2I0EN4mvvm12CompoundItem11AddPropertyERKNSt11string_viewE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmvvm_1_1CompoundItem_1a027a16756bce23b99ef9f75923fcce12"></span><a class="reference internal" href="#_CPPv4I0EN4mvvm12CompoundItem11AddPropertyER1TRKNSt11string_viewE" title="mvvm::CompoundItem::AddProperty::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">AddProperty</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN4mvvm12CompoundItem11AddPropertyER1TRKNSt11string_viewE" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3I0EN4mvvm12CompoundItem11AddPropertyERKNSt11string_viewE"></span><span id="_CPPv2I0EN4mvvm12CompoundItem11AddPropertyERKNSt11string_viewE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmvvm_1_1CompoundItem_1a027a16756bce23b99ef9f75923fcce12"></span><a class="reference internal" href="#_CPPv4I0EN4mvvm12CompoundItem11AddPropertyER1TRKNSt11string_viewE" title="mvvm::CompoundItem::AddProperty::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">AddProperty</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN4mvvm12CompoundItem11AddPropertyER1TRKNSt11string_viewE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Adds an item of a given type and register it under the given ‘name’ as a property item. </p>
 <p>
 A property item is an item which is normally hidden in top-level item hierarchies, but shown in property editors. Once inserted, it can’t be removed. </p>
@@ -329,26 +326,26 @@ A property item is an item which is normally hidden in top-level item hierarchie
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN4mvvm12CompoundItem11AddPropertyER12PropertyItemRKNSt11string_viewERK1V">
-<span id="_CPPv3I0EN4mvvm12CompoundItem11AddPropertyERKNSt11string_viewERK1V"></span><span id="_CPPv2I0EN4mvvm12CompoundItem11AddPropertyERKNSt11string_viewERK1V"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">V</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmvvm_1_1CompoundItem_1a02d1c9185e02c8a565c97481098fc969"></span><a class="reference internal" href="standard_items.html#_CPPv4N4mvvm12PropertyItemE" title="mvvm::PropertyItem"><span class="n"><span class="pre">PropertyItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">AddProperty</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4mvvm12CompoundItem11AddPropertyER12PropertyItemRKNSt11string_viewERK1V" title="mvvm::CompoundItem::AddProperty::V"><span class="n"><span class="pre">V</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN4mvvm12CompoundItem11AddPropertyER12PropertyItemRKNSt11string_viewERK1V" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3I0EN4mvvm12CompoundItem11AddPropertyERKNSt11string_viewERK1V"></span><span id="_CPPv2I0EN4mvvm12CompoundItem11AddPropertyERKNSt11string_viewERK1V"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">V</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmvvm_1_1CompoundItem_1a02d1c9185e02c8a565c97481098fc969"></span><a class="reference internal" href="standard_items.html#_CPPv4N4mvvm12PropertyItemE" title="mvvm::PropertyItem"><span class="n"><span class="pre">PropertyItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">AddProperty</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4mvvm12CompoundItem11AddPropertyER12PropertyItemRKNSt11string_viewERK1V" title="mvvm::CompoundItem::AddProperty::V"><span class="n"><span class="pre">V</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN4mvvm12CompoundItem11AddPropertyER12PropertyItemRKNSt11string_viewERK1V" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Adds property item and sets its value. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N4mvvm12CompoundItem11AddPropertyERKNSt11string_viewEPKc">
-<span id="_CPPv3N4mvvm12CompoundItem11AddPropertyERKNSt11string_viewEPKc"></span><span id="_CPPv2N4mvvm12CompoundItem11AddPropertyERKNSt11string_viewEPKc"></span><span id="mvvm::CompoundItem::AddProperty__std::string_viewCR.cCP"></span><span class="target" id="classmvvm_1_1CompoundItem_1af38f4d11e33371c44a2dc7da5c651abf"></span><a class="reference internal" href="standard_items.html#_CPPv4N4mvvm12PropertyItemE" title="mvvm::PropertyItem"><span class="n"><span class="pre">PropertyItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">AddProperty</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm12CompoundItem11AddPropertyERKNSt11string_viewEPKc" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N4mvvm12CompoundItem11AddPropertyERKNSt11string_viewEPKc"></span><span id="_CPPv2N4mvvm12CompoundItem11AddPropertyERKNSt11string_viewEPKc"></span><span id="mvvm::CompoundItem::AddProperty__std::string_viewCR.cCP"></span><span class="target" id="classmvvm_1_1CompoundItem_1af38f4d11e33371c44a2dc7da5c651abf"></span><a class="reference internal" href="standard_items.html#_CPPv4N4mvvm12PropertyItemE" title="mvvm::PropertyItem"><span class="n"><span class="pre">PropertyItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">AddProperty</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">char</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4mvvm12CompoundItem11AddPropertyERKNSt11string_viewEPKc" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Adds property item and sets its value (specialised for char). </p>
 <p>Specialized version for const char is introduced to avoid “const char” conversion into variant&lt;bool&gt;. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK4mvvm12CompoundItem14GetDisplayNameEv">
-<span id="_CPPv3NK4mvvm12CompoundItem14GetDisplayNameEv"></span><span id="_CPPv2NK4mvvm12CompoundItem14GetDisplayNameEv"></span><span id="mvvm::CompoundItem::GetDisplayNameC"></span><span class="target" id="classmvvm_1_1CompoundItem_1a81a7536fd2a6b138bd77b49b97733b5c"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetDisplayName</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm12CompoundItem14GetDisplayNameEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3NK4mvvm12CompoundItem14GetDisplayNameEv"></span><span id="_CPPv2NK4mvvm12CompoundItem14GetDisplayNameEv"></span><span id="mvvm::CompoundItem::GetDisplayNameC"></span><span class="target" id="classmvvm_1_1CompoundItem_1a81a7536fd2a6b138bd77b49b97733b5c"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetDisplayName</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4mvvm12CompoundItem14GetDisplayNameEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Returns item display name. </p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4I0ENK4mvvm12CompoundItem8PropertyE1TRKNSt11string_viewE">
-<span id="_CPPv3I0ENK4mvvm12CompoundItem8PropertyERKNSt11string_viewE"></span><span id="_CPPv2I0ENK4mvvm12CompoundItem8PropertyERKNSt11string_viewE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmvvm_1_1CompoundItem_1ad40c0a79b92978a00bc61d2bdecdee93"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0ENK4mvvm12CompoundItem8PropertyE1TRKNSt11string_viewE" title="mvvm::CompoundItem::Property::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Property</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tag</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0ENK4mvvm12CompoundItem8PropertyE1TRKNSt11string_viewE" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3I0ENK4mvvm12CompoundItem8PropertyERKNSt11string_viewE"></span><span id="_CPPv2I0ENK4mvvm12CompoundItem8PropertyERKNSt11string_viewE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmvvm_1_1CompoundItem_1ad40c0a79b92978a00bc61d2bdecdee93"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0ENK4mvvm12CompoundItem8PropertyE1TRKNSt11string_viewE" title="mvvm::CompoundItem::Property::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Property</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tag</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0ENK4mvvm12CompoundItem8PropertyE1TRKNSt11string_viewE" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Returns value stored in property item. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -365,7 +362,7 @@ A property item is an item which is normally hidden in top-level item hierarchie
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4I0EN4mvvm12CompoundItem11SetPropertyEbRKNSt11string_viewERK1T">
-<span id="_CPPv3I0EN4mvvm12CompoundItem11SetPropertyERKNSt11string_viewERK1T"></span><span id="_CPPv2I0EN4mvvm12CompoundItem11SetPropertyERKNSt11string_viewERK1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmvvm_1_1CompoundItem_1a957ffdd37b429976548e773993c8b1eb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetProperty</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tag</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4mvvm12CompoundItem11SetPropertyEbRKNSt11string_viewERK1T" title="mvvm::CompoundItem::SetProperty::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN4mvvm12CompoundItem11SetPropertyEbRKNSt11string_viewERK1T" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3I0EN4mvvm12CompoundItem11SetPropertyERKNSt11string_viewERK1T"></span><span id="_CPPv2I0EN4mvvm12CompoundItem11SetPropertyERKNSt11string_viewERK1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classmvvm_1_1CompoundItem_1a957ffdd37b429976548e773993c8b1eb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SetProperty</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string_view</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tag</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4mvvm12CompoundItem11SetPropertyEbRKNSt11string_viewERK1T" title="mvvm::CompoundItem::SetProperty::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN4mvvm12CompoundItem11SetPropertyEbRKNSt11string_viewERK1T" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Sets the value of the property. </p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>

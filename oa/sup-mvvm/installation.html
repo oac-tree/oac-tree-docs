@@ -1,21 +1,22 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Installation &mdash; SUP MVVM</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=7ab3649f" />
-
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=b21de401"></script>
-      <script src="_static/doctools.js?v=fd6eb6e6"></script>
-      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -28,15 +29,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            sup-mvvm
+            <a href="index.html" class="icon icon-home"> sup-mvvm
           </a>
+              <div class="version">
+                2.2.0
+              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -73,7 +73,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
       <li class="breadcrumb-item active">Installation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
@@ -85,9 +85,9 @@
            <div itemprop="articleBody">
              
   <section id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h1>
+<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h1>
 <section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading"></a></h2>
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading"></a></h2>
 <ul class="simple">
 <li><p>C++17</p></li>
 <li><p>CMake 3.14</p></li>
@@ -96,15 +96,15 @@
 </ul>
 </section>
 <section id="id1">
-<h2>Installation<a class="headerlink" href="#id1" title="Link to this heading"></a></h2>
+<h2>Installation<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h2>
 <section id="installation-on-codac-7-1-machines-from-rpm">
-<h3>Installation on CODAC 7.1 machines from RPM<a class="headerlink" href="#installation-on-codac-7-1-machines-from-rpm" title="Link to this heading"></a></h3>
+<h3>Installation on CODAC 7.1 machines from RPM<a class="headerlink" href="#installation-on-codac-7-1-machines-from-rpm" title="Permalink to this heading"></a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>yum<span class="w"> </span>install<span class="w"> </span>codac-core-7.1-sup-mvvm.x86_64
 </pre></div>
 </div>
 </section>
 <section id="installation-on-linux-of-the-user-s-choice">
-<h3>Installation on Linux of the user’s choice<a class="headerlink" href="#installation-on-linux-of-the-user-s-choice" title="Link to this heading"></a></h3>
+<h3>Installation on Linux of the user’s choice<a class="headerlink" href="#installation-on-linux-of-the-user-s-choice" title="Permalink to this heading"></a></h3>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://git.iter.org/scm/coa/sup-mvvm.git
 mkdir<span class="w"> </span>&lt;build&gt;<span class="p">;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>&lt;build&gt;
 cmake<span class="w"> </span>&lt;path-to-repo&gt;<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>make<span class="w"> </span>-j4<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>ctest
@@ -112,7 +112,7 @@ cmake<span class="w"> </span>&lt;path-to-repo&gt;<span class="w"> </span><span c
 </div>
 </section>
 <section id="building-on-codac-7-1-machines-from-source">
-<h3>Building on CODAC 7.1 machines from source<a class="headerlink" href="#building-on-codac-7-1-machines-from-source" title="Link to this heading"></a></h3>
+<h3>Building on CODAC 7.1 machines from source<a class="headerlink" href="#building-on-codac-7-1-machines-from-source" title="Permalink to this heading"></a></h3>
 <p>Note: we are using gtest packaged for 7.1 specially.</p>
 <div class="highlight-sh notranslate"><div class="highlight"><pre><span></span><span class="c1"># install latest gtest, libxml2</span>
 yum<span class="w"> </span>install<span class="w"> </span>codac-core-7.1-gtest-1.12.1-devel.x86_64<span class="w"> </span>libxml2-devel.x86_64

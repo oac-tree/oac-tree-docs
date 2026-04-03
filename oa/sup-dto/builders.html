@@ -1,21 +1,22 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AnyType/AnyValue builders &mdash; SUP DTO</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=7ab3649f" />
-
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=1d24b1d9"></script>
-      <script src="_static/doctools.js?v=fd6eb6e6"></script>
-      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -28,15 +29,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            sup-dto
+            <a href="index.html" class="icon icon-home"> sup-dto
           </a>
+              <div class="version">
+                1.10.0
+              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -48,74 +48,8 @@
 <li class="toctree-l1"><a class="reference internal" href="anyvalue.html">AnyValue</a></li>
 <li class="toctree-l1"><a class="reference internal" href="serialization.html">Serialization and parsing</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">AnyType/AnyValue builders</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#anytypecomposer">AnyTypeComposer</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#_CPPv415AnyTypeComposer"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer15AnyTypeComposerEv"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::AnyTypeComposer()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer11MoveAnyTypeEv"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::MoveAnyType()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer5EmptyEv"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::Empty()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer4BoolEv"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::Bool()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer5Char8Ev"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::Char8()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer4Int8Ev"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::Int8()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer5UInt8Ev"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::UInt8()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer5Int16Ev"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::Int16()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer6UInt16Ev"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::UInt16()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer5Int32Ev"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::Int32()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer6UInt32Ev"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::UInt32()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer5Int64Ev"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::Int64()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer6UInt64Ev"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::UInt64()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer7Float32Ev"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::Float32()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer7Float64Ev"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::Float64()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer6StringEv"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::String()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer11StartStructERKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::StartStruct()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer11StartStructEv"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::StartStruct()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer9EndStructEv"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::EndStruct()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer10StartFieldERKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::StartField()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer8EndFieldEv"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::EndField()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer10StartArrayERKNSt6stringE6uint64"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::StartArray()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer8EndArrayEv"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::EndArray()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer17StartArrayElementEv"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::StartArrayElement()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N15AnyTypeComposer15EndArrayElementEv"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::EndArrayElement()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK15AnyTypeComposer12GetStackSizeEv"><code class="docutils literal notranslate"><span class="pre">AnyTypeComposer::GetStackSize()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#anyvaluecomposer">AnyValueComposer</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#_CPPv416AnyValueComposer"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer</span></code></a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer16AnyValueComposerEv"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::AnyValueComposer()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer12MoveAnyValueEv"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::MoveAnyValue()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer5EmptyEv"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::Empty()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer4BoolE7boolean"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::Bool()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer5Char8E5char8"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::Char8()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer4Int8E4int8"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::Int8()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer5UInt8E5uint8"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::UInt8()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer5Int16E5int16"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::Int16()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer6UInt16E6uint16"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::UInt16()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer5Int32E5int32"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::Int32()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer6UInt32E6uint32"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::UInt32()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer5Int64E5int64"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::Int64()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer6UInt64E6uint64"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::UInt64()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer7Float32E7float32"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::Float32()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer7Float64E7float64"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::Float64()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer6StringERKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::String()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer8AddValueERK8AnyValue"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::AddValue()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer11StartStructERKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::StartStruct()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer11StartStructEv"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::StartStruct()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer9EndStructEv"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::EndStruct()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer10StartFieldERKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::StartField()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer8EndFieldEv"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::EndField()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer9AddMemberERKNSt6stringE8AnyValue"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::AddMember()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer10StartArrayERKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::StartArray()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer10StartArrayEv"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::StartArray()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer17StartArrayElementEv"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::StartArrayElement()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer15EndArrayElementEv"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::EndArrayElement()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer15AddArrayElementERK8AnyValue"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::AddArrayElement()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N16AnyValueComposer8EndArrayEv"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::EndArray()</span></code></a></li>
-<li class="toctree-l4"><a class="reference internal" href="#_CPPv4NK16AnyValueComposer12GetStackSizeEv"><code class="docutils literal notranslate"><span class="pre">AnyValueComposer::GetStackSize()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="#anytypecomposer">AnyTypeComposer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#anyvaluecomposer">AnyValueComposer</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="visit.html">Visitors</a></li>
@@ -134,7 +68,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
       <li class="breadcrumb-item active">AnyType/AnyValue builders</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/builders.rst.txt" rel="nofollow"> View page source</a>
@@ -146,26 +80,26 @@
            <div itemprop="articleBody">
              
   <section id="anytype-anyvalue-builders">
-<h1>AnyType/AnyValue builders<a class="headerlink" href="#anytype-anyvalue-builders" title="Link to this heading"></a></h1>
+<h1>AnyType/AnyValue builders<a class="headerlink" href="#anytype-anyvalue-builders" title="Permalink to this heading"></a></h1>
 <p>The library provides two classes that can be used to programmatically construct an AnyType/AnyValue
 by sending signals the indicate the start/end of a specific node. This can be used to implement
 custom parsers.</p>
 <section id="anytypecomposer">
-<h2>AnyTypeComposer<a class="headerlink" href="#anytypecomposer" title="Link to this heading"></a></h2>
+<h2>AnyTypeComposer<a class="headerlink" href="#anytypecomposer" title="Permalink to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">AnyTypeComposer</span></code> class builds an <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> in a step-wise manner by calling methods to
 add fields, structures and arrays. It is non-copyable and non-movable.</p>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv415AnyTypeComposer">
-<span id="_CPPv315AnyTypeComposer"></span><span id="_CPPv215AnyTypeComposer"></span><span id="AnyTypeComposer"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AnyTypeComposer</span></span></span><a class="headerlink" href="#_CPPv415AnyTypeComposer" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv315AnyTypeComposer"></span><span id="_CPPv215AnyTypeComposer"></span><span id="AnyTypeComposer"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AnyTypeComposer</span></span></span><a class="headerlink" href="#_CPPv415AnyTypeComposer" title="Permalink to this definition"></a><br /></dt>
 <dd><dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer15AnyTypeComposerEv">
-<span id="_CPPv3N15AnyTypeComposer15AnyTypeComposerEv"></span><span id="_CPPv2N15AnyTypeComposer15AnyTypeComposerEv"></span><span id="AnyTypeComposer::AnyTypeComposer"></span><span class="sig-name descname"><span class="n"><span class="pre">AnyTypeComposer</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer15AnyTypeComposerEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer15AnyTypeComposerEv"></span><span id="_CPPv2N15AnyTypeComposer15AnyTypeComposerEv"></span><span id="AnyTypeComposer::AnyTypeComposer"></span><span class="sig-name descname"><span class="n"><span class="pre">AnyTypeComposer</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer15AnyTypeComposerEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Construct a new composer instance.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer11MoveAnyTypeEv">
-<span id="_CPPv3N15AnyTypeComposer11MoveAnyTypeEv"></span><span id="_CPPv2N15AnyTypeComposer11MoveAnyTypeEv"></span><span id="AnyTypeComposer::MoveAnyType"></span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MoveAnyType</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer11MoveAnyTypeEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer11MoveAnyTypeEv"></span><span id="_CPPv2N15AnyTypeComposer11MoveAnyTypeEv"></span><span id="AnyTypeComposer::MoveAnyType"></span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MoveAnyType</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer11MoveAnyTypeEv" title="Permalink to this definition"></a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The composed <code class="docutils literal notranslate"><span class="pre">AnyType</span></code>, or empty type if nothing was composed.</p>
@@ -178,78 +112,78 @@ add fields, structures and arrays. It is non-copyable and non-movable.</p>
 <p>Each of the following methods sets the current node to the corresponding scalar type:</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer5EmptyEv">
-<span id="_CPPv3N15AnyTypeComposer5EmptyEv"></span><span id="_CPPv2N15AnyTypeComposer5EmptyEv"></span><span id="AnyTypeComposer::Empty"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Empty</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer5EmptyEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer5EmptyEv"></span><span id="_CPPv2N15AnyTypeComposer5EmptyEv"></span><span id="AnyTypeComposer::Empty"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Empty</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer5EmptyEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer4BoolEv">
-<span id="_CPPv3N15AnyTypeComposer4BoolEv"></span><span id="_CPPv2N15AnyTypeComposer4BoolEv"></span><span id="AnyTypeComposer::Bool"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Bool</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer4BoolEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer4BoolEv"></span><span id="_CPPv2N15AnyTypeComposer4BoolEv"></span><span id="AnyTypeComposer::Bool"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Bool</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer4BoolEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer5Char8Ev">
-<span id="_CPPv3N15AnyTypeComposer5Char8Ev"></span><span id="_CPPv2N15AnyTypeComposer5Char8Ev"></span><span id="AnyTypeComposer::Char8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Char8</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer5Char8Ev" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer5Char8Ev"></span><span id="_CPPv2N15AnyTypeComposer5Char8Ev"></span><span id="AnyTypeComposer::Char8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Char8</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer5Char8Ev" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer4Int8Ev">
-<span id="_CPPv3N15AnyTypeComposer4Int8Ev"></span><span id="_CPPv2N15AnyTypeComposer4Int8Ev"></span><span id="AnyTypeComposer::Int8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Int8</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer4Int8Ev" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer4Int8Ev"></span><span id="_CPPv2N15AnyTypeComposer4Int8Ev"></span><span id="AnyTypeComposer::Int8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Int8</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer4Int8Ev" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer5UInt8Ev">
-<span id="_CPPv3N15AnyTypeComposer5UInt8Ev"></span><span id="_CPPv2N15AnyTypeComposer5UInt8Ev"></span><span id="AnyTypeComposer::UInt8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UInt8</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer5UInt8Ev" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer5UInt8Ev"></span><span id="_CPPv2N15AnyTypeComposer5UInt8Ev"></span><span id="AnyTypeComposer::UInt8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UInt8</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer5UInt8Ev" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer5Int16Ev">
-<span id="_CPPv3N15AnyTypeComposer5Int16Ev"></span><span id="_CPPv2N15AnyTypeComposer5Int16Ev"></span><span id="AnyTypeComposer::Int16"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Int16</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer5Int16Ev" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer5Int16Ev"></span><span id="_CPPv2N15AnyTypeComposer5Int16Ev"></span><span id="AnyTypeComposer::Int16"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Int16</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer5Int16Ev" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer6UInt16Ev">
-<span id="_CPPv3N15AnyTypeComposer6UInt16Ev"></span><span id="_CPPv2N15AnyTypeComposer6UInt16Ev"></span><span id="AnyTypeComposer::UInt16"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UInt16</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer6UInt16Ev" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer6UInt16Ev"></span><span id="_CPPv2N15AnyTypeComposer6UInt16Ev"></span><span id="AnyTypeComposer::UInt16"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UInt16</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer6UInt16Ev" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer5Int32Ev">
-<span id="_CPPv3N15AnyTypeComposer5Int32Ev"></span><span id="_CPPv2N15AnyTypeComposer5Int32Ev"></span><span id="AnyTypeComposer::Int32"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Int32</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer5Int32Ev" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer5Int32Ev"></span><span id="_CPPv2N15AnyTypeComposer5Int32Ev"></span><span id="AnyTypeComposer::Int32"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Int32</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer5Int32Ev" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer6UInt32Ev">
-<span id="_CPPv3N15AnyTypeComposer6UInt32Ev"></span><span id="_CPPv2N15AnyTypeComposer6UInt32Ev"></span><span id="AnyTypeComposer::UInt32"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UInt32</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer6UInt32Ev" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer6UInt32Ev"></span><span id="_CPPv2N15AnyTypeComposer6UInt32Ev"></span><span id="AnyTypeComposer::UInt32"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UInt32</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer6UInt32Ev" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer5Int64Ev">
-<span id="_CPPv3N15AnyTypeComposer5Int64Ev"></span><span id="_CPPv2N15AnyTypeComposer5Int64Ev"></span><span id="AnyTypeComposer::Int64"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Int64</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer5Int64Ev" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer5Int64Ev"></span><span id="_CPPv2N15AnyTypeComposer5Int64Ev"></span><span id="AnyTypeComposer::Int64"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Int64</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer5Int64Ev" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer6UInt64Ev">
-<span id="_CPPv3N15AnyTypeComposer6UInt64Ev"></span><span id="_CPPv2N15AnyTypeComposer6UInt64Ev"></span><span id="AnyTypeComposer::UInt64"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UInt64</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer6UInt64Ev" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer6UInt64Ev"></span><span id="_CPPv2N15AnyTypeComposer6UInt64Ev"></span><span id="AnyTypeComposer::UInt64"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UInt64</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer6UInt64Ev" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer7Float32Ev">
-<span id="_CPPv3N15AnyTypeComposer7Float32Ev"></span><span id="_CPPv2N15AnyTypeComposer7Float32Ev"></span><span id="AnyTypeComposer::Float32"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Float32</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer7Float32Ev" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer7Float32Ev"></span><span id="_CPPv2N15AnyTypeComposer7Float32Ev"></span><span id="AnyTypeComposer::Float32"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Float32</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer7Float32Ev" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer7Float64Ev">
-<span id="_CPPv3N15AnyTypeComposer7Float64Ev"></span><span id="_CPPv2N15AnyTypeComposer7Float64Ev"></span><span id="AnyTypeComposer::Float64"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Float64</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer7Float64Ev" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer7Float64Ev"></span><span id="_CPPv2N15AnyTypeComposer7Float64Ev"></span><span id="AnyTypeComposer::Float64"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Float64</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer7Float64Ev" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer6StringEv">
-<span id="_CPPv3N15AnyTypeComposer6StringEv"></span><span id="_CPPv2N15AnyTypeComposer6StringEv"></span><span id="AnyTypeComposer::String"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">String</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer6StringEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer6StringEv"></span><span id="_CPPv2N15AnyTypeComposer6StringEv"></span><span id="AnyTypeComposer::String"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">String</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer6StringEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <p><strong>Structure methods:</strong></p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer11StartStructERKNSt6stringE">
-<span id="_CPPv3N15AnyTypeComposer11StartStructERKNSt6stringE"></span><span id="_CPPv2N15AnyTypeComposer11StartStructERKNSt6stringE"></span><span id="AnyTypeComposer::StartStruct__ssCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartStruct</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">struct_name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer11StartStructERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer11StartStructERKNSt6stringE"></span><span id="_CPPv2N15AnyTypeComposer11StartStructERKNSt6stringE"></span><span id="AnyTypeComposer::StartStruct__ssCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartStruct</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">struct_name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer11StartStructERKNSt6stringE" title="Permalink to this definition"></a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>struct_name</strong> – Name for the structured type.</p>
@@ -260,19 +194,19 @@ add fields, structures and arrays. It is non-copyable and non-movable.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer11StartStructEv">
-<span id="_CPPv3N15AnyTypeComposer11StartStructEv"></span><span id="_CPPv2N15AnyTypeComposer11StartStructEv"></span><span id="AnyTypeComposer::StartStruct"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartStruct</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer11StartStructEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer11StartStructEv"></span><span id="_CPPv2N15AnyTypeComposer11StartStructEv"></span><span id="AnyTypeComposer::StartStruct"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartStruct</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer11StartStructEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Start composing a new structured type with an empty name.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer9EndStructEv">
-<span id="_CPPv3N15AnyTypeComposer9EndStructEv"></span><span id="_CPPv2N15AnyTypeComposer9EndStructEv"></span><span id="AnyTypeComposer::EndStruct"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EndStruct</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer9EndStructEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer9EndStructEv"></span><span id="_CPPv2N15AnyTypeComposer9EndStructEv"></span><span id="AnyTypeComposer::EndStruct"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EndStruct</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer9EndStructEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>End the current structured type.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer10StartFieldERKNSt6stringE">
-<span id="_CPPv3N15AnyTypeComposer10StartFieldERKNSt6stringE"></span><span id="_CPPv2N15AnyTypeComposer10StartFieldERKNSt6stringE"></span><span id="AnyTypeComposer::StartField__ssCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartField</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">field_name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer10StartFieldERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer10StartFieldERKNSt6stringE"></span><span id="_CPPv2N15AnyTypeComposer10StartFieldERKNSt6stringE"></span><span id="AnyTypeComposer::StartField__ssCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartField</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">field_name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer10StartFieldERKNSt6stringE" title="Permalink to this definition"></a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>field_name</strong> – Name of the field.</p>
@@ -283,14 +217,14 @@ add fields, structures and arrays. It is non-copyable and non-movable.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer8EndFieldEv">
-<span id="_CPPv3N15AnyTypeComposer8EndFieldEv"></span><span id="_CPPv2N15AnyTypeComposer8EndFieldEv"></span><span id="AnyTypeComposer::EndField"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EndField</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer8EndFieldEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer8EndFieldEv"></span><span id="_CPPv2N15AnyTypeComposer8EndFieldEv"></span><span id="AnyTypeComposer::EndField"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EndField</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer8EndFieldEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>End the current field.</p>
 </dd></dl>
 
 <p><strong>Array methods:</strong></p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer10StartArrayERKNSt6stringE6uint64">
-<span id="_CPPv3N15AnyTypeComposer10StartArrayERKNSt6stringE6uint64"></span><span id="_CPPv2N15AnyTypeComposer10StartArrayERKNSt6stringE6uint64"></span><span id="AnyTypeComposer::StartArray__ssCR.uint64"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartArray</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">array_name</span></span>, <a class="reference internal" href="anyvalue.html#_CPPv46uint64" title="uint64"><span class="n"><span class="pre">uint64</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">array_size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer10StartArrayERKNSt6stringE6uint64" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer10StartArrayERKNSt6stringE6uint64"></span><span id="_CPPv2N15AnyTypeComposer10StartArrayERKNSt6stringE6uint64"></span><span id="AnyTypeComposer::StartArray__ssCR.uint64"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartArray</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">array_name</span></span>, <a class="reference internal" href="anyvalue.html#_CPPv46uint64" title="uint64"><span class="n"><span class="pre">uint64</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">array_size</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer10StartArrayERKNSt6stringE6uint64" title="Permalink to this definition"></a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -304,26 +238,26 @@ add fields, structures and arrays. It is non-copyable and non-movable.</p>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer8EndArrayEv">
-<span id="_CPPv3N15AnyTypeComposer8EndArrayEv"></span><span id="_CPPv2N15AnyTypeComposer8EndArrayEv"></span><span id="AnyTypeComposer::EndArray"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EndArray</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer8EndArrayEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer8EndArrayEv"></span><span id="_CPPv2N15AnyTypeComposer8EndArrayEv"></span><span id="AnyTypeComposer::EndArray"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EndArray</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer8EndArrayEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>End the current array type.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer17StartArrayElementEv">
-<span id="_CPPv3N15AnyTypeComposer17StartArrayElementEv"></span><span id="_CPPv2N15AnyTypeComposer17StartArrayElementEv"></span><span id="AnyTypeComposer::StartArrayElement"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartArrayElement</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer17StartArrayElementEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer17StartArrayElementEv"></span><span id="_CPPv2N15AnyTypeComposer17StartArrayElementEv"></span><span id="AnyTypeComposer::StartArrayElement"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartArrayElement</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer17StartArrayElementEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Start composing the element type of the current array.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N15AnyTypeComposer15EndArrayElementEv">
-<span id="_CPPv3N15AnyTypeComposer15EndArrayElementEv"></span><span id="_CPPv2N15AnyTypeComposer15EndArrayElementEv"></span><span id="AnyTypeComposer::EndArrayElement"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EndArrayElement</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer15EndArrayElementEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N15AnyTypeComposer15EndArrayElementEv"></span><span id="_CPPv2N15AnyTypeComposer15EndArrayElementEv"></span><span id="AnyTypeComposer::EndArrayElement"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EndArrayElement</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N15AnyTypeComposer15EndArrayElementEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>End the current array element type.</p>
 </dd></dl>
 
 <p><strong>Utility methods:</strong></p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK15AnyTypeComposer12GetStackSizeEv">
-<span id="_CPPv3NK15AnyTypeComposer12GetStackSizeEv"></span><span id="_CPPv2NK15AnyTypeComposer12GetStackSizeEv"></span><span id="AnyTypeComposer::GetStackSizeC"></span><a class="reference internal" href="anyvalue.html#_CPPv46uint64" title="uint64"><span class="n"><span class="pre">uint64</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetStackSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK15AnyTypeComposer12GetStackSizeEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3NK15AnyTypeComposer12GetStackSizeEv"></span><span id="_CPPv2NK15AnyTypeComposer12GetStackSizeEv"></span><span id="AnyTypeComposer::GetStackSizeC"></span><a class="reference internal" href="anyvalue.html#_CPPv46uint64" title="uint64"><span class="n"><span class="pre">uint64</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetStackSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK15AnyTypeComposer12GetStackSizeEv" title="Permalink to this definition"></a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Current size of the internal composition stack.</p>
@@ -337,21 +271,21 @@ started nodes have been properly closed.</p>
 
 </section>
 <section id="anyvaluecomposer">
-<h2>AnyValueComposer<a class="headerlink" href="#anyvaluecomposer" title="Link to this heading"></a></h2>
+<h2>AnyValueComposer<a class="headerlink" href="#anyvaluecomposer" title="Permalink to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">AnyValueComposer</span></code> class builds an <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> in a step-wise manner by calling methods to
 add fields, structures, arrays and scalar values. It is non-copyable and non-movable.</p>
 <dl class="cpp class">
 <dt class="sig sig-object cpp" id="_CPPv416AnyValueComposer">
-<span id="_CPPv316AnyValueComposer"></span><span id="_CPPv216AnyValueComposer"></span><span id="AnyValueComposer"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AnyValueComposer</span></span></span><a class="headerlink" href="#_CPPv416AnyValueComposer" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv316AnyValueComposer"></span><span id="_CPPv216AnyValueComposer"></span><span id="AnyValueComposer"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AnyValueComposer</span></span></span><a class="headerlink" href="#_CPPv416AnyValueComposer" title="Permalink to this definition"></a><br /></dt>
 <dd><dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer16AnyValueComposerEv">
-<span id="_CPPv3N16AnyValueComposer16AnyValueComposerEv"></span><span id="_CPPv2N16AnyValueComposer16AnyValueComposerEv"></span><span id="AnyValueComposer::AnyValueComposer"></span><span class="sig-name descname"><span class="n"><span class="pre">AnyValueComposer</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer16AnyValueComposerEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer16AnyValueComposerEv"></span><span id="_CPPv2N16AnyValueComposer16AnyValueComposerEv"></span><span id="AnyValueComposer::AnyValueComposer"></span><span class="sig-name descname"><span class="n"><span class="pre">AnyValueComposer</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer16AnyValueComposerEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Construct a new composer instance.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer12MoveAnyValueEv">
-<span id="_CPPv3N16AnyValueComposer12MoveAnyValueEv"></span><span id="_CPPv2N16AnyValueComposer12MoveAnyValueEv"></span><span id="AnyValueComposer::MoveAnyValue"></span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MoveAnyValue</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer12MoveAnyValueEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer12MoveAnyValueEv"></span><span id="_CPPv2N16AnyValueComposer12MoveAnyValueEv"></span><span id="AnyValueComposer::MoveAnyValue"></span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MoveAnyValue</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer12MoveAnyValueEv" title="Permalink to this definition"></a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The composed <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code>, or empty value if nothing was composed.</p>
@@ -364,77 +298,77 @@ add fields, structures, arrays and scalar values. It is non-copyable and non-mov
 <p>Each of the following methods sets the current node to a scalar value of the corresponding type:</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer5EmptyEv">
-<span id="_CPPv3N16AnyValueComposer5EmptyEv"></span><span id="_CPPv2N16AnyValueComposer5EmptyEv"></span><span id="AnyValueComposer::Empty"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Empty</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer5EmptyEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer5EmptyEv"></span><span id="_CPPv2N16AnyValueComposer5EmptyEv"></span><span id="AnyValueComposer::Empty"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Empty</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer5EmptyEv" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer4BoolE7boolean">
-<span id="_CPPv3N16AnyValueComposer4BoolE7boolean"></span><span id="_CPPv2N16AnyValueComposer4BoolE7boolean"></span><span id="AnyValueComposer::Bool__boolean"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Bool</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv47boolean" title="boolean"><span class="n"><span class="pre">boolean</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer4BoolE7boolean" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer4BoolE7boolean"></span><span id="_CPPv2N16AnyValueComposer4BoolE7boolean"></span><span id="AnyValueComposer::Bool__boolean"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Bool</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv47boolean" title="boolean"><span class="n"><span class="pre">boolean</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer4BoolE7boolean" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer5Char8E5char8">
-<span id="_CPPv3N16AnyValueComposer5Char8E5char8"></span><span id="_CPPv2N16AnyValueComposer5Char8E5char8"></span><span id="AnyValueComposer::Char8__char8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Char8</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv45char8" title="char8"><span class="n"><span class="pre">char8</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer5Char8E5char8" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer5Char8E5char8"></span><span id="_CPPv2N16AnyValueComposer5Char8E5char8"></span><span id="AnyValueComposer::Char8__char8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Char8</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv45char8" title="char8"><span class="n"><span class="pre">char8</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer5Char8E5char8" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer4Int8E4int8">
-<span id="_CPPv3N16AnyValueComposer4Int8E4int8"></span><span id="_CPPv2N16AnyValueComposer4Int8E4int8"></span><span id="AnyValueComposer::Int8__int8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Int8</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv44int8" title="int8"><span class="n"><span class="pre">int8</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer4Int8E4int8" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer4Int8E4int8"></span><span id="_CPPv2N16AnyValueComposer4Int8E4int8"></span><span id="AnyValueComposer::Int8__int8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Int8</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv44int8" title="int8"><span class="n"><span class="pre">int8</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer4Int8E4int8" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer5UInt8E5uint8">
-<span id="_CPPv3N16AnyValueComposer5UInt8E5uint8"></span><span id="_CPPv2N16AnyValueComposer5UInt8E5uint8"></span><span id="AnyValueComposer::UInt8__uint8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UInt8</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv45uint8" title="uint8"><span class="n"><span class="pre">uint8</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer5UInt8E5uint8" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer5UInt8E5uint8"></span><span id="_CPPv2N16AnyValueComposer5UInt8E5uint8"></span><span id="AnyValueComposer::UInt8__uint8"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UInt8</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv45uint8" title="uint8"><span class="n"><span class="pre">uint8</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer5UInt8E5uint8" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer5Int16E5int16">
-<span id="_CPPv3N16AnyValueComposer5Int16E5int16"></span><span id="_CPPv2N16AnyValueComposer5Int16E5int16"></span><span id="AnyValueComposer::Int16__int16"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Int16</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv45int16" title="int16"><span class="n"><span class="pre">int16</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer5Int16E5int16" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer5Int16E5int16"></span><span id="_CPPv2N16AnyValueComposer5Int16E5int16"></span><span id="AnyValueComposer::Int16__int16"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Int16</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv45int16" title="int16"><span class="n"><span class="pre">int16</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer5Int16E5int16" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer6UInt16E6uint16">
-<span id="_CPPv3N16AnyValueComposer6UInt16E6uint16"></span><span id="_CPPv2N16AnyValueComposer6UInt16E6uint16"></span><span id="AnyValueComposer::UInt16__uint16"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UInt16</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv46uint16" title="uint16"><span class="n"><span class="pre">uint16</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer6UInt16E6uint16" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer6UInt16E6uint16"></span><span id="_CPPv2N16AnyValueComposer6UInt16E6uint16"></span><span id="AnyValueComposer::UInt16__uint16"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UInt16</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv46uint16" title="uint16"><span class="n"><span class="pre">uint16</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer6UInt16E6uint16" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer5Int32E5int32">
-<span id="_CPPv3N16AnyValueComposer5Int32E5int32"></span><span id="_CPPv2N16AnyValueComposer5Int32E5int32"></span><span id="AnyValueComposer::Int32__int32"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Int32</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv45int32" title="int32"><span class="n"><span class="pre">int32</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer5Int32E5int32" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer5Int32E5int32"></span><span id="_CPPv2N16AnyValueComposer5Int32E5int32"></span><span id="AnyValueComposer::Int32__int32"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Int32</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv45int32" title="int32"><span class="n"><span class="pre">int32</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer5Int32E5int32" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer6UInt32E6uint32">
-<span id="_CPPv3N16AnyValueComposer6UInt32E6uint32"></span><span id="_CPPv2N16AnyValueComposer6UInt32E6uint32"></span><span id="AnyValueComposer::UInt32__uint32"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UInt32</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv46uint32" title="uint32"><span class="n"><span class="pre">uint32</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer6UInt32E6uint32" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer6UInt32E6uint32"></span><span id="_CPPv2N16AnyValueComposer6UInt32E6uint32"></span><span id="AnyValueComposer::UInt32__uint32"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UInt32</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv46uint32" title="uint32"><span class="n"><span class="pre">uint32</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer6UInt32E6uint32" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer5Int64E5int64">
-<span id="_CPPv3N16AnyValueComposer5Int64E5int64"></span><span id="_CPPv2N16AnyValueComposer5Int64E5int64"></span><span id="AnyValueComposer::Int64__int64"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Int64</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv45int64" title="int64"><span class="n"><span class="pre">int64</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer5Int64E5int64" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer5Int64E5int64"></span><span id="_CPPv2N16AnyValueComposer5Int64E5int64"></span><span id="AnyValueComposer::Int64__int64"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Int64</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv45int64" title="int64"><span class="n"><span class="pre">int64</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer5Int64E5int64" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer6UInt64E6uint64">
-<span id="_CPPv3N16AnyValueComposer6UInt64E6uint64"></span><span id="_CPPv2N16AnyValueComposer6UInt64E6uint64"></span><span id="AnyValueComposer::UInt64__uint64"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UInt64</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv46uint64" title="uint64"><span class="n"><span class="pre">uint64</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer6UInt64E6uint64" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer6UInt64E6uint64"></span><span id="_CPPv2N16AnyValueComposer6UInt64E6uint64"></span><span id="AnyValueComposer::UInt64__uint64"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">UInt64</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv46uint64" title="uint64"><span class="n"><span class="pre">uint64</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer6UInt64E6uint64" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer7Float32E7float32">
-<span id="_CPPv3N16AnyValueComposer7Float32E7float32"></span><span id="_CPPv2N16AnyValueComposer7Float32E7float32"></span><span id="AnyValueComposer::Float32__float32"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Float32</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv47float32" title="float32"><span class="n"><span class="pre">float32</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer7Float32E7float32" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer7Float32E7float32"></span><span id="_CPPv2N16AnyValueComposer7Float32E7float32"></span><span id="AnyValueComposer::Float32__float32"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Float32</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv47float32" title="float32"><span class="n"><span class="pre">float32</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer7Float32E7float32" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer7Float64E7float64">
-<span id="_CPPv3N16AnyValueComposer7Float64E7float64"></span><span id="_CPPv2N16AnyValueComposer7Float64E7float64"></span><span id="AnyValueComposer::Float64__float64"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Float64</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv47float64" title="float64"><span class="n"><span class="pre">float64</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer7Float64E7float64" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer7Float64E7float64"></span><span id="_CPPv2N16AnyValueComposer7Float64E7float64"></span><span id="AnyValueComposer::Float64__float64"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Float64</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="anyvalue.html#_CPPv47float64" title="float64"><span class="n"><span class="pre">float64</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer7Float64E7float64" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer6StringERKNSt6stringE">
-<span id="_CPPv3N16AnyValueComposer6StringERKNSt6stringE"></span><span id="_CPPv2N16AnyValueComposer6StringERKNSt6stringE"></span><span id="AnyValueComposer::String__ssCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">String</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer6StringERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer6StringERKNSt6stringE"></span><span id="_CPPv2N16AnyValueComposer6StringERKNSt6stringE"></span><span id="AnyValueComposer::String__ssCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">String</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer6StringERKNSt6stringE" title="Permalink to this definition"></a><br /></dt>
 <dd></dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer8AddValueERK8AnyValue">
-<span id="_CPPv3N16AnyValueComposer8AddValueERK8AnyValue"></span><span id="_CPPv2N16AnyValueComposer8AddValueERK8AnyValue"></span><span id="AnyValueComposer::AddValue__AnyValueCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">anyvalue</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer8AddValueERK8AnyValue" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer8AddValueERK8AnyValue"></span><span id="_CPPv2N16AnyValueComposer8AddValueERK8AnyValue"></span><span id="AnyValueComposer::AddValue__AnyValueCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">anyvalue</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer8AddValueERK8AnyValue" title="Permalink to this definition"></a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>anyvalue</strong> – <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> to add at the current position.</p>
@@ -446,7 +380,7 @@ add fields, structures, arrays and scalar values. It is non-copyable and non-mov
 <p><strong>Structure methods:</strong></p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer11StartStructERKNSt6stringE">
-<span id="_CPPv3N16AnyValueComposer11StartStructERKNSt6stringE"></span><span id="_CPPv2N16AnyValueComposer11StartStructERKNSt6stringE"></span><span id="AnyValueComposer::StartStruct__ssCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartStruct</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">struct_name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer11StartStructERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer11StartStructERKNSt6stringE"></span><span id="_CPPv2N16AnyValueComposer11StartStructERKNSt6stringE"></span><span id="AnyValueComposer::StartStruct__ssCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartStruct</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">struct_name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer11StartStructERKNSt6stringE" title="Permalink to this definition"></a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>struct_name</strong> – Name for the structured type.</p>
@@ -457,19 +391,19 @@ add fields, structures, arrays and scalar values. It is non-copyable and non-mov
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer11StartStructEv">
-<span id="_CPPv3N16AnyValueComposer11StartStructEv"></span><span id="_CPPv2N16AnyValueComposer11StartStructEv"></span><span id="AnyValueComposer::StartStruct"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartStruct</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer11StartStructEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer11StartStructEv"></span><span id="_CPPv2N16AnyValueComposer11StartStructEv"></span><span id="AnyValueComposer::StartStruct"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartStruct</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer11StartStructEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Start composing a new structured value with an empty name.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer9EndStructEv">
-<span id="_CPPv3N16AnyValueComposer9EndStructEv"></span><span id="_CPPv2N16AnyValueComposer9EndStructEv"></span><span id="AnyValueComposer::EndStruct"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EndStruct</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer9EndStructEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer9EndStructEv"></span><span id="_CPPv2N16AnyValueComposer9EndStructEv"></span><span id="AnyValueComposer::EndStruct"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EndStruct</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer9EndStructEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>End the current structured value.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer10StartFieldERKNSt6stringE">
-<span id="_CPPv3N16AnyValueComposer10StartFieldERKNSt6stringE"></span><span id="_CPPv2N16AnyValueComposer10StartFieldERKNSt6stringE"></span><span id="AnyValueComposer::StartField__ssCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartField</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">field_name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer10StartFieldERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer10StartFieldERKNSt6stringE"></span><span id="_CPPv2N16AnyValueComposer10StartFieldERKNSt6stringE"></span><span id="AnyValueComposer::StartField__ssCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartField</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">field_name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer10StartFieldERKNSt6stringE" title="Permalink to this definition"></a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>field_name</strong> – Name of the field.</p>
@@ -480,13 +414,13 @@ add fields, structures, arrays and scalar values. It is non-copyable and non-mov
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer8EndFieldEv">
-<span id="_CPPv3N16AnyValueComposer8EndFieldEv"></span><span id="_CPPv2N16AnyValueComposer8EndFieldEv"></span><span id="AnyValueComposer::EndField"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EndField</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer8EndFieldEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer8EndFieldEv"></span><span id="_CPPv2N16AnyValueComposer8EndFieldEv"></span><span id="AnyValueComposer::EndField"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EndField</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer8EndFieldEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>End the current field.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer9AddMemberERKNSt6stringE8AnyValue">
-<span id="_CPPv3N16AnyValueComposer9AddMemberERKNSt6stringE8AnyValue"></span><span id="_CPPv2N16AnyValueComposer9AddMemberERKNSt6stringE8AnyValue"></span><span id="AnyValueComposer::AddMember__ssCR.AnyValue"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddMember</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">anyvalue</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer9AddMemberERKNSt6stringE8AnyValue" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer9AddMemberERKNSt6stringE8AnyValue"></span><span id="_CPPv2N16AnyValueComposer9AddMemberERKNSt6stringE8AnyValue"></span><span id="AnyValueComposer::AddMember__ssCR.AnyValue"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddMember</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span>, <span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">anyvalue</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer9AddMemberERKNSt6stringE8AnyValue" title="Permalink to this definition"></a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -501,7 +435,7 @@ add fields, structures, arrays and scalar values. It is non-copyable and non-mov
 <p><strong>Array methods:</strong></p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer10StartArrayERKNSt6stringE">
-<span id="_CPPv3N16AnyValueComposer10StartArrayERKNSt6stringE"></span><span id="_CPPv2N16AnyValueComposer10StartArrayERKNSt6stringE"></span><span id="AnyValueComposer::StartArray__ssCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartArray</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">array_name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer10StartArrayERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer10StartArrayERKNSt6stringE"></span><span id="_CPPv2N16AnyValueComposer10StartArrayERKNSt6stringE"></span><span id="AnyValueComposer::StartArray__ssCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartArray</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">array_name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer10StartArrayERKNSt6stringE" title="Permalink to this definition"></a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>array_name</strong> – Name for the array type.</p>
@@ -512,25 +446,25 @@ add fields, structures, arrays and scalar values. It is non-copyable and non-mov
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer10StartArrayEv">
-<span id="_CPPv3N16AnyValueComposer10StartArrayEv"></span><span id="_CPPv2N16AnyValueComposer10StartArrayEv"></span><span id="AnyValueComposer::StartArray"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartArray</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer10StartArrayEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer10StartArrayEv"></span><span id="_CPPv2N16AnyValueComposer10StartArrayEv"></span><span id="AnyValueComposer::StartArray"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartArray</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer10StartArrayEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Start composing a new array value with an empty name.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer17StartArrayElementEv">
-<span id="_CPPv3N16AnyValueComposer17StartArrayElementEv"></span><span id="_CPPv2N16AnyValueComposer17StartArrayElementEv"></span><span id="AnyValueComposer::StartArrayElement"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartArrayElement</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer17StartArrayElementEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer17StartArrayElementEv"></span><span id="_CPPv2N16AnyValueComposer17StartArrayElementEv"></span><span id="AnyValueComposer::StartArrayElement"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StartArrayElement</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer17StartArrayElementEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Start composing a new element within the current array.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer15EndArrayElementEv">
-<span id="_CPPv3N16AnyValueComposer15EndArrayElementEv"></span><span id="_CPPv2N16AnyValueComposer15EndArrayElementEv"></span><span id="AnyValueComposer::EndArrayElement"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EndArrayElement</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer15EndArrayElementEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer15EndArrayElementEv"></span><span id="_CPPv2N16AnyValueComposer15EndArrayElementEv"></span><span id="AnyValueComposer::EndArrayElement"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EndArrayElement</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer15EndArrayElementEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>End the current array element.</p>
 </dd></dl>
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer15AddArrayElementERK8AnyValue">
-<span id="_CPPv3N16AnyValueComposer15AddArrayElementERK8AnyValue"></span><span id="_CPPv2N16AnyValueComposer15AddArrayElementERK8AnyValue"></span><span id="AnyValueComposer::AddArrayElement__AnyValueCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddArrayElement</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">anyvalue</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer15AddArrayElementERK8AnyValue" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer15AddArrayElementERK8AnyValue"></span><span id="_CPPv2N16AnyValueComposer15AddArrayElementERK8AnyValue"></span><span id="AnyValueComposer::AddArrayElement__AnyValueCR"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">AddArrayElement</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">anyvalue</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer15AddArrayElementERK8AnyValue" title="Permalink to this definition"></a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>anyvalue</strong> – <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> to add as an array element.</p>
@@ -541,14 +475,14 @@ add fields, structures, arrays and scalar values. It is non-copyable and non-mov
 
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N16AnyValueComposer8EndArrayEv">
-<span id="_CPPv3N16AnyValueComposer8EndArrayEv"></span><span id="_CPPv2N16AnyValueComposer8EndArrayEv"></span><span id="AnyValueComposer::EndArray"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EndArray</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer8EndArrayEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3N16AnyValueComposer8EndArrayEv"></span><span id="_CPPv2N16AnyValueComposer8EndArrayEv"></span><span id="AnyValueComposer::EndArray"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EndArray</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N16AnyValueComposer8EndArrayEv" title="Permalink to this definition"></a><br /></dt>
 <dd><p>End the current array value.</p>
 </dd></dl>
 
 <p><strong>Utility methods:</strong></p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK16AnyValueComposer12GetStackSizeEv">
-<span id="_CPPv3NK16AnyValueComposer12GetStackSizeEv"></span><span id="_CPPv2NK16AnyValueComposer12GetStackSizeEv"></span><span id="AnyValueComposer::GetStackSizeC"></span><a class="reference internal" href="anyvalue.html#_CPPv46uint64" title="uint64"><span class="n"><span class="pre">uint64</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetStackSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK16AnyValueComposer12GetStackSizeEv" title="Link to this definition"></a><br /></dt>
+<span id="_CPPv3NK16AnyValueComposer12GetStackSizeEv"></span><span id="_CPPv2NK16AnyValueComposer12GetStackSizeEv"></span><span id="AnyValueComposer::GetStackSizeC"></span><a class="reference internal" href="anyvalue.html#_CPPv46uint64" title="uint64"><span class="n"><span class="pre">uint64</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GetStackSize</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK16AnyValueComposer12GetStackSizeEv" title="Permalink to this definition"></a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Current size of the internal composition stack.</p>

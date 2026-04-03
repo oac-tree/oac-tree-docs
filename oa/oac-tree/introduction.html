@@ -1,21 +1,22 @@
-
-
 <!DOCTYPE html>
-<html class="writer-html5" lang="en" data-content_root="./">
+<html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Introduction &mdash; oac-tree</title>
-      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=7ab3649f" />
-
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
   
-      <script src="_static/jquery.js?v=5d32c60e"></script>
-      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="_static/documentation_options.js?v=5ef59c98"></script>
-      <script src="_static/doctools.js?v=fd6eb6e6"></script>
-      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -28,15 +29,14 @@
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-
-          
-          
-          <a href="index.html" class="icon icon-home">
-            oac-tree
+            <a href="index.html" class="icon icon-home"> oac-tree
           </a>
+              <div class="version">
+                4.5.0
+              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="text" name="q" placeholder="Search docs" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
@@ -74,7 +74,7 @@
         <div class="rst-content">
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li><a href="index.html" class="icon icon-home"></a></li>
       <li class="breadcrumb-item active">Introduction</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/introduction.rst.txt" rel="nofollow"> View page source</a>
@@ -86,10 +86,10 @@
            <div itemprop="articleBody">
              
   <section id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Link to this heading"></a></h1>
+<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h1>
 <p>The oac-tree framework leverages a goal-oriented approach to optimize procedure execution by allowing complex, and typically manual, tasks to be automated. The framework decision-making flow is controlled by a hierarchical tree of nodes, allowing the construction of maintainable and extensible procedures.</p>
 <section id="behavior-trees-for-automation">
-<h2>Behavior trees for automation<a class="headerlink" href="#behavior-trees-for-automation" title="Link to this heading"></a></h2>
+<h2>Behavior trees for automation<a class="headerlink" href="#behavior-trees-for-automation" title="Permalink to this heading"></a></h2>
 <p>The oac-tree framework aims at allowing for routine and repetitive operational procedures to be executed with reduced human intervention, and therefore improving the overall operational efficiency, and ensuring a deterministic execution over a wide range of scenarios. By allowing laborious, and typically manual, tasks to be performed automatically or semi-automatically, human involvement can be shifted to tasks with a high added value.</p>
 <p>Behavioural trees are a formal modelling language used to represent the behaviour of systems and software engineering projects. They provide flexible mathematical models used in various fields for executing tasks. Behavioural trees organize tasks into a finite set, enabling the creation of complex behaviours by modularly combining simpler tasks in a structured and hierarchical manner.
 They are particularly useful for expressing complex requirements in a clear and unambiguous way, by providing a well-defined notation that captures the behaviour described in requirements and natural language. Behavioural tree semantics are grounded in process algebra and operational semantics, providing a basis for simulation, model checking, and failure modes and effects analysis.
@@ -119,12 +119,12 @@ In a behavioural tree, different behaviours and control mechanisms are provided 
 </div></blockquote>
 </section>
 <section id="structure-of-oac-tree-procedures">
-<h2>Structure of oac-tree procedures<a class="headerlink" href="#structure-of-oac-tree-procedures" title="Link to this heading"></a></h2>
+<h2>Structure of oac-tree procedures<a class="headerlink" href="#structure-of-oac-tree-procedures" title="Permalink to this heading"></a></h2>
 <p>oac-tree procedures encapsulate all the instruction trees that the oac-tree can execute. They rely on simple and self-contained blocks of logic that define the execution flow.
 The oac-tree framework requires procedures to be defined in a XML format. The XML structure of the procedure depends on the behaviour complexity and on the type of instructions being used.</p>
 <p>The main sections of a procedure, their multiplicity, description and attributes, can be seen below.</p>
 <section id="plugins-section">
-<h3>Plugins Section<a class="headerlink" href="#plugins-section" title="Link to this heading"></a></h3>
+<h3>Plugins Section<a class="headerlink" href="#plugins-section" title="Permalink to this heading"></a></h3>
 <p>The plugins section Contains the name of the dynamic libraries to be loaded at runtime. Plugins allow to extend the existing oac-tree functionalities by providing new instructions or variables. In the XML procedure file, plugins are defined using the XML element <em>&lt;Plugin&gt;</em>. The plugin element has no attributes. Provided plugin names can omit platform-dependent library pre- and postfixes, such as <cite>lib</cite> and <cite>.so</cite> on Linux. This allows to make procedure files platform independent.</p>
 <p>For a complete list of supported plugins, please refer to the plugins documentation <code class="docutils literal notranslate"><span class="pre">TBD</span></code>.</p>
 <table class="docutils align-default">
@@ -153,7 +153,7 @@ The oac-tree framework requires procedures to be defined in a XML format. The XM
 </table>
 </section>
 <section id="type-declarations-section">
-<h3>Type Declarations Section<a class="headerlink" href="#type-declarations-section" title="Link to this heading"></a></h3>
+<h3>Type Declarations Section<a class="headerlink" href="#type-declarations-section" title="Permalink to this heading"></a></h3>
 <p>The type declarations section contains the type definitions used by the variables. Type declarations can be used to simplify the variable definition by defining complex types or just an alias that can be reused across the workspace. In the XML procedure file, type declarations are defined using the XML element <em>&lt;RegisterType&gt;</em>.</p>
 <table class="docutils align-default">
 <tbody>
@@ -185,7 +185,7 @@ The oac-tree framework requires procedures to be defined in a XML format. The XM
 </table>
 </section>
 <section id="instruction-trees-section">
-<h3>Instruction Trees Section<a class="headerlink" href="#instruction-trees-section" title="Link to this heading"></a></h3>
+<h3>Instruction Trees Section<a class="headerlink" href="#instruction-trees-section" title="Permalink to this heading"></a></h3>
 <p>The instruction trees section provides the structured representation of the execution flow within a procedure. They depict the tree-like hierarchy of instructions or behaviours that guide the execution. In the XML procedure file, instructions are defined via XML elements using the instruction’s names (from the core library or defined in the plugins).
 For a complete list of supported instructions, please refer to the instructions’ documentation <code class="docutils literal notranslate"><span class="pre">core-instructions/variables</span></code>.</p>
 <table class="docutils align-default">
@@ -217,15 +217,15 @@ For a complete list of supported instructions, please refer to the instructions�
 </table>
 </section>
 <section id="workspace-with-variables-section">
-<h3>Workspace With Variables Section<a class="headerlink" href="#workspace-with-variables-section" title="Link to this heading"></a></h3>
+<h3>Workspace With Variables Section<a class="headerlink" href="#workspace-with-variables-section" title="Permalink to this heading"></a></h3>
 <blockquote>
 <div><p>The workspace section contains the global variables used by the instructions (to read, modify or write). Variables can be of different types and may interface to memory, the filesystem, the network, etc. In the XML procedure file, the workspace is defined using the XML element <em>&lt;Workspace&gt;</em> and the variables using the XML elements <em>&lt;Local&gt;</em>, <em>&lt;ChannelAccessClient&gt;</em>, <em>&lt;PvAccessServer&gt;</em>, <em>&lt;File&gt;</em>.
 For a complete list of supported types, please refer to the variables documentation <code class="docutils literal notranslate"><span class="pre">core-instructions/variables</span></code>.</p>
 </div></blockquote>
 <table class="docutils align-default">
 <colgroup>
-<col style="width: 33.3%" />
-<col style="width: 66.7%" />
+<col style="width: 33%" />
+<col style="width: 67%" />
 </colgroup>
 <tbody>
 <tr class="row-odd"><td><p>Multiplicity</p></td>
@@ -261,7 +261,7 @@ For a complete list of supported types, please refer to the variables documentat
 </table>
 </section>
 <section id="procedure-example">
-<h3>Procedure Example<a class="headerlink" href="#procedure-example" title="Link to this heading"></a></h3>
+<h3>Procedure Example<a class="headerlink" href="#procedure-example" title="Permalink to this heading"></a></h3>
 <p>The following procedure was extracted from the oac-tree test campaign, where it is possible to see that the procedure is defined in a typical XML format, and contains some of sections presented before.</p>
 <div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
 <span class="nt">&lt;Procedure</span><span class="w"> </span><span class="na">xmlns=</span><span class="s">&quot;http://codac.iter.org/sup/oac-tree&quot;</span><span class="w"> </span><span class="na">version=</span><span class="s">&quot;1.0&quot;</span>
