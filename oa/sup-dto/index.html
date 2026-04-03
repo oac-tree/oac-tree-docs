@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
@@ -6,18 +8,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Welcome to sup-dto’s documentation! &mdash; SUP DTO</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=7ab3649f" />
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=c4cb232b"></script>
-        <script src="_static/doctools.js?v=9bcbadda"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=1d24b1d9"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -35,9 +33,6 @@
           <a href="#" class="icon icon-home">
             sup-dto
           </a>
-              <div class="version">
-                1.9.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -50,7 +45,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="anytype.html">AnyType</a></li>
 <li class="toctree-l1"><a class="reference internal" href="anyvalue.html">AnyValue</a></li>
-<li class="toctree-l1"><a class="reference internal" href="json.html">JSON Serialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serialization.html">Serialization and parsing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builders.html">AnyType/AnyValue builders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visit.html">Visitors</a></li>
 </ul>
 
         </div>
@@ -103,6 +100,7 @@ with respect to reference semantics:</p>
 <li class="toctree-l2"><a class="reference internal" href="anytype.html#element-access">Element access</a></li>
 <li class="toctree-l2"><a class="reference internal" href="anytype.html#modifier-methods">Modifier methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="anytype.html#comparison-operators">Comparison operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="anytype.html#global-functions">Global functions</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="anyvalue.html">AnyValue</a><ul>
@@ -117,9 +115,22 @@ with respect to reference semantics:</p>
 <li class="toctree-l2"><a class="reference internal" href="anyvalue.html#global-functions">Global functions</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="json.html">JSON Serialization</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="json.html#anytype">AnyType</a></li>
-<li class="toctree-l2"><a class="reference internal" href="json.html#anyvalue">AnyValue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serialization.html">Serialization and parsing</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="serialization.html#json-serialization">JSON Serialization</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serialization.html#json-parsing">JSON parsing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serialization.html#binary-serialization-and-parsing">Binary Serialization and parsing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serialization.html#casting-to-from-plain-c-types">Casting to/from plain C types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="serialization.html#anytyperegistry">AnyTypeRegistry</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="builders.html">AnyType/AnyValue builders</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="builders.html#anytypecomposer">AnyTypeComposer</a></li>
+<li class="toctree-l2"><a class="reference internal" href="builders.html#anyvaluecomposer">AnyValueComposer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="visit.html">Visitors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="visit.html#ianyvisitor">IAnyVisitor</a></li>
+<li class="toctree-l2"><a class="reference internal" href="visit.html#visit-functions">Visit functions</a></li>
 </ul>
 </li>
 </ul>

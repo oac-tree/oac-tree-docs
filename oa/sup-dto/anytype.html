@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
@@ -6,18 +8,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AnyType &mdash; SUP DTO</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=7ab3649f" />
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=c4cb232b"></script>
-        <script src="_static/doctools.js?v=9bcbadda"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=1d24b1d9"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -36,9 +34,6 @@
           <a href="index.html" class="icon icon-home">
             sup-dto
           </a>
-              <div class="version">
-                1.9.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -85,6 +80,9 @@
 <li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK7AnyType15NumberOfMembersEv"><code class="docutils literal notranslate"><span class="pre">NumberOfMembers()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK7AnyType11ElementTypeEv"><code class="docutils literal notranslate"><span class="pre">ElementType()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK7AnyType16NumberOfElementsEv"><code class="docutils literal notranslate"><span class="pre">NumberOfElements()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK16NumberOfChildrenEv"><code class="docutils literal notranslate"><span class="pre">NumberOfChildren()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv412GetChildTypeNSt6size_tE"><code class="docutils literal notranslate"><span class="pre">GetChildType()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK12GetChildTypeENSt6size_tE"><code class="docutils literal notranslate"><span class="pre">GetChildType()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#element-access">Element access</a><ul>
@@ -101,10 +99,27 @@
 <li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK7AnyTypeneERK7AnyType"><code class="docutils literal notranslate"><span class="pre">operator!=()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#global-functions">Global functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv415EmptyStructTypeRKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">EmptyStructType()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv415EmptyStructTypev"><code class="docutils literal notranslate"><span class="pre">EmptyStructType()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv415IsEmptyTypeCode8TypeCode"><code class="docutils literal notranslate"><span class="pre">IsEmptyTypeCode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv416IsStructTypeCode8TypeCode"><code class="docutils literal notranslate"><span class="pre">IsStructTypeCode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv415IsArrayTypeCode8TypeCode"><code class="docutils literal notranslate"><span class="pre">IsArrayTypeCode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv416IsScalarTypeCode8TypeCode"><code class="docutils literal notranslate"><span class="pre">IsScalarTypeCode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv411IsEmptyTypeRK7AnyType"><code class="docutils literal notranslate"><span class="pre">IsEmptyType()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv412IsStructTypeRK7AnyType"><code class="docutils literal notranslate"><span class="pre">IsStructType()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv411IsArrayTypeRK7AnyType"><code class="docutils literal notranslate"><span class="pre">IsArrayType()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv412IsScalarTypeRK7AnyType"><code class="docutils literal notranslate"><span class="pre">IsScalarType()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv421ScalarTypeDefinitionsv"><code class="docutils literal notranslate"><span class="pre">ScalarTypeDefinitions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv421SplitAnyTypeFieldnameRKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">SplitAnyTypeFieldname()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="anyvalue.html">AnyValue</a></li>
-<li class="toctree-l1"><a class="reference internal" href="json.html">JSON Serialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serialization.html">Serialization and parsing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builders.html">AnyType/AnyValue builders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visit.html">Visitors</a></li>
 </ul>
 
         </div>
@@ -152,6 +167,7 @@ by value.</p>
 <li><p><a class="reference internal" href="#element-access" id="id10">Element access</a></p></li>
 <li><p><a class="reference internal" href="#modifier-methods" id="id11">Modifier methods</a></p></li>
 <li><p><a class="reference internal" href="#comparison-operators" id="id12">Comparison operators</a></p></li>
+<li><p><a class="reference internal" href="#global-functions" id="id13">Global functions</a></p></li>
 </ul>
 </nav>
 <section id="architecture">
@@ -290,7 +306,8 @@ scalar type, to the constructor:</p>
 <dl class="cpp enumerator">
 <dt class="sig sig-object cpp" id="_CPPv4N8TypeCode6StringE">
 <span id="_CPPv3N8TypeCode6StringE"></span><span id="_CPPv2N8TypeCode6StringE"></span><span class="k"><span class="pre">enumerator</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">TypeCode</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">String</span></span></span><a class="headerlink" href="#_CPPv4N8TypeCode6StringE" title="Link to this definition"></a><br /></dt>
-<dd><p>Type representing character strings.</p>
+<dd><p>Type representing character strings. Values of this type encapsulate a <code class="docutils literal notranslate"><span class="pre">std::string</span></code> and
+hence support a variable size (no fixed length constraints).</p>
 </dd></dl>
 
 </section>
@@ -304,8 +321,8 @@ dedicated constructor:</p>
 </div>
 <p>The last argument of this constructor is optional and if not provided, the typename will be an empty
 string.</p>
-<p>Array types with zero size are allowed, since elements can be added later. However, this implicitly
-changes the type, since its size if part of the type.</p>
+<p>Array types with zero size are allowed, since elements can be added later to values of this type.
+However, this implicitly changes their type, since the size is part of the type.</p>
 </section>
 <section id="structured-types">
 <span id="id1"></span><h3><a class="toc-backref" href="#id7" role="doc-backlink">Structured types</a><a class="headerlink" href="#structured-types" title="Link to this heading"></a></h3>
@@ -410,7 +427,8 @@ These are listed here.</p>
 <dd class="field-odd"><p>Type name.</p>
 </dd>
 </dl>
-<p>Retrieve the type name.</p>
+<p>Retrieve the type name. These names are fixed for scalar and empty types and can be
+customized for array and struct types.</p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -435,7 +453,8 @@ These are listed here.</p>
 <dd class="field-odd"><p>List of member names.</p>
 </dd>
 </dl>
-<p>Return an ordered list of all direct member names.</p>
+<p>Return an ordered list of all direct member names. This will return an empty list for
+non-structured types.</p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -475,12 +494,52 @@ These are listed here.</p>
 array type.</p>
 </dd></dl>
 
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK16NumberOfChildrenEv">
+<span id="_CPPv3NK16NumberOfChildrenEv"></span><span id="_CPPv2NK16NumberOfChildrenEv"></span><span id="NumberOfChildrenC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NumberOfChildren</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK16NumberOfChildrenEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of child types for this type and zero otherwise.</p>
+</dd>
+</dl>
+<p>Get number of child types. This is mostly used to be able to visit an AnyType tree structure.
+Note that for array types, it will return one, as an array type has only one child type, even
+though its size may be bigger of smaller than one.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv412GetChildTypeNSt6size_tE">
+<span id="_CPPv312GetChildTypeNSt6size_tE"></span><span id="_CPPv212GetChildTypeNSt6size_tE"></span><span id="GetChildType__std::s"></span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetChildType</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv412GetChildTypeNSt6size_tE" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Child type for the given index.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">InvalidOperationException</span></span></span> – If no child type for the given index exists.</p>
+</dd>
+</dl>
+<p>Get the child type for the given index. This is mostly used to be able to visit an AnyType tree.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK12GetChildTypeENSt6size_tE">
+<span id="_CPPv3NK12GetChildTypeENSt6size_tE"></span><span id="_CPPv2NK12GetChildTypeENSt6size_tE"></span><span id="GetChildType__std::sC"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetChildType</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">idx</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK12GetChildTypeENSt6size_tE" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Child type for the given index.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">InvalidOperationException</span></span></span> – If no child type for the given index exists.</p>
+</dd>
+</dl>
+<p>Const version of <code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">AnyType*</span> <span class="pre">GetChildType(std::size_t</span> <span class="pre">idx)()</span></code>.</p>
+</dd></dl>
+
 </section>
 <section id="element-access">
 <h2><a class="toc-backref" href="#id10" role="doc-backlink">Element access</a><a class="headerlink" href="#element-access" title="Link to this heading"></a></h2>
 <p>The <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> class overloads the index operators to provide a natural way to access element types
-of a structured type. Since array types have only one single type associated to their elements, no
-dedicated overload exists (see <a class="reference internal" href="#_CPPv4NK7AnyType11ElementTypeEv" title="AnyType::ElementType"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">AnyType::ElementType()</span></code></a>).</p>
+of a structured type. For array types, the fieldname <code class="docutils literal notranslate"><span class="pre">[]</span></code> is used to access its element type.</p>
 <p>The overloaded operators are:</p>
 <dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4N7AnyTypeixENSt6stringE">
@@ -580,6 +639,181 @@ and types. The order of members is also taken into account.</p></li>
 number of elements.</p></li>
 </ul>
 </div>
+</section>
+<section id="global-functions">
+<h2><a class="toc-backref" href="#id13" role="doc-backlink">Global functions</a><a class="headerlink" href="#global-functions" title="Link to this heading"></a></h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv415EmptyStructTypeRKNSt6stringE">
+<span id="_CPPv315EmptyStructTypeRKNSt6stringE"></span><span id="_CPPv215EmptyStructTypeRKNSt6stringE"></span><span id="EmptyStructType__ssCR"></span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EmptyStructType</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415EmptyStructTypeRKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> – Name for the underlying structured type.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">AnyType</span></code> with structure type.</p>
+</dd>
+</dl>
+<p>Constructs an empty structured type with the given name.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv415EmptyStructTypev">
+<span id="_CPPv315EmptyStructTypev"></span><span id="_CPPv215EmptyStructTypev"></span><span id="EmptyStructType"></span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EmptyStructType</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415EmptyStructTypev" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">AnyType</span></code> with structure type.</p>
+</dd>
+</dl>
+<p>Constructs an empty structured type with an empty name.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv415IsEmptyTypeCode8TypeCode">
+<span id="_CPPv315IsEmptyTypeCode8TypeCode"></span><span id="_CPPv215IsEmptyTypeCode8TypeCode"></span><span id="IsEmptyTypeCode__TypeCode"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsEmptyTypeCode</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">TypeCode</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type_code</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415IsEmptyTypeCode8TypeCode" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>type_code</strong> – <code class="docutils literal notranslate"><span class="pre">TypeCode</span></code> enumerator to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> if the type code represents an empty type.</p>
+</dd>
+</dl>
+<p>Check whether the given type code corresponds to the empty type.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416IsStructTypeCode8TypeCode">
+<span id="_CPPv316IsStructTypeCode8TypeCode"></span><span id="_CPPv216IsStructTypeCode8TypeCode"></span><span id="IsStructTypeCode__TypeCode"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsStructTypeCode</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">TypeCode</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type_code</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416IsStructTypeCode8TypeCode" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>type_code</strong> – <code class="docutils literal notranslate"><span class="pre">TypeCode</span></code> enumerator to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> if the type code represents a structured type.</p>
+</dd>
+</dl>
+<p>Check whether the given type code corresponds to a structured type.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv415IsArrayTypeCode8TypeCode">
+<span id="_CPPv315IsArrayTypeCode8TypeCode"></span><span id="_CPPv215IsArrayTypeCode8TypeCode"></span><span id="IsArrayTypeCode__TypeCode"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsArrayTypeCode</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">TypeCode</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type_code</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv415IsArrayTypeCode8TypeCode" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>type_code</strong> – <code class="docutils literal notranslate"><span class="pre">TypeCode</span></code> enumerator to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> if the type code represents an array type.</p>
+</dd>
+</dl>
+<p>Check whether the given type code corresponds to an array type.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416IsScalarTypeCode8TypeCode">
+<span id="_CPPv316IsScalarTypeCode8TypeCode"></span><span id="_CPPv216IsScalarTypeCode8TypeCode"></span><span id="IsScalarTypeCode__TypeCode"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsScalarTypeCode</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">TypeCode</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">type_code</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416IsScalarTypeCode8TypeCode" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>type_code</strong> – <code class="docutils literal notranslate"><span class="pre">TypeCode</span></code> enumerator to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> if the type code represents a scalar type.</p>
+</dd>
+</dl>
+<p>Check whether the given type code corresponds to a scalar type.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv411IsEmptyTypeRK7AnyType">
+<span id="_CPPv311IsEmptyTypeRK7AnyType"></span><span id="_CPPv211IsEmptyTypeRK7AnyType"></span><span id="IsEmptyType__AnyTypeCR"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsEmptyType</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">anytype</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv411IsEmptyTypeRK7AnyType" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>anytype</strong> – <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> object to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> if the given object is an empty type.</p>
+</dd>
+</dl>
+<p>Check whether the given <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> object is an empty type.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv412IsStructTypeRK7AnyType">
+<span id="_CPPv312IsStructTypeRK7AnyType"></span><span id="_CPPv212IsStructTypeRK7AnyType"></span><span id="IsStructType__AnyTypeCR"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsStructType</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">anytype</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv412IsStructTypeRK7AnyType" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>anytype</strong> – <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> object to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> if the given object is a structured type.</p>
+</dd>
+</dl>
+<p>Check whether the given <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> object is a structured type.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv411IsArrayTypeRK7AnyType">
+<span id="_CPPv311IsArrayTypeRK7AnyType"></span><span id="_CPPv211IsArrayTypeRK7AnyType"></span><span id="IsArrayType__AnyTypeCR"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsArrayType</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">anytype</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv411IsArrayTypeRK7AnyType" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>anytype</strong> – <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> object to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> if the given object is an array type.</p>
+</dd>
+</dl>
+<p>Check whether the given <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> object is an array type.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv412IsScalarTypeRK7AnyType">
+<span id="_CPPv312IsScalarTypeRK7AnyType"></span><span id="_CPPv212IsScalarTypeRK7AnyType"></span><span id="IsScalarType__AnyTypeCR"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsScalarType</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">anytype</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv412IsScalarTypeRK7AnyType" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>anytype</strong> – <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> object to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> if the given object is a scalar type.</p>
+</dd>
+</dl>
+<p>Check whether the given <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> object is a scalar type.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421ScalarTypeDefinitionsv">
+<span id="_CPPv321ScalarTypeDefinitionsv"></span><span id="_CPPv221ScalarTypeDefinitionsv"></span><span id="ScalarTypeDefinitions"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">TypeCode</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">ScalarTypeDefinitions</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421ScalarTypeDefinitionsv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Reference to a vector of pairs mapping each scalar <code class="docutils literal notranslate"><span class="pre">TypeCode</span></code> to its string name.</p>
+</dd>
+</dl>
+<p>Retrieve the list of all scalar type definitions.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv421SplitAnyTypeFieldnameRKNSt6stringE">
+<span id="_CPPv321SplitAnyTypeFieldnameRKNSt6stringE"></span><span id="_CPPv221SplitAnyTypeFieldnameRKNSt6stringE"></span><span id="SplitAnyTypeFieldname__ssCR"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">deque</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SplitAnyTypeFieldname</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">fieldname</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv421SplitAnyTypeFieldnameRKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fieldname</strong> – Full fieldname to split.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of component names.</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">InvalidOperationException</span></span></span> – When the fieldname cannot be properly parsed.</p>
+</dd>
+</dl>
+<p>Splits a possibly nested fieldname for an <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> into its component names.
+Optional dots after square brackets will be removed too.</p>
+<p>Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">names_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SplitAnyTypeFieldname</span><span class="p">(</span><span class="s">&quot;[]subfieldname&quot;</span><span class="p">);</span><span class="w">   </span><span class="c1">// returns {&quot;[]&quot;, &quot;subfieldname&quot;}</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">names_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SplitAnyTypeFieldname</span><span class="p">(</span><span class="s">&quot;[].subfieldname&quot;</span><span class="p">);</span><span class="w">  </span><span class="c1">// idem</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">names_3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SplitAnyTypeFieldname</span><span class="p">(</span><span class="s">&quot;[oops]&quot;</span><span class="p">);</span><span class="w">           </span><span class="c1">// throws InvalidOperationException</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </section>
 </section>
 

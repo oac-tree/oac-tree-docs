@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
@@ -5,18 +7,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Index &mdash; SUP DTO</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=7ab3649f" />
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=c4cb232b"></script>
-        <script src="_static/doctools.js?v=9bcbadda"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=1d24b1d9"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="#" />
     <link rel="search" title="Search" href="search.html" /> 
@@ -33,9 +31,6 @@
           <a href="index.html" class="icon icon-home">
             sup-dto
           </a>
-              <div class="version">
-                1.9.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -48,7 +43,9 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="anytype.html">AnyType</a></li>
 <li class="toctree-l1"><a class="reference internal" href="anyvalue.html">AnyValue</a></li>
-<li class="toctree-l1"><a class="reference internal" href="json.html">JSON Serialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serialization.html">Serialization and parsing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builders.html">AnyType/AnyValue builders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visit.html">Visitors</a></li>
 </ul>
 
         </div>
@@ -82,10 +79,17 @@
  | <a href="#B"><strong>B</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
+ | <a href="#G"><strong>G</strong></a>
  | <a href="#I"><strong>I</strong></a>
+ | <a href="#J"><strong>J</strong></a>
+ | <a href="#N"><strong>N</strong></a>
+ | <a href="#P"><strong>P</strong></a>
+ | <a href="#S"><strong>S</strong></a>
  | <a href="#T"><strong>T</strong></a>
  | <a href="#U"><strong>U</strong></a>
+ | <a href="#V"><strong>V</strong></a>
  
 </div>
 <h2 id="A">A</h2>
@@ -113,6 +117,78 @@
 </li>
       <li><a href="anytype.html#_CPPv4N7AnyTypeixENSt6stringE">AnyType::operator[] (C++ function)</a>, <a href="anytype.html#_CPPv4NK7AnyTypeixENSt6stringE">[1]</a>
 </li>
+      <li><a href="builders.html#_CPPv415AnyTypeComposer">AnyTypeComposer (C++ class)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer15AnyTypeComposerEv">AnyTypeComposer::AnyTypeComposer (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer4BoolEv">AnyTypeComposer::Bool (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer5Char8Ev">AnyTypeComposer::Char8 (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer5EmptyEv">AnyTypeComposer::Empty (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer8EndArrayEv">AnyTypeComposer::EndArray (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer15EndArrayElementEv">AnyTypeComposer::EndArrayElement (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer8EndFieldEv">AnyTypeComposer::EndField (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer9EndStructEv">AnyTypeComposer::EndStruct (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer7Float32Ev">AnyTypeComposer::Float32 (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer7Float64Ev">AnyTypeComposer::Float64 (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4NK15AnyTypeComposer12GetStackSizeEv">AnyTypeComposer::GetStackSize (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer5Int16Ev">AnyTypeComposer::Int16 (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer5Int32Ev">AnyTypeComposer::Int32 (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer5Int64Ev">AnyTypeComposer::Int64 (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer4Int8Ev">AnyTypeComposer::Int8 (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer11MoveAnyTypeEv">AnyTypeComposer::MoveAnyType (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer10StartArrayERKNSt6stringE6uint64">AnyTypeComposer::StartArray (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer17StartArrayElementEv">AnyTypeComposer::StartArrayElement (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer10StartFieldERKNSt6stringE">AnyTypeComposer::StartField (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer11StartStructERKNSt6stringE">AnyTypeComposer::StartStruct (C++ function)</a>, <a href="builders.html#_CPPv4N15AnyTypeComposer11StartStructEv">[1]</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer6StringEv">AnyTypeComposer::String (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer6UInt16Ev">AnyTypeComposer::UInt16 (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer6UInt32Ev">AnyTypeComposer::UInt32 (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer6UInt64Ev">AnyTypeComposer::UInt64 (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N15AnyTypeComposer5UInt8Ev">AnyTypeComposer::UInt8 (C++ function)</a>
+</li>
+      <li><a href="serialization.html#_CPPv417AnyTypeFromBinaryRKNSt6vectorI5uint8EE">AnyTypeFromBinary (C++ function)</a>
+</li>
+      <li><a href="serialization.html#_CPPv415AnyTypeRegistry">AnyTypeRegistry (C++ class)</a>
+</li>
+      <li><a href="serialization.html#_CPPv4N15AnyTypeRegistry15AnyTypeRegistryEv">AnyTypeRegistry::AnyTypeRegistry (C++ function)</a>
+</li>
+      <li><a href="serialization.html#_CPPv4NK15AnyTypeRegistry7GetTypeERKNSt6stringE">AnyTypeRegistry::GetType (C++ function)</a>
+</li>
+      <li><a href="serialization.html#_CPPv4NK15AnyTypeRegistry7HasTypeERKNSt6stringE">AnyTypeRegistry::HasType (C++ function)</a>
+</li>
+      <li><a href="serialization.html#_CPPv4NK15AnyTypeRegistry22RegisteredAnyTypeNamesEv">AnyTypeRegistry::RegisteredAnyTypeNames (C++ function)</a>
+</li>
+      <li><a href="serialization.html#_CPPv4N15AnyTypeRegistry12RegisterTypeE7AnyType">AnyTypeRegistry::RegisterType (C++ function)</a>, <a href="serialization.html#_CPPv4N15AnyTypeRegistry12RegisterTypeERKNSt6stringE7AnyType">[1]</a>
+</li>
+      <li><a href="serialization.html#_CPPv415AnyTypeToBinaryRK7AnyType">AnyTypeToBinary (C++ function)</a>
+</li>
+      <li><a href="serialization.html#_CPPv417AnyTypeToJSONFileRK7AnyTypeRKNSt6stringE">AnyTypeToJSONFile (C++ function)</a>, <a href="serialization.html#_CPPv417AnyTypeToJSONFileRK7AnyTypeRKNSt6stringEb">[1]</a>
+</li>
+      <li><a href="serialization.html#_CPPv419AnyTypeToJSONStringRK7AnyType">AnyTypeToJSONString (C++ function)</a>, <a href="serialization.html#_CPPv419AnyTypeToJSONStringRK7AnyTypeb">[1]</a>
+</li>
       <li><a href="anyvalue.html#_CPPv4N8AnyValue10AddElementERK8AnyValue">AnyValue::AddElement (C++ function)</a>
 </li>
       <li><a href="anyvalue.html#_CPPv4N8AnyValue9AddMemberERKNSt6stringERK8AnyValue">AnyValue::AddMember (C++ function)</a>
@@ -121,7 +197,7 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="anyvalue.html#_CPPv4N8AnyValue8AnyValueERK7AnyType">AnyValue::AnyValue (C++ function)</a>, <a href="anyvalue.html#_CPPv4N8AnyValue8AnyValueERK7AnyTypeRK8AnyValue">[1]</a>, <a href="anyvalue.html#_CPPv4NK8AnyValue8AnyValueE4int8">[2]</a>, <a href="anyvalue.html#_CPPv4NK8AnyValue8AnyValueE5char8">[3]</a>, <a href="anyvalue.html#_CPPv4NK8AnyValue8AnyValueE5int16">[4]</a>, <a href="anyvalue.html#_CPPv4NK8AnyValue8AnyValueE5int32">[5]</a>, <a href="anyvalue.html#_CPPv4NK8AnyValue8AnyValueE5uint8">[6]</a>, <a href="anyvalue.html#_CPPv4NK8AnyValue8AnyValueE6uint16">[7]</a>, <a href="anyvalue.html#_CPPv4NK8AnyValue8AnyValueE6uint32">[8]</a>, <a href="anyvalue.html#_CPPv4NK8AnyValue8AnyValueE6uint64">[9]</a>, <a href="anyvalue.html#_CPPv4NK8AnyValue8AnyValueE7boolean">[10]</a>, <a href="anyvalue.html#_CPPv4NK8AnyValue8AnyValueE7float32">[11]</a>, <a href="anyvalue.html#_CPPv4NK8AnyValue8AnyValueE7float64">[12]</a>, <a href="anyvalue.html#_CPPv4NK8AnyValue8AnyValueEPKc">[13]</a>, <a href="anyvalue.html#_CPPv4NK8AnyValue8AnyValueERKNSt6stringE">[14]</a>
 </li>
-      <li><a href="anyvalue.html#_CPPv4I0ENK8AnyValue2AsE1Tv">AnyValue::As (C++ function)</a>
+      <li><a href="anyvalue.html#_CPPv4I0ENK8AnyValue2AsE1Tv">AnyValue::As (C++ function)</a>, <a href="anyvalue.html#_CPPv4I0ENK8AnyValue2AsEbR1T">[1]</a>
 </li>
       <li><a href="anyvalue.html#_CPPv4N8AnyValue11ConvertFromERK8AnyValue">AnyValue::ConvertFrom (C++ function)</a>
 </li>
@@ -144,6 +220,78 @@
       <li><a href="anyvalue.html#_CPPv4NK8AnyValueeqERK8AnyValue">AnyValue::operator== (C++ function)</a>
 </li>
       <li><a href="anyvalue.html#_CPPv4N8AnyValueixENSt6size_tE">AnyValue::operator[] (C++ function)</a>, <a href="anyvalue.html#_CPPv4N8AnyValueixENSt6stringE">[1]</a>, <a href="anyvalue.html#_CPPv4NK8AnyValueixENSt6size_tE">[2]</a>, <a href="anyvalue.html#_CPPv4NK8AnyValueixENSt6stringE">[3]</a>
+</li>
+      <li><a href="serialization.html#_CPPv4I0ENK8AnyValue7ToCTypeE1Tv">AnyValue::ToCType (C++ function)</a>, <a href="serialization.html#_CPPv4I0ENK8AnyValue7ToCTypeEbR1T">[1]</a>
+</li>
+      <li><a href="builders.html#_CPPv416AnyValueComposer">AnyValueComposer (C++ class)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer15AddArrayElementERK8AnyValue">AnyValueComposer::AddArrayElement (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer9AddMemberERKNSt6stringE8AnyValue">AnyValueComposer::AddMember (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer8AddValueERK8AnyValue">AnyValueComposer::AddValue (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer16AnyValueComposerEv">AnyValueComposer::AnyValueComposer (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer4BoolE7boolean">AnyValueComposer::Bool (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer5Char8E5char8">AnyValueComposer::Char8 (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer5EmptyEv">AnyValueComposer::Empty (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer8EndArrayEv">AnyValueComposer::EndArray (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer15EndArrayElementEv">AnyValueComposer::EndArrayElement (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer8EndFieldEv">AnyValueComposer::EndField (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer9EndStructEv">AnyValueComposer::EndStruct (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer7Float32E7float32">AnyValueComposer::Float32 (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer7Float64E7float64">AnyValueComposer::Float64 (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4NK16AnyValueComposer12GetStackSizeEv">AnyValueComposer::GetStackSize (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer5Int16E5int16">AnyValueComposer::Int16 (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer5Int32E5int32">AnyValueComposer::Int32 (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer5Int64E5int64">AnyValueComposer::Int64 (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer4Int8E4int8">AnyValueComposer::Int8 (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer12MoveAnyValueEv">AnyValueComposer::MoveAnyValue (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer10StartArrayERKNSt6stringE">AnyValueComposer::StartArray (C++ function)</a>, <a href="builders.html#_CPPv4N16AnyValueComposer10StartArrayEv">[1]</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer17StartArrayElementEv">AnyValueComposer::StartArrayElement (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer10StartFieldERKNSt6stringE">AnyValueComposer::StartField (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer11StartStructERKNSt6stringE">AnyValueComposer::StartStruct (C++ function)</a>, <a href="builders.html#_CPPv4N16AnyValueComposer11StartStructEv">[1]</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer6StringERKNSt6stringE">AnyValueComposer::String (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer6UInt16E6uint16">AnyValueComposer::UInt16 (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer6UInt32E6uint32">AnyValueComposer::UInt32 (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer6UInt64E6uint64">AnyValueComposer::UInt64 (C++ function)</a>
+</li>
+      <li><a href="builders.html#_CPPv4N16AnyValueComposer5UInt8E5uint8">AnyValueComposer::UInt8 (C++ function)</a>
+</li>
+      <li><a href="serialization.html#_CPPv418AnyValueFromBinaryRKNSt6vectorI5uint8EE">AnyValueFromBinary (C++ function)</a>
+</li>
+      <li><a href="serialization.html#_CPPv416AnyValueToBinaryRK8AnyValue">AnyValueToBinary (C++ function)</a>
+</li>
+      <li><a href="serialization.html#_CPPv418AnyValueToJSONFileRK8AnyValueRKNSt6stringE">AnyValueToJSONFile (C++ function)</a>, <a href="serialization.html#_CPPv418AnyValueToJSONFileRK8AnyValueRKNSt6stringEb">[1]</a>
+</li>
+      <li><a href="serialization.html#_CPPv420AnyValueToJSONStringRK8AnyValue">AnyValueToJSONString (C++ function)</a>, <a href="serialization.html#_CPPv420AnyValueToJSONStringRK8AnyValueb">[1]</a>
+</li>
+      <li><a href="anyvalue.html#_CPPv410ArrayValueNSt16initializer_listI8AnyValueEE">ArrayValue (C++ function)</a>, <a href="anyvalue.html#_CPPv410ArrayValueNSt16initializer_listI8AnyValueEERKNSt6stringE">[1]</a>
+</li>
+      <li><a href="serialization.html#_CPPv4I0E15AssignFromCTypevR8AnyValueRK1T">AssignFromCType (C++ function)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -176,14 +324,40 @@
   </ul></td>
 </tr></table>
 
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="anyvalue.html#_CPPv4NK11ElementTypeEv">ElementType (C++ function)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="anyvalue.html#_CPPv411EmptyStructRKNSt6stringE">EmptyStruct (C++ function)</a>, <a href="anyvalue.html#_CPPv411EmptyStructv">[1]</a>
+</li>
+      <li><a href="anytype.html#_CPPv415EmptyStructTypeRKNSt6stringE">EmptyStructType (C++ function)</a>, <a href="anytype.html#_CPPv415EmptyStructTypev">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="anyvalue.html#_CPPv47float32">float32 (C++ type)</a>
 </li>
+      <li><a href="anyvalue.html#_CPPv47float64">float64 (C++ type)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="anyvalue.html#_CPPv47float64">float64 (C++ type)</a>
+      <li><a href="serialization.html#_CPPv49FromBytesR8AnyValuePK5uint8NSt6size_tE">FromBytes (C++ function)</a>
+</li>
+      <li><a href="serialization.html#_CPPv421FromNetworkOrderBytesR8AnyValuePK5uint8NSt6size_tE">FromNetworkOrderBytes (C++ function)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="G">G</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="anytype.html#_CPPv412GetChildTypeNSt6size_tE">GetChildType (C++ function)</a>, <a href="anytype.html#_CPPv4NK12GetChildTypeENSt6size_tE">[1]</a>
 </li>
   </ul></td>
 </tr></table>
@@ -191,6 +365,32 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="visit.html#_CPPv4I0E11IAnyVisitor">IAnyVisitor (C++ class)</a>
+</li>
+      <li><a href="visit.html#_CPPv4N11IAnyVisitor21ArrayElementSeparatorEv">IAnyVisitor::ArrayElementSeparator (C++ function)</a>
+</li>
+      <li><a href="visit.html#_CPPv4N11IAnyVisitor11ArrayEpilogEP1T">IAnyVisitor::ArrayEpilog (C++ function)</a>
+</li>
+      <li><a href="visit.html#_CPPv4N11IAnyVisitor11ArrayPrologEP1T">IAnyVisitor::ArrayProlog (C++ function)</a>
+</li>
+      <li><a href="visit.html#_CPPv4N11IAnyVisitor11EmptyEpilogEP1T">IAnyVisitor::EmptyEpilog (C++ function)</a>
+</li>
+      <li><a href="visit.html#_CPPv4N11IAnyVisitor11EmptyPrologEP1T">IAnyVisitor::EmptyProlog (C++ function)</a>
+</li>
+      <li><a href="visit.html#_CPPv4N11IAnyVisitor12MemberEpilogEP1TRKNSt6stringE">IAnyVisitor::MemberEpilog (C++ function)</a>
+</li>
+      <li><a href="visit.html#_CPPv4N11IAnyVisitor12MemberPrologEP1TRKNSt6stringE">IAnyVisitor::MemberProlog (C++ function)</a>
+</li>
+      <li><a href="visit.html#_CPPv4N11IAnyVisitor12ScalarEpilogEP1T">IAnyVisitor::ScalarEpilog (C++ function)</a>
+</li>
+      <li><a href="visit.html#_CPPv4N11IAnyVisitor12ScalarPrologEP1T">IAnyVisitor::ScalarProlog (C++ function)</a>
+</li>
+      <li><a href="visit.html#_CPPv4N11IAnyVisitor12StructEpilogEP1T">IAnyVisitor::StructEpilog (C++ function)</a>
+</li>
+      <li><a href="visit.html#_CPPv4N11IAnyVisitor21StructMemberSeparatorEv">IAnyVisitor::StructMemberSeparator (C++ function)</a>
+</li>
+      <li><a href="visit.html#_CPPv4N11IAnyVisitor12StructPrologEP1T">IAnyVisitor::StructProlog (C++ function)</a>
+</li>
       <li><a href="anyvalue.html#_CPPv49IncrementR8AnyValue">Increment (C++ function)</a>
 </li>
       <li><a href="anyvalue.html#_CPPv45int16">int16 (C++ type)</a>
@@ -203,15 +403,123 @@
 </li>
       <li><a href="anyvalue.html#_CPPv44int8">int8 (C++ type)</a>
 </li>
+      <li><a href="anytype.html#_CPPv411IsArrayTypeRK7AnyType">IsArrayType (C++ function)</a>
+</li>
+      <li><a href="anytype.html#_CPPv415IsArrayTypeCode8TypeCode">IsArrayTypeCode (C++ function)</a>
+</li>
+      <li><a href="anyvalue.html#_CPPv412IsArrayValueRK8AnyValue">IsArrayValue (C++ function)</a>
+</li>
+      <li><a href="anytype.html#_CPPv411IsEmptyTypeRK7AnyType">IsEmptyType (C++ function)</a>
+</li>
+      <li><a href="anytype.html#_CPPv415IsEmptyTypeCode8TypeCode">IsEmptyTypeCode (C++ function)</a>
+</li>
+      <li><a href="anyvalue.html#_CPPv412IsEmptyValueRK8AnyValue">IsEmptyValue (C++ function)</a>
+</li>
+      <li><a href="anyvalue.html#_CPPv4NK8IsScalarEv">IsScalar (C++ function)</a>
+</li>
+      <li><a href="anytype.html#_CPPv412IsScalarTypeRK7AnyType">IsScalarType (C++ function)</a>
+</li>
+      <li><a href="anytype.html#_CPPv416IsScalarTypeCode8TypeCode">IsScalarTypeCode (C++ function)</a>
+</li>
+      <li><a href="anyvalue.html#_CPPv413IsScalarValueRK8AnyValue">IsScalarValue (C++ function)</a>
+</li>
+      <li><a href="anytype.html#_CPPv412IsStructTypeRK7AnyType">IsStructType (C++ function)</a>
+</li>
+      <li><a href="anytype.html#_CPPv416IsStructTypeCode8TypeCode">IsStructTypeCode (C++ function)</a>
+</li>
+      <li><a href="anyvalue.html#_CPPv413IsStructValueRK8AnyValue">IsStructValue (C++ function)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="J">J</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="serialization.html#_CPPv417JSONAnyTypeParser">JSONAnyTypeParser (C++ class)</a>
+</li>
+      <li><a href="serialization.html#_CPPv4N17JSONAnyTypeParser17JSONAnyTypeParserEv">JSONAnyTypeParser::JSONAnyTypeParser (C++ function)</a>
+</li>
+      <li><a href="serialization.html#_CPPv4N17JSONAnyTypeParser11MoveAnyTypeEv">JSONAnyTypeParser::MoveAnyType (C++ function)</a>
+</li>
+      <li><a href="serialization.html#_CPPv4N17JSONAnyTypeParser9ParseFileERKNSt6stringE">JSONAnyTypeParser::ParseFile (C++ function)</a>, <a href="serialization.html#_CPPv4N17JSONAnyTypeParser9ParseFileERKNSt6stringEPK15AnyTypeRegistry">[1]</a>
+</li>
+      <li><a href="serialization.html#_CPPv4N17JSONAnyTypeParser11ParseStringERKNSt6stringE">JSONAnyTypeParser::ParseString (C++ function)</a>, <a href="serialization.html#_CPPv4N17JSONAnyTypeParser11ParseStringERKNSt6stringEPK15AnyTypeRegistry">[1]</a>
+</li>
+      <li><a href="serialization.html#_CPPv418JSONAnyValueParser">JSONAnyValueParser (C++ class)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="serialization.html#_CPPv4N18JSONAnyValueParser18JSONAnyValueParserEv">JSONAnyValueParser::JSONAnyValueParser (C++ function)</a>
+</li>
+      <li><a href="serialization.html#_CPPv4N18JSONAnyValueParser12MoveAnyValueEv">JSONAnyValueParser::MoveAnyValue (C++ function)</a>
+</li>
+      <li><a href="serialization.html#_CPPv4N18JSONAnyValueParser9ParseFileERKNSt6stringE">JSONAnyValueParser::ParseFile (C++ function)</a>, <a href="serialization.html#_CPPv4N18JSONAnyValueParser9ParseFileERKNSt6stringEPK15AnyTypeRegistry">[1]</a>
+</li>
+      <li><a href="serialization.html#_CPPv4N18JSONAnyValueParser11ParseStringERKNSt6stringE">JSONAnyValueParser::ParseString (C++ function)</a>, <a href="serialization.html#_CPPv4N18JSONAnyValueParser11ParseStringERKNSt6stringEPK15AnyTypeRegistry">[1]</a>
+</li>
+      <li><a href="serialization.html#_CPPv4N18JSONAnyValueParser14TypedParseFileERK7AnyTypeRKNSt6stringE">JSONAnyValueParser::TypedParseFile (C++ function)</a>
+</li>
+      <li><a href="serialization.html#_CPPv4N18JSONAnyValueParser16TypedParseStringERK7AnyTypeRKNSt6stringE">JSONAnyValueParser::TypedParseString (C++ function)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="N">N</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="serialization.html#_CPPv420NameToAnyTypeLeafMapv">NameToAnyTypeLeafMap (C++ function)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="anytype.html#_CPPv4NK16NumberOfChildrenEv">NumberOfChildren (C++ function)</a>, <a href="anyvalue.html#_CPPv4NK16NumberOfChildrenEv">[1]</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="P">P</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="anyvalue.html#_CPPv413PrintAnyValueRK8AnyValue">PrintAnyValue (C++ function)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="serialization.html#_CPPv4I0E19SafeAssignFromCTypebR8AnyValueRK1T">SafeAssignFromCType (C++ function)</a>
+</li>
+      <li><a href="anytype.html#_CPPv421ScalarTypeDefinitionsv">ScalarTypeDefinitions (C++ function)</a>
+</li>
+      <li><a href="visit.html#_CPPv416SerializeAnyTypeRK7AnyTypeR11IAnyVisitorIK7AnyTypeE">SerializeAnyType (C++ function)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="visit.html#_CPPv417SerializeAnyValueRK8AnyValueR11IAnyVisitorIK8AnyValueE">SerializeAnyValue (C++ function)</a>
+</li>
+      <li><a href="anytype.html#_CPPv421SplitAnyTypeFieldnameRKNSt6stringE">SplitAnyTypeFieldname (C++ function)</a>
+</li>
+      <li><a href="anyvalue.html#_CPPv422SplitAnyValueFieldnameRKNSt6stringE">SplitAnyValueFieldname (C++ function)</a>
+</li>
   </ul></td>
 </tr></table>
 
 <h2 id="T">T</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="serialization.html#_CPPv47ToBytesRK8AnyValue">ToBytes (C++ function)</a>
+</li>
+      <li><a href="serialization.html#_CPPv419ToNetworkOrderBytesRK8AnyValue">ToNetworkOrderBytes (C++ function)</a>
+</li>
       <li><a href="anyvalue.html#_CPPv49TryAssignR8AnyValueRK8AnyValue">TryAssign (C++ function)</a>
 </li>
+      <li><a href="anyvalue.html#_CPPv425TryAssignIfEmptyOrConvertR8AnyValueRK8AnyValue">TryAssignIfEmptyOrConvert (C++ function)</a>
+</li>
       <li><a href="anyvalue.html#_CPPv410TryConvertR8AnyValueRK8AnyValue">TryConvert (C++ function)</a>
+</li>
+      <li><a href="anyvalue.html#_CPPv432TryConvertAllowExtraSourceFieldsR8AnyValueRK7AnyType">TryConvertAllowExtraSourceFields (C++ function)</a>
+</li>
+      <li><a href="anyvalue.html#_CPPv432TryConvertAllowExtraTargetFieldsR8AnyValueRK7AnyType">TryConvertAllowExtraTargetFields (C++ function)</a>
 </li>
       <li><a href="anytype.html#_CPPv4N8TypeCode5ArrayE">TypeCode::Array (C++ enumerator)</a>
 </li>
@@ -221,14 +529,14 @@
 </li>
       <li><a href="anytype.html#_CPPv4N8TypeCode5EmptyE">TypeCode::Empty (C++ enumerator)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="anytype.html#_CPPv4N8TypeCode7Float32E">TypeCode::Float32 (C++ enumerator)</a>
 </li>
       <li><a href="anytype.html#_CPPv4N8TypeCode7Float64E">TypeCode::Float64 (C++ enumerator)</a>
 </li>
       <li><a href="anytype.html#_CPPv4N8TypeCode5Int16E">TypeCode::Int16 (C++ enumerator)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="anytype.html#_CPPv4N8TypeCode5Int32E">TypeCode::Int32 (C++ enumerator)</a>
 </li>
       <li><a href="anytype.html#_CPPv4N8TypeCode5Int64E">TypeCode::Int64 (C++ enumerator)</a>
@@ -262,6 +570,18 @@
       <li><a href="anyvalue.html#_CPPv46uint64">uint64 (C++ type)</a>
 </li>
       <li><a href="anyvalue.html#_CPPv45uint8">uint8 (C++ type)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="V">V</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="serialization.html#_CPPv416ValuesToJSONFileRK8AnyValueRKNSt6stringE">ValuesToJSONFile (C++ function)</a>, <a href="serialization.html#_CPPv416ValuesToJSONFileRK8AnyValueRKNSt6stringEb">[1]</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="serialization.html#_CPPv418ValuesToJSONStringRK8AnyValue">ValuesToJSONString (C++ function)</a>, <a href="serialization.html#_CPPv418ValuesToJSONStringRK8AnyValueb">[1]</a>
 </li>
   </ul></td>
 </tr></table>

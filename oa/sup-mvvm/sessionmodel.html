@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
@@ -6,18 +8,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>SessionModel &mdash; SUP MVVM</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=7ab3649f" />
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=20623aea"></script>
-        <script src="_static/doctools.js?v=9bcbadda"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=b21de401"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -36,9 +34,6 @@
           <a href="index.html" class="icon icon-home">
             sup-mvvm
           </a>
-              <div class="version">
-                2.1.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -257,8 +252,8 @@ different models:</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N4mvvm12SessionModel10RemoveItemEP11SessionItem">
-<span id="_CPPv3N4mvvm12SessionModel10RemoveItemEP11SessionItem"></span><span id="_CPPv2N4mvvm12SessionModel10RemoveItemEP11SessionItem"></span><span id="mvvm::SessionModel::RemoveItem__SessionItemP"></span><span class="target" id="classmvvm_1_1SessionModel_1afc3fda77c80a9d91baf0257a569b9185"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RemoveItem</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">item</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N4mvvm12SessionModel10RemoveItemEP11SessionItem" title="Link to this definition"></a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N4mvvm12SessionModel10RemoveItemEPK11SessionItem">
+<span id="_CPPv3N4mvvm12SessionModel10RemoveItemEPK11SessionItem"></span><span id="_CPPv2N4mvvm12SessionModel10RemoveItemEPK11SessionItem"></span><span id="mvvm::SessionModel::RemoveItem__SessionItemCP"></span><span class="target" id="classmvvm_1_1SessionModel_1a20904cc0b24ccf42301260ab4d1118ad"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">RemoveItem</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">item</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N4mvvm12SessionModel10RemoveItemEPK11SessionItem" title="Link to this definition"></a><br /></dt>
 <dd><p>Removes an item from the model and discards it. </p>
 <p>The item should belong to the model. Its exact parent and tag_index will be deduced from the item itself.</p>
 <dl class="field-list simple">
@@ -272,13 +267,39 @@ different models:</p>
 <dt class="sig sig-object cpp" id="_CPPv4N4mvvm12SessionModel8MoveItemEP11SessionItemP11SessionItemRK8TagIndex">
 <span id="_CPPv3N4mvvm12SessionModel8MoveItemEP11SessionItemP11SessionItemRK8TagIndex"></span><span id="_CPPv2N4mvvm12SessionModel8MoveItemEP11SessionItemP11SessionItemRK8TagIndex"></span><span id="mvvm::SessionModel::MoveItem__SessionItemP.SessionItemP.TagIndexCR"></span><span class="target" id="classmvvm_1_1SessionModel_1a0088510d7d810c51c3966e6d667e276f"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MoveItem</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">item</span></span>, <a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm11SessionItemE" title="mvvm::SessionItem"><span class="n"><span class="pre">SessionItem</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">new_parent</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="sessionitem.html#_CPPv4N4mvvm8TagIndexE" title="mvvm::TagIndex"><span class="n"><span class="pre">TagIndex</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">tag_index</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N4mvvm12SessionModel8MoveItemEP11SessionItemP11SessionItemRK8TagIndex" title="Link to this definition"></a><br /></dt>
 <dd><p>Moves an item from it’s current parent to a new parent. </p>
-<p>Old and new parents should belong to the same model. Please note, that the current implementation moves and item via combination of take/insert. This leads to corresponding notifications: about-to-remove, item removed, about-to-insert, item inserted.</p>
+<p>Current implementation moves and item via combination of take/insert. This leads to corresponding notifications: about-to-remove, item removed, about-to-insert, item inserted.</p>
+<p>The address to move in is defined by the new parent and <a class="reference internal" href="sessionitem.html#classmvvm_1_1TagIndex"><span class="std std-ref">TagIndex</span></a>. The index in <a class="reference internal" href="sessionitem.html#classmvvm_1_1TagIndex"><span class="std std-ref">TagIndex</span></a> defines the position in the container before which the item will be inserted, and it is counted before the move.</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="c1">// Example 1)</span>
+<span class="c1">// Item &quot;w&quot; is moved from another container to index=3, the result will be</span>
+<span class="c1">// [a b c d e f] -&gt; [a b c w d e f]</span>
+<span class="c1">// [0 1 2 3 4 5]</span>
+<span class="c1">//</span>
+<span class="c1">// Example 2)</span>
+<span class="c1">// Item &quot;e&quot; is moved within the same parent to index = 1, the result will be</span>
+<span class="c1">// [a b c d e f] -&gt; [a e b c d f]</span>
+<span class="c1">// [0 1 2 3 4 5]</span>
+<span class="c1">//</span>
+<span class="c1">// Example 3)</span>
+<span class="c1">// Item &quot;b&quot; is moved within the same parent to index = 4, the result will be</span>
+<span class="c1">// [a b c d e f] -&gt; [a c d b e f]</span>
+<span class="c1">// [0 1 2 3 4 5]</span>
+<span class="c1">//</span>
+<span class="c1">// Example 4)</span>
+<span class="c1">// Noop: item &quot;b&quot; is moved within the same parent in index 1 or 2. The result will be the same,</span>
+<span class="c1">// no notifications.</span>
+
+<span class="c1">// [a b c d e f] -&gt; [a b c d e f]</span>
+<span class="c1">// [0 1 2 3 4 5]</span>
+</pre></div>
+</div>
+<p>Old and new parents should belong to the same model. This limitation is because of undo/redo. Undo/redo is independent for each model and it is impossible to make undo consistent, when item is deleted from one model and appears in another model.</p>
+<p>See <a class="reference external" href="https://doc.qt.io/qt-6/qabstractitemmodel.html#beginMoveRows">https://doc.qt.io/qt-6/qabstractitemmodel.html#beginMoveRows</a> for more details about move operation semantics.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>item</strong> – The item to move. </p></li>
 <li><p><strong>new_parent</strong> – New parent where to insert. </p></li>
-<li><p><strong>tag_index</strong> – A tag_index pointing to the insert place. </p></li>
+<li><p><strong>tag_index</strong> – A tag_index pointing to the desired location. </p></li>
 </ul>
 </dd>
 </dl>

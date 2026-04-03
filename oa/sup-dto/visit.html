@@ -1,0 +1,267 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Visitors &mdash; SUP DTO</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=7ab3649f" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=1d24b1d9"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="AnyType/AnyValue builders" href="builders.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            sup-dto
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="anytype.html">AnyType</a></li>
+<li class="toctree-l1"><a class="reference internal" href="anyvalue.html">AnyValue</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serialization.html">Serialization and parsing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builders.html">AnyType/AnyValue builders</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Visitors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ianyvisitor">IAnyVisitor</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4I0E11IAnyVisitor"><code class="docutils literal notranslate"><span class="pre">IAnyVisitor</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N11IAnyVisitor11EmptyPrologEP1T"><code class="docutils literal notranslate"><span class="pre">IAnyVisitor::EmptyProlog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N11IAnyVisitor11EmptyEpilogEP1T"><code class="docutils literal notranslate"><span class="pre">IAnyVisitor::EmptyEpilog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N11IAnyVisitor12StructPrologEP1T"><code class="docutils literal notranslate"><span class="pre">IAnyVisitor::StructProlog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N11IAnyVisitor21StructMemberSeparatorEv"><code class="docutils literal notranslate"><span class="pre">IAnyVisitor::StructMemberSeparator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N11IAnyVisitor12StructEpilogEP1T"><code class="docutils literal notranslate"><span class="pre">IAnyVisitor::StructEpilog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N11IAnyVisitor12MemberPrologEP1TRKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">IAnyVisitor::MemberProlog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N11IAnyVisitor12MemberEpilogEP1TRKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">IAnyVisitor::MemberEpilog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N11IAnyVisitor11ArrayPrologEP1T"><code class="docutils literal notranslate"><span class="pre">IAnyVisitor::ArrayProlog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N11IAnyVisitor21ArrayElementSeparatorEv"><code class="docutils literal notranslate"><span class="pre">IAnyVisitor::ArrayElementSeparator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N11IAnyVisitor11ArrayEpilogEP1T"><code class="docutils literal notranslate"><span class="pre">IAnyVisitor::ArrayEpilog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N11IAnyVisitor12ScalarPrologEP1T"><code class="docutils literal notranslate"><span class="pre">IAnyVisitor::ScalarProlog()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#_CPPv4N11IAnyVisitor12ScalarEpilogEP1T"><code class="docutils literal notranslate"><span class="pre">IAnyVisitor::ScalarEpilog()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#visit-functions">Visit functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv416SerializeAnyTypeRK7AnyTypeR11IAnyVisitorIK7AnyTypeE"><code class="docutils literal notranslate"><span class="pre">SerializeAnyType()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv417SerializeAnyValueRK8AnyValueR11IAnyVisitorIK8AnyValueE"><code class="docutils literal notranslate"><span class="pre">SerializeAnyValue()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">sup-dto</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Visitors</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/visit.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="visitors">
+<h1>Visitors<a class="headerlink" href="#visitors" title="Link to this heading"></a></h1>
+<p>The library contains methods to visit AnyTypes/AnyValues with a custom-defined visitor. This
+facilitates extensions to the library, mainly for the purpose of serialization.</p>
+<section id="ianyvisitor">
+<h2>IAnyVisitor<a class="headerlink" href="#ianyvisitor" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">IAnyVisitor&lt;T&gt;</span></code> class template is an interface that gets called repeatedly while visiting
+an <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> or <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> tree. Users can implement this interface to define custom behavior
+for each node type encountered during traversal. The template parameter <code class="docutils literal notranslate"><span class="pre">T</span></code> is typically
+<code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">AnyType</span></code> or <code class="docutils literal notranslate"><span class="pre">const</span> <span class="pre">AnyValue</span></code>.</p>
+<p>The traversal is depth-first, pre-order.</p>
+<p>The interface is non-copyable and non-movable.</p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0E11IAnyVisitor">
+<span id="_CPPv3I0E11IAnyVisitor"></span><span id="_CPPv2I0E11IAnyVisitor"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IAnyVisitor</span></span></span><a class="headerlink" href="#_CPPv4I0E11IAnyVisitor" title="Link to this definition"></a><br /></dt>
+<dd><p><strong>Empty node callbacks:</strong></p>
+<p>The passed value in these methods is a pointer to an empty AnyType/AnyValue.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11IAnyVisitor11EmptyPrologEP1T">
+<span id="_CPPv3N11IAnyVisitor11EmptyPrologEP1T"></span><span id="_CPPv2N11IAnyVisitor11EmptyPrologEP1T"></span><span id="IAnyVisitor::EmptyProlog__TP"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EmptyProlog</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0E11IAnyVisitor" title="IAnyVisitor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N11IAnyVisitor11EmptyPrologEP1T" title="Link to this definition"></a><br /></dt>
+<dd><p>Called before visiting an empty node.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11IAnyVisitor11EmptyEpilogEP1T">
+<span id="_CPPv3N11IAnyVisitor11EmptyEpilogEP1T"></span><span id="_CPPv2N11IAnyVisitor11EmptyEpilogEP1T"></span><span id="IAnyVisitor::EmptyEpilog__TP"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EmptyEpilog</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0E11IAnyVisitor" title="IAnyVisitor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N11IAnyVisitor11EmptyEpilogEP1T" title="Link to this definition"></a><br /></dt>
+<dd><p>Called after visiting an empty node.</p>
+</dd></dl>
+
+<p><strong>Structured node callbacks:</strong></p>
+<p>The passed value in these methods is a pointer to the structured AnyType/AnyValue.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11IAnyVisitor12StructPrologEP1T">
+<span id="_CPPv3N11IAnyVisitor12StructPrologEP1T"></span><span id="_CPPv2N11IAnyVisitor12StructPrologEP1T"></span><span id="IAnyVisitor::StructProlog__TP"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StructProlog</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0E11IAnyVisitor" title="IAnyVisitor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N11IAnyVisitor12StructPrologEP1T" title="Link to this definition"></a><br /></dt>
+<dd><p>Called before visiting the members of a structured node.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11IAnyVisitor21StructMemberSeparatorEv">
+<span id="_CPPv3N11IAnyVisitor21StructMemberSeparatorEv"></span><span id="_CPPv2N11IAnyVisitor21StructMemberSeparatorEv"></span><span id="IAnyVisitor::StructMemberSeparator"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StructMemberSeparator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N11IAnyVisitor21StructMemberSeparatorEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Called between consecutive members of a structured node.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11IAnyVisitor12StructEpilogEP1T">
+<span id="_CPPv3N11IAnyVisitor12StructEpilogEP1T"></span><span id="_CPPv2N11IAnyVisitor12StructEpilogEP1T"></span><span id="IAnyVisitor::StructEpilog__TP"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">StructEpilog</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0E11IAnyVisitor" title="IAnyVisitor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N11IAnyVisitor12StructEpilogEP1T" title="Link to this definition"></a><br /></dt>
+<dd><p>Called after visiting all members of a structured node.</p>
+</dd></dl>
+
+<p><strong>Member callbacks:</strong></p>
+<p>The passed value in these methods is a pointer to the structured AnyType/AnyValue member value.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11IAnyVisitor12MemberPrologEP1TRKNSt6stringE">
+<span id="_CPPv3N11IAnyVisitor12MemberPrologEP1TRKNSt6stringE"></span><span id="_CPPv2N11IAnyVisitor12MemberPrologEP1TRKNSt6stringE"></span><span id="IAnyVisitor::MemberProlog__TP.ssCR"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MemberProlog</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0E11IAnyVisitor" title="IAnyVisitor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">val</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">member_name</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N11IAnyVisitor12MemberPrologEP1TRKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Called before visiting a specific member of a structured node.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11IAnyVisitor12MemberEpilogEP1TRKNSt6stringE">
+<span id="_CPPv3N11IAnyVisitor12MemberEpilogEP1TRKNSt6stringE"></span><span id="_CPPv2N11IAnyVisitor12MemberEpilogEP1TRKNSt6stringE"></span><span id="IAnyVisitor::MemberEpilog__TP.ssCR"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MemberEpilog</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0E11IAnyVisitor" title="IAnyVisitor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">val</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">member_name</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N11IAnyVisitor12MemberEpilogEP1TRKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><p>Called after visiting a specific member of a structured node.</p>
+</dd></dl>
+
+<p><strong>Array node callbacks:</strong></p>
+<p>The passed value in these methods is a pointer to the AnyType/AnyValue array.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11IAnyVisitor11ArrayPrologEP1T">
+<span id="_CPPv3N11IAnyVisitor11ArrayPrologEP1T"></span><span id="_CPPv2N11IAnyVisitor11ArrayPrologEP1T"></span><span id="IAnyVisitor::ArrayProlog__TP"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ArrayProlog</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0E11IAnyVisitor" title="IAnyVisitor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N11IAnyVisitor11ArrayPrologEP1T" title="Link to this definition"></a><br /></dt>
+<dd><p>Called before visiting the elements of an array node.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11IAnyVisitor21ArrayElementSeparatorEv">
+<span id="_CPPv3N11IAnyVisitor21ArrayElementSeparatorEv"></span><span id="_CPPv2N11IAnyVisitor21ArrayElementSeparatorEv"></span><span id="IAnyVisitor::ArrayElementSeparator"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ArrayElementSeparator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N11IAnyVisitor21ArrayElementSeparatorEv" title="Link to this definition"></a><br /></dt>
+<dd><p>Called between consecutive elements of an array node.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11IAnyVisitor11ArrayEpilogEP1T">
+<span id="_CPPv3N11IAnyVisitor11ArrayEpilogEP1T"></span><span id="_CPPv2N11IAnyVisitor11ArrayEpilogEP1T"></span><span id="IAnyVisitor::ArrayEpilog__TP"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ArrayEpilog</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0E11IAnyVisitor" title="IAnyVisitor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N11IAnyVisitor11ArrayEpilogEP1T" title="Link to this definition"></a><br /></dt>
+<dd><p>Called after visiting all elements of an array node.</p>
+</dd></dl>
+
+<p><strong>Scalar node callbacks:</strong></p>
+<p>The passed value in these methods is a pointer to the AnyType/AnyValue scalar.</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11IAnyVisitor12ScalarPrologEP1T">
+<span id="_CPPv3N11IAnyVisitor12ScalarPrologEP1T"></span><span id="_CPPv2N11IAnyVisitor12ScalarPrologEP1T"></span><span id="IAnyVisitor::ScalarProlog__TP"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ScalarProlog</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0E11IAnyVisitor" title="IAnyVisitor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N11IAnyVisitor12ScalarPrologEP1T" title="Link to this definition"></a><br /></dt>
+<dd><p>Called before visiting a scalar node.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N11IAnyVisitor12ScalarEpilogEP1T">
+<span id="_CPPv3N11IAnyVisitor12ScalarEpilogEP1T"></span><span id="_CPPv2N11IAnyVisitor12ScalarEpilogEP1T"></span><span id="IAnyVisitor::ScalarEpilog__TP"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ScalarEpilog</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0E11IAnyVisitor" title="IAnyVisitor::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">val</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N11IAnyVisitor12ScalarEpilogEP1T" title="Link to this definition"></a><br /></dt>
+<dd><p>Called after visiting a scalar node.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="visit-functions">
+<h2>Visit functions<a class="headerlink" href="#visit-functions" title="Link to this heading"></a></h2>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv416SerializeAnyTypeRK7AnyTypeR11IAnyVisitorIK7AnyTypeE">
+<span id="_CPPv316SerializeAnyTypeRK7AnyTypeR11IAnyVisitorIK7AnyTypeE"></span><span id="_CPPv216SerializeAnyTypeRK7AnyTypeR11IAnyVisitorIK7AnyTypeE"></span><span id="SerializeAnyType__AnyTypeCR.IAnyVisitor:AnyTypeC:R"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SerializeAnyType</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">anytype</span></span>, <a class="reference internal" href="#_CPPv4I0E11IAnyVisitor" title="IAnyVisitor"><span class="n"><span class="pre">IAnyVisitor</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyType</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">serializer</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv416SerializeAnyTypeRK7AnyTypeR11IAnyVisitorIK7AnyTypeE" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>anytype</strong> – <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> object to serialize.</p></li>
+<li><p><strong>serializer</strong> – Serializer object implementing <code class="docutils literal notranslate"><span class="pre">IAnyVisitor&lt;const</span> <span class="pre">AnyType&gt;</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Serialize an <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> using the given generic serializer. The serializer’s member functions
+will be invoked for each node encountered during the depth-first traversal of the type tree.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv417SerializeAnyValueRK8AnyValueR11IAnyVisitorIK8AnyValueE">
+<span id="_CPPv317SerializeAnyValueRK8AnyValueR11IAnyVisitorIK8AnyValueE"></span><span id="_CPPv217SerializeAnyValueRK8AnyValueR11IAnyVisitorIK8AnyValueE"></span><span id="SerializeAnyValue__AnyValueCR.IAnyVisitor:AnyValueC:R"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SerializeAnyValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">anyvalue</span></span>, <a class="reference internal" href="#_CPPv4I0E11IAnyVisitor" title="IAnyVisitor"><span class="n"><span class="pre">IAnyVisitor</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyValue</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">serializer</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv417SerializeAnyValueRK8AnyValueR11IAnyVisitorIK8AnyValueE" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>anyvalue</strong> – <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> object to serialize.</p></li>
+<li><p><strong>serializer</strong> – Serializer object implementing <code class="docutils literal notranslate"><span class="pre">IAnyVisitor&lt;const</span> <span class="pre">AnyValue&gt;</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Serialize an <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> using the given generic serializer. The serializer’s member functions
+will be invoked for each node encountered during the depth-first traversal of the value tree.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="builders.html" class="btn btn-neutral float-left" title="AnyType/AnyValue builders" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright ITER Organization.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

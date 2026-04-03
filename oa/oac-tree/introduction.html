@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
@@ -6,18 +8,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Introduction &mdash; oac-tree</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=7ab3649f" />
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=2f20d6c1"></script>
-        <script src="_static/doctools.js?v=9bcbadda"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=5ef59c98"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -36,9 +34,6 @@
           <a href="index.html" class="icon icon-home">
             oac-tree
           </a>
-              <div class="version">
-                4.4.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -130,8 +125,8 @@ The oac-tree framework requires procedures to be defined in a XML format. The XM
 <p>The main sections of a procedure, their multiplicity, description and attributes, can be seen below.</p>
 <section id="plugins-section">
 <h3>Plugins Section<a class="headerlink" href="#plugins-section" title="Link to this heading"></a></h3>
-<p>The plugins section Contains the name of the dynamic libraries to be loaded at runtime. Plugins allow to extend the existing oac-tree functionalities by providing new instructions or variables. In the XML procedure file, plugins are defined using the XML element <em>&lt;Plugin&gt;</em>. The plugin element has no attributes.
-For a complete list of supported plugins, please refer to the plugins documentation <code class="docutils literal notranslate"><span class="pre">TBD</span></code>.</p>
+<p>The plugins section Contains the name of the dynamic libraries to be loaded at runtime. Plugins allow to extend the existing oac-tree functionalities by providing new instructions or variables. In the XML procedure file, plugins are defined using the XML element <em>&lt;Plugin&gt;</em>. The plugin element has no attributes. Provided plugin names can omit platform-dependent library pre- and postfixes, such as <cite>lib</cite> and <cite>.so</cite> on Linux. This allows to make procedure files platform independent.</p>
+<p>For a complete list of supported plugins, please refer to the plugins documentation <code class="docutils literal notranslate"><span class="pre">TBD</span></code>.</p>
 <table class="docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p>Multiplicity</p></td>
@@ -150,7 +145,7 @@ For a complete list of supported plugins, please refer to the plugins documentat
 <tr class="row-odd"><td><p>Example</p></td>
 <td><div class="line-block">
 <div class="line">&lt;Plugin&gt;liboac-tree-ca.so&lt;/Plugin&gt;</div>
-<div class="line">&lt;Plugin&gt;liboac-tree-pvxs.so&lt;/Plugin&gt;</div>
+<div class="line">&lt;Plugin&gt;oac-tree-pvxs&lt;/Plugin&gt;</div>
 </div>
 </td>
 </tr>

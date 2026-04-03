@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
@@ -6,22 +8,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AnyValue &mdash; SUP DTO</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
-      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=7ab3649f" />
 
   
-  <!--[if lt IE 9]>
-    <script src="_static/js/html5shiv.min.js"></script>
-  <![endif]-->
-  
-        <script src="_static/jquery.js?v=5d32c60e"></script>
-        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-        <script src="_static/documentation_options.js?v=c4cb232b"></script>
-        <script src="_static/doctools.js?v=9bcbadda"></script>
-        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=1d24b1d9"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="JSON Serialization" href="json.html" />
+    <link rel="next" title="Serialization and parsing" href="serialization.html" />
     <link rel="prev" title="AnyType" href="anytype.html" /> 
 </head>
 
@@ -36,9 +34,6 @@
           <a href="index.html" class="icon icon-home">
             sup-dto
           </a>
-              <div class="version">
-                1.9.0
-              </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
@@ -93,14 +88,18 @@
 <li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK8AnyValue11GetTypeCodeEv"><code class="docutils literal notranslate"><span class="pre">GetTypeCode()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK8AnyValue7GetTypeEv"><code class="docutils literal notranslate"><span class="pre">GetType()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK8AnyValue11GetTypeNameEv"><code class="docutils literal notranslate"><span class="pre">GetTypeName()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK8IsScalarEv"><code class="docutils literal notranslate"><span class="pre">IsScalar()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK8AnyValue11MemberNamesEv"><code class="docutils literal notranslate"><span class="pre">MemberNames()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK8AnyValue15NumberOfMembersEv"><code class="docutils literal notranslate"><span class="pre">NumberOfMembers()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK8AnyValue16NumberOfElementsEv"><code class="docutils literal notranslate"><span class="pre">NumberOfElements()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK11ElementTypeEv"><code class="docutils literal notranslate"><span class="pre">ElementType()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK8AnyValue8HasFieldERKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">HasField()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4NK16NumberOfChildrenEv"><code class="docutils literal notranslate"><span class="pre">NumberOfChildren()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#conversion-methods">Conversion methods</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#_CPPv4I0ENK8AnyValue2AsE1Tv"><code class="docutils literal notranslate"><span class="pre">As()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv4I0ENK8AnyValue2AsEbR1T"><code class="docutils literal notranslate"><span class="pre">As()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#_CPPv4N8AnyValue11ConvertFromERK8AnyValue"><code class="docutils literal notranslate"><span class="pre">ConvertFrom()</span></code></a></li>
 </ul>
 </li>
@@ -125,13 +124,28 @@
 <li class="toctree-l2"><a class="reference internal" href="#global-functions">Global functions</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#_CPPv410TryConvertR8AnyValueRK8AnyValue"><code class="docutils literal notranslate"><span class="pre">TryConvert()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#_CPPv49TryAssignR8AnyValueRK8AnyValue"><code class="docutils literal notranslate"><span class="pre">TryAssign()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv425TryAssignIfEmptyOrConvertR8AnyValueRK8AnyValue"><code class="docutils literal notranslate"><span class="pre">TryAssignIfEmptyOrConvert()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv432TryConvertAllowExtraSourceFieldsR8AnyValueRK7AnyType"><code class="docutils literal notranslate"><span class="pre">TryConvertAllowExtraSourceFields()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv432TryConvertAllowExtraTargetFieldsR8AnyValueRK7AnyType"><code class="docutils literal notranslate"><span class="pre">TryConvertAllowExtraTargetFields()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv413PrintAnyValueRK8AnyValue"><code class="docutils literal notranslate"><span class="pre">PrintAnyValue()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#_CPPv49IncrementR8AnyValue"><code class="docutils literal notranslate"><span class="pre">Increment()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#_CPPv49DecrementR8AnyValue"><code class="docutils literal notranslate"><span class="pre">Decrement()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv411EmptyStructRKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">EmptyStruct()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv411EmptyStructv"><code class="docutils literal notranslate"><span class="pre">EmptyStruct()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv410ArrayValueNSt16initializer_listI8AnyValueEERKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">ArrayValue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv410ArrayValueNSt16initializer_listI8AnyValueEE"><code class="docutils literal notranslate"><span class="pre">ArrayValue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv412IsEmptyValueRK8AnyValue"><code class="docutils literal notranslate"><span class="pre">IsEmptyValue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv413IsStructValueRK8AnyValue"><code class="docutils literal notranslate"><span class="pre">IsStructValue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv412IsArrayValueRK8AnyValue"><code class="docutils literal notranslate"><span class="pre">IsArrayValue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv413IsScalarValueRK8AnyValue"><code class="docutils literal notranslate"><span class="pre">IsScalarValue()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#_CPPv422SplitAnyValueFieldnameRKNSt6stringE"><code class="docutils literal notranslate"><span class="pre">SplitAnyValueFieldname()</span></code></a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="json.html">JSON Serialization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="serialization.html">Serialization and parsing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="builders.html">AnyType/AnyValue builders</a></li>
+<li class="toctree-l1"><a class="reference internal" href="visit.html">Visitors</a></li>
 </ul>
 
         </div>
@@ -402,12 +416,18 @@ function can be used that accepts a list of <code class="docutils literal notran
 <span class="w">   </span><span class="s">&quot;ThreeIntegers&quot;</span><span class="p">);</span>
 </pre></div>
 </div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>When using a list of values for the construction of an array value, the first element will be
+used to fix the array’s element type. All subsequent elements will be converted to this type. If
+this conversion fails, an exception of type <code class="docutils literal notranslate"><span class="pre">InvalidConversionException</span></code> will be thrown.</p>
+</div>
 </section>
 <section id="structured-values">
 <h3><a class="toc-backref" href="#id7" role="doc-backlink">Structured values</a><a class="headerlink" href="#structured-values" title="Link to this heading"></a></h3>
 <p>Structured values correspond to the structured types (see <a class="reference internal" href="anytype.html#structured-types"><span class="std std-ref">Structured types</span></a>). They are very
 similar to those type structures, but contain specific values in each of the leaf nodes, which are
-always scalar.</p>
+always scalar or empty.</p>
 <p>As for the structured types, structured values can be constructed by adding subvalues to an existing
 structured value using the <a class="reference internal" href="#_CPPv4N8AnyValue9AddMemberERKNSt6stringERK8AnyValue" title="AnyValue::AddMember"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">AnyValue::AddMember()</span></code></a> method.</p>
 <p>The following example shows how this method can be used to populate a structured value:</p>
@@ -422,7 +442,7 @@ structured value using the <a class="reference internal" href="#_CPPv4N8AnyValue
 </pre></div>
 </div>
 <p>As can be seen in the previous example, the value argument for the <code class="docutils literal notranslate"><span class="pre">AddMember</span></code> method can omit
-the preferred type if the automatically deduced type is correct (<code class="docutils literal notranslate"><span class="pre">Boolean</span></code> in the last call).</p>
+the preferred type if the automatically deduced type is correct (<code class="docutils literal notranslate"><span class="pre">BooleanType</span></code> in the last call).</p>
 <p>Again, one can create structures of structures, structures of arrays, arrays of structures, etc.</p>
 <p>To facilitate the static creation of structured values, a dedicated constructor is provided that
 accepts a braced-init-list of pairs of member names and values. This constructor also allows to
@@ -526,6 +546,17 @@ These are listed here.</p>
 </dd></dl>
 
 <dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK8IsScalarEv">
+<span id="_CPPv3NK8IsScalarEv"></span><span id="_CPPv2NK8IsScalarEv"></span><span id="IsScalarC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsScalar</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8IsScalarEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>True when this value is scalar.</p>
+</dd>
+</dl>
+<p>Query if this value is scalar (not empty, struct or array).</p>
+</dd></dl>
+
+<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK8AnyValue11MemberNamesEv">
 <span id="_CPPv3NK8AnyValue11MemberNamesEv"></span><span id="_CPPv2NK8AnyValue11MemberNamesEv"></span><span id="AnyValue::MemberNamesC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">AnyValue</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">MemberNames</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8AnyValue11MemberNamesEv" title="Link to this definition"></a><br /></dt>
 <dd><dl class="field-list simple">
@@ -560,6 +591,20 @@ array value.</p>
 </dd></dl>
 
 <dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK11ElementTypeEv">
+<span id="_CPPv3NK11ElementTypeEv"></span><span id="_CPPv2NK11ElementTypeEv"></span><span id="ElementTypeC"></span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ElementType</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK11ElementTypeEv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>AnyType of the array’s elements.</p>
+</dd>
+<dt class="field-even">Throws<span class="colon">:</span></dt>
+<dd class="field-even"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">InvalidOperationException</span></span></span> – When current type AnyValue is not an array.</p>
+</dd>
+</dl>
+<p>Return the type of the elements of an array.</p>
+</dd></dl>
+
+<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv4NK8AnyValue8HasFieldERKNSt6stringE">
 <span id="_CPPv3NK8AnyValue8HasFieldERKNSt6stringE"></span><span id="_CPPv2NK8AnyValue8HasFieldERKNSt6stringE"></span><span id="AnyValue::HasField__ssCRC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">AnyValue</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">HasField</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">fieldname</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8AnyValue8HasFieldERKNSt6stringE" title="Link to this definition"></a><br /></dt>
 <dd><dl class="field-list simple">
@@ -571,6 +616,18 @@ array value.</p>
 </dd>
 </dl>
 <p>Check the presence of a subvalue with the given name. Composite fieldnames are supported.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK16NumberOfChildrenEv">
+<span id="_CPPv3NK16NumberOfChildrenEv"></span><span id="_CPPv2NK16NumberOfChildrenEv"></span><span id="NumberOfChildrenC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NumberOfChildren</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Number of child values.</p>
+</dd>
+</dl>
+<p>Get number of child values. This is mostly used to be able to visit an AnyValue array or
+structure.</p>
 </dd></dl>
 
 </section>
@@ -610,6 +667,20 @@ copy of the object.</p>
 <span class="n">int16</span><span class="w"> </span><span class="n">signed_val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">val</span><span class="p">.</span><span class="n">as</span><span class="o">&lt;</span><span class="n">int16</span><span class="o">&gt;</span><span class="p">();</span><span class="w">  </span><span class="c1">// signed_val is also 19</span>
 </pre></div>
 </div>
+<p>A non-throwing version of function template is also available:</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0ENK8AnyValue2AsEbR1T">
+<span id="_CPPv3I0ENK8AnyValue2AsER1T"></span><span id="_CPPv2I0ENK8AnyValue2AsER1T"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">AnyValue</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">As</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4I0ENK8AnyValue2AsEbR1T" title="AnyValue::As::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4I0ENK8AnyValue2AsEbR1T" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> – Reference to value to copy this value into.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> on successful conversion.</p>
+</dd>
+</dl>
+</dd></dl>
+
 <p>There is also a member function that tries to convert another <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> to the type of the
 current <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code>:</p>
 <dl class="cpp function">
@@ -620,10 +691,10 @@ current <code class="docutils literal notranslate"><span class="pre">AnyValue</s
 <dd class="field-odd"><p><strong>other</strong> – <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> object to convert from.</p>
 </dd>
 <dt class="field-even">Throws<span class="colon">:</span></dt>
-<dd class="field-even"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">InvalidConversionException</span></span></span> – If this operation could not successfully convert between</p>
+<dd class="field-even"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">InvalidConversionException</span></span></span> – If this operation could not successfully convert between
+the different types.</p>
 </dd>
 </dl>
-<p>the different types.</p>
 </dd></dl>
 
 </section>
@@ -709,8 +780,8 @@ descendents.</p>
 (e.g. not a structured value or a structured array element).</p>
 </dd>
 </dl>
-<p>Add a member value for this structured value with the given name and value. Empty values are
-not allowed as member values.</p>
+<p>Add a member value for this structured value with the given name and value. All types are
+allowed for the member values, including empty.</p>
 </dd></dl>
 
 <dl class="cpp function">
@@ -725,10 +796,12 @@ not allowed as member values.</p>
 </dd>
 <dt class="field-odd">Throws<span class="colon">:</span></dt>
 <dd class="field-odd"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">InvalidOperationException</span></span></span> – If this operation is not supported
-(not an array value or an element of an array of arrays).</p>
+(e.g. not an array value or an element of an array of arrays).</p>
 </dd>
 </dl>
-<p>Add an element to the end of this array value with the given value.</p>
+<p>Add an element to the end of this array value with the given value. Since all elements in an
+array value are required to have the same type, this function may throw when the conversion
+fails.</p>
 </dd></dl>
 
 </section>
@@ -791,16 +864,15 @@ values.</p>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>Enumerator indicating if lhs is less, greater, equivalent to rhs or if they are</p>
+<dd class="field-even"><p>Enumerator indicating if lhs is less, greater, equivalent to rhs or if they are
+unordered.</p>
 </dd>
 </dl>
-<p>unordered.</p>
 <p>If one of the types is floating point, the comparison will use the largest floating point type
 among the given types as the common type (‘float64’ if there is one, ‘float32’ otherwise).
-Integral comparisons are only supported between types that are both signed or both unsigned. In
-these cases, the widest signed or unsigned integral type is used (‘int64’ or ‘uint64’).
-For all comparisons that are not supported (for example ‘string’, structures, signed with
-unsigned, etc.), the function returns ‘Unordered’.</p>
+Integral comparisons are supported between all integral types (signed and unsigned).
+For all comparisons that are not supported (for example ‘string’, structures, etc.), the function
+returns ‘Unordered’.</p>
 </dd></dl>
 
 </section>
@@ -847,6 +919,78 @@ destination is left unchanged and false is returned. This is basically a non-thr
 </dd></dl>
 
 <dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv425TryAssignIfEmptyOrConvertR8AnyValueRK8AnyValue">
+<span id="_CPPv325TryAssignIfEmptyOrConvertR8AnyValueRK8AnyValue"></span><span id="_CPPv225TryAssignIfEmptyOrConvertR8AnyValueRK8AnyValue"></span><span id="TryAssignIfEmptyOrConvert__AnyValueR.AnyValueCR"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TryAssignIfEmptyOrConvert</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">dest</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">src</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv425TryAssignIfEmptyOrConvertR8AnyValueRK8AnyValue" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dest</strong> – <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> object to assign to.</p></li>
+<li><p><strong>src</strong> – <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> object to assign from.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> on successful assignment.</p>
+</dd>
+</dl>
+<p>Try to assign an AnyValue to another AnyValue. If the destination AnyValue is empty, simply do
+an assignment, which always succeeds. Otherwise, the bahvior is exactly as in
+<a class="reference internal" href="#_CPPv49TryAssignR8AnyValueRK8AnyValue" title="bool TryAssign(AnyValue &amp;dest, const AnyValue &amp;src)"><code class="xref cpp cpp-func docutils literal notranslate"><span class="pre">bool</span> <span class="pre">TryAssign(AnyValue&amp;</span> <span class="pre">dest,</span> <span class="pre">const</span> <span class="pre">AnyValue&amp;</span> <span class="pre">src)</span></code></a>.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv432TryConvertAllowExtraSourceFieldsR8AnyValueRK7AnyType">
+<span id="_CPPv332TryConvertAllowExtraSourceFieldsR8AnyValueRK7AnyType"></span><span id="_CPPv232TryConvertAllowExtraSourceFieldsR8AnyValueRK7AnyType"></span><span id="TryConvertAllowExtraSourceFields__AnyValueR.AnyTypeCR"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">AnyValue</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TryConvertAllowExtraSourceFields</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">src</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">target_type</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv432TryConvertAllowExtraSourceFieldsR8AnyValueRK7AnyType" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>src</strong> – <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> source AnyValue.</p></li>
+<li><p><strong>target_type</strong> – <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> type to use as the prototype.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Pair of the success status and its optional value.</p>
+</dd>
+</dl>
+<p>Try to convert a source AnyValue to the given target type, where the source value is allowed
+to contain more structure members, at any depth, as the target type. Extra member fields in
+the source AnyValue will be ignored and not converted to the result.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv432TryConvertAllowExtraTargetFieldsR8AnyValueRK7AnyType">
+<span id="_CPPv332TryConvertAllowExtraTargetFieldsR8AnyValueRK7AnyType"></span><span id="_CPPv232TryConvertAllowExtraTargetFieldsR8AnyValueRK7AnyType"></span><span id="TryConvertAllowExtraTargetFields__AnyValueR.AnyTypeCR"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">AnyValue</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TryConvertAllowExtraTargetFields</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">src</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">target_type</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv432TryConvertAllowExtraTargetFieldsR8AnyValueRK7AnyType" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>src</strong> – <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> source AnyValue.</p></li>
+<li><p><strong>target_type</strong> – <code class="docutils literal notranslate"><span class="pre">AnyType</span></code> type to use as the prototype.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Pair of the success status and its optional value.</p>
+</dd>
+</dl>
+<p>Try to convert a source AnyValue to the given target type, where the target type is allowed
+to contain more structure members, at any depth, as the source value. Extra member fields in
+the target type will be ignored and will not be present in the result.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv413PrintAnyValueRK8AnyValue">
+<span id="_CPPv313PrintAnyValueRK8AnyValue"></span><span id="_CPPv213PrintAnyValueRK8AnyValue"></span><span id="PrintAnyValue__AnyValueCR"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">PrintAnyValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">anyvalue</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv413PrintAnyValueRK8AnyValue" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> – <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> object to serialize.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>string representation of AnyValue for printing.</p>
+</dd>
+</dl>
+<p>Serialize the AnyValue to a string that is human readable. This function is mostly used for
+debugging purposes or for logging AnyValues in a human readable way.</p>
+</dd></dl>
+
+<dl class="cpp function">
 <dt class="sig sig-object cpp" id="_CPPv49IncrementR8AnyValue">
 <span id="_CPPv39IncrementR8AnyValue"></span><span id="_CPPv29IncrementR8AnyValue"></span><span id="Increment__AnyValueR"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Increment</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv49IncrementR8AnyValue" title="Link to this definition"></a><br /></dt>
 <dd><dl class="field-list simple">
@@ -878,6 +1022,144 @@ the maximum value to the minimum value (also for signed types).</p>
 the minimum value to the maximum value (also for signed types).</p>
 </dd></dl>
 
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv411EmptyStructRKNSt6stringE">
+<span id="_CPPv311EmptyStructRKNSt6stringE"></span><span id="_CPPv211EmptyStructRKNSt6stringE"></span><span id="EmptyStruct__ssCR"></span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EmptyStruct</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">type_name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv411EmptyStructRKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>type_name</strong> – Name for the underlying structured type.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> with empty structure type.</p>
+</dd>
+</dl>
+<p>Constructs an empty structure with the given type name.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv411EmptyStructv">
+<span id="_CPPv311EmptyStructv"></span><span id="_CPPv211EmptyStructv"></span><span id="EmptyStruct"></span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">EmptyStruct</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv411EmptyStructv" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p><code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> with empty structure type.</p>
+</dd>
+</dl>
+<p>Constructs an empty structure with an empty type name.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv410ArrayValueNSt16initializer_listI8AnyValueEERKNSt6stringE">
+<span id="_CPPv310ArrayValueNSt16initializer_listI8AnyValueEERKNSt6stringE"></span><span id="_CPPv210ArrayValueNSt16initializer_listI8AnyValueEERKNSt6stringE"></span><span id="ArrayValue__std::initializer_list:AnyValue:.ssCR"></span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ArrayValue</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">initializer_list</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">AnyValue</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">elements</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">type_name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv410ArrayValueNSt16initializer_listI8AnyValueEERKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>elements</strong> – List of element values.</p></li>
+<li><p><strong>type_name</strong> – Name for the underlying structured type.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Constructed array value.</p>
+</dd>
+</dl>
+<p>Constructs a bounded array value with the given type name. The type of the first element in
+the list determines the element type of the array.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv410ArrayValueNSt16initializer_listI8AnyValueEE">
+<span id="_CPPv310ArrayValueNSt16initializer_listI8AnyValueEE"></span><span id="_CPPv210ArrayValueNSt16initializer_listI8AnyValueEE"></span><span id="ArrayValue__std::initializer_list:AnyValue:"></span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ArrayValue</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">initializer_list</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">AnyValue</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">elements</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv410ArrayValueNSt16initializer_listI8AnyValueEE" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>elements</strong> – List of element values.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Constructed array value.</p>
+</dd>
+</dl>
+<p>Constructs a bounded array value with an empty type name. The type of the first element in
+the list determines the element type of the array.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv412IsEmptyValueRK8AnyValue">
+<span id="_CPPv312IsEmptyValueRK8AnyValue"></span><span id="_CPPv212IsEmptyValueRK8AnyValue"></span><span id="IsEmptyValue__AnyValueCR"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsEmptyValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">anyvalue</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv412IsEmptyValueRK8AnyValue" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>anyvalue</strong> – <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> object to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> if the given object is an empty value.</p>
+</dd>
+</dl>
+<p>Check whether the given <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> object is an empty value.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv413IsStructValueRK8AnyValue">
+<span id="_CPPv313IsStructValueRK8AnyValue"></span><span id="_CPPv213IsStructValueRK8AnyValue"></span><span id="IsStructValue__AnyValueCR"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsStructValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">anyvalue</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv413IsStructValueRK8AnyValue" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>anyvalue</strong> – <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> object to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> if the given object is a structured value.</p>
+</dd>
+</dl>
+<p>Check whether the given <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> object is a structured value.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv412IsArrayValueRK8AnyValue">
+<span id="_CPPv312IsArrayValueRK8AnyValue"></span><span id="_CPPv212IsArrayValueRK8AnyValue"></span><span id="IsArrayValue__AnyValueCR"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsArrayValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">anyvalue</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv412IsArrayValueRK8AnyValue" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>anyvalue</strong> – <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> object to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> if the given object is an array value.</p>
+</dd>
+</dl>
+<p>Check whether the given <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> object is an array value.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv413IsScalarValueRK8AnyValue">
+<span id="_CPPv313IsScalarValueRK8AnyValue"></span><span id="_CPPv213IsScalarValueRK8AnyValue"></span><span id="IsScalarValue__AnyValueCR"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsScalarValue</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">AnyValue</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">anyvalue</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv413IsScalarValueRK8AnyValue" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>anyvalue</strong> – <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> object to check.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><code class="docutils literal notranslate"><span class="pre">true</span></code> if the given object is a scalar value.</p>
+</dd>
+</dl>
+<p>Check whether the given <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> object is a scalar value.</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv422SplitAnyValueFieldnameRKNSt6stringE">
+<span id="_CPPv322SplitAnyValueFieldnameRKNSt6stringE"></span><span id="_CPPv222SplitAnyValueFieldnameRKNSt6stringE"></span><span id="SplitAnyValueFieldname__ssCR"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">deque</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SplitAnyValueFieldname</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">fieldname</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv422SplitAnyValueFieldnameRKNSt6stringE" title="Link to this definition"></a><br /></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>fieldname</strong> – Full fieldname to split.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of component names.</p>
+</dd>
+<dt class="field-odd">Throws<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span><span class="cpp-expr sig sig-inline cpp"><span class="n">InvalidOperationException</span></span></span> – When the fieldname cannot be properly parsed.</p>
+</dd>
+</dl>
+<p>Splits a possibly nested fieldname for an <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> into its component names.
+Optional dots after square brackets will be removed too.</p>
+<p>Example:</p>
+<div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="k">auto</span><span class="w"> </span><span class="n">names_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SplitAnyValueFieldname</span><span class="p">(</span><span class="s">&quot;[2]subfieldname&quot;</span><span class="p">);</span><span class="w">   </span><span class="c1">// returns {&quot;[2]&quot;, &quot;subfieldname&quot;}</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">names_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SplitAnyValueFieldname</span><span class="p">(</span><span class="s">&quot;[2].subfieldname&quot;</span><span class="p">);</span><span class="w">  </span><span class="c1">// idem</span>
+<span class="k">auto</span><span class="w"> </span><span class="n">names_3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">SplitAnyValueFieldname</span><span class="p">(</span><span class="s">&quot;[oops]&quot;</span><span class="p">);</span><span class="w">            </span><span class="c1">// throws InvalidOperationException</span>
+</pre></div>
+</div>
+</dd></dl>
+
 </section>
 </section>
 
@@ -886,7 +1168,7 @@ the minimum value to the maximum value (also for signed types).</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="anytype.html" class="btn btn-neutral float-left" title="AnyType" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="json.html" class="btn btn-neutral float-right" title="JSON Serialization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="serialization.html" class="btn btn-neutral float-right" title="Serialization and parsing" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
