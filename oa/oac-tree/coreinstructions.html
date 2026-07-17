@@ -32,7 +32,7 @@
             <a href="index.html" class="icon icon-home"> oac-tree
           </a>
               <div class="version">
-                4.5.0
+                4.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -88,12 +88,14 @@
 <li class="toctree-l4"><a class="reference internal" href="#log">Log</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#message">Message</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#output">Output</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#readfile">ReadFile</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#resetvariable">ResetVariable</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#userconfirmation">UserConfirmation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#varexists">VarExists</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#wait">Wait</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#waitforvariable">WaitForVariable</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#waitforvariables">WaitForVariables</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#writefile">WriteFile</a></li>
 </ul>
 </li>
 </ul>
@@ -1395,6 +1397,48 @@ The <cite>timeout</cite> attribute is optional. When this attribute is not prese
 </pre></div>
 </div>
 </section>
+<section id="readfile">
+<h3>ReadFile<a class="headerlink" href="#readfile" title="Permalink to this heading"></a></h3>
+<p>Instruction for reading a JSON file into a variable.</p>
+<p>Attributes:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute name</p></th>
+<th class="head"><p>Attribute type</p></th>
+<th class="head"><p>Mandatory</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>file</p></td>
+<td><p>StringType</p></td>
+<td><p>yes</p></td>
+<td><p>Name of the JSON file to read</p></td>
+</tr>
+<tr class="row-odd"><td><p>outputVar</p></td>
+<td><p>StringType</p></td>
+<td><p>yes</p></td>
+<td><p>Name of the variable to store the parsed value</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Sequence&gt;</span>
+<span class="w">    </span><span class="nt">&lt;ReadFile</span><span class="w"> </span><span class="na">file=</span><span class="s">&quot;data.json&quot;</span><span class="w"> </span><span class="na">outputVar=</span><span class="s">&quot;result&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Sequence&gt;</span>
+<span class="nt">&lt;Workspace&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;result&quot;</span><span class="w"> </span><span class="na">dynamicType=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Workspace&gt;</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">file</span></code> attribute also supports variable references using the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> prefix (e.g. <code class="docutils literal notranslate"><span class="pre">file=&quot;&#64;filename&quot;</span></code>), allowing the filename to be read from a workspace variable at runtime.</p>
+</section>
 <section id="resetvariable">
 <h3>ResetVariable<a class="headerlink" href="#resetvariable" title="Permalink to this heading"></a></h3>
 <p>Instruction to reset a variable to its initial state.</p>
@@ -1616,6 +1660,55 @@ The <cite>timeout</cite> attribute is optional. When this attribute is not prese
 </tr>
 </tbody>
 </table>
+</section>
+<section id="writefile">
+<h3>WriteFile<a class="headerlink" href="#writefile" title="Permalink to this heading"></a></h3>
+<p>Instruction for writing a variable to a JSON file.</p>
+<p>Attributes:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 22%" />
+<col style="width: 22%" />
+<col style="width: 13%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute name</p></th>
+<th class="head"><p>Attribute type</p></th>
+<th class="head"><p>Mandatory</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>inputVar</p></td>
+<td><p>StringType</p></td>
+<td><p>yes</p></td>
+<td><p>Name of the variable to write</p></td>
+</tr>
+<tr class="row-odd"><td><p>file</p></td>
+<td><p>StringType</p></td>
+<td><p>yes</p></td>
+<td><p>Name of the JSON file to write to</p></td>
+</tr>
+<tr class="row-even"><td><p>pretty</p></td>
+<td><p>BooleanType</p></td>
+<td><p>no</p></td>
+<td><p>If true, the JSON output will be pretty-printed with indentation</p></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Example</strong></p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;Sequence&gt;</span>
+<span class="w">    </span><span class="nt">&lt;WriteFile</span><span class="w"> </span><span class="na">inputVar=</span><span class="s">&quot;data&quot;</span><span class="w"> </span><span class="na">file=</span><span class="s">&quot;output.json&quot;</span><span class="w"> </span><span class="na">pretty=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Sequence&gt;</span>
+<span class="nt">&lt;Workspace&gt;</span>
+<span class="w">    </span><span class="nt">&lt;Local</span><span class="w"> </span><span class="na">name=</span><span class="s">&quot;data&quot;</span>
+<span class="w">        </span><span class="na">type=</span><span class="s">&#39;{&quot;type&quot;:&quot;&quot;,&quot;attributes&quot;:[{&quot;name&quot;:{&quot;type&quot;:&quot;string&quot;}},{&quot;count&quot;:{&quot;type&quot;:&quot;uint32&quot;}}]}&#39;</span>
+<span class="w">        </span><span class="na">value=</span><span class="s">&#39;{&quot;name&quot;:&quot;test&quot;,&quot;count&quot;:7}&#39;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/Workspace&gt;</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">file</span></code> attribute also supports variable references using the <code class="docutils literal notranslate"><span class="pre">&#64;</span></code> prefix (e.g. <code class="docutils literal notranslate"><span class="pre">file=&quot;&#64;filename&quot;</span></code>), allowing the filename to be read from a workspace variable at runtime.</p>
 </section>
 </section>
 </section>

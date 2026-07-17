@@ -32,7 +32,7 @@
             <a href="index.html" class="icon icon-home"> oac-tree
           </a>
               <div class="version">
-                4.5.0
+                4.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -315,7 +315,7 @@ The generic implementation of the <code class="docutils literal notranslate"><sp
 <p class="admonition-title">Note</p>
 <p>The design of the execution of these instructions is based on private virtual implementation. </p>
 </div>
-<p>Subclassed by sup::oac_tree::AddElement, sup::oac_tree::AddMember, sup::oac_tree::CompoundInstruction, sup::oac_tree::Condition, sup::oac_tree::Copy, sup::oac_tree::CopyFromProcedureInstruction, sup::oac_tree::CopyToProcedureInstruction, sup::oac_tree::DecoratorInstruction, sup::oac_tree::Decrement, sup::oac_tree::Equals, sup::oac_tree::Fail, sup::oac_tree::GreaterThan, sup::oac_tree::GreaterThanOrEqual, sup::oac_tree::Increment, sup::oac_tree::Input, sup::oac_tree::LessThan, sup::oac_tree::LessThanOrEqual, sup::oac_tree::LogInstruction, sup::oac_tree::Message, sup::oac_tree::Output, sup::oac_tree::ResetVariable, sup::oac_tree::Succeed, sup::oac_tree::UserConfirmation, sup::oac_tree::VarExistsInstruction, sup::oac_tree::Wait, sup::oac_tree::WaitForVariable, sup::oac_tree::WaitForVariables</p>
+<p>Subclassed by sup::oac_tree::AddElement, sup::oac_tree::AddMember, sup::oac_tree::CompoundInstruction, sup::oac_tree::Condition, sup::oac_tree::Copy, sup::oac_tree::CopyFromProcedureInstruction, sup::oac_tree::CopyToProcedureInstruction, sup::oac_tree::DecoratorInstruction, sup::oac_tree::Decrement, sup::oac_tree::Equals, sup::oac_tree::Fail, sup::oac_tree::GreaterThan, sup::oac_tree::GreaterThanOrEqual, sup::oac_tree::Increment, sup::oac_tree::Input, sup::oac_tree::LessThan, sup::oac_tree::LessThanOrEqual, sup::oac_tree::LogInstruction, sup::oac_tree::Message, sup::oac_tree::Output, sup::oac_tree::ReadFile, sup::oac_tree::ResetVariable, sup::oac_tree::Succeed, sup::oac_tree::UserConfirmation, sup::oac_tree::VarExistsInstruction, sup::oac_tree::Wait, sup::oac_tree::WaitForVariable, sup::oac_tree::WaitForVariables, sup::oac_tree::WriteFile</p>
 <div class="breathe-sectiondef docutils container">
 <p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-types">Public Types</p>
 <dl class="cpp enum">
@@ -444,10 +444,16 @@ The generic implementation of the <code class="docutils literal notranslate"><sp
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11Instruction4HaltEv">
-<span id="_CPPv3N3sup8oac_tree11Instruction4HaltEv"></span><span id="_CPPv2N3sup8oac_tree11Instruction4HaltEv"></span><span id="sup::oac_tree::Instruction::Halt"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1a538361c152377cef58750b07cf46ae57"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Halt</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11Instruction4HaltEv" title="Permalink to this definition"></a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree11Instruction4HaltER13UserInterface">
+<span id="_CPPv3N3sup8oac_tree11Instruction4HaltER13UserInterface"></span><span id="_CPPv2N3sup8oac_tree11Instruction4HaltER13UserInterface"></span><span id="sup::oac_tree::Instruction::Halt__UserInterfaceR"></span><span class="target" id="classsup_1_1oac__tree_1_1Instruction_1aedc069b7347389f2b1fcd3dc80baba16"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Halt</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="userinterface.html#_CPPv4N3sup8oac_tree13UserInterfaceE" title="sup::oac_tree::UserInterface"><span class="n"><span class="pre">UserInterface</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ui</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree11Instruction4HaltER13UserInterface" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Halt execution. </p>
-<p>Only meaningful when the instruction is running asynchronously. This method only sets an atomic boolean member variable. It is up to implementations of the <a class="reference internal" href="#classsup_1_1oac__tree_1_1Instruction"><span class="std std-ref">Instruction</span></a> to check this variable regularly to prevent long blocking. It is expected that an instruction will fail if it is interrupted (status: FAILURE). </p>
+<p>
+This method only sets an atomic boolean member variable and updates the reported status if needed. It is up to implementations of the <a class="reference internal" href="#classsup_1_1oac__tree_1_1Instruction"><span class="std std-ref">Instruction</span></a> to check regularly if a halt was requested and handle that appropriately, e.g. by interrupting managed threads. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ui</strong> – <a class="reference internal" href="userinterface.html#classsup_1_1oac__tree_1_1UserInterface"><span class="std std-ref">UserInterface</span></a> to handle status updates.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="cpp function">
@@ -456,10 +462,6 @@ The generic implementation of the <code class="docutils literal notranslate"><sp
 <dd><p>Reset execution status, so the instruction can be executed again with initial conditions. </p>
 <p>
 The state of the instruction after a reset should be similar to its state after an initial Setup call. This method call blocks until the termination of all descendant instructions running in a separate thread. Destruction of this instruction is safe afterwards. </p>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>This method should only be called on instruction objects that are not currently executing. This is taken care of by waiting for child termination before calling their <a class="reference internal" href="#classsup_1_1oac__tree_1_1Instruction_1ade5e1d5687b529e13011750ba7a4f8e1"><span class="std std-ref">Instruction::Reset()</span></a> method. </p>
-</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>ui</strong> – <a class="reference internal" href="userinterface.html#classsup_1_1oac__tree_1_1UserInterface"><span class="std std-ref">UserInterface</span></a> to handle status updates.</p>

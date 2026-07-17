@@ -32,7 +32,7 @@
             <a href="index.html" class="icon icon-home"> oac-tree
           </a>
               <div class="version">
-                4.5.0
+                4.6.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -391,13 +391,18 @@ This filename is used for external includes with relative pathnames. </p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree9Procedure4HaltEv">
-<span id="_CPPv3N3sup8oac_tree9Procedure4HaltEv"></span><span id="_CPPv2N3sup8oac_tree9Procedure4HaltEv"></span><span id="sup::oac_tree::Procedure::Halt"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a236bb3a474e06d26199f95b4722992f7"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Halt</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree9Procedure4HaltEv" title="Permalink to this definition"></a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4N3sup8oac_tree9Procedure4HaltER13UserInterface">
+<span id="_CPPv3N3sup8oac_tree9Procedure4HaltER13UserInterface"></span><span id="_CPPv2N3sup8oac_tree9Procedure4HaltER13UserInterface"></span><span id="sup::oac_tree::Procedure::Halt__UserInterfaceR"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1ac3db0b4437923740973014f7191dca5a"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Halt</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="userinterface.html#_CPPv4N3sup8oac_tree13UserInterfaceE" title="sup::oac_tree::UserInterface"><span class="n"><span class="pre">UserInterface</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ui</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N3sup8oac_tree9Procedure4HaltER13UserInterface" title="Permalink to this definition"></a><br /></dt>
 <dd><p>Halt the procedure’s execution. </p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>This is mainly used for interrupting all instructions that are running in a separate thread. </p>
 </div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ui</strong> – <a class="reference internal" href="userinterface.html#classsup_1_1oac__tree_1_1UserInterface"><span class="std std-ref">UserInterface</span></a> to use for instruction status updates.</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="cpp function">
@@ -448,6 +453,17 @@ All workspaces are torn down and setup again; instructions receive a reset comma
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Attribute value. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK3sup8oac_tree9Procedure19GetStringAttributesEv">
+<span id="_CPPv3NK3sup8oac_tree9Procedure19GetStringAttributesEv"></span><span id="_CPPv2NK3sup8oac_tree9Procedure19GetStringAttributesEv"></span><span id="sup::oac_tree::Procedure::GetStringAttributesC"></span><span class="target" id="classsup_1_1oac__tree_1_1Procedure_1a3bd3dd8a43c98adc2a5a14a02b9cb3bd"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">StringAttributeList</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">GetStringAttributes</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK3sup8oac_tree9Procedure19GetStringAttributesEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get all attributes. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List containing all attributes. </p>
 </dd>
 </dl>
 </dd></dl>
