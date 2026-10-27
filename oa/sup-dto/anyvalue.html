@@ -32,7 +32,7 @@
             <a href="index.html" class="icon icon-home"> sup-dto
           </a>
               <div class="version">
-                1.11.0
+                1.12.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -329,6 +329,9 @@ dedicated constructor:</p>
 </div>
 <p>The last argument of this constructor is optional and if not provided, the typename will be an empty
 string.</p>
+<p>While empty types are allowed as element type of an <cite>AnyType</cite> array, construction of an
+<code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> array with empty element type will throw an exception of type
+<code class="docutils literal notranslate"><span class="pre">InvalidOperationException</span></code>.</p>
 <p>To construct an array value with specific element values in a single statement, a convenience
 function can be used that accepts a list of <code class="docutils literal notranslate"><span class="pre">AnyValue</span></code> elements:</p>
 <div class="highlight-cpp notranslate"><div class="highlight"><pre><span></span><span class="n">AnyValue</span><span class="w"> </span><span class="n">my_int_array</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ArrayValue</span><span class="p">(</span>
@@ -466,8 +469,8 @@ These are listed here.</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4NK8IsScalarEv">
-<span id="_CPPv3NK8IsScalarEv"></span><span id="_CPPv2NK8IsScalarEv"></span><span id="IsScalarC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">IsScalar</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8IsScalarEv" title="Permalink to this definition"></a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK8AnyValue8IsScalarEv">
+<span id="_CPPv3NK8AnyValue8IsScalarEv"></span><span id="_CPPv2NK8AnyValue8IsScalarEv"></span><span id="AnyValue::IsScalarC"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">AnyValue</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">IsScalar</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8AnyValue8IsScalarEv" title="Permalink to this definition"></a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>True when this value is scalar.</p>
@@ -511,8 +514,8 @@ array value.</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4NK11ElementTypeEv">
-<span id="_CPPv3NK11ElementTypeEv"></span><span id="_CPPv2NK11ElementTypeEv"></span><span id="ElementTypeC"></span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ElementType</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK11ElementTypeEv" title="Permalink to this definition"></a><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK8AnyValue11ElementTypeEv">
+<span id="_CPPv3NK8AnyValue11ElementTypeEv"></span><span id="_CPPv2NK8AnyValue11ElementTypeEv"></span><span id="AnyValue::ElementTypeC"></span><span class="n"><span class="pre">AnyType</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">AnyValue</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ElementType</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8AnyValue11ElementTypeEv" title="Permalink to this definition"></a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>AnyType of the array’s elements.</p>
@@ -539,8 +542,8 @@ array value.</p>
 </dd></dl>
 
 <dl class="cpp function">
-<dt class="sig sig-object cpp" id="_CPPv4NK16NumberOfChildrenEv">
-<span id="_CPPv3NK16NumberOfChildrenEv"></span><span id="_CPPv2NK16NumberOfChildrenEv"></span><span id="NumberOfChildrenC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NumberOfChildren</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><br /></dt>
+<dt class="sig sig-object cpp" id="_CPPv4NK8AnyValue16NumberOfChildrenEv">
+<span id="_CPPv3NK8AnyValue16NumberOfChildrenEv"></span><span id="_CPPv2NK8AnyValue16NumberOfChildrenEv"></span><span id="AnyValue::NumberOfChildrenC"></span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-prename descclassname"><span class="n"><span class="pre">AnyValue</span></span><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">NumberOfChildren</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK8AnyValue16NumberOfChildrenEv" title="Permalink to this definition"></a><br /></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>Number of child values.</p>

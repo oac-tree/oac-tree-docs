@@ -32,7 +32,7 @@
             <a href="index.html" class="icon icon-home"> sup-utils
           </a>
               <div class="version">
-                1.10.0
+                1.11.0
               </div>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -78,21 +78,95 @@
   <section id="command-line-utilities">
 <h1>Command-Line Utilities<a class="headerlink" href="#command-line-utilities" title="Permalink to this heading"></a></h1>
 <p>The <code class="docutils literal notranslate"><span class="pre">sup/cli</span></code> package provides tools for parsing and handling command-line arguments.</p>
-<p><strong>Key Features</strong></p>
+<p><strong>Key Features</strong>:</p>
 <blockquote>
 <div><ul class="simple">
-<li><p>Parsing command-line arguments into flags, parameters, and positional arguments.</p></li>
-<li><p>Support for help options and usage strings.</p></li>
-<li><p>Easy-to-use API for defining and retrieving options.</p></li>
+<li><p>Parsing command-line arguments into flags, parameters, and positional values.</p></li>
+<li><p>Required options, default values, and conversion of a value to the requested type.</p></li>
+<li><p>Automatically generated usage string, and a help option.</p></li>
+<li><p>Errors that name the option and the value at fault.</p></li>
 </ul>
 </div></blockquote>
-<p><strong>Example</strong></p>
-<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">CommandLineParser</span><span class="w"> </span><span class="n">parser</span><span class="p">;</span>
-<span class="n">parser</span><span class="p">.</span><span class="n">AddOption</span><span class="p">({</span><span class="s">&quot;-v&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;--verbose&quot;</span><span class="p">})</span><span class="o">-&gt;</span><span class="n">SetDescription</span><span class="p">(</span><span class="s">&quot;Enable verbose mode&quot;</span><span class="p">);</span>
-<span class="n">parser</span><span class="p">.</span><span class="n">AddOption</span><span class="p">(</span><span class="s">&quot;--file&quot;</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">SetParameter</span><span class="p">(</span><span class="nb">true</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">SetRequired</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
-<span class="n">parser</span><span class="p">.</span><span class="n">Parse</span><span class="p">(</span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span>
+<p><strong>Main Components</strong>:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">CommandLineParser</span></code>: registers the expected options, parses the command line, and gives
+access to the values found.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">CommandLineOption</span></code>: a single expected option, i.e. its names, description, default value,
+and whether it is required.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ParseOrReport</span></code>: parses on behalf of <code class="docutils literal notranslate"><span class="pre">main</span></code>, reports the outcome, and yields the value
+<code class="docutils literal notranslate"><span class="pre">main</span></code> should return.</p></li>
+<li><p>Exceptions: <code class="docutils literal notranslate"><span class="pre">InvalidOptionException</span></code>, <code class="docutils literal notranslate"><span class="pre">InvalidValueException</span></code>, <code class="docutils literal notranslate"><span class="pre">MissingValueException</span></code>.</p></li>
+</ol>
+</div></blockquote>
+<p><strong>Option Types</strong>:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Flags</span></code>: arguments beginning with a dash, e.g. <code class="docutils literal notranslate"><span class="pre">-v</span></code>, <code class="docutils literal notranslate"><span class="pre">--verbose</span></code>. Represent a boolean.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Parameters</span></code>: a name followed by a value, e.g. <code class="docutils literal notranslate"><span class="pre">--font</span> <span class="pre">24</span></code> or <code class="docutils literal notranslate"><span class="pre">--font=24</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Positional</span></code>: free standing values, e.g. <code class="docutils literal notranslate"><span class="pre">config.xml</span></code>. Their names are used in the help
+text only, and are matched to the values in the order the options were added.</p></li>
+</ol>
+</div></blockquote>
+<p><strong>Example</strong>:</p>
+<div class="highlight-c++ notranslate"><div class="highlight"><pre><span></span><span class="n">sup</span><span class="o">::</span><span class="n">cli</span><span class="o">::</span><span class="n">CommandLineParser</span><span class="w"> </span><span class="n">parser</span><span class="p">;</span>
+
+<span class="n">parser</span><span class="p">.</span><span class="n">AddHelpOption</span><span class="p">();</span>
+<span class="n">parser</span><span class="p">.</span><span class="n">AddOption</span><span class="p">({</span><span class="s">&quot;-f&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;--file&quot;</span><span class="p">},</span><span class="w"> </span><span class="s">&quot;File to process&quot;</span><span class="p">).</span><span class="n">SetParameter</span><span class="p">(</span><span class="nb">true</span><span class="p">).</span><span class="n">SetRequired</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+<span class="n">parser</span><span class="p">.</span><span class="n">AddOption</span><span class="p">({</span><span class="s">&quot;--font&quot;</span><span class="p">},</span><span class="w"> </span><span class="s">&quot;Font size&quot;</span><span class="p">).</span><span class="n">SetParameter</span><span class="p">(</span><span class="nb">true</span><span class="p">).</span><span class="n">SetDefaultValue</span><span class="p">(</span><span class="s">&quot;12&quot;</span><span class="p">);</span>
+<span class="n">parser</span><span class="p">.</span><span class="n">AddOption</span><span class="p">({</span><span class="s">&quot;-v&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;--verbose&quot;</span><span class="p">},</span><span class="w"> </span><span class="s">&quot;Log to standard output&quot;</span><span class="p">);</span>
+<span class="n">parser</span><span class="p">.</span><span class="n">AddPositionalOption</span><span class="p">(</span><span class="s">&quot;&lt;target&gt;&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;Where to write the result&quot;</span><span class="p">).</span><span class="n">SetRequired</span><span class="p">(</span><span class="nb">true</span><span class="p">);</span>
+
+<span class="c1">// Prints the usage string when the help was requested, the reason when the command line doesn&#39;t</span>
+<span class="c1">// add up, and yields the value main should return. An empty result means &quot;carry on&quot;.</span>
+<span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">exit_code</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sup</span><span class="o">::</span><span class="n">cli</span><span class="o">::</span><span class="n">ParseOrReport</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span><span class="w"> </span><span class="n">argc</span><span class="p">,</span><span class="w"> </span><span class="n">argv</span><span class="p">);</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">exit_code</span><span class="p">.</span><span class="n">has_value</span><span class="p">())</span>
+<span class="p">{</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="o">*</span><span class="n">exit_code</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">verbose</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parser</span><span class="p">.</span><span class="n">IsSet</span><span class="p">(</span><span class="s">&quot;--verbose&quot;</span><span class="p">);</span>
+<span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parser</span><span class="p">.</span><span class="n">GetValue</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;--file&quot;</span><span class="p">);</span>
+<span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">font_size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parser</span><span class="p">.</span><span class="n">GetValue</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;--font&quot;</span><span class="p">);</span>
+<span class="k">const</span><span class="w"> </span><span class="k">auto</span><span class="w"> </span><span class="n">target</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">parser</span><span class="p">.</span><span class="n">GetPositionalValue</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">string</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 </pre></div>
 </div>
+<p><strong>Accessing the values</strong>:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">IsSet</span></code>: whether the option was given in the command line.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GetValue&lt;T&gt;</span></code>: the value converted to <code class="docutils literal notranslate"><span class="pre">T</span></code>. The whole text has to convert, so <code class="docutils literal notranslate"><span class="pre">24k</span></code> asked
+for as an <code class="docutils literal notranslate"><span class="pre">int</span></code> is an error rather than <code class="docutils literal notranslate"><span class="pre">24</span></code>. The default value is used when the option was
+not given.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GetValue&lt;T&gt;(name,</span> <span class="pre">fallback)</span></code>: the same, with <code class="docutils literal notranslate"><span class="pre">fallback</span></code> standing in for an option that was
+not given and has no default value.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GetValueInRange&lt;T&gt;</span></code>: the value, checked against the given bounds.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">FindValue</span></code>: the text of the value, or an empty <code class="docutils literal notranslate"><span class="pre">std::optional</span></code> if the option was not
+given. It tells that case apart from a value that was given as an empty string.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">GetPositionalOptionCount</span></code> and <code class="docutils literal notranslate"><span class="pre">GetPositionalValue&lt;T&gt;</span></code>: the free standing values found.</p></li>
+</ul>
+</div></blockquote>
+<p>A complete application is in <code class="docutils literal notranslate"><span class="pre">test/cli-example</span></code> of this package.</p>
+<p><strong>Limitations</strong>:</p>
+<p>Limitations come from the underlying <code class="docutils literal notranslate"><span class="pre">argh</span></code> library:</p>
+<blockquote>
+<div><ol class="arabic simple">
+<li><p>A value beginning with a dash cannot be passed in the space-separated form.
+In <code class="docutils literal notranslate"><span class="pre">--file</span> <span class="pre">&quot;-weird</span> <span class="pre">name&quot;</span></code> the parser takes <code class="docutils literal notranslate"><span class="pre">--file</span></code> for a flag, the
+parsing fails with <em>“was given without a value”</em>, and the value is dropped.
+Use the equals form instead: <code class="docutils literal notranslate"><span class="pre">--file=-weird</span> <span class="pre">name</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">--</span></code> is not an end-of-options terminator, as formalized by POSIX. There
+it is used to distinguish normal options from positional one. Here it is
+discarded and the argument after keeps its meaning.</p></li>
+<li><p>A parameter option always takes the free standing value that follows it,
+even when that value was meant to be positional. This leads to the error
+when the option is meant to be left at its default value: <code class="docutils literal notranslate"><span class="pre">--verbose</span>
+<span class="pre">target.xml</span></code> gives <code class="docutils literal notranslate"><span class="pre">--verbose</span></code> the value <code class="docutils literal notranslate"><span class="pre">target.xml</span></code> and leaves no
+positional value. The parser cannot tell the two intentions apart. Thus, do
+not forget default values and use one of the form: <code class="docutils literal notranslate"><span class="pre">--verbose</span> <span class="pre">INFO</span> <span class="pre">target.xml</span></code>,
+<code class="docutils literal notranslate"><span class="pre">--verbose=INFO</span> <span class="pre">target.xml</span></code>, or move <code class="docutils literal notranslate"><span class="pre">verbose</span></code> option to another place of the command line.</p></li>
+</ol>
+</div></blockquote>
 </section>
 
 
